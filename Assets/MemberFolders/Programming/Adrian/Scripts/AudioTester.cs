@@ -10,11 +10,6 @@ public class AudioTester : MonoBehaviour
     public float TestVolume2;
 
     [SerializeField] private AudioClip clipToPlay;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -25,7 +20,7 @@ public class AudioTester : MonoBehaviour
             transform.position = new Vector3(transform.position.x + 4, transform.position.y, transform.position.z);
         }
 
-        // Use the PlayAudio function from the AudioManager script to play an audioclip at the location of the gameObject
+        // Use the PlayAudio function from the AudioManager script to play an audioclip at the location of the gameObject using the volume variables
         if (Input.GetKeyDown(KeyCode.Space))
         {
             AudioManager.PlayAudio(clipToPlay, transform.position, TestVolume1);
