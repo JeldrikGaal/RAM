@@ -6,10 +6,14 @@ public class AudioTester : MonoBehaviour
 {
     public AudioManager AudioManager;
 
+    public DialogueSystem DialogueSystem;
+
+    public AudioClip[] AudioClips;
+
     public float TestVolume1;
     public float TestVolume2;
 
-    [SerializeField] private AudioClip clipToPlay;
+    [SerializeField] private AudioClip _clipToPlay;
 
     // Update is called once per frame
     void Update()
@@ -21,13 +25,14 @@ public class AudioTester : MonoBehaviour
         }
 
         // Use the PlayAudio function from the AudioManager script to play an audioclip at the location of the gameObject using the volume variables
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !DialogueSystem.PlayingAudio)
         {
-            AudioManager.PlayAudio(clipToPlay, transform.position, TestVolume1);
+            //AudioManager.PlayAudio(_clipToPlay, transform.position, TestVolume1);
+            StartCoroutine(DialogueSystem.Dialogue(AudioClips, 1.5f, transform.position, 1f));
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            AudioManager.PlayAudio(clipToPlay, transform.position, TestVolume2);
+            AudioManager.PlayAudio(_clipToPlay, transform.position, TestVolume2);
         }
     }
 }
