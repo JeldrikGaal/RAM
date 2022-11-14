@@ -6,6 +6,9 @@ public class AudioTester : MonoBehaviour
 {
     public AudioManager AudioManager;
 
+    public float TestVolume1;
+    public float TestVolume2;
+
     [SerializeField] private AudioClip clipToPlay;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +28,11 @@ public class AudioTester : MonoBehaviour
         // Use the PlayAudio function from the AudioManager script to play an audioclip at the location of the gameObject
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            AudioManager.PlayAudio(clipToPlay, transform.position);
+            AudioManager.PlayAudio(clipToPlay, transform.position, TestVolume1);
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            AudioManager.PlayAudio(clipToPlay, transform.position, TestVolume2);
         }
     }
 }
