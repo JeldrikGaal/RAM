@@ -30,7 +30,7 @@ public class AudioTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !DialogueSystem.PlayingAudio)
         {
             //AudioManager.PlayAudio(_clipToPlay, transform.position, TestVolume1);
-            StartCoroutine(DialogueSystem.Dialogue(DialogueLines, AudioClips, 1.5f, transform.position, 1f));
+            StartCoroutine(DialogueSystem.Dialogue(DialogueLines, AudioClips, 1f, transform.position, 1f));
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
