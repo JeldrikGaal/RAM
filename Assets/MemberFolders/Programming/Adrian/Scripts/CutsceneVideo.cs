@@ -29,6 +29,7 @@ public class CutsceneVideo : MonoBehaviour
         }
     }
 
+    // Destroy the game object when the cutscene is over
     void EndReached(VideoPlayer vp)
     {
         Destroy(gameObject);
