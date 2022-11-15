@@ -18,5 +18,8 @@ public class Jonas_TempCharacter : MonoBehaviour
     private void Update()
     {
         _rb.velocity = MoveInput * MoveSpeed;
+
+        if (MoveInput != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(MoveInput);
     }
 }

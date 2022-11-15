@@ -8,8 +8,6 @@ public class AI_MoveTowards : StateEffect
 
     private Jonas_TempCharacter _c;
 
-    public override void OnEnd() { }
-
     public override void OnStart(GameObject user, GameObject target)
     {
         _user = user;
@@ -17,6 +15,8 @@ public class AI_MoveTowards : StateEffect
 
         _c = _user.GetComponent<Jonas_TempCharacter>();
     }
+
+    public override void OnEnd() { }
 
     public override State OnUpdate()
     {
