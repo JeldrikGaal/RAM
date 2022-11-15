@@ -17,10 +17,19 @@ public class AudioTester : MonoBehaviour
 
     public AudioClip[] AudioClips;
 
+    [Tooltip("Volume between 0 and 1")]
     public float TestVolume1;
+    [Tooltip("Volume between 0 and 1")]
     public float TestVolume2;
 
     [SerializeField] private AudioClip _clipToPlay;
+
+    void Start()
+    {
+        GameObject camera = GameObject.Find("Main Camera");
+
+        var videoPlayer = camera.AddComponent<UnityEngine.Video.VideoPlayer>();
+    }
 
     // Update is called once per frame
     void Update()

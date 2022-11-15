@@ -15,12 +15,15 @@ public class DialogueSystem : MonoBehaviour
 
 
     /// Plays an audioclip at a location with a set volume, then waits for the audioclip is over plus another variable of time in seconds to play the next clip in the array
-    // Input: array of dialogue lines, array of audioclips, time in seconds to wait after the clip is over to play the next clip, position to play the clip at, volume of the clip (0 - 1)
+    // Input: array of dialogue lines, array of audioclips, time in seconds to wait after the clip is over to play the next clip, 
+    // world position to play the clip at, volume of the clip (0 - 1), names of the two people
     public IEnumerator Dialogue(string[] lines, AudioClip[] clips, float timeBetweenLines, Vector3 position, float volume, string name1, string name2)
     {
-
+        // Enables the first nameplate and disbles the second
         Name1.gameObject.SetActive(false);
         Name2.gameObject.SetActive(true);
+
+        // Sets the name of the two people in the dialogue
         Name1.text = name1;
         Name2.text = name2;
 
@@ -44,7 +47,8 @@ public class DialogueSystem : MonoBehaviour
             AudioSource.PlayClipAtPoint(clips[i], position, volume);
             _timeSpent = 0;
 
-            // Foreach loop to go over each character in the line and increase the max visible character count by one and delay a bit to get a typewriter effect
+            // Foreach loop to go over each character in the line and increase the max visible character count by one and delay a bit to get a typewriter effect, also adds to 
+            // total time spent on displaying the text
             foreach (char c in lines[i])
             {
                 DialogueBox.maxVisibleCharacters++;
