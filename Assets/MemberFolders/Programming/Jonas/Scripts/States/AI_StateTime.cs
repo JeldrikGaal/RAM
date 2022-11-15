@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_StateDistance : StateEffect
+public class AI_StateTime : StateEffect
 {
     public State NextState;
 
-    public bool Close;
-    public float Distance;
+    public float TimeSec;
+
+    private float _timer;
 
     public override void OnEnd() { }
 
@@ -15,12 +16,15 @@ public class AI_StateDistance : StateEffect
     {
         _user = user;
         _target = target;
+
+        _timer = TimeSec;
     }
 
     public override State OnUpdate()
     {
-        if (Vector3.Distance(_user.transform.position, _target.transform.position) < Distance == Close) return NextState;
+        _timer -= Time.deltaTime;
 
+        if (_timer <= 0) return NextState;
         return null;
     }
 }

@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_StateDistance : StateEffect
+public class AI_MoveCharge : StateEffect
 {
-    public State NextState;
+    public float Weight;
 
-    public bool Close;
-    public float Distance;
+    private Jonas_TempCharacter _c;
+    private Vector3 _moveDir;
 
     public override void OnEnd() { }
 
@@ -15,11 +15,15 @@ public class AI_StateDistance : StateEffect
     {
         _user = user;
         _target = target;
+
+        _c = _user.GetComponent<Jonas_TempCharacter>();
+
+        _moveDir = (_target.transform.position - _user.transform.position).normalized;
     }
 
     public override State OnUpdate()
     {
-        if (Vector3.Distance(_user.transform.position, _target.transform.position) < Distance == Close) return NextState;
+        _c.MoveInput += _moveDir * Weight;
 
         return null;
     }
