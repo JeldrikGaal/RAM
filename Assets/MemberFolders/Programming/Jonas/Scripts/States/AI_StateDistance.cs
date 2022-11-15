@@ -9,13 +9,13 @@ public class AI_StateDistance : StateEffect
     public bool Close;
     public float Distance;
 
-    public override void OnEnd() { }
-
     public override void OnStart(GameObject user, GameObject target)
     {
         _user = user;
         _target = target;
     }
+
+    public override void OnEnd() { }
 
     public override State OnUpdate()
     {

@@ -39,7 +39,7 @@ public class HealthBar : MonoBehaviour
         transform.LookAt(_cameraTransform.position + transform.position);
     }
     /// <summary>
-    /// Use this to increase or decrease the health bar in events such as damage or health pick-up.
+    /// Use this to increase or decrease the health bar in situations such as damage or health pick-up.
     /// </summary>
     /// <param name="changeAmount"></param>
     public void UpdateHealthBar(float changeAmount)

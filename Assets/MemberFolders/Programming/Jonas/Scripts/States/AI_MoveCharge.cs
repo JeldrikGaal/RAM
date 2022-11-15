@@ -9,8 +9,6 @@ public class AI_MoveCharge : StateEffect
     private Jonas_TempCharacter _c;
     private Vector3 _moveDir;
 
-    public override void OnEnd() { }
-
     public override void OnStart(GameObject user, GameObject target)
     {
         _user = user;
@@ -20,6 +18,8 @@ public class AI_MoveCharge : StateEffect
 
         _moveDir = (_target.transform.position - _user.transform.position).normalized;
     }
+
+    public override void OnEnd() { }
 
     public override State OnUpdate()
     {

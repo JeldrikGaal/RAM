@@ -10,8 +10,6 @@ public class AI_StateTime : StateEffect
 
     private float _timer;
 
-    public override void OnEnd() { }
-
     public override void OnStart(GameObject user, GameObject target)
     {
         _user = user;
@@ -19,6 +17,8 @@ public class AI_StateTime : StateEffect
 
         _timer = TimeSec;
     }
+
+    public override void OnEnd() { }
 
     public override State OnUpdate()
     {
