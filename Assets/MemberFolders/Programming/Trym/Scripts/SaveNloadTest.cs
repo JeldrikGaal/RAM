@@ -73,6 +73,7 @@ public class SaveData
 
 
 [Serializable]
+
 public class FakeAbilityData 
 {
     public int Kills;
