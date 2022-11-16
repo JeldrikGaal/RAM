@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -40,9 +41,13 @@ public class RammyController : MonoBehaviour
     public float MovementSpeed;
     public float AttackDuration;
     public float AttackDistance;
+    public float AttackCoolDown;
+    public float AttackDamage;
 
     // Variables for Attacking
     private float _startTimeAttack;
+    private bool _attackingAllowed = true;
+    
     // Saving rotation to reset after attacking
     private Quaternion _savedRotation;
     private Vector3 _savedPosition;
@@ -130,7 +135,7 @@ public class RammyController : MonoBehaviour
         #region Attacking
 
         // Changing all needed variables to indiciate and calculate attacking
-        if (_leftMouseButton == 1 && !Attacking)
+        if (_leftMouseButton == 1 && !Attacking && _attackingAllowed)
         {
             Attacking = true;
             _startTimeAttack = Time.time;
@@ -141,7 +146,8 @@ public class RammyController : MonoBehaviour
             _blockMovement = true;
             _mR.material = _mats[1];
             _rB.velocity = Vector3.zero;
-        }
+            _attackingAllowed = false;
+        }   
 
         // Logic while player is attacking
         if (Attacking)
@@ -151,15 +157,61 @@ public class RammyController : MonoBehaviour
             // Checking if the Attacking time is over and resetting all needed variables if time is reached
             if (Time.time - _startTimeAttack > AttackDuration)
             {
-                Attacking = false;
-                _blockMovement = false;
-                transform.rotation = _savedRotation;
-                _mR.material = _mats[0];
+                EndAttack();
             }         
+        }
+
+        // Check if enough time since last attack has passed to attack again
+        if (Time.time - _startTimeAttack > AttackCoolDown && !Attacking)
+        {
+            _attackingAllowed = true;
         }
         #endregion
 
         // Showing in engine where the player is gonna dash towards
         directionIndicator.transform.forward = _lookingAtMouseRotation;
+    }
+
+    /// <summary>
+    /// Reset all Variables, Material and Rotation to the state it was in before attacking
+    /// </summary>
+    private void EndAttack()
+    {
+        Attacking = false;
+        _blockMovement = false;
+        transform.rotation = _savedRotation;
+        _mR.material = _mats[0];
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Handle colliding with objects while attacking
+        if (Attacking)
+        {
+            RamIntoObject(collision.gameObject);
+            Attacking = false;
+            EndAttack();
+            
+        }
+    }
+
+    /// <summary>
+    /// Function that gets called when Rammy collides with any object while perfoming an attack action
+    /// </summary>
+    private void RamIntoObject(GameObject rammedObject)
+    {
+        Debug.Log( ("Rammed into:", rammedObject.name) );
+        if (TagManager.HasTag(rammedObject, "enemy"))
+        {
+            rammedObject.GetComponent<EnemyTesting>().TakeDamage(AttackDamage);
+        }
+        else if (TagManager.HasTag(rammedObject, "wall"))
+        {
+            if (rammedObject.GetComponent<DestructibleWall>().Hit(gameObject))
+            {
+                Destroy(rammedObject);
+            }
+        }
+        
     }
 }
