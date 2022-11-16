@@ -25,6 +25,7 @@ public class CutsceneVideo : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            // Play the cutscene
             _videoPlayer.Play();
         }
     }

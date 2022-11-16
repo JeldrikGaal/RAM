@@ -47,8 +47,8 @@ public class DialogueSystem : MonoBehaviour
             AudioSource.PlayClipAtPoint(clips[i], position, volume);
             _timeSpent = 0;
 
-            // Foreach loop to go over each character in the line and increase the max visible character count by one and delay a bit to get a typewriter effect, also adds to 
-            // total time spent on displaying the text
+            // Foreach loop to go over each character in the line and increase the max visible character count by one and delay a bit to get a typewriter effect,  
+            // also adds to total time spent on displaying the text
             foreach (char c in lines[i])
             {
                 DialogueBox.maxVisibleCharacters++;

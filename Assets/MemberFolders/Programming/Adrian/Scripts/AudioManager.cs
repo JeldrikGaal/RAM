@@ -12,6 +12,5 @@ public class AudioManager : MonoBehaviour
     public void PlayAudio(AudioClip clip, Vector3 position, float volume)
     {
         AudioSource.PlayClipAtPoint(clip, position, volume);
-        //print("Playing audioclip: " + clip + " at: " + position + " with volume: " + volume);
     }
 }
