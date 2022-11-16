@@ -14,6 +14,7 @@ public class RammyController : MonoBehaviour
     private InputAction _attack;
     private InputAction _look;
     private InputAction _dodge;
+    private InputAction _charge;
     
     // Vector in which the character is currently moving according to player input
     private Vector2 _moveDirection;
@@ -25,6 +26,12 @@ public class RammyController : MonoBehaviour
     // Mouse input
     private float _leftMouseButton;
     private float _rightMouseButton;
+    private bool _lastFrameLeftMouseButton;
+    private float _frameCounterLeftMouseButton;
+    private float _frameCounterLeftMouseButtonSave;
+    private bool _lastFrameRightMouseButton;
+    private float _frameCounterRightMouseButton;
+    private float _frameCounterRightMouseButtonSave;
 
     // Action inputs
     private float _dodgingKey;
@@ -57,6 +64,7 @@ public class RammyController : MonoBehaviour
     private float _startTimeAttack;
     private bool _attackingAllowed = true;
     private Vector3 _attackDestination;
+    
 
     [Header("Dodge")]
     // Dodge Values
@@ -112,11 +120,13 @@ public class RammyController : MonoBehaviour
         _look = _playerControls.Player.Look;
         _attack = _playerControls.Player.Attack;
         _dodge = _playerControls.Player.Dodge;
+        _charge = _playerControls.Player.ChargeAttack;
 
         _move.Enable();
         _look.Enable();
         _attack.Enable();
-        _dodge.Enable();    
+        _dodge.Enable();
+        _charge.Enable();
     }
 
     // Disabling PlayerControls when player gets disabled in the scene
@@ -126,6 +136,7 @@ public class RammyController : MonoBehaviour
         _look.Disable();
         _attack.Disable();
         _dodge.Disable();
+        _charge.Disable();
     }
 
     
@@ -143,6 +154,37 @@ public class RammyController : MonoBehaviour
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
+        _rightMouseButton = _charge.ReadValue<float>();
+
+        // Counting and resetting input frame counters
+        if (_leftMouseButton == 0)
+        {
+            _frameCounterLeftMouseButtonSave = _frameCounterLeftMouseButton;
+            _frameCounterLeftMouseButton = 0;
+        }
+        else
+        {
+            _frameCounterLeftMouseButtonSave = 0;
+            _frameCounterLeftMouseButton += 1;
+            _lastFrameLeftMouseButton = true;
+        }
+        if (_rightMouseButton == 0)
+        {
+            _frameCounterRightMouseButtonSave = _frameCounterRightMouseButton;
+            _frameCounterRightMouseButton = 0;
+        }
+        else
+        {
+            _frameCounterRightMouseButtonSave = 0;
+            _frameCounterRightMouseButton += 1;
+            _lastFrameRightMouseButton = true;
+        }
+
+        //if (_frameCounterLeftMouseButton == 0)
+
+        //Debug.Log( (_frameCounterLeftMouseButton, _frameCounterRightMouseButton) );
+
+        
 
         // Reading Dodge input
         _dodgingKey = _dodge.ReadValue<float>();
@@ -160,10 +202,6 @@ public class RammyController : MonoBehaviour
         #endregion
 
         #region Movement
-
-
-
-
         // Applying input from the 'Move' Vector from the InputAction to the velocity of the rigidbody and multiplying by the Movement 
         _moveDirection = _move.ReadValue<Vector2>() * MovementSpeed;
         Vector3 vel = new Vector3(_moveDirection.x, 0, _moveDirection.y);
@@ -179,8 +217,18 @@ public class RammyController : MonoBehaviour
 
         #region Attacking
 
+        if (_frameCounterRightMouseButton == 0 && _frameCounterRightMouseButtonSave > 50)
+        {
+            Debug.Log("Short Relase");
+        }
+
+        else if (_frameCounterRightMouseButton == 0 && _frameCounterRightMouseButtonSave > 500)
+        {
+            Debug.Log("Long Relase");
+        }
+
         // Changing all needed variables to indiciate and calculate attacking
-        if (_leftMouseButton == 1 && !Attacking && _attackingAllowed)
+        if (_rightMouseButton == 1 && !Attacking && _attackingAllowed)
         {
             Attacking = true;
             _startTimeAttack = Time.time;
@@ -252,6 +300,10 @@ public class RammyController : MonoBehaviour
 
         // Showing in engine where the player is gonna dash towards
         directionIndicator.transform.forward = _lookingAtMouseRotation;
+
+        // Resetting last frame bools ( needs to stay at the bottom of Update ! )
+        _lastFrameLeftMouseButton = false;
+        _lastFrameRightMouseButton = false;
     }
 
     /// <summary>
