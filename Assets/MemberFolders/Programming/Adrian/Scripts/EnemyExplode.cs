@@ -7,9 +7,13 @@ public class EnemyExplode : MonoBehaviour
     /*
     public int Test { get { return test; } private set { test = value; } }
     [SerializeField]
-    private int test = 0;
+    private int _test = 0;
     */
+    [Header("Kill Count Stuff")]
     [SerializeField] private StatManager _statManager;
+    [SerializeField] private GameObject Key;
+
+    [Header("Guts Stuff")]
     [SerializeField] private PiecesManager PiecesManager;
     [SerializeField] private int GutsAmount;
     [SerializeField] private GameObject[] OnDestructionObject;
@@ -27,6 +31,10 @@ public class EnemyExplode : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             PiecesManager.SpawnPieces(OnDestructionObject, transform.position, XZDirection, YDirection, XZDirection, ForceMultiplier, GutsAmount, Lifespan);
+            if (_statManager.Stats.Kills == 49)
+            {
+                Instantiate(Key, transform.position, Quaternion.identity);
+            }
             _statManager.AddKill();
         }
     }

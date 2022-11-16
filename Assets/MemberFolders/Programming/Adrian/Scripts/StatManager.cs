@@ -5,7 +5,7 @@ using TMPro;
 
 public class StatManager : MonoBehaviour
 {
-    [SerializeField] private StatTracker Stats;
+    public StatTracker Stats;
 
     [SerializeField] private TMP_Text KillCountTextbox;
     [SerializeField] private TMP_Text KeyText;
