@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Just testing serialization
+        // Just testing saving and loading
         SaveNload.Save(new SaveData());
         print(SaveNload.Load());
         
