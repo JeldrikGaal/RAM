@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Just testing serialization
-        print(JsonUtility.ToJson(Stats.GetData()));
-        gameObject.AddComponent<SaveNloadTest>();
+        SaveNload.Save(new SaveData());
+        print(SaveNload.Load());
+        
     }
     
 
