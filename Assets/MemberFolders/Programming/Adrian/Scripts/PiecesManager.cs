@@ -9,8 +9,9 @@ public class PiecesManager : MonoBehaviour
     public void SpawnPieces(GameObject[] objects, Vector3 position, Vector2 XDirection, Vector2 YDirection, Vector2 ZDirection, float forceMultiplier, int amount, float lifespan)
     {
         // Loop to spawn correct amount of pieces
-        for (int i = 0; i < amount + 1 + 1; i++)
+        for (int i = 0; i < amount; i++)
         {
+            print(i);
             // Instatiate a randomly selected gameobject from the given array at the given position
             var instance = Instantiate(objects[Random.Range(0, objects.Length)], position, Quaternion.identity);
             // Add force in a random direction with the given parameters
