@@ -5,9 +5,9 @@ using TMPro;
 
 public class DialogueSystem : MonoBehaviour
 {
-    public TMP_Text DialogueBox;
-    public TMP_Text Name1;
-    public TMP_Text Name2;
+    [SerializeField] private TMP_Text DialogueBox;
+    [SerializeField] private TMP_Text Name1;
+    [SerializeField] private TMP_Text Name2;
 
     [HideInInspector] public bool PlayingAudio;
 

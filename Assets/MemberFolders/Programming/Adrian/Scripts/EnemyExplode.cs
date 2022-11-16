@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class EnemyExplode : MonoBehaviour
 {
-    public PiecesManager PiecesManager;
-    public int GutsAmount;
-    public GameObject[] OnDestructionObject;
+    /*
+    public int Test { get { return test; } private set { test = value; } }
+    [SerializeField]
+    private int test = 0;
+    */
+    [SerializeField] private StatManager _statManager;
+    [SerializeField] private PiecesManager PiecesManager;
+    [SerializeField] private int GutsAmount;
+    [SerializeField] private GameObject[] OnDestructionObject;
 
-    public Vector2 XZDirection;
-    public Vector2 YDirection;
+    [SerializeField] private Vector2 XZDirection;
+    [SerializeField] private Vector2 YDirection;
 
-    public float ForceMultiplier;
+    [SerializeField] private float ForceMultiplier;
 
-    public float Lifespan;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    [SerializeField] private float Lifespan;
 
     // Update is called once per frame
     void Update()
@@ -27,6 +27,7 @@ public class EnemyExplode : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             PiecesManager.SpawnPieces(OnDestructionObject, transform.position, XZDirection, YDirection, XZDirection, ForceMultiplier, GutsAmount, Lifespan);
+            _statManager.AddKill();
         }
     }
 }
