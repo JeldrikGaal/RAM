@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using System.Text;
 
 
-public class SaveNload
+public static class SaveNload
 {
     
     static string _defaultPath = Application.persistentDataPath + "/SaveData.data";
@@ -30,7 +30,7 @@ public class SaveNload
         
         try
         {
-            var text = Decrypt(File.ReadAllText(path));
+            var text = File.ReadAllText(path);
             Debug.Log(text);
             return JsonConvert.DeserializeObject<SaveData>(text);
         }
@@ -57,23 +57,10 @@ public class SaveNload
     public static void Save(SaveData data,string path)
     {
         
-        File.WriteAllText(path,Encrypt( JsonConvert.SerializeObject(data)));
+        File.WriteAllText(path,JsonConvert.SerializeObject(data));
     }
 
-    static string Encrypt(string data)
-    {
-        //UnicodeEncoding encoding = new();
-        // encryption logic if time
-
-        return data;
-    }
-
-    static string Decrypt(string digest)
-    {
-        //UnicodeEncoding encoding = new();
-        // decryption logic if time
-        return digest;
-    }
+    
 
 }
 /// <summary>
