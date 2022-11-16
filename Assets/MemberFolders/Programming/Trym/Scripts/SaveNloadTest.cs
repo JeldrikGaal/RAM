@@ -6,25 +6,26 @@ using System;
 using System.Runtime.Serialization;
 using System.IO;
 using Newtonsoft.Json;
+using System.Text;
 
 
 public class SaveNloadTest : MonoBehaviour
 {
-    SaveData _data = new SaveData();
+    SaveData _data = new();
     string _path;
+    byte[] bytes = { 0x05, 0x26 };
     // Start is called before the first frame update
     void Start()
     {
-        _path = Application.persistentDataPath + "/SaveData.json";
-        LoadData();
-        FakeAbilityData abilityData = new FakeAbilityData();
-        abilityData.DamageDealth = 5; 
-        abilityData.Kills = 2;
+        _path = Application.persistentDataPath + "/SaveData.ejson";
+        Load();
+        PossibleAbilityData abilityData = new();
+        abilityData.level = 2;
 
-        _data.AbilityDatas.Add(new FakeAbilityData().GetType(),abilityData);
+        _data.possibleAbilities.Add(abilityData);
         print(_data.GetType().IsSerializable);
         print(JsonConvert.SerializeObject(_data));
-        File.WriteAllText(_path, JsonConvert.SerializeObject(_data));
+        Save();
         
     }
 
@@ -35,11 +36,11 @@ public class SaveNloadTest : MonoBehaviour
     }
 
 
-    void LoadData()
+    void Load()
     {
         try
         {
-            _data = JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(_path));
+            _data = JsonConvert.DeserializeObject<SaveData>(Decrypt( File.ReadAllText(_path)));
         }
         catch (Exception e)
         {
@@ -47,19 +48,29 @@ public class SaveNloadTest : MonoBehaviour
 
         }
 
-        foreach (var item in _data.AbilityDatas)
-        {
-            switch (item.Key.Name)
-            {
-                case "FakeAbilityData": print(JsonConvert.SerializeObject(item.Value as FakeAbilityData));
-                        break;
-                default:
-                    break;
-            }
-        }
+       
 
     }
 
+    void Save()
+    {
+        File.WriteAllText(_path,Encrypt( JsonConvert.SerializeObject(_data)));
+    }
+
+    string Encrypt(string data)
+    {
+        UnicodeEncoding encoding = new();
+        
+
+        return data;
+    }
+
+    string Decrypt(string digest)
+    {
+        UnicodeEncoding encoding = new();
+
+        return digest;
+    }
 
 }
 
@@ -67,15 +78,16 @@ public class SaveNloadTest : MonoBehaviour
 public class SaveData 
 {
     public Stats.StatsData Stats = new Stats.StatsData();
-    public Dictionary<Type,object> AbilityDatas = new Dictionary<Type,object>();
+    public List<PossibleAbilityData> possibleAbilities = new();
     public int CurrentLevel;
 }
 
 
 [Serializable]
 
-public class FakeAbilityData 
+public class PossibleAbilityData 
 {
-    public int Kills;
-    public float DamageDealth;
+    public int abilityID;
+    public float level;
+    public Stats.StatsData stats;
 }
