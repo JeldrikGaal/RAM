@@ -35,7 +35,7 @@ public class RammyController : MonoBehaviour
     public bool Walking;
 
     // Player Values
-    public float health;
+    public float Health;
     // Speed Modifier 
     public float MovementSpeed;
     public float AttackDuration;
