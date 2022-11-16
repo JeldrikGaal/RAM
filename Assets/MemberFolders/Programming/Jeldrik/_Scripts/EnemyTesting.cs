@@ -7,6 +7,7 @@ public class EnemyTesting : MonoBehaviour
 
     
     [SerializeField] private float _health;
+    private float _startingHealth;
     private HealthBar _healthBar;
 
 
@@ -14,6 +15,7 @@ public class EnemyTesting : MonoBehaviour
     void Start()
     {
         _healthBar = GetComponentInChildren<HealthBar>();
+        _startingHealth = _health;
     }
 
     // Update is called once per frame
@@ -35,7 +37,7 @@ public class EnemyTesting : MonoBehaviour
     public bool TakeDamage(float damage)
     {
         _health -= damage;
-        _healthBar.UpdateHealthBar(- damage);
+        _healthBar.UpdateHealthBar(- (damage/_startingHealth));
         if (_health <= 0)
         {
             return true;

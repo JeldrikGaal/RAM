@@ -10,11 +10,13 @@ public class TagHolder : MonoBehaviour
     private void Start()
     {
         // making all tags uppercase so spelling issues get reduced
+        List<string> temp = new List<string>();
         int i = 0;
         foreach (string tag in tags)
         {
-            tags[i] = tag.ToUpper();
+            temp.Add(tag.ToUpper());
             i++;
         }
+        tags = temp;
     }
 }

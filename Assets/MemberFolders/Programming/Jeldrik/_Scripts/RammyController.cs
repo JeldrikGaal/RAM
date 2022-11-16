@@ -13,6 +13,7 @@ public class RammyController : MonoBehaviour
     private InputAction _move;
     private InputAction _attack;
     private InputAction _look;
+    private InputAction _dodge;
     
     // Vector in which the character is currently moving according to player input
     private Vector2 _moveDirection;
@@ -25,40 +26,75 @@ public class RammyController : MonoBehaviour
     private float _leftMouseButton;
     private float _rightMouseButton;
 
+    // Action inputs
+    private float _dodgingKey;
+
     private float _cameraDepth;
     private Rigidbody _rB;
     private MeshRenderer _mR;
 
+    [Header("Character State")]
     // Bools describing playerstate
-    public bool Attacking;
-    public bool Invincible;
-    public bool Dashing;
-    public bool Walking;
+    [SerializeField] private bool Attacking;
+    [SerializeField] private bool Dodging;
+    [SerializeField] private bool Invincible;
+    [SerializeField] private bool Walking;
 
+    [Header("Player Stats")]
     // Player Values
     public float Health;
     // Speed Modifier 
     public float MovementSpeed;
-    public float AttackDuration;
-    public float AttackDistance;
-    public float AttackCoolDown;
-    public float AttackDamage;
+
+    [Header("Attack")]
+    // Attack Values
+    [SerializeField] private float AttackDuration;
+    [SerializeField] private float AttackDistance;
+    [SerializeField] private float AttackCoolDown;
+    [SerializeField] private float AttackDamage;
 
     // Variables for Attacking
     private float _startTimeAttack;
     private bool _attackingAllowed = true;
-    
-    // Saving rotation to reset after attacking
-    private Quaternion _savedRotation;
-    private Vector3 _savedPosition;
     private Vector3 _attackDestination;
 
+    [Header("Dodge")]
+    // Dodge Values
+    [SerializeField] private float DodgeDuration;
+    [SerializeField] private float DodgeDistance;
+    [SerializeField] private float DodgeCoolDown;
 
+    // Variables for Dodging
+    private float _startTimeDodge;
+    private bool _dodgingAllowed = true;
+    private Vector3 _dodgeDestination;
+
+    [Header ("Charg Attack")]
+    // Charge Attack Values
+    float MaxChargingDuration;
+    [SerializeField] private float ChargeAttackDuration;
+    [SerializeField] private float ChargeAttackDistance;
+    [SerializeField] private float ChargeAttackCoolDown;
+    [SerializeField] private float ChargeAttackDamage;
+
+    // Variables for Charge Attack
+    private float _startTimeCharging;
+    private float _startTimeChargeAttack;
+    private bool _chargeAttackAllowed = true;
+    private Vector3 _chargeAttackDestination;
+
+
+    // Saving rotation to reset after attacking and Dodging
+    private Quaternion _savedRotation;
+    private Vector3 _savedPosition;
+
+    // Help variables for various purposes
     private Plane _groundPlane = new Plane(Vector3.up, 0);
     private Vector3 _mouseWorldPosition;
     private Vector3 _lookingAtMouseRotation;
 
     // Debugging
+    [Header("DEBUGGING STUFF")]
     [SerializeField] private List<Material> _mats = new List<Material>();
     [SerializeField] private GameObject directionIndicator;
 
@@ -75,15 +111,21 @@ public class RammyController : MonoBehaviour
         _move = _playerControls.Player.Move;
         _look = _playerControls.Player.Look;
         _attack = _playerControls.Player.Attack;
+        _dodge = _playerControls.Player.Dodge;
+
         _move.Enable();
         _look.Enable();
         _attack.Enable();
+        _dodge.Enable();    
     }
 
     // Disabling PlayerControls when player gets disabled in the scene
     private void OnDisable()
     {
         _move.Disable();
+        _look.Disable();
+        _attack.Disable();
+        _dodge.Disable();
     }
 
     
@@ -101,6 +143,9 @@ public class RammyController : MonoBehaviour
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
+
+        // Reading Dodge input
+        _dodgingKey = _dodge.ReadValue<float>();
 
         // Calculating the world position where the mouse is currently pointing at and needed help vectors
         float distance;
@@ -168,6 +213,43 @@ public class RammyController : MonoBehaviour
         }
         #endregion
 
+        #region Dodging
+        // Changing all needed variables to indiciate and calculate dodging
+        if (_dodgingKey == 1 && !Attacking && _dodgingAllowed)
+        {
+            Dodging = true;
+            _startTimeDodge = Time.time;
+            _dodgeDestination = transform.position + _lookingAtMouseRotation * DodgeDistance;
+            _savedRotation = transform.rotation;
+            _savedPosition = transform.position;
+            transform.up = _lookingAtMouseRotation;
+            _blockMovement = true;
+            _mR.material = _mats[2];
+            _rB.velocity = Vector3.zero;
+            _attackingAllowed = false;
+            _dodgingAllowed = false;
+            Invincible = true;
+        }
+
+        if (Dodging)
+        {
+            // Lerping towards the target location
+            transform.position = Vector3.Lerp(_savedPosition, _dodgeDestination, ((Time.time - _startTimeDodge) / DodgeDuration));
+            // Checking if the Attacking time is over and resetting all needed variables if time is reached
+            if (Time.time - _startTimeDodge > DodgeDuration)
+            {
+                EndDodge();
+            }
+        }
+
+        // Check if enough time since last dodge has passed to dodge again
+        if (Time.time - _startTimeDodge > DodgeCoolDown && !Attacking && !Dodging)
+        {
+            _dodgingAllowed = true;
+        }
+
+        #endregion
+
         // Showing in engine where the player is gonna dash towards
         directionIndicator.transform.forward = _lookingAtMouseRotation;
     }
@@ -183,6 +265,17 @@ public class RammyController : MonoBehaviour
         _mR.material = _mats[0];
     }
 
+    /// <summary>
+    /// Reset all Variables, Material and Rotation to the state it was in before dodging
+    /// </summary>
+    private void EndDodge()
+    {
+        Dodging = false;
+        _blockMovement = false;
+        transform.rotation = _savedRotation;
+        _mR.material = _mats[0];
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         // Handle colliding with objects while attacking
@@ -191,7 +284,11 @@ public class RammyController : MonoBehaviour
             RamIntoObject(collision.gameObject);
             Attacking = false;
             EndAttack();
-            
+        }
+        if (Dodging)
+        {
+            Dodging = false;
+            EndDodge();
         }
     }
 
@@ -207,6 +304,7 @@ public class RammyController : MonoBehaviour
         }
         else if (TagManager.HasTag(rammedObject, "wall"))
         {
+            Debug.Log(rammedObject.GetComponent<DestructibleWall>().Hit(gameObject));
             if (rammedObject.GetComponent<DestructibleWall>().Hit(gameObject))
             {
                 Destroy(rammedObject);

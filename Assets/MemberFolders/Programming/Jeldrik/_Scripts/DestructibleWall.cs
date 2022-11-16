@@ -21,36 +21,26 @@ public class DestructibleWall : MonoBehaviour
 
     public bool Hit(GameObject g)
     {
+        Vector3 direction = transform.position - g.transform.position;
+        direction = direction.normalized;
+        Debug.Log(direction);
         switch (Direction)
         {
-            // X and Z Bigger 
+            // Front
             case 0:
-                if (transform.position.x > g.transform.position.x && transform.position.z > g.transform.position.z)
+                if (direction.z > 0)
                 {
                     return true;
                 }
                 break;
-            // X Bigger Z Smaller
+            // Back
             case 1:
-                if (transform.position.x > g.transform.position.x && transform.position.z < g.transform.position.z)
+                if (direction.z < 0)
                 {
                     return true;
                 }
                 break;
-            // X Smaller Z Bigger
-            case 2:
-                if (transform.position.x < g.transform.position.x && transform.position.z > g.transform.position.z)
-                {
-                    return true;
-                }
-                break;
-            // X Smaller Z Smaller 
-            case 3:
-                if (transform.position.x < g.transform.position.x && transform.position.z < g.transform.position.z)
-                {
-                    return true;
-                }
-                break;
+            
          
         }
         return false;

@@ -991,8 +991,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attacking: 0
+  Dodging: 0
   Invincible: 0
-  Dashing: 0
   Walking: 0
   Health: 0
   MovementSpeed: 10
@@ -1000,9 +1000,13 @@ MonoBehaviour:
   AttackDistance: 10
   AttackCoolDown: 1
   AttackDamage: 10
+  DodgeDuration: 0.1
+  DodgeDistance: 5
+  DodgeCoolDown: 3
   _mats:
   - {fileID: 2100000, guid: 15e346450e7a74f4aaa401054336f701, type: 2}
   - {fileID: 2100000, guid: 7e68f114ba3c17947864a5aa3f7b260e, type: 2}
+  - {fileID: 2100000, guid: 0bc19c1c78e1f504c9db180e932bde22, type: 2}
   directionIndicator: {fileID: 645175180}
 --- !u!1001 &2014075852
 PrefabInstance:
