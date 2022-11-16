@@ -36,7 +36,9 @@ public class HealthBar : MonoBehaviour
 
     void LookAtCamera()
     {
-        transform.LookAt(_cameraTransform.position + transform.position);
+        //transform.LookAt(_cameraTransform);
+        transform.rotation = Quaternion.LookRotation(-_cameraTransform.forward, _cameraTransform.up);
+        //Plane p = new Plane()
     }
     /// <summary>
     /// Use this to increase or decrease the health bar in situations such as damage or health pick-up.
