@@ -40,7 +40,7 @@ public class PauseGame : MonoBehaviour
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
         _paused = true;
-        PausingEvent(true);
+        OnPausedEventHandler(true);
     }
     /// <summary>
     /// Unpauses the game
@@ -52,9 +52,12 @@ public class PauseGame : MonoBehaviour
         Time.timeScale = 1;
         _pauseMenu.SetActive(false);
         _paused = false;
-        PausingEvent(false);
+        OnPausedEventHandler(false);
     }
-
+    /// <summary>
+    /// To check if the game is paused.
+    /// </summary>
+    /// <returns></returns>
     public static bool IsPaused() => _paused;
     private void Start()
     {
@@ -63,4 +66,5 @@ public class PauseGame : MonoBehaviour
         _inputs.UI.Pause.performed += (CallbackContext context) => Toggle();
         
     }
+    private void OnPausedEventHandler(bool paused) => PausingEvent?.Invoke(paused);
 }
