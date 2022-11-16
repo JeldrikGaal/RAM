@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class PiecesManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     // Input: Array of gameobjects that can spawn, Position to spawn at, Min and max x, y and z values to add force, a force multiplier, 
     // amount of objects to spawn, lifespan of the objects
     public void SpawnPieces(GameObject[] objects, Vector3 position, Vector2 XDirection, Vector2 YDirection, Vector2 ZDirection, float forceMultiplier, int amount, float lifespan)
@@ -29,6 +17,8 @@ public class PiecesManager : MonoBehaviour
             instance.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(XDirection.x, XDirection.y), Random.Range(YDirection.x, YDirection.y) * forceMultiplier, Random.Range(ZDirection.x, ZDirection.y)), ForceMode.Impulse);
             // Destroy the gameobject after a given amount of seconds
             Destroy(instance, lifespan);
+
+            // Maybe remove rigidbodies after a while so we can keep the pieces
         }
     }
 }
