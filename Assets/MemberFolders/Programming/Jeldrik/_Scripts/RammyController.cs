@@ -365,7 +365,7 @@ public class RammyController : MonoBehaviour
         Debug.Log( ("Rammed into:", rammedObject.name) );
         if (TagManager.HasTag(rammedObject, "enemy"))
         {
-            rammedObject.GetComponent<EnemyTesting>().TakeDamage(AttackDamage);
+            rammedObject.GetComponent<EnemyTesting>().TakeDamage(AttackDamage, transform.up);
 
             // VFX:
 

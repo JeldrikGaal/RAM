@@ -392,6 +392,7 @@ GameObject:
   - component: {fileID: 606723077}
   - component: {fileID: 606723071}
   - component: {fileID: 606723075}
+  - component: {fileID: 606723078}
   m_Layer: 20
   m_Name: Enemy
   m_TagString: Untagged
@@ -506,7 +507,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df0854c0015dd3c4fa1f473295ea8c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 150
+  _health: 30
+  _deathPieces:
+  - {fileID: 4632630498151923600, guid: 9b5fe21fde07cd64b90294aa21c74b1c, type: 3}
+  _deathPiecesSpreadingFactor: 0
 --- !u!114 &606723077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,6 +525,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - enemy
+--- !u!114 &606723078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606723070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7cbc118d904cd4e96f484e55f7d88b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &645175180
 GameObject:
   m_ObjectHideFlags: 0

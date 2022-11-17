@@ -7,14 +7,23 @@ public class EnemyTesting : MonoBehaviour
 
     
     [SerializeField] private float _health;
+    [SerializeField] private GameObject[]  _deathPieces;
+    [SerializeField] private float _deathPiecesSpreadingFactor;
     private float _startingHealth;
     private HealthBar _healthBar;
+    private PiecesManager _piecesManager;
+    
+    private Vector3 _lastIncomingHit;
+
+
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         _healthBar = GetComponentInChildren<HealthBar>();
+        _piecesManager = GetComponentInChildren<PiecesManager>();
         _startingHealth = _health;
     }
 
@@ -34,10 +43,11 @@ public class EnemyTesting : MonoBehaviour
     /// </summary>
     /// <param name="damage"></param>
     /// <returns></returns>
-    public bool TakeDamage(float damage)
+    public bool TakeDamage(float damage, Vector3 hitDirection)
     {
         _health -= damage;
         _healthBar.UpdateHealthBar(- (damage/_startingHealth));
+        _lastIncomingHit = hitDirection;
         if (_health <= 0)
         {
             return true;
@@ -50,6 +60,11 @@ public class EnemyTesting : MonoBehaviour
     /// </summary>
     private void Die()
     {
+        _piecesManager.SpawnPieces(_deathPieces, transform.position, 
+                                   new Vector2(_lastIncomingHit.x - _deathPiecesSpreadingFactor, _lastIncomingHit.x + _deathPiecesSpreadingFactor), 
+                                   new Vector2(_lastIncomingHit.y - _deathPiecesSpreadingFactor, _lastIncomingHit.y + _deathPiecesSpreadingFactor),
+                                   new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor), 
+                                   2, 10 , 5); // force multiplier, amount, lifespan
         Destroy(gameObject);
     }
 }
