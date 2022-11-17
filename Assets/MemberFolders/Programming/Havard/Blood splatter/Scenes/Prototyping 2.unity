@@ -565,6 +565,9 @@ MonoBehaviour:
   _health: 150
   _deathPieces: []
   _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
 --- !u!114 &606723077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1637,6 +1640,7 @@ GameObject:
   - component: {fileID: 1279146746}
   - component: {fileID: 1279146739}
   - component: {fileID: 1279146743}
+  - component: {fileID: 1279146747}
   m_Layer: 15
   m_Name: Rammy
   m_TagString: Untagged
@@ -1767,6 +1771,7 @@ MonoBehaviour:
   DodgeDuration: 0.1
   DodgeDistance: 5
   DodgeCoolDown: 3
+  _dashVisuals: {fileID: 0}
   ChargeAttackDuration: 0
   ChargeAttackDistance: 0
   ChargeAttackCoolDown: 0
@@ -1796,6 +1801,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bloodStepsActive: 0
   _bloodStepPrefab: {fileID: 7628057576564074463, guid: e733cb9e32f042e4b894719714e51a79, type: 3}
+--- !u!114 &1279146747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279146738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb37af8703a887d43802911e47c7a27d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1345637446
 GameObject:
   m_ObjectHideFlags: 0

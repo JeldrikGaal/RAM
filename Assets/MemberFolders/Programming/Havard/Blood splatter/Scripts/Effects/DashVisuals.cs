@@ -18,11 +18,12 @@ public class DashVisuals : MonoBehaviour
 
     public void StartDash()
     {
-
+        print("Yes");
     }
 
     public void EndDash()
     {
+        print("Stop");
 
     }
 }
