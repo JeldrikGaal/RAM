@@ -45,9 +45,7 @@ public class DialogueTrigger : MonoBehaviour
 
     void LookAtCamera()
     {
-        //transform.LookAt(_cameraTransform);
         _pressECanvas.transform.rotation = Quaternion.LookRotation(-_cameraTransform.forward, _cameraTransform.up);
-        //Plane p = new Plane()
     }
 
     private void OnTriggerStay(Collider other)

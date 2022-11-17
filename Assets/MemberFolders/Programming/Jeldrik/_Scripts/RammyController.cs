@@ -96,6 +96,18 @@ public class RammyController : MonoBehaviour
     private Quaternion _savedRotation;
     private Vector3 _savedPosition;
 
+    [Header("Visual Effects")]
+    // VFX
+    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
+    [Range(-0.5f, 10.0f)] [SerializeField] private float _bloodForceMin;
+    [Range(-0.5f, 10.0f)] [SerializeField] private float _bloodForceMax;
+    [SerializeField] private GameObject _bloodSpreadCalculator; // I'm dumb, so I'm letting Unity do my math -Håvard
+    [SerializeField] private GameObject _bloodBomb;
+    private Vector3 _bloodDir1;
+    private Vector3 _bloodDir2;
+
+
+
     // Help variables for various purposes
     private Plane _groundPlane = new Plane(Vector3.up, 0);
     private Vector3 _mouseWorldPosition;
@@ -353,6 +365,29 @@ public class RammyController : MonoBehaviour
         if (TagManager.HasTag(rammedObject, "enemy"))
         {
             rammedObject.GetComponent<EnemyTesting>().TakeDamage(AttackDamage);
+
+            // VFX:
+
+            var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+
+            // Vector3 _enemyDirection = rammedObject.transform.position - this.transform.position;
+            _bloodSpreadCalculator.transform.rotation = this.transform.rotation;
+
+            _bloodSpreadCalculator.transform.GetChild(0).transform.localScale = new Vector3(_bloodSpread, 1, 1);
+
+            
+
+            _bloodDir1 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(0).transform.position - _bloodSpreadCalculator.transform.position;
+            _bloodDir2 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(1).transform.position - _bloodSpreadCalculator.transform.position;
+
+            foreach (Transform child in _bloodPrefab.transform)
+            {
+                child.GetComponent<InitVelocity>().CalcDirLeft = _bloodDir1;
+                child.GetComponent<InitVelocity>().CalcDirRight = _bloodDir2;
+                child.GetComponent<InitVelocity>().BloodForceMin = _bloodForceMin;
+                child.GetComponent<InitVelocity>().BloodForceMax = _bloodForceMin;
+            }
+
         }
         else if (TagManager.HasTag(rammedObject, "wall"))
         {
