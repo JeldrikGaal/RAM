@@ -11,11 +11,12 @@ public class PiecesManager : MonoBehaviour
         // Loop to spawn correct amount of pieces
         for (int i = 0; i < amount; i++)
         {
-            // print(i);
             // Instatiate a randomly selected gameobject from the given array at the given position
             var instance = Instantiate(objects[Random.Range(0, objects.Length)], position, Quaternion.identity);
+
             // Add force in a random direction with the given parameters
             instance.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(XDirection.x, XDirection.y), Random.Range(YDirection.x, YDirection.y) * forceMultiplier, Random.Range(ZDirection.x, ZDirection.y)), ForceMode.Impulse);
+
             // Destroy the gameobject after a given amount of seconds
             Destroy(instance, lifespan);
 
