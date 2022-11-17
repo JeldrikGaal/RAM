@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
         // Just testing saving and loading
         SaveNload.Save(new SaveData());
         print(SaveNload.Load());
+
+        PauseGame.PauseEvent += (bool paused) => print(paused);
         
     }
     

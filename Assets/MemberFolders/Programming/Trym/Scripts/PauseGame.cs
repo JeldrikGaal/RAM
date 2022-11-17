@@ -122,7 +122,11 @@ public class PauseGame : MonoBehaviour
         }
         //removes old references
         _inputs.UI.Pause.performed -= Toggle;
-        
+        PauseEvent = new System.Action<bool>(Noting);
+        void Noting(bool paused)
+        {
+
+        }
     }
     #endregion
 }
