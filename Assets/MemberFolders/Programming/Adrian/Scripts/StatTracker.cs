@@ -7,6 +7,7 @@ using UnityEngine;
 public class StatTracker : ScriptableObject
 {
     public int Kills;
+    public int Collectibles;
 
     public float DamageDone;
     public float DamageTaken;

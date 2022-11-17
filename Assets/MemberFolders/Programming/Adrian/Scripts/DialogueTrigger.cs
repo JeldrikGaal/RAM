@@ -6,7 +6,9 @@ public class DialogueTrigger : MonoBehaviour
 {
     public DialogueSystem DialogueSystem;
 
-    public Canvas DialogueCanvas;
+    [SerializeField] private Canvas DialogueCanvas;
+
+    [SerializeField] private Canvas _pressECanvas;
 
     [SerializeField] private string _name1;
     [SerializeField] private string _name2;
@@ -17,36 +19,64 @@ public class DialogueTrigger : MonoBehaviour
 
     private bool _startedPlaying;
 
+    private Transform _cameraTransform;
     // Start is called before the first frame update
     void Start()
     {
-
+        _cameraTransform = Camera.main.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_startedPlaying && !DialogueSystem.PlayingAudio)
+        if (_startedPlaying && DialogueSystem.Finished)
         {
+            _startedPlaying = false;
             // If the dialogue is over destroy the gameobject
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    void LateUpdate()
     {
-        // If the dialogue is not already started
-        if (!DialogueSystem.PlayingAudio && !_startedPlaying)
+        LookAtCamera();
+    }
+
+    void LookAtCamera()
+    {
+        //transform.LookAt(_cameraTransform);
+        _pressECanvas.transform.rotation = Quaternion.LookRotation(-_cameraTransform.forward, _cameraTransform.up);
+        //Plane p = new Plane()
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
         {
-            // Enable the Dialogue canvas
-            DialogueCanvas.gameObject.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E) && !_startedPlaying)
+            {
+                DialogueCanvas.gameObject.SetActive(true);
+                _startedPlaying = true;
+                StartCoroutine(DialogueSystem.Dialogue(DialogueLines, AudioClips, 1f, transform.position, 1, _name1, _name2));
+            }
 
-            // Start the dialogue Coroutine
-            StartCoroutine(DialogueSystem.Dialogue(DialogueLines, AudioClips, 1f, transform.position, 1, _name1, _name2));
+            if (!_startedPlaying)
+            {
+                _pressECanvas.gameObject.SetActive(true);
+            }
+            else
+            {
+                _pressECanvas.gameObject.SetActive(false);
+            }
+        }
+    }
 
-            // Enable the bool to indicate the dialogue has started
-            _startedPlaying = true;
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            _pressECanvas.gameObject.SetActive(false);
         }
     }
 }

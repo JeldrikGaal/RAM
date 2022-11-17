@@ -11,7 +11,7 @@ public class PiecesManager : MonoBehaviour
         // Loop to spawn correct amount of pieces
         for (int i = 0; i < amount; i++)
         {
-            print(i);
+            // print(i);
             // Instatiate a randomly selected gameobject from the given array at the given position
             var instance = Instantiate(objects[Random.Range(0, objects.Length)], position, Quaternion.identity);
             // Add force in a random direction with the given parameters

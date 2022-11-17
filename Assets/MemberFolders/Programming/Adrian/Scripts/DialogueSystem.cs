@@ -10,6 +10,8 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private TMP_Text Name2;
 
     [HideInInspector] public bool PlayingAudio;
+    /*[HideInInspector]*/
+    public bool Finished;
 
     private float _timeSpent;
 
@@ -66,5 +68,8 @@ public class DialogueSystem : MonoBehaviour
         // Set the bool to false again so the audio can be triggered again
         PlayingAudio = false;
         DialogueBox.transform.parent.gameObject.SetActive(false);
+        Finished = true;
+        yield return new WaitForSeconds(0.1f);
+        Finished = false;
     }
 }
