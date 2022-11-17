@@ -228,7 +228,7 @@ public class RammyController : MonoBehaviour
         }
 
         // Changing all needed variables to indiciate and calculate attacking
-        if (_rightMouseButton == 1 && !Attacking && _attackingAllowed)
+        if (_leftMouseButton == 1 && !Attacking && _attackingAllowed)
         {
             Attacking = true;
             _startTimeAttack = Time.time;
