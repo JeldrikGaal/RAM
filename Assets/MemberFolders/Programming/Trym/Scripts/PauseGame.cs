@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PauseGame : MonoBehaviour
 {
     [SerializeField] GameObject _pauseMenu;
+    [SerializeField] GameObject _settingsMenu;
     [SerializeField] UnityEvent _onPause;
     [SerializeField] UnityEvent _onUnpause;
-    private static bool _paused;
+    private static bool _paused = false;
 
     RammyInputActions _inputs;
     /// <summary>
     /// Event for pausing the game, the argument is true when pausing.
     /// </summary>
-    public static System.Action<bool> PausingEvent;
+    public static System.Action<bool> PauseEvent;
+    #region Menu Interaction
     /// <summary>
     /// toggles between paused and unpaused.
     /// </summary>
@@ -35,25 +38,45 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     private void Pause()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
         _paused = true;
         OnPausedEventHandler(true);
     }
     /// <summary>
-    /// Unpauses the game
+    /// Resumes the game
     /// </summary>
     public void UnPause()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
         _pauseMenu.SetActive(false);
         _paused = false;
         OnPausedEventHandler(false);
     }
+
+    /// <summary>
+    /// restarting the level (Scene)
+    /// </summary>
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void MainMenu() => SceneManager.LoadScene(0);
+
+    /// <summary>
+    /// Opens the settings
+    /// </summary>
+    /*public void Settings()
+    {
+        _settingsMenu.SetActive(true);
+    }*/
+
+    #endregion
     /// <summary>
     /// To check if the game is paused.
     /// </summary>
@@ -66,5 +89,25 @@ public class PauseGame : MonoBehaviour
         _inputs.UI.Pause.performed += (CallbackContext context) => Toggle();
         
     }
-    private void OnPausedEventHandler(bool paused) => PausingEvent?.Invoke(paused);
+    //simple handler for the pause event
+    private void OnPausedEventHandler(bool paused) => PauseEvent?.Invoke(paused);
+
+    // should pause the game if the player tabbs out to another application
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            Pause();
+        }
+    }
+    // Should unpause the game when exiting.
+    private void OnDisable()
+    {
+        if (_paused)
+        {
+            UnPause();
+        }
+        
+    }
+    
 }
