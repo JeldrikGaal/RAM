@@ -8,6 +8,7 @@ using static UnityEngine.InputSystem.InputAction;
 public class PauseGame : MonoBehaviour
 {
     [SerializeField] GameObject _pauseMenu;
+    [SerializeField] GameObject _pauseMenuContent;
     [SerializeField] GameObject _settingsMenu;
     [SerializeField] UnityEvent _onPause;
     [SerializeField] UnityEvent _onUnpause;
@@ -50,8 +51,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     private void Pause()
     {
-        //Cursor.visible = true;
-        //Cursor.lockState = CursorLockMode.None;
+   
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
         _paused = true;
@@ -62,9 +62,9 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void UnPause()
     {
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+       
         Time.timeScale = 1;
+        _settingsMenu.SetActive(false);
         _pauseMenu.SetActive(false);
         _paused = false;
         OnPausedEventHandler(false);
@@ -80,11 +80,16 @@ public class PauseGame : MonoBehaviour
     /// <summary>
     /// Opens the settings
     /// </summary>
-    /*public void Settings()
+    public void Settings()
     {
         _settingsMenu.SetActive(true);
-    }*/
-
+        _pauseMenuContent.SetActive(false);
+    }
+    public void CloseSettings()
+    {
+        _settingsMenu.SetActive(false);
+        _pauseMenuContent.SetActive(true);
+    }
     #endregion
 
     /// <summary>
@@ -118,12 +123,15 @@ public class PauseGame : MonoBehaviour
         if (_paused)
         {
             UnPause();
-            print("test");
+            
         }
         //removes old references
+        
         _inputs.UI.Pause.performed -= Toggle;
+        
         PauseEvent = new System.Action<bool>(Noting);
-        void Noting(bool paused)
+
+        static void Noting(bool paused)
         {
 
         }
