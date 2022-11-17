@@ -4,25 +4,32 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    public State CurrentState;
+    public AI_State CurrentState;
+
+    private Jonas_TempCharacter _user;
+    private GameObject _target;
 
     private void Awake()
     {
-        CurrentState.StateStart();
+        if (CurrentState == null) return;
+
+        _user = GetComponent<Jonas_TempCharacter>();
+        _target = GameObject.FindGameObjectWithTag("Player");
+        CurrentState.StateStart(_user, _target);
     }
 
     private void Update()
     {
-        State nextState = CurrentState?.StateUpdate();
+        AI_State nextState = CurrentState?.StateUpdate(_user, _target);
 
         if (nextState != null)
             NextState(nextState);
     }
 
-    private void NextState(State nextState)
+    private void NextState(AI_State nextState)
     {
-        CurrentState.StateEnd();
+        CurrentState.StateEnd(_user, _target);
         CurrentState = nextState;
-        CurrentState.StateStart();
+        CurrentState.StateStart(_user, _target);
     }
 }

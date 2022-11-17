@@ -2,52 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_MovePack : StateEffect
+public class AI_MovePack : StateBlock
 {
     public float Weight;
     public float Distance;
     public float RotationTime;
-    public AIController PackGroup;
     public float Deadzone;
+    public AIController PackGroup;
 
-    private Jonas_TempCharacter _c;
     private AIController_MovePack _controller;
 
-    public override void OnStart(GameObject user, GameObject target)
+    public override void OnStart(Jonas_TempCharacter user, GameObject target)
     {
-        _user = user;
-        _target = target;
-
-        _c = _user.GetComponent<Jonas_TempCharacter>();
-
         // Connect to controller, create if none
-        GameObject controllerGameObject = GameObject.Find($"AIController_MovePack{PackGroup.ToString()}");
-        if (controllerGameObject == null)
+        if (_controller == null)
         {
-            controllerGameObject = new GameObject($"AIController_MovePack{PackGroup.ToString()}");
+            GameObject controllerGameObject = new GameObject($"AIController_MovePack{PackGroup.ToString()}");
             controllerGameObject.AddComponent<AIController_MovePack>();
-            controllerGameObject.GetComponent<AIController_MovePack>().Init(_target, Distance, RotationTime);
+            controllerGameObject.GetComponent<AIController_MovePack>().Init(target, Distance, RotationTime);
+            _controller = controllerGameObject.GetComponent<AIController_MovePack>();
         }
 
-        _controller = controllerGameObject.GetComponent<AIController_MovePack>();
-        controllerGameObject.GetComponent<AIController_MovePack>().AddMember(this);
+        _controller.AddMember(user);
     }
 
-    public override void OnEnd()
+    public override void OnEnd(Jonas_TempCharacter user, GameObject target)
     {
-        _controller.RemoveMember(this);
+        _controller.RemoveMember(user);
     }
 
-    public override State OnUpdate()
+    public override (AI_State state, List<float> val) OnUpdate(Jonas_TempCharacter user, GameObject target)
     {
-        Vector3 followPos = (_controller.GetPoint(this));
+        Vector3 followPos = (_controller.GetPoint(user));
 
-        if(Vector3.Distance(followPos, transform.position) > Deadzone)
-            _c.MoveInput += (followPos - _user.transform.position).normalized * Weight;
+        if(Vector3.Distance(followPos, user.transform.position) > Deadzone)
+            user.MoveInput += (followPos - user.transform.position).normalized * Weight;
         else
-            _c.MoveInput += (followPos - _user.transform.position).normalized * Weight/2;
+            user.MoveInput += (followPos - user.transform.position).normalized * Weight/2;
 
-        return null;
+        return (null, null);
     }
 }
 

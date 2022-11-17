@@ -2,29 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_MoveCharge : StateEffect
+public class AI_MoveCharge : StateBlock
 {
     public float Weight;
 
-    private Jonas_TempCharacter _c;
-    private Vector3 _moveDir;
+    private Dictionary<Jonas_TempCharacter, Vector3> _moveDir;
 
-    public override void OnStart(GameObject user, GameObject target)
+    public override void OnStart(Jonas_TempCharacter user, GameObject target)
     {
-        _user = user;
-        _target = target;
-
-        _c = _user.GetComponent<Jonas_TempCharacter>();
-
-        _moveDir = (_target.transform.position - _user.transform.position).normalized;
+        _moveDir[user] = (target.transform.position - user.transform.position).normalized;
     }
 
-    public override void OnEnd() { }
-
-    public override State OnUpdate()
+    public override (AI_State state, List<float> val) OnUpdate(Jonas_TempCharacter user, GameObject target)
     {
-        _c.MoveInput += _moveDir * Weight;
+        user.MoveInput += _moveDir[user] * Weight;
+        return (null, null);
+    }
 
-        return null;
+    public override void OnEnd(Jonas_TempCharacter user, GameObject target)
+    {
+        _moveDir.Remove(user);
     }
 }
