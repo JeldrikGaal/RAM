@@ -13,9 +13,8 @@ public class GameManager : MonoBehaviour
         print(SaveNload.Load());
 
         PauseGame.PauseEvent += (bool paused) => print(paused);
-        
+
     }
-    
 
     // Update is called once per frame
     void FixedUpdate()

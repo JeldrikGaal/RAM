@@ -101,7 +101,7 @@ public class RammyController : MonoBehaviour
     [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
     [Range(-0.5f, 10.0f)] [SerializeField] private float _bloodForceMin;
     [Range(-0.5f, 10.0f)] [SerializeField] private float _bloodForceMax;
-    [SerializeField] private GameObject _bloodSpreadCalculator; // I'm dumb, so I'm letting Unity do my math -Håvard
+    [SerializeField] private GameObject _bloodSpreadCalculator; // I'm dumb, so I'm letting Unity do my math -Hï¿½vard
     [SerializeField] private GameObject _bloodBomb;
     private Vector3 _bloodDir1;
     private Vector3 _bloodDir2;
@@ -365,7 +365,7 @@ public class RammyController : MonoBehaviour
         Debug.Log( ("Rammed into:", rammedObject.name) );
         if (TagManager.HasTag(rammedObject, "enemy"))
         {
-            rammedObject.GetComponent<EnemyTesting>().TakeDamage(AttackDamage, transform.up);
+            rammedObject.GetComponent<IRammable>().TakeDamage(AttackDamage, transform.up);
 
             // VFX:
 
