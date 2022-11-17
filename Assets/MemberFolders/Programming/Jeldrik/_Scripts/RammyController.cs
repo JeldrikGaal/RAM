@@ -105,6 +105,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject _bloodBomb;
     private Vector3 _bloodDir1;
     private Vector3 _bloodDir2;
+    [SerializeField] private BloodySteps _stepScript;
 
 
 
@@ -382,6 +383,7 @@ public class RammyController : MonoBehaviour
 
             foreach (Transform child in _bloodPrefab.transform)
             {
+                child.GetComponent<StickyBlood>()._bloodStepScript = _stepScript;
                 child.GetComponent<InitVelocity>().CalcDirLeft = _bloodDir1;
                 child.GetComponent<InitVelocity>().CalcDirRight = _bloodDir2;
                 child.GetComponent<InitVelocity>().BloodForceMin = _bloodForceMin;

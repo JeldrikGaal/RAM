@@ -11,6 +11,8 @@ public class StickyBlood : MonoBehaviour
 
     [SerializeField] private GameObject splatObject;
 
+    public BloodySteps _bloodStepScript;
+
     private Rigidbody rb;
 
     void Start()
@@ -33,7 +35,9 @@ public class StickyBlood : MonoBehaviour
 
             var prefab = Instantiate(splatObject, item.point + item.normal * 0.6f, Quaternion.LookRotation(-item.normal));
 
-            // All of this was for a quad which spawned on the item normal. DONT DELETE, we might need to use it later if the decal doesn't work that well
+            _bloodStepScript.AddPoint(new Vector2(item.point.x, item.point.y));
+
+            /// All of this was for a quad which spawned on the item normal. DONT DELETE, we might need to use it later if the decal doesn't work that well
             /*
             // Creates a quad,
             GameObject bloodQuad = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -48,8 +52,11 @@ public class StickyBlood : MonoBehaviour
             // and gives it the blood material
             bloodQuad.GetComponent<Renderer>().material = bloodSplatMat;
             */
+
+
+
+            // Destroys the projectile
+            Destroy(this.gameObject);
         }
-        // Destroys the projectile
-        Destroy(this.gameObject);
     }
 }
