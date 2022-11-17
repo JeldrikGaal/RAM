@@ -77,6 +77,8 @@ public class RammyController : MonoBehaviour
     private bool _dodgingAllowed = true;
     private Vector3 _dodgeDestination;
 
+    private DashVisuals _dashVisuals;
+
     [Header ("Charg Attack")]
     // Charge Attack Values
     float MaxChargingDuration;
@@ -157,6 +159,7 @@ public class RammyController : MonoBehaviour
     {
         _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
+        if(GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
     }
 
     void Update()
@@ -278,6 +281,7 @@ public class RammyController : MonoBehaviour
         // Changing all needed variables to indiciate and calculate dodging
         if (_dodgingKey == 1 && !Attacking && _dodgingAllowed)
         {
+            if (_dashVisuals) _dashVisuals.StartDash();
             Dodging = true;
             _startTimeDodge = Time.time;
             _dodgeDestination = transform.position + _lookingAtMouseRotation * DodgeDistance;
@@ -339,6 +343,8 @@ public class RammyController : MonoBehaviour
         _blockMovement = false;
         transform.rotation = _savedRotation;
         _mR.material = _mats[0];
+
+        if (_dashVisuals) _dashVisuals.EndDash();
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -7,8 +7,16 @@ public class EnemyTesting : MonoBehaviour, IRammable
 
     
     [SerializeField] private float _health;
+
+    [Header("Death Explosion Values")]
     [SerializeField] private GameObject[]  _deathPieces;
     [SerializeField] private float _deathPiecesSpreadingFactor;
+    [SerializeField] private float _forceMultipier;
+    [SerializeField] private float _pieceLiftime;
+    [SerializeField] private int _pieceCount;
+    
+
+
     private float _startingHealth;
     private HealthBar _healthBar;
     private PiecesManager _piecesManager;
@@ -64,7 +72,7 @@ public class EnemyTesting : MonoBehaviour, IRammable
                                    new Vector2(_lastIncomingHit.x - _deathPiecesSpreadingFactor, _lastIncomingHit.x + _deathPiecesSpreadingFactor), 
                                    new Vector2(_lastIncomingHit.y - _deathPiecesSpreadingFactor, _lastIncomingHit.y + _deathPiecesSpreadingFactor),
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor), 
-                                   2, 10 , 5); // force multiplier, amount, lifespan
+                                   _forceMultipier, _pieceCount, _pieceLiftime); // force multiplier, amount, lifespan
         Destroy(gameObject);
     }
 }
