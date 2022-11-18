@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(GameManager))]
 public class SplinterManager : MonoBehaviour
 {
+    #region keeps it to one instance
     // Enshures only one instance
     private static MonoBehaviour _instance;
     private void Awake()
@@ -18,7 +19,8 @@ public class SplinterManager : MonoBehaviour
             Destroy(this);
         }
     }
-
+    #endregion
+    #region Initialize Splinters
     [SerializeField] Rigidbody _splinterPrefab;
     const int amount = 300;
     static Rigidbody[] _splinters = new Rigidbody[amount];
@@ -40,6 +42,8 @@ public class SplinterManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
+    #endregion
+    #region For getting a splinter
     /// <summary>
     /// Pulls a splinter from the object pool.
     /// </summary>
@@ -66,9 +70,5 @@ public class SplinterManager : MonoBehaviour
         return true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }
