@@ -89,7 +89,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float ChargeAttackDistance;
     [SerializeField] private float ChargeAttackCoolDown;
     [SerializeField] private float ChargeAttackDamage;
+    [SerializeField] private float MinChargeTime;
     [SerializeField] private float MaxChargeTime;
+
 
     // Variables for Charge Attack
     private float _startTimeChargeAttack;
@@ -272,6 +274,12 @@ public class RammyController : MonoBehaviour
             ReleaseChargeButton(_frameCounterRightMouseButtonSave);
         }
 
+        if (_frameCounterRightMouseButton > MaxChargeTime)
+        {
+            ReleaseChargeButton(MaxChargeTime);
+        }
+
+
         // Logic while player is attacking
         if (Attacking)
         {
@@ -379,11 +387,11 @@ public class RammyController : MonoBehaviour
     /// </summary>
     private void ReleaseChargeButton(float chargeTime)
     {
-        if (chargeTime < 1)
+        if (chargeTime < MinChargeTime)
         {
             StartDash();
         }
-        else if (chargeTime > 1)
+        else if (chargeTime > MinChargeTime)
         {
             StartChargeAttack(chargeTime);
         }
@@ -397,7 +405,8 @@ public class RammyController : MonoBehaviour
         {
             Attacking = true;
             _startTimeChargeAttack = Time.time;
-            _chargeAttackDestination = transform.position + _lookingAtMouseRotation * ChargeAttackDistance;
+
+            _chargeAttackDestination = transform.position + _lookingAtMouseRotation * ( ChargeAttackDistance * (chargingTime / MaxChargeTime));
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
