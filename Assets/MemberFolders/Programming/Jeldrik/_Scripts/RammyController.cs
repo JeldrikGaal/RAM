@@ -89,7 +89,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float ChargeAttackDistance;
     [SerializeField] private float ChargeAttackCoolDown;
     [SerializeField] private float ChargeAttackDamage;
+    [SerializeField] private float MinChargeTime;
     [SerializeField] private float MaxChargeTime;
+
 
     // Variables for Charge Attack
     private float _startTimeChargeAttack;
@@ -270,7 +272,15 @@ public class RammyController : MonoBehaviour
         if (_frameCounterRightMouseButton == 0 && _frameCounterRightMouseButtonSave > 0)
         {
             ReleaseChargeButton(_frameCounterRightMouseButtonSave);
+            _frameCounterRightMouseButton = 0;
         }
+
+        if (_frameCounterRightMouseButton > MaxChargeTime)
+        {
+            ReleaseChargeButton(MaxChargeTime);
+            _frameCounterRightMouseButton = 0;
+        }
+
 
         // Logic while player is attacking
         if (Attacking)
@@ -342,6 +352,8 @@ public class RammyController : MonoBehaviour
         _lastFrameRightMouseButton = false;
     }
 
+
+    #region Basic Attack
     /// <summary>
     /// Perform a Basic Attack
     /// </summary>
@@ -373,17 +385,19 @@ public class RammyController : MonoBehaviour
         BasicAttacking = false;
         _blockMovement = false;
     }
+    #endregion
 
+    #region Dash and ChargeAttack
     /// <summary>
     /// Handles the player releasing the charge attack button and triggering the appropriate attack type
     /// </summary>
     private void ReleaseChargeButton(float chargeTime)
     {
-        if (chargeTime < 1)
+        if (chargeTime < MinChargeTime)
         {
             StartDash();
         }
-        else if (chargeTime > 1)
+        else if (chargeTime > MinChargeTime)
         {
             StartChargeAttack(chargeTime);
         }
@@ -397,7 +411,8 @@ public class RammyController : MonoBehaviour
         {
             Attacking = true;
             _startTimeChargeAttack = Time.time;
-            _chargeAttackDestination = transform.position + _lookingAtMouseRotation * ChargeAttackDistance;
+
+            _chargeAttackDestination = transform.position + _lookingAtMouseRotation * ( ChargeAttackDistance * (chargingTime / MaxChargeTime));
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
@@ -454,24 +469,7 @@ public class RammyController : MonoBehaviour
 
         if (_dashVisuals != null) _dashVisuals.EndDash();
     }
-
-    // Checking for any collisions Rammy encouters and reacting accordingly
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Handle colliding with objects while attacking
-        if (Attacking)
-        {
-            RamIntoObject(collision.gameObject);
-            Attacking = false;
-            EndChargeAttack();
-        }
-        // Handle colliding with objects while dashing
-        if (Dashing)
-        {
-            //Dashing = false;
-            //EndDash();
-        }
-    }
+    #endregion
 
     /// <summary>
     /// Function that gets called when Rammy collides with any object while perfoming an attack action
@@ -524,5 +522,23 @@ public class RammyController : MonoBehaviour
             }
         }
         
+    }
+
+    // Checking for any collisions Rammy encouters and reacting accordingly
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Handle colliding with objects while attacking
+        if (Attacking)
+        {
+            RamIntoObject(collision.gameObject);
+            Attacking = false;
+            EndChargeAttack();
+        }
+        // Handle colliding with objects while dashing
+        if (Dashing)
+        {
+            //Dashing = false;
+            //EndDash();
+        }
     }
 }
