@@ -21,6 +21,8 @@ public class StatManager : MonoBehaviour
     [SerializeField] private TMP_Text KeyText;
     [SerializeField] private TMP_Text ScoreTextbox;
 
+    [SerializeField] private RammyController _playerController;
+
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +77,7 @@ public class StatManager : MonoBehaviour
         #endregion
 
         #region Score
+
         // If the timer has started
         if (_scoreTimer > 0)
         {
@@ -91,6 +94,24 @@ public class StatManager : MonoBehaviour
         }
 
         #endregion
+
+        // Multiply damage based on score
+        if (_score < 20)
+        {
+            return;
+        }
+        else if (_score < 40)
+        {
+            // Increase damage by 1.5
+        }
+        else if (_score < 70)
+        {
+            // Increase damage by 2
+        }
+        else
+        {
+            // Increase damage by 2.5
+        }
     }
 
     public void AddKill()
