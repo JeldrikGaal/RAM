@@ -64,11 +64,6 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float AttackDistance;
     [SerializeField] private float AttackCoolDown;
     [SerializeField] private float AttackDamage;
-
-    // Variables for Attacking
-    private float _startTimeAttack;
-    private bool _attackingAllowed = true;
-    private Vector3 _attackDestination;
     
 
     [Header("Dash")]
@@ -86,7 +81,6 @@ public class RammyController : MonoBehaviour
 
     
     // Charge Attack Values
-    
     [Header("Charge Attack")]
     [SerializeField] private float ChargeAttackDuration;
     [SerializeField] private float ChargeAttackDistance;
@@ -95,11 +89,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float MaxChargeTime;
 
     // Variables for Charge Attack
-    private float _startTimeCharging;
     private float _startTimeChargeAttack;
     private bool _chargeAttackAllowed = true;
     private Vector3 _chargeAttackDestination;
-
 
     // Saving rotation to reset after attacking and Dashing
     private Quaternion _savedRotation;
@@ -285,18 +277,18 @@ public class RammyController : MonoBehaviour
         if (Attacking)
         {
             // Lerping towards the target location
-            transform.position = Vector3.Lerp(_savedPosition, _attackDestination, ((Time.time - _startTimeAttack) / ChargeAttackDuration));
+            transform.position = Vector3.Lerp(_savedPosition, _chargeAttackDestination, ((Time.time - _startTimeChargeAttack) / ChargeAttackDuration));
             // Checking if the Attacking time is over and resetting all needed variables if time is reached
-            if (Time.time - _startTimeAttack > ChargeAttackDuration)
+            if (Time.time - _startTimeChargeAttack > ChargeAttackDuration)
             {
                 EndChargeAttack();
             }         
         }
 
         // Check if enough time since last attack has passed to attack again
-        if (Time.time - _startTimeAttack > ChargeAttackCoolDown && !Attacking)
+        if (Time.time - _startTimeChargeAttack > ChargeAttackCoolDown && !Attacking)
         {
-            _attackingAllowed = true;
+            _chargeAttackAllowed = true;
         }
         #endregion
 
@@ -349,18 +341,18 @@ public class RammyController : MonoBehaviour
     /// </summary>
     private void StartChargeAttack(float chargingTime)
     {
-        if (!Attacking && _attackingAllowed)
+        if (!Attacking && _chargeAttackAllowed)
         {
             Attacking = true;
-            _startTimeAttack = Time.time;
-            _attackDestination = transform.position + _lookingAtMouseRotation * ChargeAttackDistance;
+            _startTimeChargeAttack = Time.time;
+            _chargeAttackDestination = transform.position + _lookingAtMouseRotation * ChargeAttackDistance;
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
             _blockMovement = true;
             _mR.material = _mats[1];
             _rB.velocity = Vector3.zero;
-            _attackingAllowed = false;
+            _chargeAttackAllowed = false;
         }
     }
 
@@ -392,7 +384,7 @@ public class RammyController : MonoBehaviour
             _blockMovement = true;
             _mR.material = _mats[2];
             _rB.velocity = Vector3.zero;
-            _attackingAllowed = false;
+            _chargeAttackAllowed = false;
             _dashingAllowed = false;
             Invincible = true;
         }
