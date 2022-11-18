@@ -97,6 +97,8 @@ public class RammyController : MonoBehaviour
     private float _startTimeChargeAttack;
     private bool _chargeAttackAllowed = true;
     private Vector3 _chargeAttackDestination;
+    private GameObject _chargedEnemy;
+    public Vector3 _chargedEnemyOffset;
 
     // Saving rotation to reset after attacking and Dashing
     private Quaternion _savedRotation;
@@ -319,6 +321,13 @@ public class RammyController : MonoBehaviour
         {
             _basicAttackAllowed = true;
         }
+
+        // If rammy picks up an enemy while charging drag it along
+        if (_chargedEnemy != null)
+        {
+            Debug.Log(_chargedEnemy);
+            _chargedEnemy.transform.position = transform.position + _chargedEnemyOffset;
+        }
         #endregion
 
         #region Dashing
@@ -432,6 +441,11 @@ public class RammyController : MonoBehaviour
         _blockMovement = false;
         transform.rotation = _savedRotation;
         _mR.material = _mats[0];
+        if (_chargedEnemy != null)
+        {
+            _chargedEnemy = null;
+        }
+        
     }
 
     /// <summary>
@@ -479,6 +493,12 @@ public class RammyController : MonoBehaviour
         Debug.Log( ("Rammed into:", rammedObject.name) );
         if (TagManager.HasTag(rammedObject, "enemy"))
         {
+            if (_chargedEnemy == null)
+            {
+                _chargedEnemy = rammedObject;
+                _chargedEnemyOffset = _chargedEnemy.transform.position - transform.position;
+            }
+
             // Calling Damage on the enemy script
             rammedObject.GetComponent<EnemyTesting>().TakeDamage(ChargeAttackDamage, transform.up);
 
@@ -531,8 +551,6 @@ public class RammyController : MonoBehaviour
         if (Attacking)
         {
             RamIntoObject(collision.gameObject);
-            Attacking = false;
-            EndChargeAttack();
         }
         // Handle colliding with objects while dashing
         if (Dashing)

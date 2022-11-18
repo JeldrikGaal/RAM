@@ -30,12 +30,18 @@ public class EnemyExplode : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
+            // Spawn Pieces
             PiecesManager.SpawnPieces(OnDestructionObject, transform.position, XZDirection, YDirection, XZDirection, ForceMultiplier, GutsAmount, Lifespan);
-            if (_statManager.Stats.Kills == 49)
+
+            // Add a kill to the total kill count
+            _statManager.AddKill();
+
+            // If we have 50 kills
+            if (_statManager.Stats.Kills == 50)
             {
+                // Spawn the key object
                 Instantiate(Key, transform.position, Quaternion.identity);
             }
-            _statManager.AddKill();
         }
     }
 }
