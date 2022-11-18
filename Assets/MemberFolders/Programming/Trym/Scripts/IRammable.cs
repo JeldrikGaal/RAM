@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IRammable
 {
-    public bool TakeDamage(float damage, Vector3 hitDirection);
+    public bool Hit(GameObject g);
 
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructibleWall : MonoBehaviour
+public class DestructibleWall : MonoBehaviour, IRammable
 {
 
     public float Direction;

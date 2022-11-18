@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTesting : MonoBehaviour, IRammable
+public class EnemyTesting : MonoBehaviour
 {
 
     

@@ -357,7 +357,7 @@ public class RammyController : MonoBehaviour
             {
                 if (TagManager.HasTag(g, "enemy"))
                 {
-                    g.GetComponent<IRammable>().TakeDamage(BasicAttackDamage, transform.up);
+                    g.GetComponent<EnemyTesting>().TakeDamage(BasicAttackDamage, transform.up);
                 }
             }
         }
@@ -480,7 +480,7 @@ public class RammyController : MonoBehaviour
         if (TagManager.HasTag(rammedObject, "enemy"))
         {
             // Calling Damage on the enemy script
-            rammedObject.GetComponent<IRammable>().TakeDamage(ChargeAttackDamage, transform.up);
+            rammedObject.GetComponent<EnemyTesting>().TakeDamage(ChargeAttackDamage, transform.up);
 
             // VFX:
 
@@ -506,8 +506,8 @@ public class RammyController : MonoBehaviour
         }
         else if (TagManager.HasTag(rammedObject, "wall"))
         {
-            Debug.Log(rammedObject.GetComponent<DestructibleWall>().Hit(gameObject));
-            if (rammedObject.GetComponent<DestructibleWall>().Hit(gameObject))
+            Debug.Log(rammedObject.GetComponent<IRammable>().Hit(gameObject));
+            if (rammedObject.GetComponent<IRammable>().Hit(gameObject))
             {
                 Destroy(rammedObject);
             }
