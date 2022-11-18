@@ -7,7 +7,8 @@ Shader  "James/Blood Decal"
         [HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
         [HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
         [ASEBegin]_Image("Image", 2D) = "white" {}
-        [ASEEnd]_Colour("Colour", Color) = (1,0,0,0)
+        _Colour("Colour", Color) = (1,0,0,0)
+        [ASEEnd][Toggle]_AlphaMask("Alpha Mask", Float) = 1
         [HideInInspector] _texcoord( "", 2D ) = "white" {}
 
 
@@ -126,6 +127,7 @@ Shader  "James/Blood Decal"
             CBUFFER_START(UnityPerMaterial)
 			float4 _Image_ST;
 			float4 _Colour;
+			float _AlphaMask;
 			float _DrawOrder;
 			float _DecalMeshBiasType;
 			float _DecalMeshDepthBias;
@@ -299,9 +301,11 @@ Shader  "James/Blood Decal"
 				float2 uv_Image = texCoord0 * _Image_ST.xy + _Image_ST.zw;
 				float4 tex2DNode10 = tex2D( _Image, uv_Image );
 				
+				float4 temp_cast_1 = (tex2DNode10.a).xxxx;
+				
 
 				surfaceDescription.BaseColor = ( tex2DNode10 * _Colour ).rgb;
-				surfaceDescription.Alpha = tex2DNode10.a;
+				surfaceDescription.Alpha = (( _AlphaMask )?( temp_cast_1 ):( tex2DNode10 )).r;
 				surfaceDescription.NormalTS = float3(0.0f, 0.0f, 1.0f);
 				surfaceDescription.NormalAlpha = 1;
 				
@@ -418,6 +422,7 @@ Shader  "James/Blood Decal"
             CBUFFER_START(UnityPerMaterial)
 			float4 _Image_ST;
 			float4 _Colour;
+			float _AlphaMask;
 			float _DrawOrder;
 			float _DecalMeshBiasType;
 			float _DecalMeshDepthBias;
@@ -667,11 +672,13 @@ Shader  "James/Blood Decal"
 				float2 uv_Image = texCoord0 * _Image_ST.xy + _Image_ST.zw;
 				float4 tex2DNode10 = tex2D( _Image, uv_Image );
 				
+				float4 temp_cast_1 = (tex2DNode10.a).xxxx;
+				
 
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
 				surfaceDescription.BaseColor = ( tex2DNode10 * _Colour ).rgb;
-				surfaceDescription.Alpha = tex2DNode10.a;
+				surfaceDescription.Alpha = (( _AlphaMask )?( temp_cast_1 ):( tex2DNode10 )).r;
 				surfaceDescription.NormalTS = float3(0.0f, 0.0f, 1.0f);
 				surfaceDescription.NormalAlpha = 1;
 				#if defined( _MATERIAL_AFFECTS_MAOS )
@@ -812,6 +819,7 @@ Shader  "James/Blood Decal"
             CBUFFER_START(UnityPerMaterial)
 			float4 _Image_ST;
 			float4 _Colour;
+			float _AlphaMask;
 			float _DrawOrder;
 			float _DecalMeshBiasType;
 			float _DecalMeshDepthBias;
@@ -1056,9 +1064,11 @@ Shader  "James/Blood Decal"
 				float2 uv_Image = texCoord0 * _Image_ST.xy + _Image_ST.zw;
 				float4 tex2DNode10 = tex2D( _Image, uv_Image );
 				
+				float4 temp_cast_1 = (tex2DNode10.a).xxxx;
+				
 
 				surfaceDescription.BaseColor = ( tex2DNode10 * _Colour ).rgb;
-				surfaceDescription.Alpha = tex2DNode10.a;
+				surfaceDescription.Alpha = (( _AlphaMask )?( temp_cast_1 ):( tex2DNode10 )).r;
 				surfaceDescription.NormalTS = float3(0.0f, 0.0f, 1.0f);
 				surfaceDescription.NormalAlpha = 1;
 
@@ -1213,6 +1223,7 @@ Shader  "James/Blood Decal"
             CBUFFER_START(UnityPerMaterial)
 			float4 _Image_ST;
 			float4 _Colour;
+			float _AlphaMask;
 			float _DrawOrder;
 			float _DecalMeshBiasType;
 			float _DecalMeshDepthBias;
@@ -1387,9 +1398,11 @@ Shader  "James/Blood Decal"
 				float2 uv_Image = packedInput.texCoord0.xy * _Image_ST.xy + _Image_ST.zw;
 				float4 tex2DNode10 = tex2D( _Image, uv_Image );
 				
+				float4 temp_cast_1 = (tex2DNode10.a).xxxx;
+				
 
 				surfaceDescription.BaseColor = ( tex2DNode10 * _Colour ).rgb;
-				surfaceDescription.Alpha = tex2DNode10.a;
+				surfaceDescription.Alpha = (( _AlphaMask )?( temp_cast_1 ):( tex2DNode10 )).r;
 				surfaceDescription.NormalTS = float3(0.0f, 0.0f, 1.0f);
 				surfaceDescription.NormalAlpha = 1;
 
@@ -1526,6 +1539,7 @@ Shader  "James/Blood Decal"
             CBUFFER_START(UnityPerMaterial)
 			float4 _Image_ST;
 			float4 _Colour;
+			float _AlphaMask;
 			float _DrawOrder;
 			float _DecalMeshBiasType;
 			float _DecalMeshDepthBias;
@@ -1780,9 +1794,11 @@ Shader  "James/Blood Decal"
 				float2 uv_Image = packedInput.texCoord0.xy * _Image_ST.xy + _Image_ST.zw;
 				float4 tex2DNode10 = tex2D( _Image, uv_Image );
 				
+				float4 temp_cast_1 = (tex2DNode10.a).xxxx;
+				
 
 				surfaceDescription.BaseColor = ( tex2DNode10 * _Colour ).rgb;
-				surfaceDescription.Alpha = tex2DNode10.a;
+				surfaceDescription.Alpha = (( _AlphaMask )?( temp_cast_1 ):( tex2DNode10 )).r;
 				surfaceDescription.NormalTS = float3(0.0f, 0.0f, 1.0f);
 				surfaceDescription.NormalAlpha = 1;
 
@@ -1944,6 +1960,7 @@ Shader  "James/Blood Decal"
             CBUFFER_START(UnityPerMaterial)
 			float4 _Image_ST;
 			float4 _Colour;
+			float _AlphaMask;
 			float _DrawOrder;
 			float _DecalMeshBiasType;
 			float _DecalMeshDepthBias;
@@ -2197,9 +2214,11 @@ Shader  "James/Blood Decal"
 				float2 uv_Image = packedInput.texCoord0.xy * _Image_ST.xy + _Image_ST.zw;
 				float4 tex2DNode10 = tex2D( _Image, uv_Image );
 				
+				float4 temp_cast_1 = (tex2DNode10.a).xxxx;
+				
 
 				surfaceDescription.BaseColor = ( tex2DNode10 * _Colour ).rgb;
-				surfaceDescription.Alpha = tex2DNode10.a;
+				surfaceDescription.Alpha = (( _AlphaMask )?( temp_cast_1 ):( tex2DNode10 )).r;
 				surfaceDescription.NormalTS = float3(0.0f, 0.0f, 1.0f);
 				surfaceDescription.NormalAlpha = 1;
 
@@ -2309,6 +2328,7 @@ Shader  "James/Blood Decal"
             CBUFFER_START(UnityPerMaterial)
 			float4 _Image_ST;
 			float4 _Colour;
+			float _AlphaMask;
 			float _DrawOrder;
 			float _DecalMeshBiasType;
 			float _DecalMeshDepthBias;
@@ -2398,10 +2418,11 @@ Shader  "James/Blood Decal"
 }
 /*ASEBEGIN
 Version=19002
-2647.333;72.66667;1268;777;747.3079;322.8135;1;True;True
-Node;AmplifyShaderEditor.SamplerNode;10;-492.2928,-162.8502;Inherit;True;Property;_Image;Image;0;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+822;72.66667;582;547.6667;809.058;432.7043;1.6;True;False
 Node;AmplifyShaderEditor.ColorNode;11;-423.5483,74.84323;Inherit;False;Property;_Colour;Colour;1;0;Create;True;0;0;0;False;0;False;1,0,0,0;1,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;10;-572.2928,-164.8502;Inherit;True;Property;_Image;Image;0;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;12;-164.5154,104.4559;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.ToggleSwitchNode;13;-156.8517,-108.9866;Inherit;False;Property;_AlphaMask;Alpha Mask;2;0;Create;True;0;0;0;False;0;False;1;True;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;0,0;Float;False;False;-1;2;UnityEditor.Rendering.Universal.DecalShaderGraphGUI;0;1;New Amplify Shader;c2a467ab6d5391a4ea692226d82ffefd;True;DBufferProjector;0;0;DBufferProjector;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;PreviewType=Plane;ShaderGraphShader=true;True;5;False;0;False;True;2;5;False;;10;False;;1;0;False;;10;False;;False;False;True;2;5;False;;10;False;;1;0;False;;10;False;;False;False;True;2;5;False;;10;False;;1;0;False;;10;False;;False;False;True;1;0;False;;6;False;;0;1;False;;0;False;;False;False;False;True;1;False;;False;False;False;True;True;True;True;True;0;False;;False;True;True;True;True;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;True;2;False;;True;2;False;;False;True;1;LightMode=DBufferProjector;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;2;0,0;Float;False;False;-1;2;UnityEditor.Rendering.Universal.DecalShaderGraphGUI;0;1;New Amplify Shader;c2a467ab6d5391a4ea692226d82ffefd;True;DecalProjectorForwardEmissive;0;1;DecalProjectorForwardEmissive;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;PreviewType=Plane;ShaderGraphShader=true;True;5;False;0;False;True;8;5;False;;1;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;True;2;False;;False;True;1;LightMode=DecalProjectorForwardEmissive;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;4;0,0;Float;False;False;-1;2;UnityEditor.Rendering.Universal.DecalShaderGraphGUI;0;1;New Amplify Shader;c2a467ab6d5391a4ea692226d82ffefd;True;DecalGBufferProjector;0;3;DecalGBufferProjector;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;PreviewType=Plane;ShaderGraphShader=true;True;5;False;0;False;True;2;5;False;;10;False;;1;0;False;;10;False;;False;False;True;2;5;False;;10;False;;1;0;False;;10;False;;False;False;True;2;5;False;;10;False;;1;0;False;;10;False;;False;False;True;1;0;False;;6;False;;0;1;False;;0;False;;False;False;False;True;1;False;;False;False;False;True;True;True;True;True;0;False;;False;True;True;True;True;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;True;2;False;;True;2;False;;False;True;1;LightMode=DecalGBufferProjector;False;False;0;;0;0;Standard;0;False;0
@@ -2410,10 +2431,12 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;6;0,0;Float;False;False;-1;
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;7;0,0;Float;False;False;-1;2;UnityEditor.Rendering.Universal.DecalShaderGraphGUI;0;1;New Amplify Shader;c2a467ab6d5391a4ea692226d82ffefd;True;DecalScreenSpaceMesh;0;6;DecalScreenSpaceMesh;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;PreviewType=Plane;ShaderGraphShader=true;True;5;False;0;False;True;2;5;False;;10;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;True;3;False;;False;True;1;LightMode=DecalScreenSpaceMesh;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;8;0,0;Float;False;False;-1;2;UnityEditor.Rendering.Universal.DecalShaderGraphGUI;0;1;New Amplify Shader;c2a467ab6d5391a4ea692226d82ffefd;True;DecalGBufferMesh;0;7;DecalGBufferMesh;1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;PreviewType=Plane;ShaderGraphShader=true;True;5;False;0;False;True;2;5;False;;10;False;;1;0;False;;10;False;;False;False;True;2;5;False;;10;False;;1;0;False;;10;False;;False;False;True;2;5;False;;10;False;;1;0;False;;10;False;;False;False;True;1;0;False;;6;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;True;True;True;True;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;True;2;False;;True;2;False;;False;True;1;LightMode=DecalGBufferMesh;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;9;0,0;Float;False;False;-1;2;UnityEditor.Rendering.Universal.DecalShaderGraphGUI;0;1;New Amplify Shader;c2a467ab6d5391a4ea692226d82ffefd;True;ScenePickingPass;0;8;ScenePickingPass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;PreviewType=Plane;ShaderGraphShader=true;True;5;False;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;3;75.73568,-15.14713;Float;False;True;-1;2;UnityEditor.Rendering.Universal.DecalShaderGraphGUI;0;15;James/Blood Decal;c2a467ab6d5391a4ea692226d82ffefd;True;DecalScreenSpaceProjector;0;2;DecalScreenSpaceProjector;9;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;PreviewType=Plane;ShaderGraphShader=true;True;5;False;0;False;True;2;5;False;;10;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;True;2;False;;False;True;1;LightMode=DecalScreenSpaceProjector;False;False;0;;0;0;Standard;7;Affect BaseColor;1;0;Affect Normal;1;0;Blend;1;0;Affect MAOS;0;0;Affect Emission;0;0;Support LOD CrossFade;0;0;Angle Fade;0;0;0;9;True;False;True;True;True;False;True;True;True;False;;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;3;75.73568,-15.14713;Float;False;True;-1;2;UnityEditor.Rendering.Universal.DecalShaderGraphGUI;0;13;James/Blood Decal;c2a467ab6d5391a4ea692226d82ffefd;True;DecalScreenSpaceProjector;0;2;DecalScreenSpaceProjector;9;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;PreviewType=Plane;ShaderGraphShader=true;True;5;False;0;False;True;2;5;False;;10;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;True;2;False;;False;True;1;LightMode=DecalScreenSpaceProjector;False;False;0;;0;0;Standard;7;Affect BaseColor;1;0;Affect Normal;1;0;Blend;1;0;Affect MAOS;0;0;Affect Emission;0;0;Support LOD CrossFade;0;0;Angle Fade;0;0;0;9;True;False;True;True;True;False;True;True;True;False;;False;0
 WireConnection;12;0;10;0
 WireConnection;12;1;11;0
+WireConnection;13;0;10;0
+WireConnection;13;1;10;4
 WireConnection;3;0;12;0
-WireConnection;3;1;10;4
+WireConnection;3;1;13;0
 ASEEND*/
-//CHKSM=B8FAF5F56281DDDF08270706EDB63A442BEC2BF7
+//CHKSM=145D5E715E9AEE90BC0F940442021839595FE6EB

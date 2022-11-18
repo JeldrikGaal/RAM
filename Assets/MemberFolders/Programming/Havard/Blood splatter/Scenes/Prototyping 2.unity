@@ -582,6 +582,69 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - enemy
+--- !u!1001 &640040518
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000289965411273244, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_Name
+      value: Blood smudge
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274903555079858652, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+      propertyPath: m_FadeFactor
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 71255e027c45540419e4fe40099d144d, type: 3}
 --- !u!1 &645175180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,17 +1831,17 @@ MonoBehaviour:
   AttackDistance: 10
   AttackCoolDown: 1
   AttackDamage: 10
-  DodgeDuration: 0.1
-  DodgeDistance: 5
-  DodgeCoolDown: 3
+  DodgeDuration: 0.5
+  DodgeDistance: 10
+  DodgeCoolDown: 0
   _dashVisuals: {fileID: 0}
   ChargeAttackDuration: 0
   ChargeAttackDistance: 0
   ChargeAttackCoolDown: 0
   ChargeAttackDamage: 0
-  _bloodSpread: 0.78
-  _bloodForceMin: 3.57
-  _bloodForceMax: 6.48
+  _bloodSpread: 0.88
+  _bloodForceMin: 3.61
+  _bloodForceMax: 6.72
   _bloodSpreadCalculator: {fileID: 1489133655}
   _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
   _stepScript: {fileID: 1489133657}
@@ -1813,6 +1876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb37af8703a887d43802911e47c7a27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SmudgeEffect: {fileID: 5000289965411273244, guid: 71255e027c45540419e4fe40099d144d, type: 3}
 --- !u!1 &1345637446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,6 +2043,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32768
   _stepScript: {fileID: 1279146746}
+  _dashScript: {fileID: 1279146747}
 --- !u!1 &1650080018
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,6 +2169,10 @@ PrefabInstance:
     - target: {fileID: 3797138857579822050, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797138857579822077, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 8162423
       objectReference: {fileID: 0}
     - target: {fileID: 3797138857579822078, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
       propertyPath: m_Name

@@ -11,6 +11,7 @@ public class BloodySteps : MonoBehaviour
     private float _height = 0;
 
     [SerializeField] private StepsSpawner _stepScript;
+    [SerializeField] private DashVisuals _dashScript;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +30,15 @@ public class BloodySteps : MonoBehaviour
                 if (Physics.Raycast(new Vector3(_locationPoints[i].x, _height, _locationPoints[i].y), (Vector3.up), out hit, 5, _playerLayer))
                 {
                     Debug.DrawRay(new Vector3(_locationPoints[i].x, _height, _locationPoints[i].y), (Vector3.up) * hit.distance, Color.yellow);
-                    Debug.Log("Hit player");
+
                     // Function to give player bloody shoes here
                     _stepScript.RenewBloodSteps();
+                    
+                    // Telling the dash script that we're above a blood spot
+                    if (_dashScript)
+                    {
+                        _dashScript.OverBlood();
+                    }
                 }
                 else
                 {
