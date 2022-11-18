@@ -78,13 +78,16 @@ public class PauseGame : MonoBehaviour
     public void MainMenu() => SceneManager.LoadScene(0);
 
     /// <summary>
-    /// Opens the settings
+    /// Opens the settings in the pause menu.
     /// </summary>
     public void Settings()
     {
         _settingsMenu.SetActive(true);
         _pauseMenuContent.SetActive(false);
     }
+    /// <summary>
+    /// Closes the settings on thee pause menu.
+    /// </summary>
     public void CloseSettings()
     {
         _settingsMenu.SetActive(false);
@@ -125,10 +128,9 @@ public class PauseGame : MonoBehaviour
             UnPause();
             
         }
+
         //removes old references
-        
         _inputs.UI.Pause.performed -= Toggle;
-        
         PauseEvent = new System.Action<bool>(Noting);
 
         static void Noting(bool paused)
