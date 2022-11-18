@@ -6,8 +6,17 @@ public class AI_State : ScriptableObject
 {
     public List<StateBlock> AIBlocks;
 
+    private Dictionary<Jonas_TempCharacter, int> _timerCount;
+    private Dictionary<Jonas_TempCharacter, float> _timer;
+
     public void StateStart(Jonas_TempCharacter user, GameObject target)
     {
+        if (_timerCount == null) _timerCount = new Dictionary<Jonas_TempCharacter, int>();
+        if (_timer == null) _timer = new Dictionary<Jonas_TempCharacter, float>();
+
+        _timerCount[user] = -1;
+        _timer[user] = 0;
+
         foreach (StateBlock blk in AIBlocks)
         {
             blk.OnStart(user, target);
@@ -16,7 +25,10 @@ public class AI_State : ScriptableObject
 
     public AI_State StateUpdate(Jonas_TempCharacter user, GameObject target)
     {
+        int tempTimerCounter = -1;
+
         user.MoveInput = new Vector3();
+        if (_timer[user] > 0) _timer[user] -= Time.deltaTime;
 
         bool skipNext = false;
 
@@ -35,11 +47,24 @@ public class AI_State : ScriptableObject
 
             if (stateVal.val == null) continue;
 
-            switch (stateVal.val[0])
+            switch ((StateReturn)stateVal.val[0])
             {
-                case 0:
+                case StateReturn.Skip:
                     skipNext = true;
                     break;
+
+                case StateReturn.Timer:
+                    tempTimerCounter++;
+                    if (tempTimerCounter < _timerCount[user]) break;
+                    if (_timer[user] > 0) return null;
+                    if (tempTimerCounter == _timerCount[user]) break;
+
+                    Debug.Log(blk.name);
+
+                    _timer[user] = stateVal.val[1];
+                    _timerCount[user] = tempTimerCounter;
+
+                    return null;
 
                 default:
                     break;
@@ -59,5 +84,5 @@ public class AI_State : ScriptableObject
 public enum StateReturn
 {
     Skip = 0,
-    Wait = 1
+    Timer = 1
 }
