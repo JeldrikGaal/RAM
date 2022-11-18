@@ -33,18 +33,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dodge",
+                    "name": "ChargeAttack",
                     "type": "Button",
-                    "id": "fa3177ca-3438-47e6-a914-158e87ad927d",
+                    "id": "312cc906-7b57-4997-beee-f9b35ee8ad23",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChargeAttack",
+                    "name": "Ability1",
                     "type": "Button",
-                    "id": "312cc906-7b57-4997-beee-f9b35ee8ad23",
+                    "id": "7ab2b038-5047-4eb9-890a-a1e8af2ae3a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability2",
+                    "type": "Button",
+                    "id": "d9af650d-da52-49d9-ab1e-8299a8ee08e7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -208,23 +217,34 @@
                 },
                 {
                     "name": "",
-                    "id": "22e34960-f742-414a-8dd5-44bb52f336ed",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Dodge",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "3dcbd9b9-6a51-4d3c-b8ff-cff80eec2887",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "ChargeAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "442d1b8c-fda6-4cdc-9639-3e092cf5a0dc",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Ability1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a5d2d7b3-05fd-40a6-b069-e6f4c93c3260",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Ability2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

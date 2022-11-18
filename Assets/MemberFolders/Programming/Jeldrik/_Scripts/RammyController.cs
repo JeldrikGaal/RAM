@@ -13,8 +13,9 @@ public class RammyController : MonoBehaviour
     private InputAction _move;
     private InputAction _attack;
     private InputAction _look;
-    private InputAction _dodge;
     private InputAction _charge;
+    private InputAction _ability1;
+    private InputAction _ability2;
     
     // Vector in which the character is currently moving according to player input
     private Vector2 _moveDirection;
@@ -33,17 +34,21 @@ public class RammyController : MonoBehaviour
     private float _frameCounterRightMouseButton;
     private float _frameCounterRightMouseButtonSave;
 
-    // Action inputs
-    private float _dodgingKey;
+    // Ability Inputs
+    private float _ability1Key;
+    private float _ability2Key;
 
+    // Components
+    [Header("Components")]
     private float _cameraDepth;
     private Rigidbody _rB;
     private MeshRenderer _mR;
+    [SerializeField] private BoxCollider _frontCheck;
 
     [Header("Character State")]
     // Bools describing playerstate
     [SerializeField] private bool Attacking;
-    [SerializeField] private bool Dodging;
+    [SerializeField] private bool Dashing;
     [SerializeField] private bool Invincible;
     [SerializeField] private bool Walking;
 
@@ -53,7 +58,7 @@ public class RammyController : MonoBehaviour
     // Speed Modifier 
     public float MovementSpeed;
 
-    [Header("Attack")]
+    [Header("Basic Attack")]    
     // Attack Values
     [SerializeField] private float AttackDuration;
     [SerializeField] private float AttackDistance;
@@ -66,26 +71,28 @@ public class RammyController : MonoBehaviour
     private Vector3 _attackDestination;
     
 
-    [Header("Dodge")]
-    // Dodge Values
-    [SerializeField] private float DodgeDuration;
-    [SerializeField] private float DodgeDistance;
-    [SerializeField] private float DodgeCoolDown;
+    [Header("Dash")]
+    // Dash Values
+    [SerializeField] private float DashDuration;
+    [SerializeField] private float DashDistance;
+    [SerializeField] private float DashCoolDown;
 
-    // Variables for Dodging
-    private float _startTimeDodge;
-    private bool _dodgingAllowed = true;
-    private Vector3 _dodgeDestination;
+    // Variables for Dashing
+    private float _startTimeDash;
+    private bool _dashingAllowed = true;
+    private Vector3 _dashDestination;
 
     [SerializeField] private DashVisuals _dashVisuals;
 
-    [Header ("Charg Attack")]
+    
     // Charge Attack Values
-    float MaxChargingDuration;
+    
+    [Header("Charge Attack")]
     [SerializeField] private float ChargeAttackDuration;
     [SerializeField] private float ChargeAttackDistance;
     [SerializeField] private float ChargeAttackCoolDown;
     [SerializeField] private float ChargeAttackDamage;
+    [SerializeField] private float MaxChargeTime;
 
     // Variables for Charge Attack
     private float _startTimeCharging;
@@ -94,7 +101,7 @@ public class RammyController : MonoBehaviour
     private Vector3 _chargeAttackDestination;
 
 
-    // Saving rotation to reset after attacking and Dodging
+    // Saving rotation to reset after attacking and Dashing
     private Quaternion _savedRotation;
     private Vector3 _savedPosition;
 
@@ -134,14 +141,16 @@ public class RammyController : MonoBehaviour
         _move = _playerControls.Player.Move;
         _look = _playerControls.Player.Look;
         _attack = _playerControls.Player.Attack;
-        _dodge = _playerControls.Player.Dodge;
         _charge = _playerControls.Player.ChargeAttack;
+        _ability1 = _playerControls.Player.Ability1;
+        _ability2 = _playerControls.Player.Ability2;
 
         _move.Enable();
         _look.Enable();
         _attack.Enable();
-        _dodge.Enable();
         _charge.Enable();
+        _ability1.Enable();
+        _ability2.Enable();
     }
 
     // Disabling PlayerControls when player gets disabled in the scene
@@ -150,8 +159,9 @@ public class RammyController : MonoBehaviour
         _move.Disable();
         _look.Disable();
         _attack.Disable();
-        _dodge.Disable();
         _charge.Disable();
+        _ability1.Disable();
+        _ability2.Disable();
     }
 
     
@@ -181,7 +191,7 @@ public class RammyController : MonoBehaviour
         else
         {
             _frameCounterLeftMouseButtonSave = 0;
-            _frameCounterLeftMouseButton += 1;
+            _frameCounterLeftMouseButton += Time.deltaTime;
             _lastFrameLeftMouseButton = true;
         }
         if (_rightMouseButton == 0)
@@ -192,18 +202,13 @@ public class RammyController : MonoBehaviour
         else
         {
             _frameCounterRightMouseButtonSave = 0;
-            _frameCounterRightMouseButton += 1;
+            _frameCounterRightMouseButton += Time.deltaTime;
             _lastFrameRightMouseButton = true;
         }
 
-        //if (_frameCounterLeftMouseButton == 0)
-
-        //Debug.Log( (_frameCounterLeftMouseButton, _frameCounterRightMouseButton) );
-
-        
-
-        // Reading Dodge input
-        _dodgingKey = _dodge.ReadValue<float>();
+        // Reading Ability Key Inputs
+        _ability1Key = _ability1.ReadValue<float>();
+        _ability2Key = _ability2.ReadValue<float>();
 
         // Calculating the world position where the mouse is currently pointing at and needed help vectors
         float distance;
@@ -226,91 +231,94 @@ public class RammyController : MonoBehaviour
         if (!_blockMovement)
         {
             _rB.velocity = vel;
+
+            // Rotate player in the direction its walking
+            if (_moveDirection.x < 0 && _moveDirection.y == 0) // looking left
+            {
+                transform.rotation = Quaternion.Euler(90, 0, 90);
+            }
+            else if (_moveDirection.x < 0 && _moveDirection.y < 0) // looking down left
+            {
+                transform.rotation = Quaternion.Euler(90, 0, 135);
+            }
+            else if (_moveDirection.x == 0 && _moveDirection.y < 0) // looking down
+            {
+                transform.rotation = Quaternion.Euler(90, 0, 180);
+            }
+            else if (_moveDirection.x > 0 && _moveDirection.y < 0) // looking down right
+            {
+                transform.rotation = Quaternion.Euler(90, 0, 225);
+            }
+            else if (_moveDirection.x > 0 && _moveDirection.y == 0) // looking right
+            {
+                transform.rotation = Quaternion.Euler(90, 0, 270);
+            }
+            else if (_moveDirection.x > 0 && _moveDirection.y > 0) // looking up right
+            {
+                transform.rotation = Quaternion.Euler(90, 0, 315);
+            }
+            else if (_moveDirection.x == 0 && _moveDirection.y > 0) // looking up 
+            {
+                transform.rotation = Quaternion.Euler(90, 0, 0);
+            }
+            else if (_moveDirection.x < 0 && _moveDirection.y > 0) // looking up left 
+            {
+                transform.rotation = Quaternion.Euler(90, 0, 45);
+            }
         }
+
+
 
         #endregion
 
-
         #region Attacking
 
-        if (_frameCounterRightMouseButton == 0 && _frameCounterRightMouseButtonSave > 50)
+        // Trigger approriate Action if the player releases the Dash/ChargeDash Key
+        if (_frameCounterRightMouseButton == 0 && _frameCounterRightMouseButtonSave > 0)
         {
-            Debug.Log("Short Relase");
+            ReleaseChargeButton(_frameCounterRightMouseButtonSave);
         }
 
-        else if (_frameCounterRightMouseButton == 0 && _frameCounterRightMouseButtonSave > 500)
-        {
-            Debug.Log("Long Relase");
-        }
-
-        // Changing all needed variables to indiciate and calculate attacking
-        if (_leftMouseButton == 1 && !Attacking && _attackingAllowed)
-        {
-            Attacking = true;
-            _startTimeAttack = Time.time;
-            _attackDestination = transform.position + _lookingAtMouseRotation * AttackDistance;
-            _savedRotation = transform.rotation;
-            _savedPosition = transform.position;
-            transform.up = _lookingAtMouseRotation;
-            _blockMovement = true;
-            _mR.material = _mats[1];
-            _rB.velocity = Vector3.zero;
-            _attackingAllowed = false;
-        }   
+        
 
         // Logic while player is attacking
         if (Attacking)
         {
             // Lerping towards the target location
-            transform.position = Vector3.Lerp(_savedPosition, _attackDestination, ((Time.time - _startTimeAttack) / AttackDuration));
+            transform.position = Vector3.Lerp(_savedPosition, _attackDestination, ((Time.time - _startTimeAttack) / ChargeAttackDuration));
             // Checking if the Attacking time is over and resetting all needed variables if time is reached
-            if (Time.time - _startTimeAttack > AttackDuration)
+            if (Time.time - _startTimeAttack > ChargeAttackDuration)
             {
-                EndAttack();
+                EndChargeAttack();
             }         
         }
 
         // Check if enough time since last attack has passed to attack again
-        if (Time.time - _startTimeAttack > AttackCoolDown && !Attacking)
+        if (Time.time - _startTimeAttack > ChargeAttackCoolDown && !Attacking)
         {
             _attackingAllowed = true;
         }
         #endregion
 
-        #region Dodging
-        // Changing all needed variables to indiciate and calculate dodging
-        if (_dodgingKey == 1 && !Attacking && _dodgingAllowed)
-        {
-            if (_dashVisuals != null) _dashVisuals.StartDash();
-            Dodging = true;
-            _startTimeDodge = Time.time;
-            _dodgeDestination = transform.position + _lookingAtMouseRotation * DodgeDistance;
-            _savedRotation = transform.rotation;
-            _savedPosition = transform.position;
-            transform.up = _lookingAtMouseRotation;
-            _blockMovement = true;
-            _mR.material = _mats[2];
-            _rB.velocity = Vector3.zero;
-            _attackingAllowed = false;
-            _dodgingAllowed = false;
-            Invincible = true;
-        }
+        #region Dashing
+        // Changing all needed variables to indiciate and calculate Dashing
 
-        if (Dodging)
+
+        if (Dashing)
         {
             // Lerping towards the target location
-            transform.position = Vector3.Lerp(_savedPosition, _dodgeDestination, ((Time.time - _startTimeDodge) / DodgeDuration));
+            transform.position = Vector3.Lerp(_savedPosition, _dashDestination, ((Time.time - _startTimeDash) / DashDuration));
             // Checking if the Attacking time is over and resetting all needed variables if time is reached
-            if (Time.time - _startTimeDodge > DodgeDuration)
+            if (Time.time - _startTimeDash > DashDuration)
             {
-                EndDodge();
+                EndDash();
             }
         }
 
-        // Check if enough time since last dodge has passed to dodge again
-        if (Time.time - _startTimeDodge > DodgeCoolDown && !Attacking && !Dodging)
+        // Check if enough time since last dash has passed to dash again
+        if (Time.time - _startTimeDash > DashCoolDown && !Attacking && !Dashing)
         {
-            _dodgingAllowed = true;
+            _dashingAllowed = true;
         }
 
         #endregion
@@ -322,11 +330,44 @@ public class RammyController : MonoBehaviour
         _lastFrameLeftMouseButton = false;
         _lastFrameRightMouseButton = false;
     }
+    /// <summary>
+    /// Handles the player releasing the charge attack button and triggering the appropriate attack type
+    /// </summary>
+    private void ReleaseChargeButton(float chargeTime)
+    {
+        if (chargeTime < 1)
+        {
+            StartDash();
+        }
+        else if (chargeTime > 1)
+        {
+            StartChargeAttack(chargeTime);
+        }
+    }
+    /// <summary>
+    /// Setting all variables to trigger the start of a charge attack
+    /// </summary>
+    private void StartChargeAttack(float chargingTime)
+    {
+        if (!Attacking && _attackingAllowed)
+        {
+            Attacking = true;
+            _startTimeAttack = Time.time;
+            _attackDestination = transform.position + _lookingAtMouseRotation * ChargeAttackDistance;
+            _savedRotation = transform.rotation;
+            _savedPosition = transform.position;
+            transform.up = _lookingAtMouseRotation;
+            _blockMovement = true;
+            _mR.material = _mats[1];
+            _rB.velocity = Vector3.zero;
+            _attackingAllowed = false;
+        }
+    }
 
     /// <summary>
     /// Reset all Variables, Material and Rotation to the state it was in before attacking
     /// </summary>
-    private void EndAttack()
+    private void EndChargeAttack()
     {
         Attacking = false;
         _blockMovement = false;
@@ -335,11 +376,34 @@ public class RammyController : MonoBehaviour
     }
 
     /// <summary>
-    /// Reset all Variables, Material and Rotation to the state it was in before dodging
+    /// Setting all variables to trigger the start of a dash
     /// </summary>
-    private void EndDodge()
+    private void StartDash()
     {
-        Dodging = false;
+        if (!Attacking && _dashingAllowed)
+        {
+            if (_dashVisuals != null) _dashVisuals.StartDash();
+            Dashing = true;
+            _startTimeDash = Time.time;
+            _dashDestination = transform.position + _lookingAtMouseRotation * DashDistance;
+            _savedRotation = transform.rotation;
+            _savedPosition = transform.position;
+            transform.up = _lookingAtMouseRotation;
+            _blockMovement = true;
+            _mR.material = _mats[2];
+            _rB.velocity = Vector3.zero;
+            _attackingAllowed = false;
+            _dashingAllowed = false;
+            Invincible = true;
+        }
+    }
+
+    /// <summary>
+    /// Reset all Variables, Material and Rotation to the state it was in before Dashing
+    /// </summary>
+    private void EndDash()
+    {
+        Dashing = false;
         _blockMovement = false;
         transform.rotation = _savedRotation;
         _mR.material = _mats[0];
@@ -347,6 +411,7 @@ public class RammyController : MonoBehaviour
         if (_dashVisuals != null) _dashVisuals.EndDash();
     }
 
+    // Checking for any collisions Rammy encouters and reacting accordingly
     private void OnCollisionEnter(Collision collision)
     {
         // Handle colliding with objects while attacking
@@ -354,12 +419,13 @@ public class RammyController : MonoBehaviour
         {
             RamIntoObject(collision.gameObject);
             Attacking = false;
-            EndAttack();
+            EndChargeAttack();
         }
-        if (Dodging)
+        // Handle colliding with objects while dashing
+        if (Dashing)
         {
-            Dodging = false;
-            EndDodge();
+            //Dashing = false;
+            //EndDash();
         }
     }
 
@@ -371,7 +437,8 @@ public class RammyController : MonoBehaviour
         Debug.Log( ("Rammed into:", rammedObject.name) );
         if (TagManager.HasTag(rammedObject, "enemy"))
         {
-            rammedObject.GetComponent<IRammable>().TakeDamage(AttackDamage, transform.up);
+            // Calling Damage on the enemy script
+            rammedObject.GetComponent<IRammable>().TakeDamage(ChargeAttackDamage, transform.up);
 
             // VFX:
 
@@ -381,8 +448,6 @@ public class RammyController : MonoBehaviour
             _bloodSpreadCalculator.transform.rotation = this.transform.rotation;
 
             _bloodSpreadCalculator.transform.GetChild(0).transform.localScale = new Vector3(_bloodSpread, 1, 1);
-
-            
 
             _bloodDir1 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(0).transform.position - _bloodSpreadCalculator.transform.position;
             _bloodDir2 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(1).transform.position - _bloodSpreadCalculator.transform.position;
