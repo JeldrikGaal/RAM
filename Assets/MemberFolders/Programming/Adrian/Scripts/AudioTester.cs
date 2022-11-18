@@ -41,12 +41,12 @@ public class AudioTester : MonoBehaviour
         }
 
         // Use the PlayAudio function from the AudioManager script to play an audioclip at the location of the gameObject using the volume variables
-        if (Input.GetKeyDown(KeyCode.Space) && !DialogueSystem.PlayingAudio)
-        {
-            DialogueCanvas.gameObject.SetActive(true);
-            //AudioManager.PlayAudio(_clipToPlay, transform.position, TestVolume1);
-            StartCoroutine(DialogueSystem.Dialogue(DialogueLines, AudioClips, 1f, transform.position, 1f, _name1, _name2));
-        }
+        // if (Input.GetKeyDown(KeyCode.Space) && !DialogueSystem.PlayingAudio)
+        // {
+        //     DialogueCanvas.gameObject.SetActive(true);
+        //     //AudioManager.PlayAudio(_clipToPlay, transform.position, TestVolume1);
+        //     StartCoroutine(DialogueSystem.Dialogue(DialogueLines, AudioClips, 1f, transform.position, 1f, _name1, _name2));
+        // }
         if (Input.GetKeyDown(KeyCode.F))
         {
             AudioManager.PlayAudio(_clipToPlay, transform.position, TestVolume2);
