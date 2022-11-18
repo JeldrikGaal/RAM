@@ -43,11 +43,12 @@ public class RammyController : MonoBehaviour
     private float _cameraDepth;
     private Rigidbody _rB;
     private MeshRenderer _mR;
-    [SerializeField] private BoxCollider _frontCheck;
+    [SerializeField] private RammyFrontCheck _frontCheck;
 
     [Header("Character State")]
     // Bools describing playerstate
     [SerializeField] private bool Attacking;
+    [SerializeField] private bool BasicAttacking;
     [SerializeField] private bool Dashing;
     [SerializeField] private bool Invincible;
     [SerializeField] private bool Walking;
@@ -60,16 +61,13 @@ public class RammyController : MonoBehaviour
 
     [Header("Basic Attack")]    
     // Attack Values
-    [SerializeField] private float AttackDuration;
-    [SerializeField] private float AttackDistance;
-    [SerializeField] private float AttackCoolDown;
-    [SerializeField] private float AttackDamage;
+    [SerializeField] private float BasicAttackCoolDown;
+    [SerializeField] private float BasicAttackDamage;
+    [SerializeField] private float BasicAttackDuration;
 
-    // Variables for Attacking
-    private float _startTimeAttack;
-    private bool _attackingAllowed = true;
-    private Vector3 _attackDestination;
-    
+    // Variables for basic attack
+    private float _startTimeBasicAttack;
+    private bool _basicAttackAllowed;
 
     [Header("Dash")]
     // Dash Values
@@ -86,7 +84,6 @@ public class RammyController : MonoBehaviour
 
     
     // Charge Attack Values
-    
     [Header("Charge Attack")]
     [SerializeField] private float ChargeAttackDuration;
     [SerializeField] private float ChargeAttackDistance;
@@ -95,11 +92,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float MaxChargeTime;
 
     // Variables for Charge Attack
-    private float _startTimeCharging;
     private float _startTimeChargeAttack;
     private bool _chargeAttackAllowed = true;
     private Vector3 _chargeAttackDestination;
-
 
     // Saving rotation to reset after attacking and Dashing
     private Quaternion _savedRotation;
@@ -115,8 +110,6 @@ public class RammyController : MonoBehaviour
     private Vector3 _bloodDir1;
     private Vector3 _bloodDir2;
     [SerializeField] private BloodySteps _stepScript;
-
-
 
     // Help variables for various purposes
     private Plane _groundPlane = new Plane(Vector3.up, 0);
@@ -227,7 +220,7 @@ public class RammyController : MonoBehaviour
         _moveDirection = _move.ReadValue<Vector2>() * MovementSpeed;
         Vector3 vel = new Vector3(_moveDirection.x, 0, _moveDirection.y);
 
-        // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input
+        // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
             _rB.velocity = vel;
@@ -267,8 +260,6 @@ public class RammyController : MonoBehaviour
             }
         }
 
-
-
         #endregion
 
         #region Attacking
@@ -279,24 +270,42 @@ public class RammyController : MonoBehaviour
             ReleaseChargeButton(_frameCounterRightMouseButtonSave);
         }
 
-        
-
         // Logic while player is attacking
         if (Attacking)
         {
             // Lerping towards the target location
-            transform.position = Vector3.Lerp(_savedPosition, _attackDestination, ((Time.time - _startTimeAttack) / ChargeAttackDuration));
+            transform.position = Vector3.Lerp(_savedPosition, _chargeAttackDestination, ((Time.time - _startTimeChargeAttack) / ChargeAttackDuration));
             // Checking if the Attacking time is over and resetting all needed variables if time is reached
-            if (Time.time - _startTimeAttack > ChargeAttackDuration)
+            if (Time.time - _startTimeChargeAttack > ChargeAttackDuration)
             {
                 EndChargeAttack();
-            }         
+            }     
+
+        }
+        if (BasicAttacking)
+        {
+            if (Time.time - _startTimeBasicAttack > BasicAttackDuration)
+            {
+                EndBasicAttack();
+            }
         }
 
-        // Check if enough time since last attack has passed to attack again
-        if (Time.time - _startTimeAttack > ChargeAttackCoolDown && !Attacking)
+        // Trigger Basic attack if input is received and attack is possible
+        if (_leftMouseButton == 1 && _basicAttackAllowed && !Attacking)
         {
-            _attackingAllowed = true;
+            StartBasicAttack();
+        }
+
+        // Check if enough time since last charge attack has passed to attack again
+        if (Time.time - _startTimeChargeAttack > ChargeAttackCoolDown && !Attacking)
+        {
+            _chargeAttackAllowed = true;
+        }
+
+        // Check if enough time since last basic attack has passed to attack again
+        if (Time.time - _startTimeBasicAttack > BasicAttackCoolDown && !Attacking)
+        {
+            _basicAttackAllowed = true;
         }
         #endregion
 
@@ -330,6 +339,39 @@ public class RammyController : MonoBehaviour
         _lastFrameLeftMouseButton = false;
         _lastFrameRightMouseButton = false;
     }
+
+    /// <summary>
+    /// Perform a Basic Attack
+    /// </summary>
+    private void StartBasicAttack()
+    {
+        if (!BasicAttacking && !Attacking && _basicAttackAllowed)
+        {
+            BasicAttacking = true;
+            _startTimeBasicAttack = Time.time;
+            _basicAttackAllowed = false;
+            _blockMovement = true;
+            _rB.velocity = Vector3.zero;
+
+            foreach (GameObject g in _frontCheck._objectsInCollider)
+            {
+                if (TagManager.HasTag(g, "enemy"))
+                {
+                    g.GetComponent<IRammable>().TakeDamage(BasicAttackDamage, transform.up);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Ending the basic attack and resetting all needed variables 
+    /// </summary>
+    private void EndBasicAttack()
+    {
+        BasicAttacking = false;
+        _blockMovement = false;
+    }
+
     /// <summary>
     /// Handles the player releasing the charge attack button and triggering the appropriate attack type
     /// </summary>
@@ -349,18 +391,18 @@ public class RammyController : MonoBehaviour
     /// </summary>
     private void StartChargeAttack(float chargingTime)
     {
-        if (!Attacking && _attackingAllowed)
+        if (!Attacking && _chargeAttackAllowed)
         {
             Attacking = true;
-            _startTimeAttack = Time.time;
-            _attackDestination = transform.position + _lookingAtMouseRotation * ChargeAttackDistance;
+            _startTimeChargeAttack = Time.time;
+            _chargeAttackDestination = transform.position + _lookingAtMouseRotation * ChargeAttackDistance;
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
             _blockMovement = true;
             _mR.material = _mats[1];
             _rB.velocity = Vector3.zero;
-            _attackingAllowed = false;
+            _chargeAttackAllowed = false;
         }
     }
 
@@ -392,7 +434,7 @@ public class RammyController : MonoBehaviour
             _blockMovement = true;
             _mR.material = _mats[2];
             _rB.velocity = Vector3.zero;
-            _attackingAllowed = false;
+            _chargeAttackAllowed = false;
             _dashingAllowed = false;
             Invincible = true;
         }
