@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4974556003414828849}
   - component: {fileID: 4974556003414828848}
+  - component: {fileID: 1024294334}
   m_Layer: 15
   m_Name: RammyFrontCheck
   m_TagString: Untagged
@@ -206,11 +207,24 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4974556003414828854}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1024294334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974556003414828854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7a5c169ddf4a64eb6dd2b1396097ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectsInCollider: []
 --- !u!1 &4974556003529526529
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,17 +410,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ecb860ebcbc2e49a6101246dc3b31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frontCheck: {fileID: 4974556003414828848}
+  _frontCheck: {fileID: 1024294334}
   Attacking: 0
+  BasicAttacking: 0
   Dashing: 0
   Invincible: 0
   Walking: 0
   Health: 0
   MovementSpeed: 10
-  AttackDuration: 0
-  AttackDistance: 0
-  AttackCoolDown: 0
-  AttackDamage: 0
+  BasicAttackCoolDown: 1
+  BasicAttackDamage: 5
+  BasicAttackDuration: 0.1
   DashDuration: 0.1
   DashDistance: 5
   DashCoolDown: 1
