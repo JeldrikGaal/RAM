@@ -51,6 +51,7 @@ public class StatManager : MonoBehaviour
         {
             // If the timer stopped reset the combo kill counter
             _comboKills = 0;
+            _comboCanvas.gameObject.SetActive(false);
         }
 
         // If you get more than 4 kils in a row
