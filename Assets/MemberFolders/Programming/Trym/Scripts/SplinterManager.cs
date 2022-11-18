@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(GameManager))]
 public class SplinterManager : MonoBehaviour
 {
+    // Enshures only one instance
     private static MonoBehaviour _instance;
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class SplinterManager : MonoBehaviour
         StartCoroutine(SpawnSplinters());
     }
 
+    // populates the object pool
     private IEnumerator SpawnSplinters()
     {
         for (int i = 0; i < amount; i++)
@@ -38,7 +40,13 @@ public class SplinterManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
-
+    /// <summary>
+    /// Pulls a splinter from the object pool.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="direction"></param>
+    /// <param name="speed"></param>
+    /// <returns></returns>
     public static bool GetSplinter(Vector3 position, Vector3 direction, float speed)
     {
         var splinter = _splinters[_currentSplinter];
