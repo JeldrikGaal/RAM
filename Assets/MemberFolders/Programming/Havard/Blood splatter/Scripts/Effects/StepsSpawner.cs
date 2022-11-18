@@ -10,8 +10,15 @@ public class StepsSpawner : MonoBehaviour
     [SerializeField] private GameObject _bloodStepPrefab;
 
     // Tracker:
+    [SerializeField] private int _maxFootprint = 50;
     [SerializeField] private GameObject[] _footprints;
     private int _completedFootprints = 0;
+    private bool _deleting = false;
+
+    private void Start()
+    {
+        _footprints = new GameObject[_maxFootprint];
+    }
 
     void Update()
     {
@@ -38,23 +45,29 @@ public class StepsSpawner : MonoBehaviour
     {
         if (_bloodStepsActive)
         {
-            var _step = Instantiate(_bloodStepPrefab, new Vector3(point.x, 0.51f, point.z), this.transform.rotation);
-
+            GameObject _step;
+            _step = Instantiate(_bloodStepPrefab, new Vector3(point.x, 0.51f, point.z), this.transform.rotation);
             // Destroy(_step, 10f);
+            DeleteOldest(_step);
         }
         // do and "else if" here if there are any other steps that should happen
     }
 
     public void DeleteOldest(GameObject footprint)
     {
+        print(_completedFootprints);
+        print(_footprints.Length);
         if (_completedFootprints >= _footprints.Length)
         {
             _completedFootprints = 0;
+            _deleting = true;
+        }
+        if (_deleting == true)
+        {
+            Destroy(_footprints[_completedFootprints].gameObject);
         }
         _footprints[_completedFootprints] = footprint;
-        _completedFootprints++;
-        return;
-        
+        _completedFootprints++;        
     }
 
 }

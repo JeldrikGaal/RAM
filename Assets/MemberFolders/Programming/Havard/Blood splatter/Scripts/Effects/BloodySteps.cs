@@ -7,6 +7,9 @@ public class BloodySteps : MonoBehaviour
     [SerializeField]private Vector2[] _locationPoints;
     private int _completedPoint;
     [SerializeField] private int _maxPoints = 500;
+    [SerializeField] private GameObject[] _bloodSplats;
+    private bool _deleting = false;
+
     [SerializeField] private LayerMask _playerLayer;
     private float _height = 0;
 
@@ -17,6 +20,7 @@ public class BloodySteps : MonoBehaviour
     void Start()
     {
         _locationPoints = new Vector2[_maxPoints];
+        _bloodSplats = new GameObject[_maxPoints];
     }
 
     // Update is called once per frame
@@ -48,12 +52,18 @@ public class BloodySteps : MonoBehaviour
         }
     }
     // Function to add new point. Latest ones gets deleted if it exceeds the max.
-    public void AddPoint(Vector2 point)
+    public void AddPoint(Vector2 point, GameObject ob)
     {
         if(_completedPoint >= _locationPoints.Length)
         {
             _completedPoint = 0;
+            _deleting = true;
         }
+        if (_deleting == true)
+        {
+            Destroy(_bloodSplats[_completedPoint].gameObject);
+        }
+        _bloodSplats[_completedPoint] = ob;
         _locationPoints[_completedPoint] = point;
         _completedPoint++;
         return;
