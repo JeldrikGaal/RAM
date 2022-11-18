@@ -9,7 +9,7 @@ public class DashVisuals : MonoBehaviour
     private Vector3 _startSmudgeSpot;
     private GameObject _currentSmudge;
     private Quaternion _dashingDirection;
-
+    [SerializeField] private Transform _directionObject;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +43,7 @@ public class DashVisuals : MonoBehaviour
     public void StartDash()
     {
         // Gets the rotation
-        _dashingDirection = transform.GetChild(1).transform.rotation *= Quaternion.Euler(0, 90, 0);
+        _dashingDirection = _directionObject.rotation *= Quaternion.Euler(0, 90, 0);
         _isDashing = true;
     }
 

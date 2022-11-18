@@ -103,8 +103,10 @@ public class RammyController : MonoBehaviour
     [Header("Visual Effects")]
     // VFX
     [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
-    [Range(-0.5f, 10.0f)] [SerializeField] private float _bloodForceMin;
-    [Range(-0.5f, 10.0f)] [SerializeField] private float _bloodForceMax;
+    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMin;
+    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMax;
+    [Range(0, 15)] public int _bloodAmount = 5;
+    [Range(0.1f, 5)] public float _bloodSize = 1;
     [SerializeField] private GameObject _bloodSpreadCalculator; // I'm dumb, so I'm letting Unity do my math -H�vard
     [SerializeField] private GameObject _bloodBomb;
     private Vector3 _bloodDir1;
@@ -485,6 +487,8 @@ public class RammyController : MonoBehaviour
             // VFX:
 
             var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+            _bloodPrefab.transform.localScale *= _bloodSize;
+
 
             // Vector3 _enemyDirection = rammedObject.transform.position - this.transform.position;
             _bloodSpreadCalculator.transform.rotation = this.transform.rotation;
@@ -494,9 +498,16 @@ public class RammyController : MonoBehaviour
             _bloodDir1 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(0).transform.position - _bloodSpreadCalculator.transform.position;
             _bloodDir2 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(1).transform.position - _bloodSpreadCalculator.transform.position;
 
+            var i = 0;
             foreach (Transform child in _bloodPrefab.transform)
             {
-                child.GetComponent<StickyBlood>()._bloodStepScript = _stepScript;
+                if(i >= _bloodAmount)
+                {
+                    Destroy(child.gameObject);
+                }
+                i++;
+                child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
+                child.GetComponent<StickyBlood>().BloodSize = _bloodSize;
                 child.GetComponent<InitVelocity>().CalcDirLeft = _bloodDir1;
                 child.GetComponent<InitVelocity>().CalcDirRight = _bloodDir2;
                 child.GetComponent<InitVelocity>().BloodForceMin = _bloodForceMin;

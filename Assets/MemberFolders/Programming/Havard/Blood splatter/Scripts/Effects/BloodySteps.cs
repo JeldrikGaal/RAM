@@ -54,12 +54,9 @@ public class BloodySteps : MonoBehaviour
         {
             _completedPoint = 0;
         }
-        for (int i = 0; i < _locationPoints.Length; i++)
-        {
-            _locationPoints[_completedPoint] = point;
-            _completedPoint++;
-            return;
-        }
+        _locationPoints[_completedPoint] = point;
+        _completedPoint++;
+        return;
     }
 
 }

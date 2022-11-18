@@ -645,6 +645,79 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - enemy
+--- !u!1 &613458544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 613458548}
+  - component: {fileID: 613458547}
+  - component: {fileID: 613458545}
+  - component: {fileID: 613458546}
+  m_Layer: 15
+  m_Name: RammyFrontCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &613458545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613458544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7a5c169ddf4a64eb6dd2b1396097ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectsInCollider: []
+--- !u!114 &613458546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613458544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7a5c169ddf4a64eb6dd2b1396097ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectsInCollider: []
+--- !u!65 &613458547
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613458544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &613458548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613458544}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1279146742}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &640040518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1888,6 +1961,7 @@ Transform:
   m_Children:
   - {fileID: 86624466}
   - {fileID: 645175181}
+  - {fileID: 613458548}
   - {fileID: 289150846}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -1920,17 +1994,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ecb860ebcbc2e49a6101246dc3b31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frontCheck: {fileID: 0}
+  _frontCheck: {fileID: 613458545}
   Attacking: 0
+  BasicAttacking: 0
   Dashing: 0
   Invincible: 0
   Walking: 0
   Health: 0
   MovementSpeed: 10
-  AttackDuration: 0.25
-  AttackDistance: 10
-  AttackCoolDown: 1
-  AttackDamage: 10
+  BasicAttackCoolDown: 0
+  BasicAttackDamage: 0
+  BasicAttackDuration: 0
   DashDuration: 0.2
   DashDistance: 10
   DashCoolDown: 0
@@ -1978,6 +2052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SmudgeEffect: {fileID: 5000289965411273244, guid: 71255e027c45540419e4fe40099d144d, type: 3}
+  _directionObject: {fileID: 645175181}
 --- !u!1001 &1323526316
 PrefabInstance:
   m_ObjectHideFlags: 0
