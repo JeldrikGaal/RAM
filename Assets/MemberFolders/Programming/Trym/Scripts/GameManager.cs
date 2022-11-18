@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private static MonoBehaviour _instance;
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     [SerializeField] Stats.StatsData stats;
     // Start is called before the first frame update
     void Start()
