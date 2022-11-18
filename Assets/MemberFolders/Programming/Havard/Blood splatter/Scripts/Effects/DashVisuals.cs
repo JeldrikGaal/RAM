@@ -11,10 +11,16 @@ public class DashVisuals : MonoBehaviour
     private Quaternion _dashingDirection;
     [SerializeField] private Transform _directionObject;
 
+    // Tracker:
+    [SerializeField] private int maxItems = 50;
+    [SerializeField] private GameObject[] _items;
+    private int _completedItems = 0;
+    private bool _deleting = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _items = new GameObject[maxItems];
     }
 
     // Update is called once per frame
@@ -36,7 +42,7 @@ public class DashVisuals : MonoBehaviour
             _currentSmudge = Instantiate(_SmudgeEffect, transform.position, _dashingDirection);
             // Sets the first position so we can calculate the middle
             _startSmudgeSpot = this.transform.position;
-
+            DeleteOldest(_currentSmudge);
         }
     }
 
@@ -52,5 +58,20 @@ public class DashVisuals : MonoBehaviour
         // Stops the dash and makess it so our smudge is unlinked
         _isDashing = false;
         _currentSmudge = null;
+    }
+
+    public void DeleteOldest(GameObject footprint)
+    {
+        if (_completedItems >= _items.Length)
+        {
+            _completedItems = 0;
+            _deleting = true;
+        }
+        if (_deleting == true)
+        {
+            Destroy(_items[_completedItems].gameObject);
+        }
+        _items[_completedItems] = footprint;
+        _completedItems++;
     }
 }
