@@ -2101,6 +2101,7 @@ MonoBehaviour:
   ChargeAttackDamage: 10
   MinChargeTime: 0
   MaxChargeTime: 2
+  _chargedEnemyOffset: {x: 0, y: 0, z: 0}
   _bloodSpread: 0.88
   _bloodForceMin: 3.61
   _bloodForceMax: 6.72
@@ -2172,11 +2173,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
       propertyPath: m_LocalRotation.y
@@ -2188,7 +2189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 4365877928156631782, guid: 71255e027c45540419e4fe40099d144d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

@@ -49,7 +49,7 @@ public class DashVisuals : MonoBehaviour
     public void StartDash()
     {
         // Gets the rotation
-        _dashingDirection = _directionObject.rotation *= Quaternion.Euler(0, 90, 0);
+        _dashingDirection = _directionObject.rotation *= Quaternion.Euler(90, 90, 0);
         _isDashing = true;
     }
 

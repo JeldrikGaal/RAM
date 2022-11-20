@@ -35,7 +35,7 @@ public class StickyBlood : MonoBehaviour
             // Debug.DrawRay(item.point, item.normal * 100, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f), 10f);
 
             var prefab = Instantiate(splatObject, item.point + item.normal * 0.6f, Quaternion.LookRotation(-item.normal));
-            prefab.transform.localScale *= BloodSize;
+            prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
             BloodStepScript.AddPoint(new Vector2(item.point.x, item.point.z), this.gameObject);
 
             /// All of this was for a quad which spawned on the item normal. DONT DELETE, we might need to use it later if the decal doesn't work that well
