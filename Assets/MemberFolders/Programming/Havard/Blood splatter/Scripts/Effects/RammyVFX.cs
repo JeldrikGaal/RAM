@@ -11,6 +11,7 @@ public class RammyVFX : MonoBehaviour
 
     [Header("Ram attack")]
     [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
+    [Range(-90f, 90f)] public float _heightValue = 1;
     [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMin;
     [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMax;
     [Range(0, 15)] public int _bloodAmount = 5;
@@ -29,7 +30,7 @@ public class RammyVFX : MonoBehaviour
 
 
         // Vector3 _enemyDirection = rammedObject.transform.position - this.transform.position;
-        _bloodSpreadCalculator.transform.rotation = this.transform.rotation;
+        _bloodSpreadCalculator.transform.localRotation = Quaternion.Euler(_heightValue, 0, 0);
 
         _bloodSpreadCalculator.transform.GetChild(0).transform.localScale = new Vector3(bloodSpread, 1, 1);
 

@@ -31,10 +31,22 @@ public class StickyBlood : MonoBehaviour
     {
         foreach (var item in other.contacts)
         {
-            // Draw a different colored ray for every normal in the collision
-            // Debug.DrawRay(item.point, item.normal * 100, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f), 10f);
+            Quaternion splatRotation = Quaternion.Euler(new Vector3(0,0,0));
+            // Calculates the direction for laying flat
+            if(other.gameObject.layer == 10)
+            {
+                var flatLook = -item.normal;
+                var lookDir = rb.velocity;
+                lookDir.y = 0; // keep only the horizontal direction
+                var velocityRotationEdit = Quaternion.LookRotation(lookDir);
+                velocityRotationEdit *= Quaternion.Euler(90, flatLook.y, 0);
+                splatRotation = velocityRotationEdit;
+            } else if(other.gameObject.layer != 10)
+            {
+                splatRotation = Quaternion.LookRotation(-item.normal);
+            }
 
-            var prefab = Instantiate(splatObject, item.point + item.normal * 0.6f, Quaternion.LookRotation(-item.normal));
+            var prefab = Instantiate(splatObject, item.point + item.normal * 0.6f, splatRotation);
             prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
             BloodStepScript.AddPoint(new Vector2(item.point.x, item.point.z), prefab.gameObject);
 
@@ -53,8 +65,6 @@ public class StickyBlood : MonoBehaviour
             // and gives it the blood material
             bloodQuad.GetComponent<Renderer>().material = bloodSplatMat;
             */
-
-
 
             // Destroys the projectile
             Destroy(this.gameObject);
