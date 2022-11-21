@@ -65,9 +65,12 @@ public class RammyController : MonoBehaviour
 
     [Header("Player Stats")]
     // Player Values
-    public float Health;
+    [SerializeField] private float Health;
+    [SerializeField] private float MaxHealth;
+    [SerializeField] private float HealPercentage;
+
     // Speed Modifier 
-    public float MovementSpeed;
+    [SerializeField] public float MovementSpeed;
 
     [Header("Basic Attack")]    
     // Attack Values
@@ -143,11 +146,18 @@ public class RammyController : MonoBehaviour
     [SerializeField] private List<Material> _mats = new List<Material>();
     [SerializeField] private GameObject directionIndicator;
 
+    #region Startup and Disable
     // Setting Input Actions on Awake
     private void Awake()
     {
         _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
+    }
+    void Start()
+    {
+        _rB = GetComponent<Rigidbody>();
+        _mR = GetComponent<MeshRenderer>();
+        if (GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
     }
 
     // Enabling PlayerControls when player gets enabled in the scene
@@ -184,14 +194,7 @@ public class RammyController : MonoBehaviour
         _ability3.Disable();
         _ability4.Disable();
     }
-
-    
-    void Start()
-    {
-        _rB = GetComponent<Rigidbody>();
-        _mR = GetComponent<MeshRenderer>();
-        if(GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
-    }
+    #endregion
 
     void Update()
     {
@@ -255,8 +258,46 @@ public class RammyController : MonoBehaviour
         if (!_blockMovement)
         {
             _rB.velocity = vel;
-
+            int baseRotation = 135;
             // Rotate player in the direction its walking
+            if (_moveDirection.x < 0 && _moveDirection.y == 0) // looking left
+            {
+                transform.rotation = Quaternion.Euler(90, 0, baseRotation);
+            }
+            else if (_moveDirection.x < 0 && _moveDirection.y < 0) // looking down left
+            {
+                transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 1);
+            }
+            else if (_moveDirection.x == 0 && _moveDirection.y < 0) // looking down
+            {
+                transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 2);
+            }
+            else if (_moveDirection.x > 0 && _moveDirection.y < 0) // looking down right
+            {
+                transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 3);
+            }
+            else if (_moveDirection.x > 0 && _moveDirection.y == 0) // looking right
+            {
+                transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 4);
+            }
+            else if (_moveDirection.x > 0 && _moveDirection.y > 0) // looking up right
+            {
+                //transform.rotation = Quaternion.Euler(90, 0, 315);
+                transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 5);
+            }
+            else if (_moveDirection.x == 0 && _moveDirection.y > 0) // looking up 
+            {
+                //transform.rotation = Quaternion.Euler(90, 0, 0);
+                transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 6);
+            }
+            else if (_moveDirection.x < 0 && _moveDirection.y > 0) // looking up left 
+            {
+                //transform.rotation = Quaternion.Euler(90, 0, 45);
+                transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 7);
+            }
+
+            #region saving
+            /*
             if (_moveDirection.x < 0 && _moveDirection.y == 0) // looking left
             {
                 transform.rotation = Quaternion.Euler(90, 0, 90);
@@ -289,6 +330,9 @@ public class RammyController : MonoBehaviour
             {
                 transform.rotation = Quaternion.Euler(90, 0, 45);
             }
+            */
+            #endregion
+
         }
 
         #endregion
@@ -350,7 +394,6 @@ public class RammyController : MonoBehaviour
         // If rammy picks up an enemy while charging drag it along
         if (_chargedEnemy != null)
         {
-            Debug.Log(_chargedEnemy);
             _chargedEnemy.transform.position = transform.position + _chargedEnemyOffset;
         }
         #endregion
@@ -434,7 +477,10 @@ public class RammyController : MonoBehaviour
                 {
                     if (TagManager.HasTag(g, "enemy"))
                     {
-                        g.GetComponent<EnemyTesting>().TakeDamage(BasicAttackDamage, transform.up);
+                        if (g.GetComponent<EnemyTesting>().TakeDamage(BasicAttackDamage, transform.up))
+                        {
+                            Kill(g);
+                        }
                     }
                 }
                
@@ -522,7 +568,8 @@ public class RammyController : MonoBehaviour
             // Checking if player would end up in an object while dashing and shortening dash if thats the case
             if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, DashDistance))
             {
-                if (Vector3.Distance(hit.point, _dashDestination) < hit.transform.GetComponent<MeshRenderer>().bounds.size.y)
+                RaycastHit hit2;
+                if (Physics.Raycast(_dashDestination + Vector3.up * 100, Vector3.down, out hit2, 105) && hit.transform == hit2.transform)
                 {
                     _dashDestination = hit.point;
                 }
@@ -577,7 +624,10 @@ public class RammyController : MonoBehaviour
             }
 
             // Calling Damage on the enemy script
-            rammedObject.GetComponent<EnemyTesting>().TakeDamage(ChargeAttackDamage, transform.up);
+            if (rammedObject.GetComponent<EnemyTesting>().TakeDamage(ChargeAttackDamage, transform.up))
+            {
+                Kill(rammedObject);
+            }
 
             // VFX
 
@@ -643,11 +693,33 @@ public class RammyController : MonoBehaviour
         {
             if (TagManager.HasTag(collision.gameObject, "enemy"))
             {
-                collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(DashAttackDamage, transform.up);
+                if (collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(DashAttackDamage, transform.up))
+                {
+                    Kill(collision.gameObject);
+                }
             }
         }
     }
 
+    /// <summary>
+    /// Heals Rammy by the given amount to a maxium of the max hp
+    /// </summary>
+    public void Heal(int healing)
+    {
+        Health = Math.Min(MaxHealth, Health + healing);
+    }
+
+    /// <summary>
+    /// Function that should be called whenever rammy kills an enemy
+    /// </summary>
+    /// <param name="enemy"></param>
+    public void Kill(GameObject enemy)
+    {
+        Debug.Log(MaxHealth * (HealPercentage / 100f));
+        Heal((int)(MaxHealth * (HealPercentage / 100f)));
+    }
+
+    #region Setterfunctions
     // Functions to start and end the usage of any ability
     public void StartUsingAbility()
     {
@@ -667,4 +739,5 @@ public class RammyController : MonoBehaviour
     {
         _blockMovement = false;
     }
+    #endregion
 }
