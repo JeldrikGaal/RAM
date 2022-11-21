@@ -34,8 +34,6 @@ public class InitVelocity : MonoBehaviour
             rb.velocity = new Vector3(Random.Range(velocity.x- randomOffsetValue, velocity.x+ randomOffsetValue), Random.Range(velocity.y - randomOffsetValue, velocity.y + randomOffsetValue), Random.Range(velocity.x - randomOffsetValue, velocity.x + randomOffsetValue));
         } else if (awayFromPlayer == true)
         {
-            // These two next lines needs to be swapped out with the two directions the blood should fall between
-
             ApplyVelocity(RandomVector3(CalcDirLeft, CalcDirRight), Random.Range(BloodForceMin, BloodForceMax));
         }
     }
