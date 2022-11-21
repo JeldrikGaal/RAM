@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BloodySteps : MonoBehaviour
 {
-    [SerializeField]private Vector2[] _locationPoints;
-    private int _completedPoint;
     [SerializeField] private int _maxPoints = 500;
-    [SerializeField] private GameObject[] _bloodSplats;
+    private int _completedPoint;
+    private GameObject[] _bloodSplats;
+    private Vector2[] _locationPoints;
     private bool _deleting = false;
 
     [SerializeField] private LayerMask _playerLayer;

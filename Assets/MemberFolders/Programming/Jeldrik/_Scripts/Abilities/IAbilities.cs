@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Abilities : MonoBehaviour
+public interface IAbilities
 {
-    public void Activate()
-    {
+    public void Activate() { }
 
-    }
+
 }

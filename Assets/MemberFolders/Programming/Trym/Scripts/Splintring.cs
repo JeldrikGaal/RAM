@@ -9,6 +9,7 @@ public class Splintring : MonoBehaviour, IRammable
     [Tooltip("how far from midpoint of object, in opposit direction off hit modifyed by spread")]
     [SerializeField] float _spawnOffset;
     [SerializeField] float _spread;
+    [SerializeField] float _maxLifetime, _minLifetime;
 
     /// <summary>
     /// the IRammable Hit funktion.
@@ -17,14 +18,14 @@ public class Splintring : MonoBehaviour, IRammable
     /// <returns></returns>
     public bool Hit(GameObject g)
     {
-        StartCoroutine(Splinter(g));
+        Splinter(g);
         return true;
     }
 
     // "Spawns" all the splinters if there is not enough available, it will try again next frame.
-    private IEnumerator Splinter(GameObject g )
+    private void Splinter(GameObject g )
     {
-        for (int i = 0; i < _amountOfSplinters; )
+        for (int i = 0; i < _amountOfSplinters; i++ )
         {
             var dir = (((
                 transform.position * 2 - g.transform.position) * 3)+ new Vector3(
@@ -32,14 +33,7 @@ public class Splintring : MonoBehaviour, IRammable
                     Random.Range(-_spread, _spread), 
                     Random.Range(-_spread, _spread)
                     )).normalized;
-            if (SplinterManager.GetSplinter(transform.position + (dir* _spawnOffset ),dir,_velosity))
-            {
-                i++;
-            }
-            else
-            {
-                yield return new WaitForEndOfFrame();
-            }
+            SplinterManager.RequestSplinter(transform.position + (dir * _spawnOffset), dir, _velosity, Random.Range(_minLifetime,_maxLifetime));
         }
     }
 

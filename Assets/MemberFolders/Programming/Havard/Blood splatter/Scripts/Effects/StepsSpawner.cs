@@ -46,17 +46,16 @@ public class StepsSpawner : MonoBehaviour
         if (_bloodStepsActive)
         {
             GameObject _step;
-            _step = Instantiate(_bloodStepPrefab, new Vector3(point.x, 0.51f, point.z), this.transform.rotation);
-            // Destroy(_step, 10f);
+            //print(this.transform.rotation.eulerAngles.y);
+            _step = Instantiate(_bloodStepPrefab, new Vector3(point.x, 0.51f, point.z), this.transform.rotation); // Issue here where the rotation sometimes is not (90, 0, correctRotation) so it shows as a bit of white.
             DeleteOldest(_step);
         }
         // do and "else if" here if there are any other steps that should happen
     }
 
+    // Deletes the oldest one if one is added when created
     public void DeleteOldest(GameObject footprint)
     {
-        print(_completedFootprints);
-        print(_footprints.Length);
         if (_completedFootprints >= _footprints.Length)
         {
             _completedFootprints = 0;
