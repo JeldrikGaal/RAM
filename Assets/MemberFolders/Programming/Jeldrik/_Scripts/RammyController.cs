@@ -514,7 +514,19 @@ public class RammyController : MonoBehaviour
             if (_dashVisuals != null) _dashVisuals.StartDash();
             Dashing = true;
             _startTimeDash = Time.time;
+            RaycastHit hit;
             _dashDestination = transform.position + _lookingAtMouseRotation * DashDistance;
+
+            // Checking if player would end up in an object while dashing and shortening dash if thats the case
+            if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, DashDistance))
+            {
+                if (Vector3.Distance(hit.point, _dashDestination) < 0.5f)
+                {
+                    _dashDestination = hit.point;
+                }
+                
+            }
+            
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
