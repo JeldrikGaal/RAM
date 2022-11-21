@@ -32,9 +32,9 @@ public class StickyBlood : MonoBehaviour
         foreach (var item in other.contacts)
         {
             Quaternion splatRotation = Quaternion.Euler(new Vector3(0,0,0));
-            // Calculates the direction for laying flat
             if(other.gameObject.layer == 10)
             {
+                // Calculates the direction for laying flat
                 var flatLook = -item.normal;
                 var lookDir = rb.velocity;
                 lookDir.y = 0; // keep only the horizontal direction
