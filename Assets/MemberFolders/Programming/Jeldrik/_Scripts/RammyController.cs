@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class RammyController : MonoBehaviour
 {
@@ -472,12 +473,15 @@ public class RammyController : MonoBehaviour
             _blockMovement = true;
             _rB.velocity = Vector3.zero;
 
+
+
             foreach (GameObject g in _frontCheck._objectsInCollider)
             {
                 if (g != null) // Temporary fix
                 {
                     if (TagManager.HasTag(g, "enemy"))
                     {
+                        _rammyVFX.NormalAttack(g);
                         if (g.GetComponent<EnemyTesting>().TakeDamage(BasicAttackDamage, transform.up))
                         {
                             Kill(g);
@@ -534,6 +538,8 @@ public class RammyController : MonoBehaviour
             _mR.material = _mats[1];
             _rB.velocity = Vector3.zero;
             _chargeAttackAllowed = false;
+
+            _dashVisuals.StartDash();
         }
     }
 
@@ -550,7 +556,7 @@ public class RammyController : MonoBehaviour
         {
             _chargedEnemy = null;
         }
-        
+        _dashVisuals.EndDash();
     }
 
     /// <summary>
