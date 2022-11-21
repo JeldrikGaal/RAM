@@ -41,6 +41,10 @@ public class RammyController : MonoBehaviour
     private float _ability2Key;
     private float _ability3Key;
     private float _ability4Key;
+    [SerializeField] private Ability1 _ability1Script;
+    [SerializeField] private Ability2 _ability2Script;
+    [SerializeField] private Ability3 _ability3Script;
+    [SerializeField] private Ability4 _ability4Script;
 
     // Components
     [Header("Components")]
@@ -56,6 +60,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private bool Dashing;
     [SerializeField] private bool Invincible;
     [SerializeField] private bool Walking;
+    [SerializeField] private bool UsingAbility;
 
     [Header("Player Stats")]
     // Player Values
@@ -371,8 +376,29 @@ public class RammyController : MonoBehaviour
 
         #region Abilities
 
+        List<Abilities> l = new List<Abilities>();
+        l.Add(_ability1Script);
 
-
+        // Checking if the player is already using an ability and performing wanted ability if not
+        if (!UsingAbility)
+        {
+            if (_ability1Key == 1)
+            {
+                l[0].CheckActivate();
+            }
+            else if (_ability2Key == 1)
+            {
+                _ability2Script.CheckActivate();
+            }
+            else if (_ability3Key == 1)
+            {
+                _ability3Script.CheckActivate();
+            }
+            else if (_ability4Key == 1)
+            {
+                _ability4Script.CheckActivate();
+            }
+        }
         #endregion
 
         // Showing in engine where the player is gonna dash towards
@@ -591,5 +617,15 @@ public class RammyController : MonoBehaviour
             //Dashing = false;
             //EndDash();
         }
+    }
+
+    // Functions to start and end the usage of any ability
+    public void StartUsingAbility()
+    {
+        UsingAbility = true;
+    }
+    public void EndUsingAbility()
+    {
+        UsingAbility = false;
     }
 }
