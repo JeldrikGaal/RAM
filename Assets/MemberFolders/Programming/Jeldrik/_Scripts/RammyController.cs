@@ -104,8 +104,11 @@ public class RammyController : MonoBehaviour
     private Quaternion _savedRotation;
     private Vector3 _savedPosition;
 
-    [Header("Visual Effects")]
     // VFX
+    [Header("Visual Effects")]
+    [SerializeField] private RammyVFX _rammyVFX;
+
+    /*
     [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
     [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMin;
     [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMax;
@@ -116,6 +119,7 @@ public class RammyController : MonoBehaviour
     private Vector3 _bloodDir1;
     private Vector3 _bloodDir2;
     [SerializeField] private BloodySteps _stepScript;
+    */
 
     // Help variables for various purposes
     private Plane _groundPlane = new Plane(Vector3.up, 0);
@@ -502,8 +506,13 @@ public class RammyController : MonoBehaviour
             // Calling Damage on the enemy script
             rammedObject.GetComponent<EnemyTesting>().TakeDamage(ChargeAttackDamage, transform.up);
 
-            // VFX:
+            // VFX
 
+            _rammyVFX.RamAttack(_chargedEnemy);
+
+            // Sorry for filling your lovely code up with my old commented out trash code.
+
+            /*
             var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
             _bloodPrefab.transform.localScale *= _bloodSize;
 
@@ -531,6 +540,7 @@ public class RammyController : MonoBehaviour
                 child.GetComponent<InitVelocity>().BloodForceMin = _bloodForceMin;
                 child.GetComponent<InitVelocity>().BloodForceMax = _bloodForceMin;
             }
+            */
 
         }
         else if (TagManager.HasTag(rammedObject, "wall"))

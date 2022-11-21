@@ -762,6 +762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _locationPoints: []
   _maxPoints: 500
+  _bloodSplats: []
   _playerLayer:
     serializedVersion: 2
     m_Bits: 32768
@@ -1282,6 +1283,7 @@ GameObject:
   - component: {fileID: 4974556004237746292}
   - component: {fileID: 4974556004237746302}
   - component: {fileID: 4974556004237746298}
+  - component: {fileID: 3586331904611896420}
   - component: {fileID: 1279146745}
   - component: {fileID: 1279146746}
   m_Layer: 15
@@ -1309,7 +1311,7 @@ Transform:
   - {fileID: 522460801}
   - {fileID: 1489133656}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1394,14 +1396,8 @@ MonoBehaviour:
   ChargeAttackDamage: 20
   MinChargeTime: 0.5
   MaxChargeTime: 4
-  _bloodSpread: 0.78
-  _bloodForceMin: 3.57
-  _bloodForceMax: 6.48
-  _bloodAmount: 5
-  _bloodSize: 1
-  _bloodSpreadCalculator: {fileID: 1489133655}
-  _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
-  _stepScript: {fileID: 1489133657}
+  _chargedEnemyOffset: {x: 0, y: 0, z: 0}
+  _rammyVFX: {fileID: 3586331904611896420}
   _mats:
   - {fileID: 2100000, guid: 15e346450e7a74f4aaa401054336f701, type: 2}
   - {fileID: 2100000, guid: 7e68f114ba3c17947864a5aa3f7b260e, type: 2}
@@ -1437,6 +1433,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &3586331904611896420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974556004237746303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bd35dffce223f45ba74375ef520906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
+  _bloodSpreadCalculator: {fileID: 0}
+  _stepScript: {fileID: 1489133657}
+  _bloodSpread: 0.5
+  _bloodForceMin: 0.8
+  _bloodForceMax: 1.2
+  _bloodAmount: 10
+  _bloodSizeMin: 0.9
+  _bloodSizeMax: 1.1
 --- !u!114 &1279146745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1451,6 +1468,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SmudgeEffect: {fileID: 5000289965411273244, guid: 71255e027c45540419e4fe40099d144d, type: 3}
   _directionObject: {fileID: 4974556003529526528}
+  maxItems: 50
+  _items: []
 --- !u!114 &1279146746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1465,4 +1484,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bloodStepsActive: 0
   _bloodStepPrefab: {fileID: 7628057576564074463, guid: e733cb9e32f042e4b894719714e51a79, type: 3}
+  _maxFootprint: 50
   _footprints: []
