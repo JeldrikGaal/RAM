@@ -252,7 +252,10 @@ public class RammyController : MonoBehaviour
         #region Movement
         // Applying input from the 'Move' Vector from the InputAction to the velocity of the rigidbody and multiplying by the Movement 
         _moveDirection = _move.ReadValue<Vector2>() * MovementSpeed;
+        //_moveDirection = _moveDirection * ( _cameraScript.transform.rotation.eulerAngles).normalized;
         Vector3 vel = new Vector3(_moveDirection.x, 0, _moveDirection.y);
+        vel = Quaternion.AngleAxis(-45, Vector3.up) * vel;
+        //vel = Quaternion.Euler(0, 0, 45) * vel;
 
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
@@ -287,12 +290,10 @@ public class RammyController : MonoBehaviour
             }
             else if (_moveDirection.x == 0 && _moveDirection.y > 0) // looking up 
             {
-                //transform.rotation = Quaternion.Euler(90, 0, 0);
                 transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 6);
             }
             else if (_moveDirection.x < 0 && _moveDirection.y > 0) // looking up left 
             {
-                //transform.rotation = Quaternion.Euler(90, 0, 45);
                 transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 7);
             }
 
