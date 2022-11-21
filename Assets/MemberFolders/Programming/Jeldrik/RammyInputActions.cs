@@ -80,6 +80,24 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability3"",
+                    ""type"": ""Button"",
+                    ""id"": ""445115d1-e27e-43e4-9d49-28886d464103"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability4"",
+                    ""type"": ""Button"",
+                    ""id"": ""84fb2f0f-972d-44a7-b712-84c7bed20068"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -267,6 +285,28 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Ability2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a2d675d-23cb-4ba0-8709-f41b15f41720"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9d5ac73-00ce-46aa-9d8e-306f9bb6b9f0"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Ability4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -880,6 +920,8 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
         m_Player_ChargeAttack = m_Player.FindAction("ChargeAttack", throwIfNotFound: true);
         m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
         m_Player_Ability2 = m_Player.FindAction("Ability2", throwIfNotFound: true);
+        m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
+        m_Player_Ability4 = m_Player.FindAction("Ability4", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -958,6 +1000,8 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ChargeAttack;
     private readonly InputAction m_Player_Ability1;
     private readonly InputAction m_Player_Ability2;
+    private readonly InputAction m_Player_Ability3;
+    private readonly InputAction m_Player_Ability4;
     public struct PlayerActions
     {
         private @RammyInputActions m_Wrapper;
@@ -968,6 +1012,8 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
         public InputAction @ChargeAttack => m_Wrapper.m_Player_ChargeAttack;
         public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
         public InputAction @Ability2 => m_Wrapper.m_Player_Ability2;
+        public InputAction @Ability3 => m_Wrapper.m_Player_Ability3;
+        public InputAction @Ability4 => m_Wrapper.m_Player_Ability4;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -995,6 +1041,12 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 @Ability2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility2;
                 @Ability2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility2;
                 @Ability2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility2;
+                @Ability3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility3;
+                @Ability3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility3;
+                @Ability3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility3;
+                @Ability4.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility4;
+                @Ability4.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility4;
+                @Ability4.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility4;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1017,6 +1069,12 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 @Ability2.started += instance.OnAbility2;
                 @Ability2.performed += instance.OnAbility2;
                 @Ability2.canceled += instance.OnAbility2;
+                @Ability3.started += instance.OnAbility3;
+                @Ability3.performed += instance.OnAbility3;
+                @Ability3.canceled += instance.OnAbility3;
+                @Ability4.started += instance.OnAbility4;
+                @Ability4.performed += instance.OnAbility4;
+                @Ability4.canceled += instance.OnAbility4;
             }
         }
     }
@@ -1187,6 +1245,8 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
         void OnChargeAttack(InputAction.CallbackContext context);
         void OnAbility1(InputAction.CallbackContext context);
         void OnAbility2(InputAction.CallbackContext context);
+        void OnAbility3(InputAction.CallbackContext context);
+        void OnAbility4(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

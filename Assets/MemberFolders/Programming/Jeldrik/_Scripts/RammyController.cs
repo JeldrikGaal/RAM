@@ -16,6 +16,8 @@ public class RammyController : MonoBehaviour
     private InputAction _charge;
     private InputAction _ability1;
     private InputAction _ability2;
+    private InputAction _ability3;
+    private InputAction _ability4;
     
     // Vector in which the character is currently moving according to player input
     private Vector2 _moveDirection;
@@ -37,6 +39,8 @@ public class RammyController : MonoBehaviour
     // Ability Inputs
     private float _ability1Key;
     private float _ability2Key;
+    private float _ability3Key;
+    private float _ability4Key;
 
     // Components
     [Header("Components")]
@@ -147,6 +151,8 @@ public class RammyController : MonoBehaviour
         _charge = _playerControls.Player.ChargeAttack;
         _ability1 = _playerControls.Player.Ability1;
         _ability2 = _playerControls.Player.Ability2;
+        _ability3 = _playerControls.Player.Ability3;
+        _ability4 = _playerControls.Player.Ability4;
 
         _move.Enable();
         _look.Enable();
@@ -154,6 +160,8 @@ public class RammyController : MonoBehaviour
         _charge.Enable();
         _ability1.Enable();
         _ability2.Enable();
+        _ability3.Enable();
+        _ability4.Enable();
     }
 
     // Disabling PlayerControls when player gets disabled in the scene
@@ -165,6 +173,8 @@ public class RammyController : MonoBehaviour
         _charge.Disable();
         _ability1.Disable();
         _ability2.Disable();
+        _ability3.Disable();
+        _ability4.Disable();
     }
 
     
@@ -212,6 +222,8 @@ public class RammyController : MonoBehaviour
         // Reading Ability Key Inputs
         _ability1Key = _ability1.ReadValue<float>();
         _ability2Key = _ability2.ReadValue<float>();
+        _ability3Key = _ability3.ReadValue<float>();
+        _ability4Key = _ability4.ReadValue<float>();
 
         // Calculating the world position where the mouse is currently pointing at and needed help vectors
         float distance;
@@ -357,6 +369,12 @@ public class RammyController : MonoBehaviour
 
         #endregion
 
+        #region Abilities
+
+
+
+        #endregion
+
         // Showing in engine where the player is gonna dash towards
         directionIndicator.transform.forward = _lookingAtMouseRotation;
 
@@ -382,10 +400,14 @@ public class RammyController : MonoBehaviour
 
             foreach (GameObject g in _frontCheck._objectsInCollider)
             {
-                if (TagManager.HasTag(g, "enemy"))
+                if (g != null) // Temporary fix
                 {
-                    g.GetComponent<EnemyTesting>().TakeDamage(BasicAttackDamage, transform.up);
+                    if (TagManager.HasTag(g, "enemy"))
+                    {
+                        g.GetComponent<EnemyTesting>().TakeDamage(BasicAttackDamage, transform.up);
+                    }
                 }
+               
             }
         }
     }
@@ -511,6 +533,7 @@ public class RammyController : MonoBehaviour
             _rammyVFX.RamAttack(_chargedEnemy);
 
             // Sorry for filling your lovely code up with my old commented out trash code.
+            //  Then why not just delete it?  -JG
 
             /*
             var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
