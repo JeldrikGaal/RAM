@@ -52,6 +52,7 @@ public class RammyController : MonoBehaviour
     private Rigidbody _rB;
     private MeshRenderer _mR;
     [SerializeField] private RammyFrontCheck _frontCheck;
+    [SerializeField] private CinemachineTopDown _cameraScript;
 
     [Header("Character State")]
     // Bools describing playerstate
@@ -84,6 +85,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float DashDistance;
     [SerializeField] private float DashCoolDown;
     [SerializeField] private float DashAttackDamage;
+    [SerializeField] private bool  DashUpgraded;
 
     // Variables for Dashing
     private float _startTimeDash;
@@ -514,7 +516,19 @@ public class RammyController : MonoBehaviour
             if (_dashVisuals != null) _dashVisuals.StartDash();
             Dashing = true;
             _startTimeDash = Time.time;
+            RaycastHit hit;
             _dashDestination = transform.position + _lookingAtMouseRotation * DashDistance;
+
+            // Checking if player would end up in an object while dashing and shortening dash if thats the case
+            if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, DashDistance))
+            {
+                if (Vector3.Distance(hit.point, _dashDestination) < hit.transform.GetComponent<MeshRenderer>().bounds.size.y)
+                {
+                    _dashDestination = hit.point;
+                }
+                
+            }
+            
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
@@ -524,7 +538,13 @@ public class RammyController : MonoBehaviour
             _rB.velocity = Vector3.zero;
             _chargeAttackAllowed = false;
             _dashingAllowed = false;
-            Invincible = true;
+
+            // Handle differences in dash if it has been upgraded already
+            if (DashUpgraded)
+            {
+                Invincible = true;
+            }
+            
         }
     }
 
@@ -562,6 +582,8 @@ public class RammyController : MonoBehaviour
             // VFX
 
             _rammyVFX.RamAttack(_chargedEnemy);
+
+            _cameraScript.ScreenShake();
 
             // Sorry for filling your lovely code up with my old commented out trash code.
             //  Then why not just delete it?  -JG
@@ -634,5 +656,15 @@ public class RammyController : MonoBehaviour
     public void EndUsingAbility()
     {
         UsingAbility = false;
+    }
+
+    // Blocking and unblocking player controlled movement
+    public void BlockPlayerMovment()
+    {
+        _blockMovement = true;
+    }
+    public void UnBlockPlayerMovement()
+    {
+        _blockMovement = false;
     }
 }

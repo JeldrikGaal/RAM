@@ -9,6 +9,10 @@ public class CinemachineTopDown : MonoBehaviour
     CinemachineImpulseSource _impulseSource;
     [SerializeField] float screenShakeForce = 0.1f;
     [SerializeField] bool _shakeStart;
+    [SerializeField] Vector3 _cameraDistanceVector;
+    [SerializeField] Vector3 _cameraDistanceVectorCurrent;
+    [SerializeField] float _cameraDistance;
+    [SerializeField] float _cameraDistanceCurrent;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,16 +22,24 @@ public class CinemachineTopDown : MonoBehaviour
         //Necessary component for camera follow
         _virtualCamera = gameObject.GetComponent<CinemachineVirtualCamera>();
         _virtualCamera.m_Follow = GameObject.FindGameObjectWithTag("Player").transform;
-        transform.position = new Vector3(transform.position.x + 7.13f, transform.position.y + 18.03f, transform.position.z + -6.26f);
+        transform.position = new Vector3(_virtualCamera.m_Follow.transform.position.x + 7.13f, _virtualCamera.m_Follow.transform.position.y + 18.03f, _virtualCamera.m_Follow.transform.position.z + -6.26f);
+        _cameraDistanceVector = new Vector3(7.13f, 18.03f, -6.26f);
+        _cameraDistance = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
+        _cameraDistanceCurrent = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
+        _cameraDistanceVectorCurrent = transform.position - _virtualCamera.m_Follow.transform.position;
         if (_shakeStart)
         {
             _impulseSource.GenerateImpulseWithForce(screenShakeForce);
             _shakeStart = false;
+        }
+        if (_cameraDistanceCurrent > _cameraDistance * 1.05f || _cameraDistanceCurrent < _cameraDistance * 0.95f)
+        {
+            //transform.position = transform.position + _cameraDistanceVector;
         }
     }
 
@@ -37,5 +49,11 @@ public class CinemachineTopDown : MonoBehaviour
     public void ScreenShake()
     {
         _shakeStart = true;
+    }
+    public void UpdateVCam()
+    {
+        _virtualCamera.enabled = false;
+        transform.position = new Vector3(_virtualCamera.m_Follow.transform.position.x + 7.13f, _virtualCamera.m_Follow.transform.position.y + 18.03f, _virtualCamera.m_Follow.transform.position.z + -6.26f);
+        _virtualCamera.enabled = true;
     }
 }
