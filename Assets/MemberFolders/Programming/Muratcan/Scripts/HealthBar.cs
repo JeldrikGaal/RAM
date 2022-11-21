@@ -17,7 +17,7 @@ public class HealthBar : MonoBehaviour
         _cameraTransform = Camera.main.transform;
         _parentCharacter = transform.parent.gameObject;
 
-        if (_parentCharacter.CompareTag("Player"))
+        if (_parentCharacter.transform.parent != null && _parentCharacter.transform.parent.gameObject.CompareTag("Player"))
         {
             _healthBarImage.color = _playerHealthColor;
         }

@@ -50,6 +50,9 @@ public class CinemachineTopDown : MonoBehaviour
     {
         _shakeStart = true;
     }
+    /// <summary>
+    /// Use this to update the camera follow after you have changed the player position from the code and it messes up the camera. Hopefully we won't need it.
+    /// </summary>
     public void UpdateVCam()
     {
         _virtualCamera.enabled = false;
