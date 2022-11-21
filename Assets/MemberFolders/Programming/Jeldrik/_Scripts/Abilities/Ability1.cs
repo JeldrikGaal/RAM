@@ -9,7 +9,7 @@ public class Ability1 : Abilities
     /*[HideInInspector]*/
     public bool Upgraded;
 
-    [SerializeField] private AnimationCurve _yPosCurve;
+    private AnimationCurve _yPosCurve;
 
     [SerializeField] private GameObject _damageArea;
     [SerializeField] private GameObject _upgradedArea;
@@ -17,6 +17,9 @@ public class Ability1 : Abilities
     private Vector3 _startPos;
 
     private float _jumpTimer;
+
+    [SerializeField] private float _jumpHeight;
+    [SerializeField] private float _jumpDuration;
 
     private Rigidbody _rb;
 
@@ -48,13 +51,13 @@ public class Ability1 : Abilities
                 // Sets jumping to false
                 _jumping = false;
 
-                // Unblocks the movement
+                // Unblocks the movement inputs
                 _controller.UnBlockPlayerMovement();
 
                 // Spawns the damage area at the players feet
                 var jumpArea = Instantiate(_damageArea, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), Quaternion.identity);
 
-                // Destroy the damage area after 0,5 seconds
+                // Destroy the damage area after 0.5 seconds
                 Destroy(jumpArea, 0.5f);
 
                 // Checks if the ability is upgraded or not
@@ -66,6 +69,7 @@ public class Ability1 : Abilities
             }
         }
     }
+
     override public void Activate()
     {
         // Activates the ability
@@ -77,6 +81,20 @@ public class Ability1 : Abilities
         // Saves the startpos of the jump
         _startPos = transform.position;
 
+        // Creates a local keyframe array with 3 values
+        Keyframe[] keyframes = new Keyframe[3];
+
+        // Sets the first keyfram at 0 seconds and 0 value
+        keyframes[0] = new Keyframe(0, 0);
+
+        // Sets the second keyframe to be at half the duration of the jump and at max height
+        keyframes[1] = new Keyframe(_jumpDuration / 2, _jumpHeight);
+
+        // Sets the last keyframe at the full duration of the jump and the value to 0
+        keyframes[2] = new Keyframe(_jumpDuration, 0);
+
+        // Sets the keyframe values to the animation curve
+        _yPosCurve = new AnimationCurve(keyframes);
 
         Debug.Log(_controller.transform.position);
         Debug.Log("Ability 1");
@@ -84,13 +102,13 @@ public class Ability1 : Abilities
 
     private IEnumerator SpawnUpgradedArea()
     {
-        // Waits for 0,5 seconds
+        // Waits for 0.5 seconds
         yield return new WaitForSeconds(0.5f);
 
         // Spawns the upgraded damage area at the players feet
         var upgradedArea = Instantiate(_upgradedArea, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), Quaternion.identity);
 
-        // Destroys the area after 0,5 seconds
+        // Destroys the area after 0.5 seconds
         Destroy(upgradedArea, 0.5f);
     }
 }
