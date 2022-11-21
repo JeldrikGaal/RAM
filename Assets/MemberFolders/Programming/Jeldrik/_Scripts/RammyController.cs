@@ -83,6 +83,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float DashDuration;
     [SerializeField] private float DashDistance;
     [SerializeField] private float DashCoolDown;
+    [SerializeField] private float DashAttackDamage;
 
     // Variables for Dashing
     private float _startTimeDash;
@@ -240,6 +241,7 @@ public class RammyController : MonoBehaviour
         _mouseWorldPosition = new Vector3(_mouseWorldPosition.x, transform.position.y, _mouseWorldPosition.z);
         _lookingAtMouseRotation = _mouseWorldPosition - transform.position;
         _lookingAtMouseRotation = _lookingAtMouseRotation.normalized;
+        
         #endregion
 
         #region Movement
@@ -477,6 +479,8 @@ public class RammyController : MonoBehaviour
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
+            transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            //transform.forward = Vector3.up;
             _blockMovement = true;
             _mR.material = _mats[1];
             _rB.velocity = Vector3.zero;
@@ -514,6 +518,7 @@ public class RammyController : MonoBehaviour
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
+            transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
             _blockMovement = true;
             _mR.material = _mats[2];
             _rB.velocity = Vector3.zero;
@@ -614,8 +619,10 @@ public class RammyController : MonoBehaviour
         // Handle colliding with objects while dashing
         if (Dashing)
         {
-            //Dashing = false;
-            //EndDash();
+            if (TagManager.HasTag(collision.gameObject, "enemy"))
+            {
+                collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(DashAttackDamage, transform.up);
+            }
         }
     }
 
