@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// In case it wasn't obvious this is just a temp script so it's possible to test other features. Don't actually use this for anything
 public class Jonas_TempCharacter : MonoBehaviour
 {
     [HideInInspector]
