@@ -41,6 +41,10 @@ public class RammyController : MonoBehaviour
     private float _ability2Key;
     private float _ability3Key;
     private float _ability4Key;
+    [SerializeField] private Ability1 _ability1Script;
+    [SerializeField] private Ability2 _ability2Script;
+    [SerializeField] private Ability3 _ability3Script;
+    [SerializeField] private Ability4 _ability4Script;
 
     // Components
     [Header("Components")]
@@ -56,6 +60,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private bool Dashing;
     [SerializeField] private bool Invincible;
     [SerializeField] private bool Walking;
+    [SerializeField] private bool UsingAbility;
 
     [Header("Player Stats")]
     // Player Values
@@ -78,6 +83,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float DashDuration;
     [SerializeField] private float DashDistance;
     [SerializeField] private float DashCoolDown;
+    [SerializeField] private float DashAttackDamage;
 
     // Variables for Dashing
     private float _startTimeDash;
@@ -235,6 +241,7 @@ public class RammyController : MonoBehaviour
         _mouseWorldPosition = new Vector3(_mouseWorldPosition.x, transform.position.y, _mouseWorldPosition.z);
         _lookingAtMouseRotation = _mouseWorldPosition - transform.position;
         _lookingAtMouseRotation = _lookingAtMouseRotation.normalized;
+        
         #endregion
 
         #region Movement
@@ -371,8 +378,29 @@ public class RammyController : MonoBehaviour
 
         #region Abilities
 
+        List<Abilities> l = new List<Abilities>();
+        l.Add(_ability1Script);
 
-
+        // Checking if the player is already using an ability and performing wanted ability if not
+        if (!UsingAbility)
+        {
+            if (_ability1Key == 1)
+            {
+                l[0].CheckActivate();
+            }
+            else if (_ability2Key == 1)
+            {
+                _ability2Script.CheckActivate();
+            }
+            else if (_ability3Key == 1)
+            {
+                _ability3Script.CheckActivate();
+            }
+            else if (_ability4Key == 1)
+            {
+                _ability4Script.CheckActivate();
+            }
+        }
         #endregion
 
         // Showing in engine where the player is gonna dash towards
@@ -451,6 +479,8 @@ public class RammyController : MonoBehaviour
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
+            transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            //transform.forward = Vector3.up;
             _blockMovement = true;
             _mR.material = _mats[1];
             _rB.velocity = Vector3.zero;
@@ -488,6 +518,7 @@ public class RammyController : MonoBehaviour
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
+            transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
             _blockMovement = true;
             _mR.material = _mats[2];
             _rB.velocity = Vector3.zero;
@@ -588,8 +619,20 @@ public class RammyController : MonoBehaviour
         // Handle colliding with objects while dashing
         if (Dashing)
         {
-            //Dashing = false;
-            //EndDash();
+            if (TagManager.HasTag(collision.gameObject, "enemy"))
+            {
+                collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(DashAttackDamage, transform.up);
+            }
         }
+    }
+
+    // Functions to start and end the usage of any ability
+    public void StartUsingAbility()
+    {
+        UsingAbility = true;
+    }
+    public void EndUsingAbility()
+    {
+        UsingAbility = false;
     }
 }
