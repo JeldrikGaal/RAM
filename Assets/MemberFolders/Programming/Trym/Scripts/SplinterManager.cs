@@ -129,7 +129,7 @@ public class SplinterManager : MonoBehaviour
         splinter.gameObject.SetActive(true);
         splinter.position = position;
         splinter.transform.LookAt(position + direction);
-        splinter.velocity = splinter.transform.forward * speed;
+        splinter.velocity = direction * speed;
 
         _instance.StartCoroutine(DisableSplinter(splinter, time));
         return true;

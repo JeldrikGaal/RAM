@@ -12,7 +12,7 @@ public class Splintring : MonoBehaviour, IRammable
     [SerializeField] float _maxLifetime, _minLifetime;
 
     /// <summary>
-    /// the IRammable Hit funktion.
+    /// the IRammable Hit function triggering the splintering.
     /// </summary>
     /// <param name="g"></param>
     /// <returns></returns>
@@ -25,14 +25,17 @@ public class Splintring : MonoBehaviour, IRammable
     // "Spawns" all the splinters if there is not enough available, it will try again next frame.
     private void Splinter(GameObject g )
     {
+        var initialDir = -/*transform.InverseTransformPoint(g.transform.position);*/(g.transform.position - transform.position);
         for (int i = 0; i < _amountOfSplinters; i++ )
         {
-            var dir = (((
-                transform.position * 2 - g.transform.position) * 3)+ new Vector3(
-                    Random.Range(-_spread, _spread), 
-                    Random.Range(-_spread, _spread), 
-                    Random.Range(-_spread, _spread)
-                    )).normalized;
+            print(initialDir);
+            Vector3 dir;
+           dir = ((initialDir
+                       * 10) + new Vector3(
+                          Random.Range(-_spread, _spread), 
+                          Random.Range(-_spread+1, _spread+1), 
+                          Random.Range(-_spread, _spread)
+                      )).normalized;
             SplinterManager.RequestSplinter(transform.position + (dir * _spawnOffset), dir, _velosity, Random.Range(_minLifetime,_maxLifetime));
         }
     }
