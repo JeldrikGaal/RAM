@@ -539,7 +539,7 @@ public class RammyController : MonoBehaviour
             _rB.velocity = Vector3.zero;
             _chargeAttackAllowed = false;
 
-            _dashVisuals.StartDash();
+            _dashVisuals.StartDash(transform.rotation);
         }
     }
 
@@ -566,7 +566,7 @@ public class RammyController : MonoBehaviour
     {
         if (!Attacking && _dashingAllowed)
         {
-            if (_dashVisuals != null) _dashVisuals.StartDash();
+            
             Dashing = true;
             _startTimeDash = Time.time;
             RaycastHit hit;
@@ -592,6 +592,8 @@ public class RammyController : MonoBehaviour
             _rB.velocity = Vector3.zero;
             _chargeAttackAllowed = false;
             _dashingAllowed = false;
+
+            if (_dashVisuals != null) _dashVisuals.StartDash(transform.rotation);
 
             // Handle differences in dash if it has been upgraded already
             if (DashUpgraded)

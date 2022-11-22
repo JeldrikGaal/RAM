@@ -18,6 +18,10 @@ public class EnemyTesting : MonoBehaviour
 
     [SerializeField] private float _defaultSpeed;
 
+    [SerializeField] private bool _respawnAfterDeath;
+    [SerializeField] private bool _respawnTimer;
+    private float _deathTime;
+
     [HideInInspector] public float StunDuration;
     [HideInInspector] public bool Stunned;
 
@@ -89,7 +93,16 @@ public class EnemyTesting : MonoBehaviour
                                    new Vector2(_lastIncomingHit.y - _deathPiecesSpreadingFactor, _lastIncomingHit.y + _deathPiecesSpreadingFactor),
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
                                    _forceMultipier, _pieceCount, _pieceLiftime); // force multiplier, amount, lifespan
-        Destroy(gameObject);
+        if (!_respawnAfterDeath)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _deathTime = Time.time;
+            //transform.gameObject.hi
+        }
+        
     }
 
     public IEnumerator Stun(float duration)
