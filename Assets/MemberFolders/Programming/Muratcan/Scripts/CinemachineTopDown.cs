@@ -51,6 +51,15 @@ public class CinemachineTopDown : MonoBehaviour
         _shakeStart = true;
     }
     /// <summary>
+    /// Use this to create a screen shake effect. Do not use this in continuous methods like Update(). Call this once every time you need it. Default force value is 0.1f. Can be tested in inspector with "Shake Start" bool.
+    /// </summary>
+    public void ScreenShake(float strength)
+    {
+        screenShakeForce = strength;
+        _shakeStart = true;
+    
+    }
+    /// <summary>
     /// Use this to update the camera follow after you have changed the player position from the code and it messes up the camera. Hopefully we won't need it.
     /// </summary>
     public void UpdateVCam()

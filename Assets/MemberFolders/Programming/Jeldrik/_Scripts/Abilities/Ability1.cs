@@ -52,6 +52,9 @@ public class Ability1 : Abilities
             // If the timer has passed the last keyframe in the animation
             if (_jumpTimer > _yPosCurve.keys[_yPosCurve.keys.Length - 1].time)
             {
+                // Add Screen Shake
+                _controller.AddScreenShake(1.2f);
+
                 // Records the landing position
                 _landingPos = transform.position;
 
