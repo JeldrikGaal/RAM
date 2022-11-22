@@ -369,10 +369,10 @@ public class RammyController : MonoBehaviour
         }
 
         // Visualize the charging progress
-        if (_frameCounterRightMouseButton > MinChargeTime)
+        if (_frameCounterRightMouseButton > 0)
         {
             _directionIndicatorTip.transform.localScale = new Vector3(_directionIndicatorScaleSave.x, _directionIndicatorScaleSave.y, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
-            _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z - ((_frameCounterRightMouseButton / MaxChargeTime) * 1f));
+            _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z + ((_frameCounterRightMouseButton / MaxChargeTime) * 0.5f));
         }
 
 
@@ -454,10 +454,12 @@ public class RammyController : MonoBehaviour
         {
             if (_ability1Key == 1)
             {
+                
                 l[0].CheckActivate();
             }
             else if (_ability2Key == 1)
             {
+                _cameraScript.ScreenShake(1.2f);
                 _ability2Script.CheckActivate();
             }
             else if (_ability3Key == 1)
@@ -577,6 +579,8 @@ public class RammyController : MonoBehaviour
         _blockMovement = false;
         transform.rotation = _savedRotation;
         _mR.material = _mats[0];
+        _directionIndicatorTip.transform.localPosition = _directionIndicatorPosSave;
+        _directionIndicatorTip.transform.localScale = _directionIndicatorScaleSave;
         if (_chargedEnemy != null)
         {
             _chargedEnemy = null;
@@ -667,7 +671,7 @@ public class RammyController : MonoBehaviour
 
             _rammyVFX.RamAttack(_chargedEnemy);
 
-            _cameraScript.ScreenShake();
+            _cameraScript.ScreenShake(0.5f);
 
             // Sorry for filling your lovely code up with my old commented out trash code.
             //  Then why not just delete it?  -JG
@@ -758,6 +762,7 @@ public class RammyController : MonoBehaviour
     public void StartUsingAbility()
     {
         UsingAbility = true;
+        
     }
     public void EndUsingAbility()
     {
@@ -774,4 +779,9 @@ public class RammyController : MonoBehaviour
         _blockMovement = false;
     }
     #endregion
+
+    public void AddScreenShake(float strength)
+    {
+        _cameraScript.ScreenShake(strength);
+    }
 }
