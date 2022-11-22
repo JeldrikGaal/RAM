@@ -11,7 +11,7 @@ public class RammyVFX : MonoBehaviour
 
     [Header("Ram attack")]
     [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
-    [Range(-90f, 90f)] public float _heightAngle = 1;
+    [Range(0f, 90f)] public float _heightAngle = 20;
     [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMin;
     [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMax;
     [Range(0, 15)] public int _bloodAmount = 5;
@@ -20,30 +20,35 @@ public class RammyVFX : MonoBehaviour
 
     [Header("Normal attack")]
     [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadNormal = 0.5f;
-    [Range(-90f, 90f)] public float _heightAngleNormal = 1;
+    [Range(0f, 90f)] public float _heightAngleNormal = 20;
     [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinNormal;
     [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxNormal;
     [Range(0, 15)] public int _bloodAmountNormal = 5;
     [Range(0.1f, 2)] public float _bloodSizeMinNormal = 1;
     [Range(0.1f, 2)] public float _bloodSizeMaxNormal = 1;
 
+    [Header("Blood variations")]
+    [SerializeField] private GameObject[] _bloodVariations;
+
+
+
     public void RamAttack(GameObject enemy)
     {
-        SpawnBlood(_bloodSizeMin, _bloodSizeMax, _bloodSpread, _bloodAmount, _bloodForceMin, _bloodForceMax, enemy);
+        SpawnBlood(_bloodSizeMin, _bloodSizeMax, _bloodSpread, _heightAngle, _bloodAmount, _bloodForceMin, _bloodForceMax, enemy);
     }
     public void NormalAttack(GameObject enemy)
     {
-        SpawnBlood(_bloodSizeMin, _bloodSizeMax, _bloodSpread, _bloodAmount, _bloodForceMin, _bloodForceMax, enemy);
+        SpawnBlood(_bloodSizeMinNormal, _bloodSizeMaxNormal, _bloodSpreadNormal, _heightAngleNormal, _bloodAmountNormal, _bloodForceMinNormal, _bloodForceMaxNormal, enemy);
     }
 
-    private void SpawnBlood(float bloodSizeMin, float bloodSizeMax, float bloodSpread, float bloodAmount, float bloodForceMin, float bloodForceMax, GameObject rammedObject)
+    private void SpawnBlood(float bloodSizeMin, float bloodSizeMax, float bloodSpread, float angle, float bloodAmount, float bloodForceMin, float bloodForceMax, GameObject rammedObject)
     {
         var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
         _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
-
+        angle = -angle;
 
         // Vector3 _enemyDirection = rammedObject.transform.position - this.transform.position;
-        _bloodSpreadCalculator.transform.localRotation = Quaternion.Euler(_heightAngle, 0, 0);
+        _bloodSpreadCalculator.transform.localRotation = Quaternion.Euler(angle, 0, 0);
 
         _bloodSpreadCalculator.transform.GetChild(0).transform.localScale = new Vector3(bloodSpread, 1, 1);
 
@@ -53,6 +58,10 @@ public class RammyVFX : MonoBehaviour
         var i = 0;
         foreach (Transform child in _bloodPrefab.transform)
         {
+
+            int randomMaterialNum = Random.Range(0, _bloodVariations.Length);
+
+
             if (i >= bloodAmount)
             {
                 Destroy(child.gameObject);
@@ -60,6 +69,7 @@ public class RammyVFX : MonoBehaviour
             i++;
             child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
             child.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
+            child.GetComponent<StickyBlood>().SplatObject = _bloodVariations[randomMaterialNum];
             child.GetComponent<InitVelocity>().CalcDirLeft = _bloodDir1;
             child.GetComponent<InitVelocity>().CalcDirRight = _bloodDir2;
             child.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;

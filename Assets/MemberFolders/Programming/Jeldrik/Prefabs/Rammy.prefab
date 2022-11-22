@@ -1346,7 +1346,7 @@ Transform:
   - {fileID: 1489133656}
   - {fileID: 1744025166}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1415,13 +1415,16 @@ MonoBehaviour:
   _ability3Script: {fileID: 2117861001280260777}
   _ability4Script: {fileID: 5920122201635186104}
   _frontCheck: {fileID: 1024294334}
+  _cameraScript: {fileID: 0}
   Attacking: 0
   BasicAttacking: 0
   Dashing: 0
   Invincible: 0
   Walking: 0
   UsingAbility: 0
-  Health: 0
+  Health: 90
+  MaxHealth: 100
+  HealPercentage: 5
   MovementSpeed: 10
   BasicAttackCoolDown: 1
   BasicAttackDamage: 5
@@ -1429,7 +1432,8 @@ MonoBehaviour:
   DashDuration: 0.1
   DashDistance: 5
   DashCoolDown: 1
-  DashAttackDamage: 0
+  DashAttackDamage: 2
+  DashUpgraded: 0
   _dashVisuals: {fileID: 1279146745}
   ChargeAttackDuration: 0.3
   ChargeAttackDistance: 10
@@ -1459,6 +1463,12 @@ MonoBehaviour:
   Cooldown: 2
   Duration: 1
   _controller: {fileID: 0}
+  _jumping: 0
+  Upgraded: 0
+  _damageArea: {fileID: 0}
+  _upgradedArea: {fileID: 0}
+  _jumpHeight: 0
+  _jumpDuration: 0
 --- !u!114 &4294135203534987049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1549,12 +1559,20 @@ MonoBehaviour:
   _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
   _bloodSpreadCalculator: {fileID: 1489133655}
   _stepScript: {fileID: 1489133657}
-  _bloodSpread: 0.5
-  _bloodForceMin: 0.8
-  _bloodForceMax: 1.2
+  _bloodSpread: 1.069
+  _heightAngle: 1
+  _bloodForceMin: 3.82
+  _bloodForceMax: 6.47
   _bloodAmount: 10
-  _bloodSizeMin: 0.9
-  _bloodSizeMax: 1.1
+  _bloodSizeMin: 0.686
+  _bloodSizeMax: 1.345
+  _bloodSpreadNormal: 0.5
+  _heightAngleNormal: 1
+  _bloodForceMinNormal: 0
+  _bloodForceMaxNormal: 0
+  _bloodAmountNormal: 5
+  _bloodSizeMinNormal: 1
+  _bloodSizeMaxNormal: 1
 --- !u!114 &1279146745
 MonoBehaviour:
   m_ObjectHideFlags: 0

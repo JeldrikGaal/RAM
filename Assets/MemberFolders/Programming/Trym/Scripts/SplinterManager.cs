@@ -27,7 +27,7 @@ public class SplinterManager : MonoBehaviour
     
     [SerializeField] Rigidbody _splinterPrefab;
     [SerializeField] int _pool = 300;
-    [SerializeField] float _lifetime = 5;
+    
     static int _amount;
     static Rigidbody[] _splinters;
     static int _currentSplinter;
@@ -60,6 +60,7 @@ public class SplinterManager : MonoBehaviour
 
 
     #region For getting splinters
+    // List of splinter requests to be handeled.
     static List<(Vector3 position, Vector3 direction, float speed, float time)> _requests = new();
     static bool _running = false;
 
@@ -82,8 +83,10 @@ public class SplinterManager : MonoBehaviour
     static IEnumerator ServesSplinters()
     {
         _running = true;
+        int i = 0;
         while (_requests.Count>0)
         {
+            // extacts the dataand tries to get a splinter
             _running = true;
             var position = _requests[0].position;
             var direction = _requests[0].direction;
@@ -97,12 +100,15 @@ public class SplinterManager : MonoBehaviour
             {
                 yield return new WaitForEndOfFrame();
             }
+            i++;
+            
         }
+        
         _running = false;
     }
 
     /// <summary>
-    /// Pulls a splinter from the object pool.
+    /// Pulls a splinter from the object pool, if awailable.
     /// </summary>
     /// <param name="position"></param>
     /// <param name="direction"></param>
@@ -124,8 +130,10 @@ public class SplinterManager : MonoBehaviour
             
         }
 
+        // gets the next number to cycle trough the list
         _currentSplinter = _currentSplinter + 1 < _amount ? _currentSplinter + 1 : 0;
         
+        // setting all relevant data
         splinter.gameObject.SetActive(true);
         splinter.position = position;
         splinter.transform.LookAt(position + direction);
@@ -136,6 +144,7 @@ public class SplinterManager : MonoBehaviour
     }
     #endregion
 
+    // disables the object after it's lifetime.
     private static IEnumerator DisableSplinter(Rigidbody splinter, float time)
     {
         yield return new WaitForSeconds(time);

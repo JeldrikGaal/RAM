@@ -25,7 +25,10 @@ public class Splintring : MonoBehaviour, IRammable
     // "Spawns" all the splinters if there is not enough available, it will try again next frame.
     private void Splinter(GameObject g )
     {
+        // gets the initial direction for spawning the splinters
         var initialDir = -/*transform.InverseTransformPoint(g.transform.position);*/(g.transform.position - transform.position);
+
+        // Sends requests for a,l the needed splinters with offdet direction based on spread.
         for (int i = 0; i < _amountOfSplinters; i++ )
         {
             print(initialDir);
