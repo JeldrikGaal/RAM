@@ -61,7 +61,8 @@ public class BloodySteps : MonoBehaviour
         }
         if (_deleting == true)
         {
-            Destroy(_bloodSplats[_completedPoint].gameObject);
+            _bloodSplats[_completedPoint].GetComponent<FadeOnTrigger>().Fade = true;
+            Destroy(_bloodSplats[_completedPoint].gameObject, 5);
         }
         _bloodSplats[_completedPoint] = ob;
         _locationPoints[_completedPoint] = point;
