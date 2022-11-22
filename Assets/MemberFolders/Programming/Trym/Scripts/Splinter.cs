@@ -66,7 +66,7 @@ public class Splinter : MonoBehaviour
 
 }
 [System.Serializable]
-public struct SplinterProperties
+public class SplinterProperties
 {
     public float Damage;
     public float Knockback;

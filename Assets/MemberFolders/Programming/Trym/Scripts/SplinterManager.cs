@@ -154,3 +154,14 @@ public class SplinterManager : MonoBehaviour
 
 
 }
+
+/*
+public abstract class Properties
+{
+
+}
+
+public abstract class Pooltoys: MonoBehaviour
+{
+    public abstract void SetProperties(Properties properties );
+}*/

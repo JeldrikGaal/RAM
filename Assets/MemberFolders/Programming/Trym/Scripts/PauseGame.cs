@@ -56,6 +56,7 @@ public class PauseGame : MonoBehaviour
         _pauseMenu.SetActive(true);
         _paused = true;
         OnPausedEventHandler(true);
+        _onPause.Invoke();
     }
     /// <summary>
     /// Resumes the game
@@ -68,6 +69,7 @@ public class PauseGame : MonoBehaviour
         _pauseMenu.SetActive(false);
         _paused = false;
         OnPausedEventHandler(false);
+        _onUnpause.Invoke();
     }
 
     /// <summary>
