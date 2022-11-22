@@ -7,8 +7,8 @@ public class Ability2 : Abilities
     Rigidbody _rb;
     Ray _ray;
     [SerializeField] Collider[] hitColliders = new Collider[50];
-    [SerializeField] float range;
-    [SerializeField] float damage;
+    [SerializeField] float range = 5;
+    [SerializeField] float damage = 15;
     public override void Start()
     {
         base.Start();
