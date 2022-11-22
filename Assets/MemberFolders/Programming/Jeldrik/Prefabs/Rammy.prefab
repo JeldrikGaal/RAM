@@ -1360,6 +1360,7 @@ GameObject:
   - component: {fileID: 4294135203534987049}
   - component: {fileID: 2117861001280260777}
   - component: {fileID: 5920122201635186104}
+  - component: {fileID: 7400901502415930422}
   - component: {fileID: 4974556004237746302}
   - component: {fileID: 4974556004237746298}
   - component: {fileID: 3586331904611896420}
@@ -1392,7 +1393,7 @@ Transform:
   - {fileID: 1744025166}
   - {fileID: 744586600721938918}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1460,6 +1461,7 @@ MonoBehaviour:
   _ability2Script: {fileID: 4294135203534987049}
   _ability3Script: {fileID: 2117861001280260777}
   _ability4Script: {fileID: 5920122201635186104}
+  _ability5Script: {fileID: 0}
   _frontCheck: {fileID: 1024294334}
   _cameraScript: {fileID: 0}
   Attacking: 0
@@ -1618,6 +1620,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cooldown: 5
   Duration: 4
+  _controller: {fileID: 0}
+--- !u!114 &7400901502415930422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974556004237746303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e456668a99208746a5999568adf0763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 1
+  Duration: 1
   _controller: {fileID: 0}
 --- !u!136 &4974556004237746302
 CapsuleCollider:

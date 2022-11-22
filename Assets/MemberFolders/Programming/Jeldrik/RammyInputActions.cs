@@ -98,6 +98,15 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability5"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a2baa89-e329-4638-8544-6e9d9f17bba5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -307,6 +316,17 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Ability4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f70287be-edfa-4cb5-b2d6-b3311397cbd8"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Ability5"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -922,6 +942,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
         m_Player_Ability2 = m_Player.FindAction("Ability2", throwIfNotFound: true);
         m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
         m_Player_Ability4 = m_Player.FindAction("Ability4", throwIfNotFound: true);
+        m_Player_Ability5 = m_Player.FindAction("Ability5", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1002,6 +1023,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Ability2;
     private readonly InputAction m_Player_Ability3;
     private readonly InputAction m_Player_Ability4;
+    private readonly InputAction m_Player_Ability5;
     public struct PlayerActions
     {
         private @RammyInputActions m_Wrapper;
@@ -1014,6 +1036,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
         public InputAction @Ability2 => m_Wrapper.m_Player_Ability2;
         public InputAction @Ability3 => m_Wrapper.m_Player_Ability3;
         public InputAction @Ability4 => m_Wrapper.m_Player_Ability4;
+        public InputAction @Ability5 => m_Wrapper.m_Player_Ability5;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1047,6 +1070,9 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 @Ability4.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility4;
                 @Ability4.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility4;
                 @Ability4.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility4;
+                @Ability5.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility5;
+                @Ability5.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility5;
+                @Ability5.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility5;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1075,6 +1101,9 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 @Ability4.started += instance.OnAbility4;
                 @Ability4.performed += instance.OnAbility4;
                 @Ability4.canceled += instance.OnAbility4;
+                @Ability5.started += instance.OnAbility5;
+                @Ability5.performed += instance.OnAbility5;
+                @Ability5.canceled += instance.OnAbility5;
             }
         }
     }
@@ -1247,6 +1276,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
         void OnAbility2(InputAction.CallbackContext context);
         void OnAbility3(InputAction.CallbackContext context);
         void OnAbility4(InputAction.CallbackContext context);
+        void OnAbility5(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

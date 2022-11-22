@@ -19,8 +19,7 @@ public class EnemyTesting : MonoBehaviour
     [SerializeField] private float _defaultSpeed;
 
     [SerializeField] private bool _respawnAfterDeath;
-    [SerializeField] private bool _respawnTimer;
-    private float _deathTime;
+    private BuildSceneUtility _utilScript;
 
     [HideInInspector] public float StunDuration;
     [HideInInspector] public bool Stunned;
@@ -44,7 +43,7 @@ public class EnemyTesting : MonoBehaviour
         _startingHealth = _health;
 
         // Records the default speed
-        _defaultSpeed = GetComponent<Jonas_TempCharacter>().MoveSpeed;
+        if(GetComponent<Jonas_TempCharacter>()) _defaultSpeed = GetComponent<Jonas_TempCharacter>().MoveSpeed;
     }
 
     // Update is called once per frame
@@ -99,8 +98,7 @@ public class EnemyTesting : MonoBehaviour
         }
         else
         {
-            _deathTime = Time.time;
-            //transform.gameObject.hi
+            //_utilScript
         }
         
     }
