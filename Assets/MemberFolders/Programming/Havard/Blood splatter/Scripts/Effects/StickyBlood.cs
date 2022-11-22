@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class StickyBlood : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class StickyBlood : MonoBehaviour
 
     public BloodySteps BloodStepScript;
     public float BloodSize;
+    public Material BloodMaterial;
 
     private Rigidbody rb;
 
@@ -49,6 +51,7 @@ public class StickyBlood : MonoBehaviour
             var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
             prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
             BloodStepScript.AddPoint(new Vector2(item.point.x, item.point.z), prefab.gameObject);
+            prefab.GetComponent<DecalProjector>().material = BloodMaterial;
 
             /// All of this was for a quad which spawned on the item normal. DONT DELETE, we might need to use it later if the decal doesn't work that well
             /*

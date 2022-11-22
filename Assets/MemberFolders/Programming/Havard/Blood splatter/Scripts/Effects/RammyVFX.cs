@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class RammyVFX : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class RammyVFX : MonoBehaviour
 
     // These values are completely random, and helps variate the type of blood
     [Header("Blood variations")]
-    [SerializeField] private GameObject[] _bloodVariations;
+    [SerializeField] private Material[] _bloodVariations;
 
     #region blood settings
 
@@ -82,7 +83,7 @@ public class RammyVFX : MonoBehaviour
             // Here we're accessing the projectile scripts to change the final splat's settings and the projectile direction and force.
             child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
             child.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
-            child.GetComponent<StickyBlood>().SplatObject = _bloodVariations[randomMaterialNum];
+            child.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
             child.GetComponent<InitVelocity>().CalcDirLeft = _bloodDir1;
             child.GetComponent<InitVelocity>().CalcDirRight = _bloodDir2;
             child.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
