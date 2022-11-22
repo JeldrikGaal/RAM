@@ -21,15 +21,15 @@ public class SplinterManager : MonoBehaviour
         #endregion
         #region Initialize Splinters
         _amount = _pool;
-        _splinters = new Rigidbody[_amount];
+        _splinters = new Splinter[_amount];
     }
     
     
-    [SerializeField] Rigidbody _splinterPrefab;
+    [SerializeField] Splinter _splinterPrefab;
     [SerializeField] int _pool = 300;
     
     static int _amount;
-    static Rigidbody[] _splinters;
+    static Splinter[] _splinters;
     static int _currentSplinter;
 
     // Start is called before the first frame update
@@ -61,7 +61,7 @@ public class SplinterManager : MonoBehaviour
 
     #region For getting splinters
     // List of splinter requests to be handeled.
-    static List<(Vector3 position, Vector3 direction, float speed, float time)> _requests = new();
+    static List<(Vector3 position, Vector3 direction, float speed, float time, SplinterProperties properties)> _requests = new();
     static bool _running = false;
 
     /// <summary>
@@ -70,9 +70,9 @@ public class SplinterManager : MonoBehaviour
     /// <param name="position"></param>
     /// <param name="direction"></param>
     /// <param name="speed"></param>
-    public static void RequestSplinter(Vector3 position, Vector3 direction, float speed, float time)
+    public static void RequestSplinter(Vector3 position, Vector3 direction, float speed, float time, SplinterProperties properties)
     {
-        _requests.Add((position, direction, speed, time));
+        _requests.Add((position, direction, speed, time, properties));
         if (!_running && _requests.Count>0)
         {
             _instance.StartCoroutine(ServesSplinters());
@@ -92,7 +92,8 @@ public class SplinterManager : MonoBehaviour
             var direction = _requests[0].direction;
             var speed = _requests[0].speed;
             var time = _requests[0].time;
-            if (GetSplinter(position, direction, speed, time))
+            var properties = _requests[0].properties;
+            if (GetSplinter(position, direction, speed, time, properties))
             {
                 _requests.RemoveAt(0);
             }
@@ -114,7 +115,7 @@ public class SplinterManager : MonoBehaviour
     /// <param name="direction"></param>
     /// <param name="speed"></param>
     /// <returns></returns>
-    private static bool GetSplinter(Vector3 position, Vector3 direction, float speed, float time)
+    private static bool GetSplinter(Vector3 position, Vector3 direction, float speed, float time, SplinterProperties properties)
     {
         var splinter = _splinters[_currentSplinter];
 
@@ -134,11 +135,11 @@ public class SplinterManager : MonoBehaviour
         _currentSplinter = _currentSplinter + 1 < _amount ? _currentSplinter + 1 : 0;
         
         // setting all relevant data
-        splinter.gameObject.SetActive(true);
-        splinter.position = position;
-        splinter.transform.LookAt(position + direction);
-        splinter.velocity = direction * speed;
-
+        ((Rigidbody)splinter).gameObject.SetActive(true);
+        ((Rigidbody)splinter).position = position;
+        ((Rigidbody)splinter).transform.LookAt(position + direction);
+        ((Rigidbody)splinter).velocity = direction * speed;
+        splinter.SetProperties(properties);
         _instance.StartCoroutine(DisableSplinter(splinter, time));
         return true;
     }

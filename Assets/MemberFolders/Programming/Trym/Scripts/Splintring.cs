@@ -10,7 +10,7 @@ public class Splintring : MonoBehaviour, IRammable
     [SerializeField] float _spawnOffset;
     [SerializeField] float _spread;
     [SerializeField] float _maxLifetime, _minLifetime;
-
+    [SerializeField] SplinterProperties _properties;
     /// <summary>
     /// the IRammable Hit function triggering the splintering.
     /// </summary>
@@ -39,7 +39,8 @@ public class Splintring : MonoBehaviour, IRammable
                           Random.Range(-_spread+1, _spread+1), 
                           Random.Range(-_spread, _spread)
                       )).normalized;
-            SplinterManager.RequestSplinter(transform.position + (dir * _spawnOffset), dir, _velosity, Random.Range(_minLifetime,_maxLifetime));
+
+            SplinterManager.RequestSplinter(transform.position + (dir * _spawnOffset), dir, _velosity, Random.Range(_minLifetime,_maxLifetime), _properties);
         }
     }
 
