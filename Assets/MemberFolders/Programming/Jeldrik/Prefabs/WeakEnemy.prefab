@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 3709908290141839990}
   m_Layer: 20
   m_Name: WeakEnemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,7 @@ Transform:
   m_Children:
   - {fileID: 562413679709740638}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3709908290141839985
 MeshFilter:
@@ -103,11 +103,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 40
   _deathPieces:
-  - {fileID: 4632630498151923600, guid: 9b5fe21fde07cd64b90294aa21c74b1c, type: 3}
-  _deathPiecesSpreadingFactor: 0
-  _forceMultipier: 2
+  - {fileID: 5291567064603710999, guid: 80cd9931f454fd4438ab05609fc2ed8b, type: 3}
+  - {fileID: 3906882621796642699, guid: 3b594bcea8ecf0d4c9d1fbfc968c4579, type: 3}
+  - {fileID: 2945347816356749357, guid: 53a4e5a076257d04a9f992c514aadeac, type: 3}
+  _deathPiecesOnce:
+  - {fileID: 3095865599965521266, guid: 929e6a0eff409cf47b1b250ee16330eb, type: 3}
+  - {fileID: 8085553223252622585, guid: d2c9ad2d9c835264295ffaa2971340ac, type: 3}
+  - {fileID: 6904728445656177608, guid: 636ec7836a84b484aa52c232e4c88bb0, type: 3}
+  - {fileID: 7256626866936029209, guid: cb6f29ddbe592f44582e248f0a815670, type: 3}
+  _deathPiecesSpreadingFactor: 1
+  _forceMultipier: 0.2
   _pieceLiftime: 5
   _pieceCount: 10
+  _defaultSpeed: 0
+  StunDuration: 0
+  Stunned: 0
 --- !u!114 &3709908290141839989
 MonoBehaviour:
   m_ObjectHideFlags: 0
