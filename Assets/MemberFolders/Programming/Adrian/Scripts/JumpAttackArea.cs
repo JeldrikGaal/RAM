@@ -13,8 +13,14 @@ public class JumpAttackArea : MonoBehaviour
     {
         if (other.tag == "enemy")
         {
+            // Makes the enemy take damage
             other.GetComponent<EnemyTesting>().TakeDamage(Damage, transform.up);
-            StartCoroutine(other.GetComponent<EnemyTesting>().Stun(StunDuration));
+
+            // Sets the stun duration in the enemy script
+            other.GetComponent<EnemyTesting>().StunDuration = StunDuration;
+
+            // Sets the stund variable to true so the enemy is stunned
+            other.GetComponent<EnemyTesting>().Stunned = true;
         }
     }
 }

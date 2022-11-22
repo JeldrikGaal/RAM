@@ -16,7 +16,7 @@ public class DialogueSystem : MonoBehaviour
     private float _timeSpent;
 
 
-    /// Plays an audioclip at a location with a set volume, then waits for the audioclip is over plus another variable of time in seconds to play the next clip in the array
+    // Plays an audioclip at a location with a set volume, then waits for the audioclip is over plus another variable of time in seconds to play the next clip in the array
     // Input: array of dialogue lines, array of audioclips, time in seconds to wait after the clip is over to play the next clip, 
     // world position to play the clip at, volume of the clip (0 - 1), names of the two people talking
     public IEnumerator Dialogue(string[] lines, AudioClip[] clips, float timeBetweenLines, Vector3 position, float volume, string name1, string name2)
