@@ -6,6 +6,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class BuildSceneUtility : MonoBehaviour
 {
+    [SerializeField] GameObject _enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class BuildSceneUtility : MonoBehaviour
 
     public void Respawn(GameObject g, Vector3 pos, Quaternion rot)
     {
+        Debug.Log("TEST");
         StartCoroutine(RespawnAfterTime(g, pos, rot));
     }
 
@@ -27,8 +29,11 @@ public class BuildSceneUtility : MonoBehaviour
     {
 
         yield return new WaitForSeconds(3);
-        Instantiate(g, pos, rot);
-
+        Debug.Log("TEST");
+        GameObject temp =  Instantiate(_enemy, pos, rot);
+        temp.GetComponent<EnemyTesting>()._health = 100;
+        temp.GetComponent<EnemyTesting>()._respawnAfterDeath = true;
+        temp.GetComponent<EnemyTesting>()._utilScript = this;
     }
 
 }

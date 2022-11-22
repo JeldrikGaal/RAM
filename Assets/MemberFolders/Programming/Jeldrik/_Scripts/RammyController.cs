@@ -145,11 +145,14 @@ public class RammyController : MonoBehaviour
     private Plane _groundPlane = new Plane(Vector3.up, 0);
     private Vector3 _mouseWorldPosition;
     private Vector3 _lookingAtMouseRotation;
+    private Vector3 _directionIndicatorScaleSave;
+    private Vector3 _directionIndicatorPosSave;
 
     // Debugging
     [Header("DEBUGGING STUFF")]
     [SerializeField] private List<Material> _mats = new List<Material>();
     [SerializeField] private GameObject directionIndicator;
+    private GameObject _directionIndicatorTip;
 
     #region Startup and Disable
     // Setting Input Actions on Awake
@@ -163,6 +166,9 @@ public class RammyController : MonoBehaviour
         _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
         if (GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
+        _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
+        _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
+        _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
     }
 
     // Enabling PlayerControls when player gets enabled in the scene
@@ -360,6 +366,13 @@ public class RammyController : MonoBehaviour
         {
             ReleaseChargeButton(MaxChargeTime);
             _frameCounterRightMouseButton = 0;
+        }
+
+        // Visualize the charging progress
+        if (_frameCounterRightMouseButton > MinChargeTime)
+        {
+            _directionIndicatorTip.transform.localScale = new Vector3(_directionIndicatorScaleSave.x, _directionIndicatorScaleSave.y, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
+            _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z - ((_frameCounterRightMouseButton / MaxChargeTime) * 1f));
         }
 
 
