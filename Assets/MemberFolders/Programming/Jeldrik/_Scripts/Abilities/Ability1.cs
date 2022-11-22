@@ -17,7 +17,10 @@ public class Ability1 : Abilities
     private Vector3 _startPos;
 
     private float _jumpTimer;
-
+    [SerializeField] private float _defaultStunDuration;
+    [SerializeField] private float _upgradetStunDuration;
+    [SerializeField] private float _defaultDamage;
+    [SerializeField] private float _upgradedDamage;
     [SerializeField] private float _jumpHeight;
     [SerializeField] private float _jumpDuration;
 
@@ -57,8 +60,12 @@ public class Ability1 : Abilities
                 // Spawns the damage area at the players feet
                 var jumpArea = Instantiate(_damageArea, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), Quaternion.identity);
 
+                jumpArea.GetComponent<JumpAttackArea>().StunDuration = _defaultStunDuration;
+
+                jumpArea.GetComponent<JumpAttackArea>().Damage = _defaultDamage;
+
                 // Destroy the damage area after 0.5 seconds
-                Destroy(jumpArea, 0.5f);
+                Destroy(jumpArea, 3f);
 
                 // Checks if the ability is upgraded or not
                 if (Upgraded)
@@ -107,6 +114,10 @@ public class Ability1 : Abilities
 
         // Spawns the upgraded damage area at the players feet
         var upgradedArea = Instantiate(_upgradedArea, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), Quaternion.identity);
+
+        upgradedArea.GetComponent<JumpAttackArea>().StunDuration = _upgradetStunDuration;
+
+        upgradedArea.GetComponent<JumpAttackArea>().Damage = _upgradedDamage;
 
         // Destroys the area after 0.5 seconds
         Destroy(upgradedArea, 0.5f);

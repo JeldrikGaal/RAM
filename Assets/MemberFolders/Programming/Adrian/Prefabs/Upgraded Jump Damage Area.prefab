@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3923053621530184579}
   - component: {fileID: 3923053621530184576}
   - component: {fileID: 824246763}
+  - component: {fileID: -2238238097705397797}
   m_Layer: 0
   m_Name: Upgraded Jump Damage Area
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3923053621530184638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.32296, y: 5.543797, z: -16.676174}
-  m_LocalScale: {x: 10, y: 0.1, z: 10}
+  m_LocalScale: {x: 13, y: 0.1, z: 13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,3 +98,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &-2238238097705397797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3923053621530184638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9e97f7d31be944d9936392aed8ed8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 6
+  StunDuration: 2

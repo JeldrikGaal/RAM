@@ -5,22 +5,23 @@ using UnityEngine;
 public class EnemyTesting : MonoBehaviour
 {
 
-    
+
     [SerializeField] private float _health;
 
     [Header("Death Explosion Values")]
-    [SerializeField] private GameObject[]  _deathPieces;
+    [SerializeField] private GameObject[] _deathPieces;
     [SerializeField] private float _deathPiecesSpreadingFactor;
     [SerializeField] private float _forceMultipier;
     [SerializeField] private float _pieceLiftime;
     [SerializeField] private int _pieceCount;
-    
+
+    [SerializeField] private float _defaultSpeed;
 
 
     private float _startingHealth;
     private HealthBar _healthBar;
     private PiecesManager _piecesManager;
-    
+
     private Vector3 _lastIncomingHit;
 
 
@@ -33,6 +34,7 @@ public class EnemyTesting : MonoBehaviour
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
         _startingHealth = _health;
+        _defaultSpeed = GetComponent<Jonas_TempCharacter>().MoveSpeed;
     }
 
     // Update is called once per frame
@@ -43,7 +45,7 @@ public class EnemyTesting : MonoBehaviour
             Die();
         }
 
-        
+
     }
 
     /// <summary>
@@ -54,7 +56,7 @@ public class EnemyTesting : MonoBehaviour
     public bool TakeDamage(float damage, Vector3 hitDirection)
     {
         _health -= damage;
-        _healthBar.UpdateHealthBar(- (damage/_startingHealth));
+        _healthBar.UpdateHealthBar(-(damage / _startingHealth));
         _lastIncomingHit = hitDirection;
         if (_health <= 0)
         {
@@ -68,11 +70,19 @@ public class EnemyTesting : MonoBehaviour
     /// </summary>
     private void Die()
     {
-        _piecesManager.SpawnPieces(_deathPieces, transform.position, 
-                                   new Vector2(_lastIncomingHit.x - _deathPiecesSpreadingFactor, _lastIncomingHit.x + _deathPiecesSpreadingFactor), 
+        _piecesManager.SpawnPieces(_deathPieces, transform.position,
+                                   new Vector2(_lastIncomingHit.x - _deathPiecesSpreadingFactor, _lastIncomingHit.x + _deathPiecesSpreadingFactor),
                                    new Vector2(_lastIncomingHit.y - _deathPiecesSpreadingFactor, _lastIncomingHit.y + _deathPiecesSpreadingFactor),
-                                   new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor), 
+                                   new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
                                    _forceMultipier, _pieceCount, _pieceLiftime); // force multiplier, amount, lifespan
         Destroy(gameObject);
+    }
+
+    public IEnumerator Stun(float duration)
+    {
+        GetComponent<Jonas_TempCharacter>().MoveSpeed = 0;
+        yield return new WaitForSeconds(duration);
+        print("wowweee");
+        GetComponent<Jonas_TempCharacter>().MoveSpeed = _defaultSpeed;
     }
 }
