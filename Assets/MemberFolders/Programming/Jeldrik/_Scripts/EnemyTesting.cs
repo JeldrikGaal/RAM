@@ -19,7 +19,7 @@ public class EnemyTesting : MonoBehaviour
     [SerializeField] private float _defaultSpeed;
 
     [SerializeField] private bool _respawnAfterDeath;
-    private BuildSceneUtility _utilScript;
+    [SerializeField] private BuildSceneUtility _utilScript;
 
     [HideInInspector] public float StunDuration;
     [HideInInspector] public bool Stunned;
@@ -98,7 +98,8 @@ public class EnemyTesting : MonoBehaviour
         }
         else
         {
-            //_utilScript
+            _utilScript.Respawn(gameObject, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
         
     }
