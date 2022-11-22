@@ -14,7 +14,8 @@ public class JumpAttackArea : MonoBehaviour
         if (other.tag == "enemy")
         {
             other.GetComponent<EnemyTesting>().TakeDamage(Damage, transform.up);
-            StartCoroutine(other.GetComponent<EnemyTesting>().Stun(StunDuration));
+            other.GetComponent<EnemyTesting>().StunDuration = StunDuration;
+            other.GetComponent<EnemyTesting>().Stunned = true;
         }
     }
 }

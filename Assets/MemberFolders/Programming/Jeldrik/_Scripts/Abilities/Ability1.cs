@@ -15,6 +15,7 @@ public class Ability1 : Abilities
     [SerializeField] private GameObject _upgradedArea;
 
     private Vector3 _startPos;
+    private Vector3 _landingPos;
 
     private float _jumpTimer;
     [SerializeField] private float _defaultStunDuration;
@@ -51,6 +52,9 @@ public class Ability1 : Abilities
             // If the timer has passed the last keyframe in the animation
             if (_jumpTimer > _yPosCurve.keys[_yPosCurve.keys.Length - 1].time)
             {
+                // Records the landing position
+                _landingPos = transform.position;
+
                 // Sets jumping to false
                 _jumping = false;
 
@@ -58,14 +62,14 @@ public class Ability1 : Abilities
                 _controller.UnBlockPlayerMovement();
 
                 // Spawns the damage area at the players feet
-                var jumpArea = Instantiate(_damageArea, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), Quaternion.identity);
+                var jumpArea = Instantiate(_damageArea, new Vector3(_landingPos.x, _landingPos.y - 0.5f, _landingPos.z), Quaternion.identity);
 
                 jumpArea.GetComponent<JumpAttackArea>().StunDuration = _defaultStunDuration;
 
                 jumpArea.GetComponent<JumpAttackArea>().Damage = _defaultDamage;
 
                 // Destroy the damage area after 0.5 seconds
-                Destroy(jumpArea, 3f);
+                Destroy(jumpArea, 0.5f);
 
                 // Checks if the ability is upgraded or not
                 if (Upgraded)
@@ -110,10 +114,10 @@ public class Ability1 : Abilities
     private IEnumerator SpawnUpgradedArea()
     {
         // Waits for 0.5 seconds
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         // Spawns the upgraded damage area at the players feet
-        var upgradedArea = Instantiate(_upgradedArea, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), Quaternion.identity);
+        var upgradedArea = Instantiate(_upgradedArea, new Vector3(_landingPos.x, _landingPos.y - 0.5f, _landingPos.z), Quaternion.identity);
 
         upgradedArea.GetComponent<JumpAttackArea>().StunDuration = _upgradetStunDuration;
 

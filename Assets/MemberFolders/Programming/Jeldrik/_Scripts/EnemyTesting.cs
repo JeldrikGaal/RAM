@@ -17,6 +17,9 @@ public class EnemyTesting : MonoBehaviour
 
     [SerializeField] private float _defaultSpeed;
 
+    [HideInInspector] public float StunDuration;
+    [HideInInspector] public bool Stunned;
+
 
     private float _startingHealth;
     private HealthBar _healthBar;
@@ -45,6 +48,11 @@ public class EnemyTesting : MonoBehaviour
             Die();
         }
 
+        if (Stunned)
+        {
+            StartCoroutine(Stun(StunDuration));
+            Stunned = false;
+        }
 
     }
 
