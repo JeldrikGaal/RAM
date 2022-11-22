@@ -37,6 +37,8 @@ public class EnemyTesting : MonoBehaviour
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
         _startingHealth = _health;
+
+        // Records the default speed
         _defaultSpeed = GetComponent<Jonas_TempCharacter>().MoveSpeed;
     }
 
@@ -50,7 +52,10 @@ public class EnemyTesting : MonoBehaviour
 
         if (Stunned)
         {
+            // Starts the coroutine to stun the enemy
             StartCoroutine(Stun(StunDuration));
+
+            // Sets the bool to false so the enemy only gets stunned once
             Stunned = false;
         }
 
@@ -88,9 +93,13 @@ public class EnemyTesting : MonoBehaviour
 
     public IEnumerator Stun(float duration)
     {
+        // Sets the movespeed to 0 to fake the enemy being stunned
         GetComponent<Jonas_TempCharacter>().MoveSpeed = 0;
+
+        // Wait for stun duration
         yield return new WaitForSeconds(duration);
-        print("wowweee");
+
+        // Sets the movespeed to the default speed again
         GetComponent<Jonas_TempCharacter>().MoveSpeed = _defaultSpeed;
     }
 }

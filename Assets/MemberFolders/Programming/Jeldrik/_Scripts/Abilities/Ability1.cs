@@ -61,11 +61,13 @@ public class Ability1 : Abilities
                 // Unblocks the movement inputs
                 _controller.UnBlockPlayerMovement();
 
-                // Spawns the damage area at the players feet
+                // Spawns the damage area at the players landing location
                 var jumpArea = Instantiate(_damageArea, new Vector3(_landingPos.x, _landingPos.y - 0.5f, _landingPos.z), Quaternion.identity);
 
+                // Sets the stun duration
                 jumpArea.GetComponent<JumpAttackArea>().StunDuration = _defaultStunDuration;
 
+                // Sets the damage
                 jumpArea.GetComponent<JumpAttackArea>().Damage = _defaultDamage;
 
                 // Destroy the damage area after 0.5 seconds
@@ -119,8 +121,10 @@ public class Ability1 : Abilities
         // Spawns the upgraded damage area at the players feet
         var upgradedArea = Instantiate(_upgradedArea, new Vector3(_landingPos.x, _landingPos.y - 0.5f, _landingPos.z), Quaternion.identity);
 
+        // Sets the stun duration
         upgradedArea.GetComponent<JumpAttackArea>().StunDuration = _upgradetStunDuration;
 
+        // Sets the damage
         upgradedArea.GetComponent<JumpAttackArea>().Damage = _upgradedDamage;
 
         // Destroys the area after 0.5 seconds
