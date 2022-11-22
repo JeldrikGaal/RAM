@@ -1364,6 +1364,7 @@ GameObject:
   - component: {fileID: 4974556004237746302}
   - component: {fileID: 4974556004237746298}
   - component: {fileID: 3586331904611896420}
+  - component: {fileID: 1973733744572080562}
   - component: {fileID: 1279146745}
   - component: {fileID: 1279146746}
   m_Layer: 15
@@ -1681,6 +1682,7 @@ MonoBehaviour:
   _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
   _bloodSpreadCalculator: {fileID: 1489133655}
   _stepScript: {fileID: 1489133657}
+  _timeEffectScript: {fileID: 1973733744572080562}
   IsBlue: 0
   _bloodVariations:
   - {fileID: 2100000, guid: c9bb0ad3224b91f4f8f21474be7406e1, type: 2}
@@ -1704,6 +1706,18 @@ MonoBehaviour:
   _bloodAmountNormal: 3
   _bloodSizeMinNormal: 0.823
   _bloodSizeMaxNormal: 0.881
+--- !u!114 &1973733744572080562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974556004237746303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8e2cb5ca765004ab177a5413189e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1279146745
 MonoBehaviour:
   m_ObjectHideFlags: 0
