@@ -11,9 +11,12 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private GameObject _bloodSpreadCalculator;
     [SerializeField] private BloodySteps _stepScript;
 
+    public bool IsBlue = false;
+
     // These values are completely random, and helps variate the type of blood
     [Header("Blood variations")]
     [SerializeField] private Material[] _bloodVariations;
+    [SerializeField] private Material[] _blueBloodVariations;
 
     #region blood settings
 
@@ -83,11 +86,19 @@ public class RammyVFX : MonoBehaviour
             // Here we're accessing the projectile scripts to change the final splat's settings and the projectile direction and force.
             child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
             child.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
-            child.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
             child.GetComponent<InitVelocity>().CalcDirLeft = _bloodDir1;
             child.GetComponent<InitVelocity>().CalcDirRight = _bloodDir2;
             child.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
             child.GetComponent<InitVelocity>().BloodForceMax = bloodForceMax;
+            // Here we just check if it's supposed to be blue, and assign the correct materials
+            if (!IsBlue)
+            {
+                child.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
+            }
+            else if (IsBlue)
+            {
+                child.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
+            }
         }
     }
 }

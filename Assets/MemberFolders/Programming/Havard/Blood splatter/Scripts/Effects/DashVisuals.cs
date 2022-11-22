@@ -69,7 +69,8 @@ public class DashVisuals : MonoBehaviour
         }
         if (_deleting == true)
         {
-            Destroy(_items[_completedItems].gameObject);
+            _items[_completedItems].GetComponent<FadeOnTrigger>().Fade = true;
+            Destroy(_items[_completedItems].gameObject, 1);
         }
         _items[_completedItems] = footprint;
         _completedItems++;

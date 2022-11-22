@@ -63,7 +63,8 @@ public class StepsSpawner : MonoBehaviour
         }
         if (_deleting == true)
         {
-            Destroy(_footprints[_completedFootprints].gameObject);
+            _footprints[_completedFootprints].GetComponent<FadeOnTrigger>().Fade = true;
+            Destroy(_footprints[_completedFootprints].gameObject, 1f);
         }
         _footprints[_completedFootprints] = footprint;
         _completedFootprints++;        
