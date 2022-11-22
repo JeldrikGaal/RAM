@@ -10,6 +10,7 @@ public class EnemyTesting : MonoBehaviour
 
     [Header("Death Explosion Values")]
     [SerializeField] private GameObject[] _deathPieces;
+    [SerializeField] private GameObject[] _deathPiecesOnce;
     [SerializeField] private float _deathPiecesSpreadingFactor;
     [SerializeField] private float _forceMultipier;
     [SerializeField] private float _pieceLiftime;
@@ -83,7 +84,7 @@ public class EnemyTesting : MonoBehaviour
     /// </summary>
     private void Die()
     {
-        _piecesManager.SpawnPieces(_deathPieces, transform.position,
+        _piecesManager.SpawnPieces(_deathPieces, _deathPiecesOnce,transform.position,
                                    new Vector2(_lastIncomingHit.x - _deathPiecesSpreadingFactor, _lastIncomingHit.x + _deathPiecesSpreadingFactor),
                                    new Vector2(_lastIncomingHit.y - _deathPiecesSpreadingFactor, _lastIncomingHit.y + _deathPiecesSpreadingFactor),
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
