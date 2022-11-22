@@ -50,7 +50,7 @@ public class DashVisuals : MonoBehaviour
     {
         // Gets the rotation
         _dashingDirection = // _directionObject.rotation *= Quaternion.Euler(90, 90, 0);
-        _dashingDirection = direction;
+        _dashingDirection = direction *= Quaternion.Euler(0, 0, -90);
         print(_dashingDirection.eulerAngles);
         _isDashing = true;
     }
