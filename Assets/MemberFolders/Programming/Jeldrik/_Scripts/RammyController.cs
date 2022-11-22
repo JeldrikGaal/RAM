@@ -19,6 +19,7 @@ public class RammyController : MonoBehaviour
     private InputAction _ability2;
     private InputAction _ability3;
     private InputAction _ability4;
+    private InputAction _ability5;
     
     // Vector in which the character is currently moving according to player input
     private Vector2 _moveDirection;
@@ -42,10 +43,13 @@ public class RammyController : MonoBehaviour
     private float _ability2Key;
     private float _ability3Key;
     private float _ability4Key;
+    private float _ability5Key;
     [SerializeField] private Ability1 _ability1Script;
     [SerializeField] private Ability2 _ability2Script;
     [SerializeField] private Ability3 _ability3Script;
     [SerializeField] private Ability4 _ability4Script;
+    [SerializeField] private Ability5 _ability5Script;
+
 
     // Components
     [Header("Components")]
@@ -172,6 +176,7 @@ public class RammyController : MonoBehaviour
         _ability2 = _playerControls.Player.Ability2;
         _ability3 = _playerControls.Player.Ability3;
         _ability4 = _playerControls.Player.Ability4;
+        _ability5 = _playerControls.Player.Ability5;
 
         _move.Enable();
         _look.Enable();
@@ -181,6 +186,7 @@ public class RammyController : MonoBehaviour
         _ability2.Enable();
         _ability3.Enable();
         _ability4.Enable();
+        _ability5.Enable();
     }
 
     // Disabling PlayerControls when player gets disabled in the scene
@@ -194,6 +200,7 @@ public class RammyController : MonoBehaviour
         _ability2.Disable();
         _ability3.Disable();
         _ability4.Disable();
+        _ability5.Disable();
     }
     #endregion
 
@@ -236,6 +243,7 @@ public class RammyController : MonoBehaviour
         _ability2Key = _ability2.ReadValue<float>();
         _ability3Key = _ability3.ReadValue<float>();
         _ability4Key = _ability4.ReadValue<float>();
+        _ability5Key = _ability5.ReadValue<float>();
 
         // Calculating the world position where the mouse is currently pointing at and needed help vectors
         float distance;
@@ -446,6 +454,10 @@ public class RammyController : MonoBehaviour
             else if (_ability4Key == 1)
             {
                 _ability4Script.CheckActivate();
+            }
+            else if (_ability5Key == 1)
+            {
+                _ability5Script.CheckActivate();
             }
         }
         #endregion
