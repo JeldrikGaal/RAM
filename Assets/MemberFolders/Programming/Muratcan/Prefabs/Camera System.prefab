@@ -367,8 +367,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c85e10d781623498c350a99fc49f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenShakeForce: 0.1
+  screenShakeForce: 1
   _shakeStart: 0
+  _cameraDistanceVector: {x: 0, y: 0, z: 0}
+  _cameraDistanceVectorCurrent: {x: 0, y: 0, z: 0}
+  _cameraDistance: 0
+  _cameraDistanceCurrent: 0
 --- !u!114 &3673875269224342906
 MonoBehaviour:
   m_ObjectHideFlags: 0
