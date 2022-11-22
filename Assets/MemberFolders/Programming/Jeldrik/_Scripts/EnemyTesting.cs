@@ -6,7 +6,7 @@ public class EnemyTesting : MonoBehaviour
 {
 
 
-    [SerializeField] private float _health;
+    [SerializeField] public float _health;
 
     [Header("Death Explosion Values")]
     [SerializeField] private GameObject[] _deathPieces;
@@ -18,12 +18,14 @@ public class EnemyTesting : MonoBehaviour
 
     [SerializeField] private float _defaultSpeed;
 
-    [SerializeField] private bool _respawnAfterDeath;
-    [SerializeField] private bool _respawnTimer;
-    private float _deathTime;
+    [SerializeField] public bool _respawnAfterDeath;
+    [SerializeField] public BuildSceneUtility _utilScript;
 
     [HideInInspector] public float StunDuration;
     [HideInInspector] public bool Stunned;
+
+    // Visual Effects
+    [SerializeField] private GameObject _bloodSmoke;
 
 
     private float _startingHealth;
@@ -44,7 +46,7 @@ public class EnemyTesting : MonoBehaviour
         _startingHealth = _health;
 
         // Records the default speed
-        _defaultSpeed = GetComponent<Jonas_TempCharacter>().MoveSpeed;
+        if(GetComponent<Jonas_TempCharacter>()) _defaultSpeed = GetComponent<Jonas_TempCharacter>().MoveSpeed;
     }
 
     // Update is called once per frame
@@ -76,6 +78,7 @@ public class EnemyTesting : MonoBehaviour
         _health -= damage;
         _healthBar.UpdateHealthBar(-(damage / _startingHealth));
         _lastIncomingHit = hitDirection;
+        Instantiate(_bloodSmoke, transform.position, transform.rotation);
         if (_health <= 0)
         {
             return true;
@@ -99,8 +102,8 @@ public class EnemyTesting : MonoBehaviour
         }
         else
         {
-            _deathTime = Time.time;
-            //transform.gameObject.hi
+            //_utilScript.Respawn(gameObject, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
         
     }

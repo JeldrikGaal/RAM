@@ -10,6 +10,7 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private GameObject _bloodBomb;
     [SerializeField] private GameObject _bloodSpreadCalculator;
     [SerializeField] private BloodySteps _stepScript;
+    [SerializeField] private TimeStopper _timeEffectScript;
 
     public bool IsBlue = false;
 
@@ -48,6 +49,7 @@ public class RammyVFX : MonoBehaviour
     public void RamAttack(GameObject enemy)
     {
         SpawnBlood(_bloodSizeMin, _bloodSizeMax, _bloodSpread, _heightAngle, _bloodAmount, _bloodForceMin, _bloodForceMax, enemy);
+        _timeEffectScript.PauseTime(0.01f, 0.1f);
     }
     public void NormalAttack(GameObject enemy)
     {

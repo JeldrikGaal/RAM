@@ -34,7 +34,6 @@ public class PiecesManager : MonoBehaviour
             // Only spawn certain objects once
             if(piecesOnce.Count > 0)
             {
-                Debug.Log(piecesOnce.Count);
                 instance = Instantiate(piecesOnce[0], position, Quaternion.identity);
                 piecesOnce.Remove(piecesOnce[0]);
             }

@@ -21,6 +21,9 @@ public class StickyBlood : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        // Sets the material to be a new material so we can change the material colour. Totally won't be expensive to do this 5000 times.
+        BloodMaterial = new Material(BloodMaterial);
     }
 
     void Update()
@@ -33,6 +36,9 @@ public class StickyBlood : MonoBehaviour
     {
         foreach (var item in other.contacts)
         {
+
+            // Figure out the rotation for the splat:
+
             Quaternion splatRotation = Quaternion.Euler(new Vector3(0,0,0));
             if(other.gameObject.layer == 10)
             {
@@ -48,10 +54,20 @@ public class StickyBlood : MonoBehaviour
                 splatRotation = Quaternion.LookRotation(-item.normal);
             }
 
+
+            // Spawn the splat:
             var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
             prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
             BloodStepScript.AddPoint(new Vector2(item.point.x, item.point.z), prefab.gameObject);
             prefab.GetComponent<DecalProjector>().material = BloodMaterial;
+
+            // Randomize colour:
+            Color randomRed = new Color(
+                Random.Range(0.7f, 1f),
+                Random.Range(0f, 0.1f),
+                Random.Range(0f, 0.1f)
+            );
+            prefab.GetComponent<DecalProjector>().material.SetColor("_Colour", randomRed);
 
             /// All of this was for a quad which spawned on the item normal. DONT DELETE, we might need to use it later if the decal doesn't work that well
             /*

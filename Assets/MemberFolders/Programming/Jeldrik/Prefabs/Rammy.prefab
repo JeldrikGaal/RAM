@@ -1360,9 +1360,11 @@ GameObject:
   - component: {fileID: 4294135203534987049}
   - component: {fileID: 2117861001280260777}
   - component: {fileID: 5920122201635186104}
+  - component: {fileID: 7400901502415930422}
   - component: {fileID: 4974556004237746302}
   - component: {fileID: 4974556004237746298}
   - component: {fileID: 3586331904611896420}
+  - component: {fileID: 1973733744572080562}
   - component: {fileID: 1279146745}
   - component: {fileID: 1279146746}
   m_Layer: 15
@@ -1392,7 +1394,7 @@ Transform:
   - {fileID: 1744025166}
   - {fileID: 744586600721938918}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1460,6 +1462,7 @@ MonoBehaviour:
   _ability2Script: {fileID: 4294135203534987049}
   _ability3Script: {fileID: 2117861001280260777}
   _ability4Script: {fileID: 5920122201635186104}
+  _ability5Script: {fileID: 7400901502415930422}
   _frontCheck: {fileID: 1024294334}
   _cameraScript: {fileID: 0}
   Attacking: 0
@@ -1534,6 +1537,7 @@ MonoBehaviour:
   Cooldown: 3
   Duration: 2
   _controller: {fileID: 0}
+  level: 0
   hitColliders:
   - {fileID: 0}
   - {fileID: 0}
@@ -1587,6 +1591,7 @@ MonoBehaviour:
   - {fileID: 0}
   range: 3
   damage: 15
+  pushBackForce: 7
 --- !u!114 &2117861001280260777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1616,6 +1621,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cooldown: 5
   Duration: 4
+  _controller: {fileID: 0}
+--- !u!114 &7400901502415930422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974556004237746303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e456668a99208746a5999568adf0763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 1
+  Duration: 1
   _controller: {fileID: 0}
 --- !u!136 &4974556004237746302
 CapsuleCollider:
@@ -1662,23 +1682,42 @@ MonoBehaviour:
   _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
   _bloodSpreadCalculator: {fileID: 1489133655}
   _stepScript: {fileID: 1489133657}
+  _timeEffectScript: {fileID: 1973733744572080562}
+  IsBlue: 0
   _bloodVariations:
   - {fileID: 2100000, guid: c9bb0ad3224b91f4f8f21474be7406e1, type: 2}
   - {fileID: 2100000, guid: 1c38d4d52c3d5ed4ebd2c371896f427b, type: 2}
-  _bloodSpread: 1.069
-  _heightAngle: 37.9
-  _bloodForceMin: 3.82
-  _bloodForceMax: 5.89
+  - {fileID: 2100000, guid: 7dcc092c702273c48a8431bae6f84ccc, type: 2}
+  _blueBloodVariations:
+  - {fileID: 2100000, guid: b2c1c129794acdc428782169fe4e1dc7, type: 2}
+  - {fileID: 2100000, guid: 8739e941f6dfeaf43ac114b73a590327, type: 2}
+  - {fileID: 2100000, guid: b72810edf5b98a445813c46c2a29e1b0, type: 2}
+  _bloodSpread: 0.8
+  _heightAngle: 0
+  _bloodForceMin: 5
+  _bloodForceMax: 8
   _bloodAmount: 15
-  _bloodSizeMin: 0.686
-  _bloodSizeMax: 1.345
+  _bloodSizeMin: 1
+  _bloodSizeMax: 1.2
   _bloodSpreadNormal: 0.5
   _heightAngleNormal: 43.5
-  _bloodForceMinNormal: 1.92
-  _bloodForceMaxNormal: 3.7
-  _bloodAmountNormal: 5
-  _bloodSizeMinNormal: 0.589
+  _bloodForceMinNormal: 2.03
+  _bloodForceMaxNormal: 2.78
+  _bloodAmountNormal: 3
+  _bloodSizeMinNormal: 0.823
   _bloodSizeMaxNormal: 0.881
+--- !u!114 &1973733744572080562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974556004237746303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8e2cb5ca765004ab177a5413189e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1279146745
 MonoBehaviour:
   m_ObjectHideFlags: 0
