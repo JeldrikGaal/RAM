@@ -309,6 +309,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _cameraScript
+      value: 
+      objectReference: {fileID: 1590681422}
     - target: {fileID: 4974556004237746299, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -450,13 +454,24 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518052487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.32, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1590681422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3673875270707635072, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
+  m_PrefabInstance: {fileID: 3673875269224342904}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c85e10d781623498c350a99fc49f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1821446056967904502
 PrefabInstance:
   m_ObjectHideFlags: 0
