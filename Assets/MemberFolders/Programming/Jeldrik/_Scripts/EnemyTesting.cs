@@ -95,8 +95,11 @@ public class EnemyTesting : MonoBehaviour
         _health -= damage;
         _healthBar.UpdateHealthBar(-(damage / _startingHealth));
         _lastIncomingHit = hitDirection;
-        var smokeBlood = Instantiate(_bloodSmoke, transform);
-        smokeBlood.transform.localScale *= _bloodSize;
+        if (_bloodSmoke != null)
+        {
+            var smokeBlood = Instantiate(_bloodSmoke, transform);
+            smokeBlood.transform.localScale *= _bloodSize;
+        }
         if (_health <= 0)
         {
             return true;

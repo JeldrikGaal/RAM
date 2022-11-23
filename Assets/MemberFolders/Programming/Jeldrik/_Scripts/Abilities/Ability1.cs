@@ -71,7 +71,7 @@ public class Ability1 : Abilities
                 jumpArea.GetComponent<JumpAttackArea>().StunDuration = _defaultStunDuration;
 
                 // Sets the damage
-                jumpArea.GetComponent<JumpAttackArea>().Damage = _defaultDamage;
+                jumpArea.GetComponent<JumpAttackArea>().Damage = _defaultDamage * _controller.AppliedDamageModifier;
 
                 // Destroy the damage area after 0.5 seconds
                 Destroy(jumpArea, 0.5f);
@@ -128,7 +128,7 @@ public class Ability1 : Abilities
         upgradedArea.GetComponent<JumpAttackArea>().StunDuration = _upgradetStunDuration;
 
         // Sets the damage
-        upgradedArea.GetComponent<JumpAttackArea>().Damage = _upgradedDamage;
+        upgradedArea.GetComponent<JumpAttackArea>().Damage = _upgradedDamage * _controller.AppliedDamageModifier;
 
         // Destroys the area after 0.5 seconds
         Destroy(upgradedArea, 0.5f);

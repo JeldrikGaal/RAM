@@ -124,7 +124,7 @@ public class Ability3 : Abilities
             if (enemy.GetComponent<EnemyTesting>() != null)
             {
                 // Makes the enemy take damage
-                //enemy.GetComponent<EnemyTesting>().TakeDamage(_damage, Vector3.up);
+                //enemy.GetComponent<EnemyTesting>().TakeDamage(_damage * _controller.AppliedDamageModifier, Vector3.up);
             }
 
             // If the ability is upgraded
