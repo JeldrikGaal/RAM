@@ -1,22 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.Rendering.DebugUI.Table;
+
 
 public class BuildSceneUtility : MonoBehaviour
 {
     [SerializeField] GameObject _enemy;
+
+    [SerializeField] bool _lookAtCamera;
+    Transform _cameraTransform;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _cameraTransform = Camera.main.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (_lookAtCamera)
+        {
+            transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
+        }
     }
 
     public void Respawn(GameObject g, Vector3 pos, Quaternion rot)

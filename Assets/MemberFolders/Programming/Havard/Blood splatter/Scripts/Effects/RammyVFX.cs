@@ -49,7 +49,7 @@ public class RammyVFX : MonoBehaviour
     public void RamAttack(GameObject enemy)
     {
         SpawnBlood(_bloodSizeMin, _bloodSizeMax, _bloodSpread, _heightAngle, _bloodAmount, _bloodForceMin, _bloodForceMax, enemy);
-        _timeEffectScript.PauseTime(0.01f, 0.1f);
+        //_timeEffectScript.PauseTime(0.15f, 0.1f);
     }
     public void NormalAttack(GameObject enemy)
     {

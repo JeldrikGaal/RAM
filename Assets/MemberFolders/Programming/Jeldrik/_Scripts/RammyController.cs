@@ -5,7 +5,10 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using UnityEngine.UIElements.Experimental;
 using static UnityEngine.EventSystems.EventTrigger;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class RammyController : MonoBehaviour
 {
@@ -58,6 +61,7 @@ public class RammyController : MonoBehaviour
     private MeshRenderer _mR;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
+    [SerializeField] private StatManager _comboSystem;
 
     [Header("Character State")]
     // Bools describing playerstate
@@ -454,12 +458,10 @@ public class RammyController : MonoBehaviour
         {
             if (_ability1Key == 1)
             {
-                
                 l[0].CheckActivate();
             }
             else if (_ability2Key == 1)
             {
-                _cameraScript.ScreenShake(1.2f);
                 _ability2Script.CheckActivate();
             }
             else if (_ability3Key == 1)
@@ -555,17 +557,32 @@ public class RammyController : MonoBehaviour
             Attacking = true;
             _startTimeChargeAttack = Time.time;
 
-            _chargeAttackDestination = transform.position + _lookingAtMouseRotation * ( ChargeAttackDistance * (chargingTime / MaxChargeTime));
+            RaycastHit hit;
+            // calculating the destination for the charge by taking the direction from the player to the mouse, the max charging distance and how much of the max charging time has already passed
+            _chargeAttackDestination = transform.position + _lookingAtMouseRotation * (ChargeAttackDistance * (chargingTime / MaxChargeTime));
+
+            // Checking if player would end up in an object while charging and shortening charge if thats the case
+            if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, (ChargeAttackDistance * (chargingTime / MaxChargeTime))))
+            {
+                RaycastHit hit2;
+                if (Physics.Raycast(_chargeAttackDestination + Vector3.up * 100, Vector3.down, out hit2, 105) && hit.transform == hit2.transform)
+                {
+                    _chargeAttackDestination = hit.point;
+                }
+
+            }
+            
+            // Saving rotation and position
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
+            // Setting rotation to make player look in charge direction
             transform.up = _lookingAtMouseRotation;
             transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-            //transform.forward = Vector3.up;
+            // Setting various variables to display that player is dashing in script and visually
             _blockMovement = true;
             _mR.material = _mats[1];
             _rB.velocity = Vector3.zero;
             _chargeAttackAllowed = false;
-
             _dashVisuals.StartDash(transform.rotation);
         }
     }
@@ -755,6 +772,7 @@ public class RammyController : MonoBehaviour
     {
         Debug.Log(MaxHealth * (HealPercentage / 100f));
         Heal((int)(MaxHealth * (HealPercentage / 100f)));
+        if(_comboSystem) _comboSystem.AddKill();
     }
 
     #region Setterfunctions
@@ -780,6 +798,7 @@ public class RammyController : MonoBehaviour
     }
     #endregion
 
+    // Triggerin ScreenShake with defined strength
     public void AddScreenShake(float strength)
     {
         _cameraScript.ScreenShake(strength);
