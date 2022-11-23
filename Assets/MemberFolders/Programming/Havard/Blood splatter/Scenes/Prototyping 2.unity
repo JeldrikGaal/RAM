@@ -781,6 +781,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
+--- !u!1 &74917535 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3234534617463839487, guid: 20d828bbec0488448a150aead384dd25, type: 3}
+  m_PrefabInstance: {fileID: 1079809359}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &74917539
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74917535}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7711543672190726841, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
 --- !u!224 &86671976 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3797138857579822050, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
@@ -845,6 +864,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
       propertyPath: m_Name
       value: GEO_Pine-Tree_01 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2089,6 +2112,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
+--- !u!1 &349101752 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
+  m_PrefabInstance: {fileID: 1179182845}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &349101756
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349101752}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7711543672190726841, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
 --- !u!1001 &356951797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5526,6 +5568,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GEO_Pine-Tree_01 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
@@ -6009,6 +6055,14 @@ PrefabInstance:
       value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _brainObject
+      value: 
+      objectReference: {fileID: 7256626866936029209, guid: cb6f29ddbe592f44582e248f0a815670, type: 3}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _heartObject
+      value: 
+      objectReference: {fileID: 8085553223252622585, guid: d2c9ad2d9c835264295ffaa2971340ac, type: 3}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _heightAngle
       value: 0
       objectReference: {fileID: 0}
@@ -6016,6 +6070,14 @@ PrefabInstance:
       propertyPath: _heightValue
       value: -15.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _skullObject
+      value: 
+      objectReference: {fileID: 3095865599965521266, guid: 929e6a0eff409cf47b1b250ee16330eb, type: 3}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _spineObject
+      value: 
+      objectReference: {fileID: 5261350053079679687, guid: 79aff601f1d4aa542b2e53a15d20b688, type: 3}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _bloodSizeMax
       value: 1.2
@@ -6032,6 +6094,10 @@ PrefabInstance:
       propertyPath: _bloodForceMin
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _eyeballPrefab
+      value: 
+      objectReference: {fileID: 6904728445656177608, guid: 636ec7836a84b484aa52c232e4c88bb0, type: 3}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _timeEffectScript
       value: 
@@ -6056,6 +6122,26 @@ PrefabInstance:
       propertyPath: _bloodSpreadCalculator
       value: 
       objectReference: {fileID: 1796178639}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _goreValues.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _meatPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _meatPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 5291567064603710999, guid: 80cd9931f454fd4438ab05609fc2ed8b, type: 3}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _meatPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 3906882621796642699, guid: 3b594bcea8ecf0d4c9d1fbfc968c4579, type: 3}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _meatPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 2945347816356749357, guid: 53a4e5a076257d04a9f992c514aadeac, type: 3}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _bloodVariations.Array.size
       value: 3
@@ -6088,6 +6174,34 @@ PrefabInstance:
       propertyPath: _blueBloodVariations.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: b72810edf5b98a445813c46c2a29e1b0, type: 2}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _goreValues.Array.data[0].GoreNames
+      value: Skull
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _goreValues.Array.data[1].GoreNames
+      value: Heart
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _goreValues.Array.data[2].GoreNames
+      value: Intestine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _goreValues.Array.data[3].GoreNames
+      value: Spine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _goreValues.Array.data[4].GoreNames
+      value: Brain
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _goreValues.Array.data[5].GoreNames
+      value: Eyeball
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _goreValues.Array.data[6].GoreNames
+      value: Meat
+      objectReference: {fileID: 0}
     - target: {fileID: 4974556003529526531, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -6385,6 +6499,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &969862907 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1468755450902017199, guid: 83070e91ec1c30c42820733e13db3602, type: 3}
+  m_PrefabInstance: {fileID: 1420033966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &969862911
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969862907}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7711543672190726841, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
 --- !u!1 &970671894
 GameObject:
   m_ObjectHideFlags: 0
@@ -7318,9 +7451,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: GEO_Pine-Tree_01 Normal
       objectReference: {fileID: 0}
+    - target: {fileID: 3234534617463839487, guid: 20d828bbec0488448a150aead384dd25, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 20d828bbec0488448a150aead384dd25, type: 3}
+--- !u!1 &1106625581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
+  m_PrefabInstance: {fileID: 1405138843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1106625585
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106625581}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7711543672190726841, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
 --- !u!1001 &1109471512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7551,6 +7707,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
+--- !u!1 &1152288958 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
+  m_PrefabInstance: {fileID: 90172998}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1152288962
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152288958}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7711543672190726841, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
 --- !u!1 &1156940089
 GameObject:
   m_ObjectHideFlags: 0
@@ -8028,6 +8203,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
       propertyPath: m_Name
       value: GEO_Pine-Tree_01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -9071,6 +9250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GEO_Pine-Tree_01 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
@@ -9090,6 +9273,10 @@ PrefabInstance:
     - target: {fileID: 1468755450902017199, guid: 83070e91ec1c30c42820733e13db3602, type: 3}
       propertyPath: m_Name
       value: GEO_Pine-Tree_01 Shiny
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468755450902017199, guid: 83070e91ec1c30c42820733e13db3602, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2245539063922601493, guid: 83070e91ec1c30c42820733e13db3602, type: 3}
       propertyPath: m_RootOrder
@@ -11826,6 +12013,25 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1489133655, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
   m_PrefabInstance: {fileID: 941752060}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1800162960 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
+  m_PrefabInstance: {fileID: 864820013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1800162964
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800162960}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7711543672190726841, guid: ec43a962400378a47b982aab4624b6b7, type: 3}
 --- !u!1001 &1802313861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15028,7 +15234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3709908291275563828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.71, y: 1.2, z: 37.4}
+  m_LocalPosition: {x: 16.24, y: 1.2, z: 15.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

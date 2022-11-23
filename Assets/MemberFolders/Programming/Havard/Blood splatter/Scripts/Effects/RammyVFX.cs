@@ -6,12 +6,35 @@ using UnityEngine.Rendering.Universal;
 
 public class RammyVFX : MonoBehaviour
 {
+    [System.Serializable]
+    public class GoreValues
+    {
+        public string GoreNames;
+        [Range(0.0f, 2.0f)] public float Spread;
+        [Range(0f, 90f)] public float Angle;
+        [Range(0f, 10.0f)] public float MinForce;
+        [Range(0f, 10.0f)] public float MaxForce;
+        [Range(0, 10)] public int MinAmount;
+        [Range(0, 10)] public int MaxAmount;
+    }
     // Some essential things for the script:
     [SerializeField] private GameObject _bloodBomb;
     [SerializeField] private GameObject _bloodSpreadCalculator;
     [SerializeField] private BloodySteps _stepScript;
     [SerializeField] private TimeStopper _timeEffectScript;
 
+    [Header("Gore prefabs")]
+    [SerializeField] private GameObject _skullObject;
+    [SerializeField] private GameObject _heartObject;
+    [SerializeField] private GameObject _intestineObject;
+    [SerializeField] private GameObject _spineObject;
+    [SerializeField] private GameObject _brainObject;
+    [SerializeField] private GameObject _eyeballPrefab;
+    [SerializeField] private GameObject[] _meatPrefabs;
+
+
+    // Graphics settings:
+    [Header("Graphics settings")]
     public bool IsBlue = false;
 
     // These values are completely random, and helps variate the type of blood
@@ -30,6 +53,8 @@ public class RammyVFX : MonoBehaviour
     [Range(0, 15)] public int _bloodAmount = 5;
     [Range(0.1f, 2)] public float _bloodSizeMin = 1;
     [Range(0.1f, 2)] public float _bloodSizeMax = 1;
+    // Death gore variables:
+    [SerializeField] private GoreValues[] _goreValues;
 
     [Header("Normal attack")]
     [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadNormal = 0.5f;
@@ -49,7 +74,11 @@ public class RammyVFX : MonoBehaviour
     public void RamAttack(GameObject enemy)
     {
         SpawnBlood(_bloodSizeMin, _bloodSizeMax, _bloodSpread, _heightAngle, _bloodAmount, _bloodForceMin, _bloodForceMax, enemy);
-        //_timeEffectScript.PauseTime(0.15f, 0.1f);
+        
+        if(enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            print("gore");
+        }
     }
     public void NormalAttack(GameObject enemy)
     {
