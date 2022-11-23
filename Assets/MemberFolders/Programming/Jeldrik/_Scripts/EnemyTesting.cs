@@ -26,6 +26,7 @@ public class EnemyTesting : MonoBehaviour
 
     // Visual Effects
     [SerializeField] private GameObject _bloodSmoke;
+    [SerializeField] private float _bloodSize = 1;
 
 
     private float _startingHealth;
@@ -78,7 +79,8 @@ public class EnemyTesting : MonoBehaviour
         _health -= damage;
         _healthBar.UpdateHealthBar(-(damage / _startingHealth));
         _lastIncomingHit = hitDirection;
-        Instantiate(_bloodSmoke, transform);
+        var smokeBlood = Instantiate(_bloodSmoke, transform);
+        smokeBlood.transform.localScale *= _bloodSize;
         if (_health <= 0)
         {
             return true;
