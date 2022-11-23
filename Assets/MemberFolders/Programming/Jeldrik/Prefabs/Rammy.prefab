@@ -1394,6 +1394,7 @@ Transform:
   - {fileID: 1744025166}
   - {fileID: 744586600721938918}
   - {fileID: 7541908173190365020}
+  - {fileID: 5027866717449145051}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -1466,6 +1467,7 @@ MonoBehaviour:
   _ability5Script: {fileID: 7400901502415930422}
   _frontCheck: {fileID: 1024294334}
   _cameraScript: {fileID: 0}
+  _comboSystem: {fileID: 0}
   Attacking: 0
   BasicAttacking: 0
   Dashing: 0
@@ -1609,6 +1611,16 @@ MonoBehaviour:
   Cooldown: 4
   Duration: 3
   _controller: {fileID: 0}
+  _stunDuration: 0
+  _pullForce: 0
+  _points: 0
+  _distanceToPoints: 0
+  _pullRadius: 0
+  _restrictedTime: 0
+  _damage: 0
+  Upgraded: 0
+  _testObject: {fileID: 0}
+  EnemyList: []
 --- !u!114 &5920122201635186104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1625,12 +1637,40 @@ MonoBehaviour:
   Duration: 4
   _controller: {fileID: 0}
   Upgraded: 0
-  _effectRadius: 0
-  _effectUpgradedRadius: 0
-  _moveRadius: 0
-  _damage: 0
-  _moveTime: 0
-  _aulerAngleArea: {x: 0, y: 30, z: 0}
+  _eCollider: {fileID: 1563857641711686301}
+  _effectRadius: 2
+  _effectUpgradedRadius: 5
+  _moveRadius: 0.5
+  _initialDamage: 5
+  _upgradedDamage: 10
+  _prepTime: 1
+  _moveTime: 2
+  _resetTime: 2
+  _aulerAngleArea: {x: 0, y: 180, z: 0}
+  movementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &7400901502415930422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1759,6 +1799,81 @@ MonoBehaviour:
   _bloodStepPrefab: {fileID: 7628057576564074463, guid: e733cb9e32f042e4b894719714e51a79, type: 3}
   _maxFootprint: 1000
   _footprints: []
+--- !u!1 &8544788445145993981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5027866717449145051}
+  - component: {fileID: 6387377914521336396}
+  - component: {fileID: 7538705807225460007}
+  - component: {fileID: 1563857641711686301}
+  m_Layer: 15
+  m_Name: ExternalCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5027866717449145051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544788445145993981}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4974556004237746299}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6387377914521336396
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544788445145993981}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7538705807225460007
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544788445145993981}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1563857641711686301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544788445145993981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea0089b9b261bda48b82f0299f6a7a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &291600730
 PrefabInstance:
   m_ObjectHideFlags: 0

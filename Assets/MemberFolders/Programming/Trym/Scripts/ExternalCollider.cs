@@ -11,7 +11,11 @@ public class ExternalCollider : MonoBehaviour
 {
     private Collider _collider;
     private Rigidbody _rigid;
-    private void Start() => _collider = GetComponent<Collider>();
+    private void Start()
+    {
+        _collider = GetComponent<Collider>();
+        _rigid = GetComponent<Rigidbody>();
+    }
 
 
     /// <summary>
@@ -33,6 +37,10 @@ public class ExternalCollider : MonoBehaviour
     /// <returns></returns>
     public Collider GetCollider() => _collider;
 
+    /// <summary>
+    /// Gets the rigidbody of the externalCollider.
+    /// </summary>
+    /// <returns></returns>
     public Rigidbody GetRigidbody() => _rigid;
 
     /// <summary>
