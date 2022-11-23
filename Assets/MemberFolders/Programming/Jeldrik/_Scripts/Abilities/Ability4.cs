@@ -86,6 +86,6 @@ public class Ability4 : Abilities
     {
         var rotat = Quaternion.Euler(_originalRotation.eulerAngles + rot);
         float boxRadius = .5f;
-        _eCollider.GetCollider().
+        _eCollider.GetRigidbody();
     }
 }
