@@ -31,7 +31,7 @@ public class StatManager : MonoBehaviour
         Stats.TimePlayed = 0;
 
         // Sets the accumulated kills to 40 for testing purposes
-        Stats.Kills = 40;
+        Stats.Kills = 0;
     }
 
     // Update is called once per frame
@@ -72,7 +72,8 @@ public class StatManager : MonoBehaviour
             _comboCanvas.gameObject.SetActive(true);
 
             // Display the current combo timer with two decimals
-            _comboTimerText.text = "Combo Timer:\n" + _comboTimer.ToString("F2");
+            //_comboTimerText.text = "Combo Timer:\n" + _comboTimer.ToString("F2");
+            _comboTimerText.text = "COMBO X " + ((int)(_comboKills / 4)).ToString();
         }
         #endregion
 

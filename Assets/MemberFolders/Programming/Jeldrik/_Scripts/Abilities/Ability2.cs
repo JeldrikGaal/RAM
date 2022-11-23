@@ -11,6 +11,7 @@ public class Ability2 : Abilities
     [SerializeField] float _range = 5f;
     [SerializeField] float _damage = 15f;
     [SerializeField] float _pushBackForce = 7f;
+    [SerializeField] GameObject _groundSmokeVFX;
     public override void Start()
     {
         base.Start();
@@ -26,7 +27,13 @@ public class Ability2 : Abilities
     }
     IEnumerator Attack()
     {
+        //Waiting time for the initial phase
         yield return new WaitForSeconds(0.25f);
+
+        //Plays the ground smoke and screen shake
+        _groundSmokeVFX.SetActive(true);
+        GetComponent<RammyController>().AddScreenShake(1.2f);
+
         //Creates a sphere and takes data's of everything in there
         _hitColliders = Physics.OverlapSphere(transform.position, _range);
 
