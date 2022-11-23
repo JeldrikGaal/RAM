@@ -27,7 +27,7 @@ public class Splinter : MonoBehaviour
         if (collision.gameObject.HasTag("enemy"))
         {
             // damaging the enemy
-            collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(_properties.Damage, transform.up);
+            collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(_properties.Damage, transform.forward);
             // adds knockback
             collision.rigidbody.velocity = _initialVelocity.normalized * _properties.Knockback;
 
