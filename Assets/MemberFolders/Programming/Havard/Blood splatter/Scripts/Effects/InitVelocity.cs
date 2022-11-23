@@ -11,7 +11,7 @@ public class InitVelocity : MonoBehaviour
     [SerializeField] private float randomOffsetValue = 1;
 
     // Settings for moving the objects away from the player
-    [SerializeField] private bool awayFromPlayer = false;
+    [SerializeField] private bool awayFromPlayer = true;
     public Vector3 CalcDirLeft;
     public Vector3 CalcDirRight;
     public float BloodForceMin;
@@ -41,6 +41,7 @@ public class InitVelocity : MonoBehaviour
     public void ApplyVelocity(Vector3 dir, float force)
     {
         rb.velocity = new Vector3(dir.x, dir.y, dir.z) * force;
+        print(transform.name);
     }
 
     // Gives a random rotation within 2 rotations

@@ -29,7 +29,7 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private GameObject _intestineObject;
     [SerializeField] private GameObject _spineObject;
     [SerializeField] private GameObject _brainObject;
-    [SerializeField] private GameObject _eyeballPrefab;
+    [SerializeField] private GameObject _eyeballObject;
     [SerializeField] private GameObject[] _meatPrefabs;
 
 
@@ -54,7 +54,7 @@ public class RammyVFX : MonoBehaviour
     [Range(0.1f, 2)] public float _bloodSizeMin = 1;
     [Range(0.1f, 2)] public float _bloodSizeMax = 1;
     // Death gore variables:
-    [SerializeField] private GoreValues[] _goreValues;
+    [SerializeField] private GoreValues[] _goreValuesRam;
 
     [Header("Normal attack")]
     [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadNormal = 0.5f;
@@ -77,7 +77,13 @@ public class RammyVFX : MonoBehaviour
         
         if(enemy.GetComponent<EnemyTesting>()._health <= 0)
         {
-            print("gore");
+            SpawnGore(_goreValuesRam[0], _skullObject, enemy, transform.rotation);
+            SpawnGore(_goreValuesRam[1], _heartObject, enemy, transform.rotation);
+            SpawnGore(_goreValuesRam[2], _intestineObject, enemy, transform.rotation);
+            SpawnGore(_goreValuesRam[3], _spineObject, enemy, transform.rotation);
+            SpawnGore(_goreValuesRam[4], _brainObject, enemy, transform.rotation);
+            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, transform.rotation);
+            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, transform.rotation);
         }
     }
     public void NormalAttack(GameObject enemy)
@@ -92,14 +98,13 @@ public class RammyVFX : MonoBehaviour
     {
         // Here we instantiate the bloodprojectiles. The way I have it set up, lets it use one prefab with 15 projectiles inside it.
         var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
-        
-        // Here we're inserting some settings to change and calculate the direction the blood should move in.
         _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
-        angle = -angle;
-        _bloodSpreadCalculator.transform.localRotation = Quaternion.Euler(angle, 0, 0);
-        _bloodSpreadCalculator.transform.GetChild(0).transform.localScale = new Vector3(bloodSpread, 1, 1);
-        var _bloodDir1 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(0).transform.position - _bloodSpreadCalculator.transform.position;
-        var _bloodDir2 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(1).transform.position - _bloodSpreadCalculator.transform.position;
+
+
+        // Here we're inserting some settings to change and calculate the direction the blood should move in.
+        Vector3 bloodDir1;
+        Vector3 bloodDir2;
+        CalculateDirections(out bloodDir1, out bloodDir2,transform.rotation, angle, bloodSpread);
 
         // This foreach lets us access all projectiles inside the prefab.
         var i = 0;
@@ -117,8 +122,8 @@ public class RammyVFX : MonoBehaviour
             // Here we're accessing the projectile scripts to change the final splat's settings and the projectile direction and force.
             child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
             child.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
-            child.GetComponent<InitVelocity>().CalcDirLeft = _bloodDir1;
-            child.GetComponent<InitVelocity>().CalcDirRight = _bloodDir2;
+            child.GetComponent<InitVelocity>().CalcDirLeft = bloodDir1;
+            child.GetComponent<InitVelocity>().CalcDirRight = bloodDir2;
             child.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
             child.GetComponent<InitVelocity>().BloodForceMax = bloodForceMax;
             // Here we just check if it's supposed to be blue, and assign the correct materials
@@ -132,4 +137,33 @@ public class RammyVFX : MonoBehaviour
             }
         }
     }
+
+    private void SpawnGore(GoreValues goreSettings, GameObject spawnObject, GameObject enemy, Quaternion direction)
+    {
+        var amountOfGore = Random.Range(goreSettings.MinAmount, goreSettings.MaxAmount+1);
+        for (int i = 0; i < amountOfGore; i++)
+        {
+            var gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
+            var gorePieceVel = gorePiece.AddComponent<InitVelocity>();
+            //Debug.Break();
+            Vector3 bloodDir1;
+            Vector3 bloodDir2;
+            CalculateDirections(out bloodDir1, out bloodDir2, direction, goreSettings.Angle, goreSettings.Spread);
+            gorePieceVel.BloodForceMin = goreSettings.MinForce;
+            gorePieceVel.BloodForceMax = goreSettings.MaxForce;
+            gorePieceVel.CalcDirLeft = bloodDir1;
+            gorePieceVel.CalcDirRight = bloodDir2;
+        }
+    }
+
+
+    private void CalculateDirections(out Vector3 leftDirection, out Vector3 rightDirection, Quaternion Indirection, float angle, float spread)
+    {
+        angle = -angle;
+        _bloodSpreadCalculator.transform.localRotation = Quaternion.Euler(angle, 0, Indirection.eulerAngles.z);
+        _bloodSpreadCalculator.transform.GetChild(0).transform.localScale = new Vector3(spread, 1, 1);
+        leftDirection = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(0).transform.position - _bloodSpreadCalculator.transform.position;
+        rightDirection = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(1).transform.position - _bloodSpreadCalculator.transform.position;
+    }
+
 }
