@@ -32,6 +32,9 @@ public class ExternalCollider : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     public Collider GetCollider() => _collider;
+
+    public Rigidbody GetRigidbody() => _rigid;
+
     /// <summary>
     /// warning Expensive
     /// </summary>
