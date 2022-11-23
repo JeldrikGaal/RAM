@@ -462,7 +462,6 @@ public class RammyController : MonoBehaviour
             }
             else if (_ability2Key == 1)
             {
-                _cameraScript.ScreenShake(1.2f);
                 _ability2Script.CheckActivate();
             }
             else if (_ability3Key == 1)
