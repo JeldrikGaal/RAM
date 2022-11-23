@@ -78,7 +78,7 @@ public class EnemyTesting : MonoBehaviour
         _health -= damage;
         _healthBar.UpdateHealthBar(-(damage / _startingHealth));
         _lastIncomingHit = hitDirection;
-        Instantiate(_bloodSmoke, transform.position, transform.rotation);
+        Instantiate(_bloodSmoke, transform);
         if (_health <= 0)
         {
             return true;
