@@ -23,7 +23,7 @@ public class RammyController : MonoBehaviour
     private InputAction _ability3;
     private InputAction _ability4;
     private InputAction _ability5;
-    
+
     // Vector in which the character is currently moving according to player input
     private Vector2 _moveDirection;
     // Mouseposition in world space
@@ -81,7 +81,7 @@ public class RammyController : MonoBehaviour
     // Speed Modifier 
     [SerializeField] public float MovementSpeed;
 
-    [Header("Basic Attack")]    
+    [Header("Basic Attack")]
     // Attack Values
     [SerializeField] private float BasicAttackCoolDown;
     [SerializeField] private float BasicAttackDamage;
@@ -97,7 +97,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float DashDistance;
     [SerializeField] private float DashCoolDown;
     [SerializeField] private float DashAttackDamage;
-    [SerializeField] private bool  DashUpgraded;
+    [SerializeField] private bool DashUpgraded;
 
     // Variables for Dashing
     private float _startTimeDash;
@@ -106,7 +106,7 @@ public class RammyController : MonoBehaviour
 
     [SerializeField] private DashVisuals _dashVisuals;
 
-    
+
     // Charge Attack Values
     [Header("Charge Attack")]
     [SerializeField] private float ChargeAttackDuration;
@@ -151,6 +151,13 @@ public class RammyController : MonoBehaviour
     private Vector3 _lookingAtMouseRotation;
     private Vector3 _directionIndicatorScaleSave;
     private Vector3 _directionIndicatorPosSave;
+
+    [Header("Buff Values")]
+    public bool HasDamageBuff;
+    public float DamageModifier;
+    [HideInInspector] public float AppliedDamageModifier; // Multiply this by the damage in each ability
+    public float DamageBuffDuration;
+    [SerializeField] private float _damageBuffTimer;
 
     // Debugging
     [Header("DEBUGGING STUFF")]
@@ -265,7 +272,7 @@ public class RammyController : MonoBehaviour
         _mouseWorldPosition = new Vector3(_mouseWorldPosition.x, transform.position.y, _mouseWorldPosition.z);
         _lookingAtMouseRotation = _mouseWorldPosition - transform.position;
         _lookingAtMouseRotation = _lookingAtMouseRotation.normalized;
-        
+
         #endregion
 
         #region Movement
@@ -389,7 +396,7 @@ public class RammyController : MonoBehaviour
             if (Time.time - _startTimeChargeAttack > ChargeAttackDuration)
             {
                 EndChargeAttack();
-            }     
+            }
 
         }
         if (BasicAttacking)
@@ -485,6 +492,33 @@ public class RammyController : MonoBehaviour
         // Resetting last frame bools ( needs to stay at the bottom of Update ! )
         _lastFrameLeftMouseButton = false;
         _lastFrameRightMouseButton = false;
+
+        #region Buffs
+
+        #region DamageBuff
+        // Checks if the buff is active
+        if (HasDamageBuff)
+        {
+            // Timer counts down every second
+            _damageBuffTimer -= Time.deltaTime;
+
+            // The applied damage modifier is set to the wanted damage modifier
+            AppliedDamageModifier = DamageModifier;
+        }
+
+        // If the timer is over
+        if (_damageBuffTimer <= 0)
+        {
+            // "Turns off" the buff
+            HasDamageBuff = false;
+
+            // Sets the damage back to normal
+            AppliedDamageModifier = 1;
+        }
+
+        #endregion
+
+        #endregion
     }
 
 
@@ -517,7 +551,7 @@ public class RammyController : MonoBehaviour
                         }
                     }
                 }
-               
+
             }
         }
     }
@@ -571,7 +605,7 @@ public class RammyController : MonoBehaviour
                 }
 
             }
-            
+
             // Saving rotation and position
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
@@ -612,7 +646,7 @@ public class RammyController : MonoBehaviour
     {
         if (!Attacking && _dashingAllowed)
         {
-            
+
             Dashing = true;
             _startTimeDash = Time.time;
             RaycastHit hit;
@@ -626,9 +660,9 @@ public class RammyController : MonoBehaviour
                 {
                     _dashDestination = hit.point;
                 }
-                
+
             }
-            
+
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
             transform.up = _lookingAtMouseRotation;
@@ -646,7 +680,7 @@ public class RammyController : MonoBehaviour
             {
                 Invincible = true;
             }
-            
+
         }
     }
 
@@ -669,7 +703,7 @@ public class RammyController : MonoBehaviour
     /// </summary>
     private void RamIntoObject(GameObject rammedObject)
     {
-        Debug.Log( ("Rammed into:", rammedObject.name) );
+        Debug.Log(("Rammed into:", rammedObject.name));
         if (TagManager.HasTag(rammedObject, "enemy"))
         {
             if (_chargedEnemy == null)
@@ -732,7 +766,7 @@ public class RammyController : MonoBehaviour
                 Destroy(rammedObject);
             }
         }
-        
+
     }
 
     // Checking for any collisions Rammy encouters and reacting accordingly
@@ -756,6 +790,19 @@ public class RammyController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        // Checks to see if we collided with a damage powerup
+        if (other.tag == "DamagePowerup")
+        {
+            // Turns on the buff
+            HasDamageBuff = true;
+
+            // Adds time to the buff timer
+            _damageBuffTimer = DamageBuffDuration;
+        }
+    }
+
     /// <summary>
     /// Heals Rammy by the given amount to a maxium of the max hp
     /// </summary>
@@ -772,7 +819,7 @@ public class RammyController : MonoBehaviour
     {
         Debug.Log(MaxHealth * (HealPercentage / 100f));
         Heal((int)(MaxHealth * (HealPercentage / 100f)));
-        if(_comboSystem) _comboSystem.AddKill();
+        if (_comboSystem) _comboSystem.AddKill();
     }
 
     #region Setterfunctions
@@ -780,7 +827,7 @@ public class RammyController : MonoBehaviour
     public void StartUsingAbility()
     {
         UsingAbility = true;
-        
+
     }
     public void EndUsingAbility()
     {
