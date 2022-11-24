@@ -41,7 +41,6 @@ public class InitVelocity : MonoBehaviour
     public void ApplyVelocity(Vector3 dir, float force)
     {
         rb.velocity = new Vector3(dir.x, dir.y, dir.z) * force;
-        print(transform.name);
     }
 
     // Gives a random rotation within 2 rotations
