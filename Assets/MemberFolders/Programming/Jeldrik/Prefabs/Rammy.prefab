@@ -1794,6 +1794,7 @@ MonoBehaviour:
   _bloodSpreadCalculator: {fileID: 0}
   _stepScript: {fileID: 1489133657}
   _timeEffectScript: {fileID: 1973733744572080562}
+  _gorePrefab: {fileID: 4974556004237746303}
   _skullObject: {fileID: 3095865599965521266, guid: 929e6a0eff409cf47b1b250ee16330eb, type: 3}
   _heartObject: {fileID: 8085553223252622585, guid: d2c9ad2d9c835264295ffaa2971340ac, type: 3}
   _intestineObject: {fileID: 1228982729273674745, guid: c9ebeaca40b050241a57013b458c0e90, type: 3}
@@ -1823,42 +1824,42 @@ MonoBehaviour:
   _goreValuesRam:
   - GoreNames: Skull
     Spread: 0.64
-    Angle: 59.4
-    MinForce: 2.74
-    MaxForce: 6.05
+    Angle: 12.6
+    MinForce: 0.96
+    MaxForce: 3.1
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Heart
     Spread: 0.916
-    Angle: 26.1
-    MinForce: 7.49
-    MaxForce: 10
+    Angle: 13.4
+    MinForce: 1.56
+    MaxForce: 3.49
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Intestine
     Spread: 0.79
-    Angle: 24.9
-    MinForce: 3.09
-    MaxForce: 5.84
+    Angle: 14.9
+    MinForce: 1.62
+    MaxForce: 3.1
     MinAmount: 0
     MaxAmount: 2
   - GoreNames: Spine
     Spread: 1.07
-    Angle: 37.1
-    MinForce: 2.44
+    Angle: 15.5
+    MinForce: 3.71
     MaxForce: 3.72
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Brain
     Spread: 0.682
-    Angle: 42.7
-    MinForce: 4.68
+    Angle: 9.6
+    MinForce: 2.5
     MaxForce: 7.49
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Eyeball
     Spread: 1.973
-    Angle: 90
+    Angle: 9.6
     MinForce: 2.24
     MaxForce: 10
     MinAmount: 0
@@ -1866,7 +1867,7 @@ MonoBehaviour:
   - GoreNames: Meat
     Spread: 0.448
     Angle: 9.1
-    MinForce: 5.94
+    MinForce: 3.38
     MaxForce: 10
     MinAmount: 3
     MaxAmount: 10

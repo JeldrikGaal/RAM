@@ -19,6 +19,8 @@ public class Ability5 : Abilities
     {
         _rb = GetComponent<Rigidbody>();
         base.Start();
+
+        //Accesses collider's OnColiisonEnter and deals the damage to the enemies
         _externalCollider.GetComponent<ExternalCollider>().CollisionEnter += (Collision collision) =>
         {
             if (collision.gameObject.GetComponent<EnemyTesting>() && _inProgress)
@@ -31,10 +33,11 @@ public class Ability5 : Abilities
     override public void Update()
     {
         base.Update();
+
+        //Moves the collider forward so it can deal damage
         if (_inProgress)
         {
             _externalCollider.transform.position = Vector3.Lerp(_dashStart, _dashDestination, ((Time.time - _startTimeDash) / _moveDuration));
-            print((Time.time - _startTimeDash) / _moveDuration);
         }
     }
     override public void Activate()
@@ -44,9 +47,14 @@ public class Ability5 : Abilities
 
     IEnumerator WaitForJumpAnim()
     {
+        //Waits half a second for the jump animation
         yield return new WaitForSeconds(0.5f);
+        //To-do: Shake the camera in animation events so it would shake just when it lands
+
+        //Sets the external collider active, sets its position to be just in front of Rammy
         _externalCollider.SetActive(true);
         _externalCollider.transform.localPosition = new Vector3(0f, 1.5f, 0f);
+
         // Checking if the force field would end up in an object while dashing and shortening dash if thats the case
         _dashDestination = _externalCollider.transform.position + transform.up * _pushDistance;
         RaycastHit hit;
@@ -58,10 +66,14 @@ public class Ability5 : Abilities
                 _dashDestination = hit.point;
             }
         }
+
+        //Sets start position and time for the lerp calculations
         _dashStart = _externalCollider.transform.position;
         _startTimeDash = Time.time;
         _inProgress = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(_moveDuration);
+
+        //Stops the abiliy
         _inProgress = false;
         _externalCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
         _externalCollider.SetActive(false);
