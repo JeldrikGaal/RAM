@@ -480,13 +480,6 @@ public class RammyController : MonoBehaviour
         }
         #endregion
 
-        // Showing in engine where the player is gonna dash towards
-        directionIndicator.transform.forward = _lookingAtMouseRotation;
-
-        // Resetting last frame bools ( needs to stay at the bottom of Update ! )
-        _lastFrameLeftMouseButton = false;
-        _lastFrameRightMouseButton = false;
-
         #region Buffs
 
         #region DamageBuff
@@ -513,6 +506,23 @@ public class RammyController : MonoBehaviour
         #endregion
 
         #endregion
+
+        #region Debugging
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            TakeDamageRammy(5);
+        }
+
+        #endregion
+        // Showing in engine where the player is gonna dash towards
+        directionIndicator.transform.forward = _lookingAtMouseRotation;
+
+        // Resetting last frame bools ( needs to stay at the bottom of Update ! )
+        _lastFrameLeftMouseButton = false;
+        _lastFrameRightMouseButton = false;
+
+        
     }
 
 
@@ -863,15 +873,24 @@ public class RammyController : MonoBehaviour
 
         // Checking if Rammy died from taking damage
         Health -= _damage;
+
+        // Stopping combo 
+        _comboSystem.EndCombo();
+
+        // Cancel Charging Ram Attack 
+        if (_frameCounterRightMouseButton > 0)
+        {
+            _frameCounterRightMouseButton = 0;
+            _frameCounterRightMouseButtonSave = 0;
+        }
+
+        // Die if falls below 0 health
         if (Health <= 0)
         {
             Die();
         }
         
-        // TODO: Cancel Charge
-        // TODO: Cancel Combo
         // TODO: Damage resistance 
-
         // TODO: More VFX
     }
 
