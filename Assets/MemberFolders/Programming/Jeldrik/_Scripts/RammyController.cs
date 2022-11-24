@@ -904,4 +904,22 @@ public class RammyController : MonoBehaviour
         Debug.Log("RAMMY HAS DIED!!!!!");
         Destroy(gameObject);
     }
+
+    public List<Abilities> GetAbilityScripts()
+    {
+        List<Abilities> abilities = new List<Abilities>();
+
+        abilities.Add(_ability1Script);
+        abilities.Add(_ability2Script);
+        abilities.Add(_ability3Script);
+        abilities.Add(_ability4Script);
+        abilities.Add(_ability5Script);
+
+        return abilities;
+    }
+
+    public bool GetUsingAbility()
+    {
+        return UsingAbility;
+    }
 }
