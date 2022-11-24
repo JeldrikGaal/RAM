@@ -209,6 +209,82 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &448679932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 448679933}
+  - component: {fileID: 448679936}
+  - component: {fileID: 448679935}
+  - component: {fileID: 448679934}
+  m_Layer: 15
+  m_Name: ExternalColliderCapsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &448679933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448679932}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4974556004237746299}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &448679936
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448679932}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &448679935
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448679932}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &448679934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448679932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea0089b9b261bda48b82f0299f6a7a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &498659407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,8 +1471,9 @@ Transform:
   - {fileID: 744586600721938918}
   - {fileID: 7541908173190365020}
   - {fileID: 5027866717449145051}
+  - {fileID: 448679933}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1468,6 +1545,7 @@ MonoBehaviour:
   _frontCheck: {fileID: 1024294334}
   _cameraScript: {fileID: 0}
   _comboSystem: {fileID: 0}
+  _timeStopper: {fileID: 0}
   Attacking: 0
   BasicAttacking: 0
   Dashing: 0
@@ -1495,6 +1573,10 @@ MonoBehaviour:
   MaxChargeTime: 4
   _chargedEnemyOffset: {x: 0, y: 0, z: 0}
   _rammyVFX: {fileID: 3586331904611896420}
+  _freezeScaleRam: 0
+  _freezeTimeRam: 0
+  _freezeScaleHit: 0
+  _freezeTimeHit: 0
   HasDamageBuff: 0
   DamageModifier: 0
   AppliedDamageModifier: 0
@@ -1689,12 +1771,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cooldown: 1
-  Duration: 1
+  Duration: 2
   _controller: {fileID: 0}
-  timer: 0
+  _damage: 30
   _pushForce: 50
+  _pushBackForce: 700
   _pushDistance: 8
   _moveDuration: 1.5
+  _externalCollider: {fileID: 448679932}
 --- !u!114 &3586331904611896420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1794,6 +1878,30 @@ MonoBehaviour:
   _bloodAmountNormal: 3
   _bloodSizeMinNormal: 0.823
   _bloodSizeMaxNormal: 0.881
+  _bloodSpreadAb1: 0.5
+  _heightAngleAb1: 20
+  _bloodForceMinAb1: 0
+  _bloodForceMaxAb1: 0
+  _bloodAmountAb1: 5
+  _bloodSizeMinAb1: 1
+  _bloodSizeMaxAb1: 1
+  _goreValuesAb1: []
+  _bloodSpreadAb3: 0.5
+  _heightAngleAb3: 20
+  _bloodForceMinAb3: 0
+  _bloodForceMaxAb3: 0
+  _bloodAmountAb3: 5
+  _bloodSizeMinAb3: 1
+  _bloodSizeMaxAb3: 1
+  _goreValuesAb3: []
+  _bloodSpreadAb4: 0.5
+  _heightAngleAb4: 20
+  _bloodForceMinAb4: 0
+  _bloodForceMaxAb4: 0
+  _bloodAmountAb4: 5
+  _bloodSizeMinAb4: 1
+  _bloodSizeMaxAb4: 1
+  _goreValuesAb4: []
 --- !u!136 &4974556004237746302
 CapsuleCollider:
   m_ObjectHideFlags: 0
