@@ -685,14 +685,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177005048}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7333448, y: 3.5, z: -34.652786}
-  m_LocalScale: {x: 1, y: 7, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.49999997, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1726402940}
-  m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_Children: []
+  m_Father: {fileID: 1726402940}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &177005053
 MonoBehaviour:
@@ -1100,41 +1099,9 @@ PrefabInstance:
       value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 2117861001280260777, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
-      propertyPath: _damage
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117861001280260777, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
-      propertyPath: _points
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117861001280260777, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
-      propertyPath: Duration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117861001280260777, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
-      propertyPath: _pullForce
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117861001280260777, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
-      propertyPath: _pullRadius
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117861001280260777, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _testObject
       value: 
       objectReference: {fileID: 801477244}
-    - target: {fileID: 2117861001280260777, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
-      propertyPath: _stunDuration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117861001280260777, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
-      propertyPath: _restrictedTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117861001280260777, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
-      propertyPath: _distanceToPoints
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _comboSystem
       value: 
@@ -5911,7 +5878,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1726402940}
   m_Layer: 0
-  m_Name: PivotPoint
+  m_Name: Bridge Pivot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5924,13 +5891,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726402939}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.7333448, y: 0, z: -34.652786}
+  m_LocalScale: {x: 1, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 177005052}
-  m_RootOrder: -1
+  m_Children:
+  - {fileID: 177005052}
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1730560066 stripped
 Transform:
