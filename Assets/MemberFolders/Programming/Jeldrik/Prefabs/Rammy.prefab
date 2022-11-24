@@ -1361,9 +1361,9 @@ GameObject:
   - component: {fileID: 2117861001280260777}
   - component: {fileID: 5920122201635186104}
   - component: {fileID: 7400901502415930422}
+  - component: {fileID: 3586331904611896420}
   - component: {fileID: 4974556004237746302}
   - component: {fileID: 4974556004237746298}
-  - component: {fileID: 3586331904611896420}
   - component: {fileID: 1973733744572080562}
   - component: {fileID: 1279146745}
   - component: {fileID: 1279146746}
@@ -1495,6 +1495,11 @@ MonoBehaviour:
   MaxChargeTime: 4
   _chargedEnemyOffset: {x: 0, y: 0, z: 0}
   _rammyVFX: {fileID: 3586331904611896420}
+  HasDamageBuff: 0
+  DamageModifier: 0
+  AppliedDamageModifier: 0
+  DamageBuffDuration: 0
+  _damageBuffTimer: 0
   _mats:
   - {fileID: 2100000, guid: 15e346450e7a74f4aaa401054336f701, type: 2}
   - {fileID: 2100000, guid: 7e68f114ba3c17947864a5aa3f7b260e, type: 2}
@@ -1686,6 +1691,109 @@ MonoBehaviour:
   Cooldown: 1
   Duration: 1
   _controller: {fileID: 0}
+  timer: 0
+  _pushForce: 50
+  _pushDistance: 8
+  _moveDuration: 1.5
+--- !u!114 &3586331904611896420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974556004237746303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bd35dffce223f45ba74375ef520906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
+  _bloodSpreadCalculator: {fileID: 1489133655}
+  _stepScript: {fileID: 1489133657}
+  _timeEffectScript: {fileID: 1973733744572080562}
+  _skullObject: {fileID: 3095865599965521266, guid: 929e6a0eff409cf47b1b250ee16330eb, type: 3}
+  _heartObject: {fileID: 8085553223252622585, guid: d2c9ad2d9c835264295ffaa2971340ac, type: 3}
+  _intestineObject: {fileID: 0}
+  _spineObject: {fileID: 5261350053079679687, guid: 79aff601f1d4aa542b2e53a15d20b688, type: 3}
+  _brainObject: {fileID: 7256626866936029209, guid: cb6f29ddbe592f44582e248f0a815670, type: 3}
+  _eyeballObject: {fileID: 6904728445656177608, guid: 636ec7836a84b484aa52c232e4c88bb0, type: 3}
+  _meatPrefabs:
+  - {fileID: 5291567064603710999, guid: 80cd9931f454fd4438ab05609fc2ed8b, type: 3}
+  - {fileID: 3906882621796642699, guid: 3b594bcea8ecf0d4c9d1fbfc968c4579, type: 3}
+  - {fileID: 2945347816356749357, guid: 53a4e5a076257d04a9f992c514aadeac, type: 3}
+  IsBlue: 0
+  _bloodVariations:
+  - {fileID: 2100000, guid: c9bb0ad3224b91f4f8f21474be7406e1, type: 2}
+  - {fileID: 2100000, guid: 1c38d4d52c3d5ed4ebd2c371896f427b, type: 2}
+  - {fileID: 2100000, guid: 7dcc092c702273c48a8431bae6f84ccc, type: 2}
+  _blueBloodVariations:
+  - {fileID: 2100000, guid: b2c1c129794acdc428782169fe4e1dc7, type: 2}
+  - {fileID: 2100000, guid: 8739e941f6dfeaf43ac114b73a590327, type: 2}
+  - {fileID: 2100000, guid: b72810edf5b98a445813c46c2a29e1b0, type: 2}
+  _bloodSpread: 0.8
+  _heightAngle: 0
+  _bloodForceMin: 5
+  _bloodForceMax: 8
+  _bloodAmount: 15
+  _bloodSizeMin: 1
+  _bloodSizeMax: 1.2
+  _goreValuesRam:
+  - GoreNames: Skull
+    Spread: 0.64
+    Angle: 59.4
+    MinForce: 2.74
+    MaxForce: 6.05
+    MinAmount: 0
+    MaxAmount: 1
+  - GoreNames: Heart
+    Spread: 0.916
+    Angle: 26.1
+    MinForce: 7.49
+    MaxForce: 10
+    MinAmount: 0
+    MaxAmount: 1
+  - GoreNames: Intestine
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: Spine
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: Brain
+    Spread: 0.682
+    Angle: 42.7
+    MinForce: 4.68
+    MaxForce: 7.49
+    MinAmount: 0
+    MaxAmount: 1
+  - GoreNames: Eyeball
+    Spread: 1.973
+    Angle: 90
+    MinForce: 2.24
+    MaxForce: 10
+    MinAmount: 0
+    MaxAmount: 2
+  - GoreNames: Meat
+    Spread: 0.448
+    Angle: 9.1
+    MinForce: 5.94
+    MaxForce: 10
+    MinAmount: 3
+    MaxAmount: 10
+  _bloodSpreadNormal: 0.5
+  _heightAngleNormal: 43.5
+  _bloodForceMinNormal: 2.03
+  _bloodForceMaxNormal: 2.78
+  _bloodAmountNormal: 3
+  _bloodSizeMinNormal: 0.823
+  _bloodSizeMaxNormal: 0.881
 --- !u!136 &4974556004237746302
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1715,46 +1823,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
---- !u!114 &3586331904611896420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4974556004237746303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37bd35dffce223f45ba74375ef520906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
-  _bloodSpreadCalculator: {fileID: 1489133655}
-  _stepScript: {fileID: 1489133657}
-  _timeEffectScript: {fileID: 1973733744572080562}
-  IsBlue: 0
-  _bloodVariations:
-  - {fileID: 2100000, guid: c9bb0ad3224b91f4f8f21474be7406e1, type: 2}
-  - {fileID: 2100000, guid: 1c38d4d52c3d5ed4ebd2c371896f427b, type: 2}
-  - {fileID: 2100000, guid: 7dcc092c702273c48a8431bae6f84ccc, type: 2}
-  _blueBloodVariations:
-  - {fileID: 2100000, guid: b2c1c129794acdc428782169fe4e1dc7, type: 2}
-  - {fileID: 2100000, guid: 8739e941f6dfeaf43ac114b73a590327, type: 2}
-  - {fileID: 2100000, guid: b72810edf5b98a445813c46c2a29e1b0, type: 2}
-  _bloodSpread: 0.8
-  _heightAngle: 0
-  _bloodForceMin: 5
-  _bloodForceMax: 8
-  _bloodAmount: 15
-  _bloodSizeMin: 1
-  _bloodSizeMax: 1.2
-  _bloodSpreadNormal: 0.5
-  _heightAngleNormal: 43.5
-  _bloodForceMinNormal: 2.03
-  _bloodForceMaxNormal: 2.78
-  _bloodAmountNormal: 3
-  _bloodSizeMinNormal: 0.823
-  _bloodSizeMaxNormal: 0.881
+  m_CollisionDetection: 1
 --- !u!114 &1973733744572080562
 MonoBehaviour:
   m_ObjectHideFlags: 0

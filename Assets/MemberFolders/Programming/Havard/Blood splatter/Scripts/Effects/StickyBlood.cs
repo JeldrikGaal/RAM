@@ -56,7 +56,7 @@ public class StickyBlood : MonoBehaviour
 
 
             // Spawn the splat:
-            var prefab = Instantiate(SplatObject, item.point + item.normal * 0.8f, splatRotation);
+            var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
             prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
             BloodStepScript.AddPoint(new Vector2(item.point.x, item.point.z), prefab.gameObject);
             prefab.GetComponent<DecalProjector>().material = BloodMaterial;

@@ -40,6 +40,11 @@ public class Ability4 : Abilities
                 enemy.TakeDamage(this.Upgraded ? _upgradedDamage : _initialDamage, transform.up);
                 _hurt.Add(collision.gameObject.GetInstanceID());
                 _controller.AddScreenShake(1.2f);
+
+                // VFX:
+                GetComponent<RammyVFX>().Ab4Attack(enemy.gameObject, collision.contacts[0].normal);
+
+
             } };
     }
     override public void Update()

@@ -73,6 +73,9 @@ public class Ability1 : Abilities
                 // Sets the damage
                 jumpArea.GetComponent<JumpAttackArea>().Damage = _defaultDamage * _controller.AppliedDamageModifier;
 
+                // Sets the VFX script
+                jumpArea.GetComponent<JumpAttackArea>().VFXScript = GetComponent<RammyVFX>();
+
                 // Destroy the damage area after 0.5 seconds
                 Destroy(jumpArea, 0.5f);
 
@@ -112,8 +115,8 @@ public class Ability1 : Abilities
         // Sets the keyframe values to the animation curve
         _yPosCurve = new AnimationCurve(keyframes);
 
-        Debug.Log(_controller.transform.position);
-        Debug.Log("Ability 1");
+        // Debug.Log(_controller.transform.position);
+        // Debug.Log("Ability 1");
     }
 
     private IEnumerator SpawnUpgradedArea()
@@ -129,6 +132,9 @@ public class Ability1 : Abilities
 
         // Sets the damage
         upgradedArea.GetComponent<JumpAttackArea>().Damage = _upgradedDamage * _controller.AppliedDamageModifier;
+
+        // Sets the VFX script
+        upgradedArea.GetComponent<JumpAttackArea>().VFXScript = GetComponent<RammyVFX>();
 
         // Destroys the area after 0.5 seconds
         Destroy(upgradedArea, 0.5f);

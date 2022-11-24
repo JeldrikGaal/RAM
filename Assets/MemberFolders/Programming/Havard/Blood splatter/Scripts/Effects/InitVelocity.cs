@@ -11,7 +11,7 @@ public class InitVelocity : MonoBehaviour
     [SerializeField] private float randomOffsetValue = 1;
 
     // Settings for moving the objects away from the player
-    [SerializeField] private bool awayFromPlayer = false;
+    [SerializeField] private bool awayFromPlayer = true;
     public Vector3 CalcDirLeft;
     public Vector3 CalcDirRight;
     public float BloodForceMin;
