@@ -52,5 +52,10 @@ public abstract class Abilities : MonoBehaviour
     {
         return Time.time - _startingTime > Cooldown;
     }
+
+    public bool IsRunning()
+    {
+        return _started;
+    }
     
 }
