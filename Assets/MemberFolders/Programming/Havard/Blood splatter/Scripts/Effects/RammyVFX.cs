@@ -42,7 +42,7 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private Material[] _bloodVariations;
     [SerializeField] private Material[] _blueBloodVariations;
 
-    #region blood settings
+    #region blood and gore settings for each ability
 
     // Here you can customize the values for every type of attack!
     [Header("Ram attack")]
@@ -75,6 +75,15 @@ public class RammyVFX : MonoBehaviour
     [Range(0.1f, 2)] public float _bloodSizeMaxAb1 = 1;
     [SerializeField] private GoreValues[] _goreValuesAb1;
 
+    [Header("Spin attack")]
+    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb2 = 0.5f;
+    [Range(0f, 90f)] public float _heightAngleAb2 = 20;
+    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb2;
+    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb2;
+    [Range(0, 15)] public int _bloodAmountAb2 = 5;
+    [Range(0.1f, 2)] public float _bloodSizeMinAb2 = 1;
+    [Range(0.1f, 2)] public float _bloodSizeMaxAb2 = 1;
+    [SerializeField] private GoreValues[] _goreValuesAb2;
 
     [Header("Pull attack")]
     [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb3 = 0.5f;
@@ -95,6 +104,16 @@ public class RammyVFX : MonoBehaviour
     [Range(0.1f, 2)] public float _bloodSizeMinAb4 = 1;
     [Range(0.1f, 2)] public float _bloodSizeMaxAb4 = 1;
     [SerializeField] private GoreValues[] _goreValuesAb4;
+
+    [Header("Bodyslam attack")]
+    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb5 = 0.5f;
+    [Range(0f, 90f)] public float _heightAngleAb5 = 20;
+    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb5;
+    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb5;
+    [Range(0, 15)] public int _bloodAmountAb5 = 5;
+    [Range(0.1f, 2)] public float _bloodSizeMinAb5 = 1;
+    [Range(0.1f, 2)] public float _bloodSizeMaxAb5 = 1;
+    [SerializeField] private GoreValues[] _goreValuesAb5;
 
     #endregion
 
@@ -197,15 +216,31 @@ public class RammyVFX : MonoBehaviour
         for (int i = 0; i < amountOfGore; i++)
         {
             var gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
-            var gorePieceVel = gorePiece.AddComponent<InitVelocity>();
 
-            Vector3 bloodDir1;
-            Vector3 bloodDir2;
-            CalculateDirections(out bloodDir1, out bloodDir2, direction, goreSettings.Angle, goreSettings.Spread);
-            gorePieceVel.BloodForceMin = goreSettings.MinForce;
-            gorePieceVel.BloodForceMax = goreSettings.MaxForce;
-            gorePieceVel.CalcDirLeft = bloodDir1;
-            gorePieceVel.CalcDirRight = bloodDir2;
+            if(gorePiece.GetComponent<RagdollVelocity>())
+            {
+                var gorePieceVel = gorePiece.GetComponent<RagdollVelocity>();
+
+                Vector3 bloodDir1;
+                Vector3 bloodDir2;
+                CalculateDirections(out bloodDir1, out bloodDir2, direction, goreSettings.Angle, goreSettings.Spread);
+                gorePieceVel.BloodForceMin = goreSettings.MinForce;
+                gorePieceVel.BloodForceMax = goreSettings.MaxForce;
+                gorePieceVel.CalcDirLeft = bloodDir1;
+                gorePieceVel.CalcDirRight = bloodDir2;
+            } else
+            {
+                var gorePieceVel = gorePiece.AddComponent<InitVelocity>();
+
+                Vector3 bloodDir1;
+                Vector3 bloodDir2;
+                CalculateDirections(out bloodDir1, out bloodDir2, direction, goreSettings.Angle, goreSettings.Spread);
+                gorePieceVel.BloodForceMin = goreSettings.MinForce;
+                gorePieceVel.BloodForceMax = goreSettings.MaxForce;
+                gorePieceVel.CalcDirLeft = bloodDir1;
+                gorePieceVel.CalcDirRight = bloodDir2;
+            }
+
         }
     }
 
