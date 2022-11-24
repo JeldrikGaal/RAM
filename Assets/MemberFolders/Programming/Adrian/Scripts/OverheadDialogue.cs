@@ -125,8 +125,10 @@ public class OverheadDialogue : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Enables the camera pan
         PanCamera = true;
 
+        // Stores the transform of the player for the pan back
         _playerTransform = other.transform;
     }
 }
