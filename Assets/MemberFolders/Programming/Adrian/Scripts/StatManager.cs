@@ -67,7 +67,8 @@ public class StatManager : MonoBehaviour
         if (_comboKills > 4)
         {
             // Enable the kombo timer canvas
-            _comboCanvas.gameObject.SetActive(true);
+            _comboTimerText.gameObject.SetActive(true);
+            //_comboCanvas.gameObject.SetActive(true);
 
             // Display the current combo timer with two decimals
             //_comboTimerText.text = "Combo Timer:\n" + _comboTimer.ToString("F2");
@@ -150,6 +151,7 @@ public class StatManager : MonoBehaviour
     {
         // If the timer stopped reset the combo kill counter
         _comboKills = 0;
-        _comboCanvas.gameObject.SetActive(false);
+        _comboTimerText.gameObject.SetActive(false);
+        //_comboCanvas.gameObject.SetActive(false);
     }
 }

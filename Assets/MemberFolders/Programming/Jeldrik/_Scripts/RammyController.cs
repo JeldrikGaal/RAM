@@ -23,7 +23,7 @@ public class RammyController : MonoBehaviour
     private InputAction _ability3;
     private InputAction _ability4;
     private InputAction _ability5;
-    
+
 
     // Vector in which the character is currently moving according to player input
     private Vector2 _moveDirection;
@@ -135,7 +135,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private RammyVFX _rammyVFX;
     [SerializeField] private float _freezeScaleRam;
     [SerializeField] private float _freezeTimeRam;
-    
+
     [SerializeField] private float _freezeScaleHit;
     [SerializeField] private float _freezeTimeHit;
 
@@ -522,7 +522,7 @@ public class RammyController : MonoBehaviour
         _lastFrameLeftMouseButton = false;
         _lastFrameRightMouseButton = false;
 
-        
+
     }
 
 
@@ -728,7 +728,7 @@ public class RammyController : MonoBehaviour
 
             // If time scale is not already slowed, slow down time on enemy hit
             if (Time.timeScale == 1) _timeStopper.PauseTime(_freezeScaleRam, _freezeTimeRam);
-            
+
             _cameraScript.ScreenShake(0.5f);
 
 
@@ -774,6 +774,11 @@ public class RammyController : MonoBehaviour
             {
                 Destroy(rammedObject);
             }
+        }
+        else if (TagManager.HasTag(rammedObject, "knockdownbridge"))
+        {
+            // Makes the bridge rotate when it is rammed
+            rammedObject.GetComponent<KnockDownBridgeScript>().CanRotate = true;
         }
 
     }
@@ -889,7 +894,7 @@ public class RammyController : MonoBehaviour
         {
             Die();
         }
-        
+
         // TODO: Damage resistance 
         // TODO: More VFX
     }
@@ -899,5 +904,23 @@ public class RammyController : MonoBehaviour
     {
         Debug.Log("RAMMY HAS DIED!!!!!");
         Destroy(gameObject);
+    }
+
+    public List<Abilities> GetAbilityScripts()
+    {
+        List<Abilities> abilities = new List<Abilities>();
+
+        abilities.Add(_ability1Script);
+        abilities.Add(_ability2Script);
+        abilities.Add(_ability3Script);
+        abilities.Add(_ability4Script);
+        abilities.Add(_ability5Script);
+
+        return abilities;
+    }
+
+    public bool GetUsingAbility()
+    {
+        return UsingAbility;
     }
 }

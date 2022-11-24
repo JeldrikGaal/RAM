@@ -32,7 +32,7 @@ public class Ability4 : Abilities
         _eCollider.CollisionEnter += (Collision collision) => 
         {
 
-            if (collision.gameObject.HasTag("enemy") && !_hurt.Contains(collision.gameObject.GetInstanceID()))
+            if (collision.gameObject.HasTag("enemy") && !_hurt.Contains(collision.gameObject.GetInstanceID()) && _stage>0 )
             {
                 
                 var enemy = collision.gameObject.GetComponent<EnemyTesting>();
