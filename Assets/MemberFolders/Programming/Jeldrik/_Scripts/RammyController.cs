@@ -23,7 +23,7 @@ public class RammyController : MonoBehaviour
     private InputAction _ability3;
     private InputAction _ability4;
     private InputAction _ability5;
-    
+
 
     // Vector in which the character is currently moving according to player input
     private Vector2 _moveDirection;
@@ -135,7 +135,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private RammyVFX _rammyVFX;
     [SerializeField] private float _freezeScaleRam;
     [SerializeField] private float _freezeTimeRam;
-    
+
     [SerializeField] private float _freezeScaleHit;
     [SerializeField] private float _freezeTimeHit;
 
@@ -522,7 +522,7 @@ public class RammyController : MonoBehaviour
         _lastFrameLeftMouseButton = false;
         _lastFrameRightMouseButton = false;
 
-        
+
     }
 
 
@@ -728,7 +728,7 @@ public class RammyController : MonoBehaviour
 
             // If time scale is not already slowed, slow down time on enemy hit
             if (Time.timeScale == 1) _timeStopper.PauseTime(_freezeScaleRam, _freezeTimeRam);
-            
+
             _cameraScript.ScreenShake(0.5f);
 
 
@@ -774,6 +774,10 @@ public class RammyController : MonoBehaviour
             {
                 Destroy(rammedObject);
             }
+        }
+        else if (TagManager.HasTag(rammedObject, "knockdownbridge"))
+        {
+            print("Hit bridge");
         }
 
     }
@@ -889,7 +893,7 @@ public class RammyController : MonoBehaviour
         {
             Die();
         }
-        
+
         // TODO: Damage resistance 
         // TODO: More VFX
     }
