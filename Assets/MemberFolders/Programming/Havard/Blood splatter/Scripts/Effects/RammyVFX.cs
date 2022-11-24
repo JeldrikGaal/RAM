@@ -22,6 +22,7 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private GameObject _bloodSpreadCalculator;
     [SerializeField] private BloodySteps _stepScript;
     [SerializeField] private TimeStopper _timeEffectScript;
+    [SerializeField] private GameObject _gorePrefab;
 
     [Header("Gore prefabs")]
     [SerializeField] private GameObject _skullObject;
@@ -212,11 +213,13 @@ public class RammyVFX : MonoBehaviour
 
     private void SpawnGore(GoreValues goreSettings, GameObject spawnObject, GameObject enemy, Vector3 direction = default(Vector3))
     {
+        // Randomize the amount of gore piece we want
         var amountOfGore = Random.Range(goreSettings.MinAmount, goreSettings.MaxAmount+1);
         for (int i = 0; i < amountOfGore; i++)
         {
             var gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
 
+            // Here we check if it has the ragdoll script. If it does, we add the settings to that instead of the rigidbody velocity script.
             if(gorePiece.GetComponent<RagdollVelocity>())
             {
                 var gorePieceVel = gorePiece.GetComponent<RagdollVelocity>();
@@ -231,6 +234,9 @@ public class RammyVFX : MonoBehaviour
             } else
             {
                 var gorePieceVel = gorePiece.AddComponent<InitVelocity>();
+                var bloodScript = gorePiece.AddComponent<GoreBlood>();
+
+                bloodScript.SplatObject = _gorePrefab;
 
                 Vector3 bloodDir1;
                 Vector3 bloodDir2;
