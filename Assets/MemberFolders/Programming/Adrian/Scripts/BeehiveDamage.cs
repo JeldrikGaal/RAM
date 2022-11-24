@@ -8,29 +8,24 @@ public class BeehiveDamage : MonoBehaviour
     [SerializeField] private float _damage;
     private float _localTimer;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void OnTriggerStay(Collider other)
     {
+        // Checks to see if the player is inside
         if (other.tag == "Player")
         {
+            // If the timer has reached zero
             if (_localTimer <= 0)
             {
+                // Rammy takes damage
                 other.GetComponent<RammyController>().TakeDamageRammy(_damage);
+
+                // Restarts the timer
                 _localTimer = _damageFrequency;
             }
             else
             {
+                // The timer counts down each second
                 _localTimer -= Time.deltaTime;
             }
         }
