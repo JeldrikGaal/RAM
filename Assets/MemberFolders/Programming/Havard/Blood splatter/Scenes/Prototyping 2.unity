@@ -6068,6 +6068,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _gorePrefab
+      value: 
+      objectReference: {fileID: 8261845704376933755, guid: d076efecf4c1ad94b82cf5f030b918a9, type: 3}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _bloodAmount
       value: 15
       objectReference: {fileID: 0}
@@ -6208,6 +6212,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _goreBloodMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 7dcc092c702273c48a8431bae6f84ccc, type: 2}
+    - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _bloodSizeMinNormal
       value: 0.823
       objectReference: {fileID: 0}
@@ -6293,15 +6301,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[3].Angle
-      value: 37.1
+      value: 15.5
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[4].Angle
-      value: 42.7
+      value: 9.6
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[5].Angle
-      value: 90
+      value: 9.6
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[6].Angle
@@ -6365,27 +6373,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[0].MaxForce
-      value: 6.05
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[0].MinForce
-      value: 2.74
+      value: 0.96
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[1].MaxForce
-      value: 10
+      value: 3.49
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[1].MinForce
-      value: 7.49
+      value: 1.56
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[2].MaxForce
-      value: 5.84
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[2].MinForce
-      value: 3.09
+      value: 1.62
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[3].MaxForce
@@ -6393,7 +6401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[3].MinForce
-      value: 2.44
+      value: 3.71
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[4].MaxForce
@@ -6401,7 +6409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[4].MinForce
-      value: 4.68
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[5].MaxForce
@@ -6417,7 +6425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[6].MinForce
-      value: 5.94
+      value: 3.38
       objectReference: {fileID: 0}
     - target: {fileID: 3586331904611896420, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _goreValuesRam.Array.data[0].GoreNames

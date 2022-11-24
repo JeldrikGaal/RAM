@@ -17,11 +17,13 @@ public class RammyVFX : MonoBehaviour
         [Range(0, 10)] public int MinAmount;
         [Range(0, 10)] public int MaxAmount;
     }
+
     // Some essential things for the script:
     [SerializeField] private GameObject _bloodBomb;
     [SerializeField] private GameObject _bloodSpreadCalculator;
     [SerializeField] private BloodySteps _stepScript;
     [SerializeField] private TimeStopper _timeEffectScript;
+    [SerializeField] private GameObject _gorePrefab;
 
     [Header("Gore prefabs")]
     [SerializeField] private GameObject _skullObject;
@@ -31,7 +33,6 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private GameObject _brainObject;
     [SerializeField] private GameObject _eyeballObject;
     [SerializeField] private GameObject[] _meatPrefabs;
-
 
     // Graphics settings:
     [Header("Graphics settings")]
@@ -118,7 +119,7 @@ public class RammyVFX : MonoBehaviour
     #endregion
 
 
-    #region blood functions
+    #region blood functions for each attack
 
     // These functions are called from the RammyController script, and invokes the main blood function with the values in this script, but with the enemy from the rammy script
     public void RamAttack(GameObject enemy)
@@ -210,13 +211,16 @@ public class RammyVFX : MonoBehaviour
         }
     }
 
+    // This function sets up everything we want for the gore to be!
     private void SpawnGore(GoreValues goreSettings, GameObject spawnObject, GameObject enemy, Vector3 direction = default(Vector3))
     {
+        // Randomize the amount of gore piece we want
         var amountOfGore = Random.Range(goreSettings.MinAmount, goreSettings.MaxAmount+1);
         for (int i = 0; i < amountOfGore; i++)
         {
             var gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
 
+            // Here we check if it has the ragdoll script. If it does, we add the settings to that instead of the rigidbody velocity script.
             if(gorePiece.GetComponent<RagdollVelocity>())
             {
                 var gorePieceVel = gorePiece.GetComponent<RagdollVelocity>();
@@ -230,8 +234,15 @@ public class RammyVFX : MonoBehaviour
                 gorePieceVel.CalcDirRight = bloodDir2;
             } else
             {
+                // Adds the velocity script:
                 var gorePieceVel = gorePiece.AddComponent<InitVelocity>();
+                // Adds the blood splat creator:
+                var bloodScript = gorePiece.AddComponent<GoreBlood>();
 
+                // Just sets the splat prefab to be the one we want:
+                bloodScript.SplatObject = _gorePrefab;
+
+                // Applies gore settings to velocity:
                 Vector3 bloodDir1;
                 Vector3 bloodDir2;
                 CalculateDirections(out bloodDir1, out bloodDir2, direction, goreSettings.Angle, goreSettings.Spread);
@@ -265,6 +276,7 @@ public class RammyVFX : MonoBehaviour
         rightDirection = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(1).transform.position - _bloodSpreadCalculator.transform.position;
     }
 
+    // Helpful function to remap values:
     float map(float s, float a1, float a2, float b1, float b2)
     {
         return b1 + (s - a1) * (b2 - b1) / (a2 - a1);

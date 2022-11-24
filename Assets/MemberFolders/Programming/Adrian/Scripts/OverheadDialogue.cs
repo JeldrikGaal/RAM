@@ -43,8 +43,8 @@ public class OverheadDialogue : MonoBehaviour
         MoveCamera();
 
         // Stole muratcans code again >:)
-        _character1Canvas.transform.rotation = Quaternion.LookRotation(-_cameraTransform.forward, _cameraTransform.up);
-        _character2Canvas.transform.rotation = Quaternion.LookRotation(-_cameraTransform.forward, _cameraTransform.up);
+        _character1Canvas.transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
+        _character2Canvas.transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
     }
 
     private void MoveCamera()
