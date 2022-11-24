@@ -34,7 +34,7 @@ public abstract class Abilities : MonoBehaviour
     // Checks if the respective Ability can be activated and activates in in that case
     public bool CheckActivate()
     {
-        if (!_started)
+        if (!_started && IsReady())
         {
             _started = true;
             _startingTime = Time.time;
@@ -51,6 +51,16 @@ public abstract class Abilities : MonoBehaviour
     public bool IsReady()
     {
         return Time.time - _startingTime > Cooldown;
+    }
+
+    public bool IsRunning()
+    {
+        return _started;
+    }
+
+    public float GetStartingTime()
+    {
+        return _startingTime;
     }
     
 }

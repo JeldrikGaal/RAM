@@ -43,8 +43,8 @@ public class OverheadDialogue : MonoBehaviour
         MoveCamera();
 
         // Stole muratcans code again >:)
-        _character1Canvas.transform.rotation = Quaternion.LookRotation(-_cameraTransform.forward, _cameraTransform.up);
-        _character2Canvas.transform.rotation = Quaternion.LookRotation(-_cameraTransform.forward, _cameraTransform.up);
+        _character1Canvas.transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
+        _character2Canvas.transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
     }
 
     private void MoveCamera()
@@ -125,8 +125,10 @@ public class OverheadDialogue : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Enables the camera pan
         PanCamera = true;
 
+        // Stores the transform of the player for the pan back
         _playerTransform = other.transform;
     }
 }
