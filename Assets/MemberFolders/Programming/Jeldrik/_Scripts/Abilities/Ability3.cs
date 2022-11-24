@@ -11,6 +11,7 @@ public class Ability3 : Abilities
     [SerializeField] private float _distanceToPoints;
     [SerializeField] private float _pullRadius;
     [SerializeField] private float _restrictedTime;
+    [SerializeField] private float _damage;
 
     public bool Upgraded;
 
@@ -40,6 +41,28 @@ public class Ability3 : Abilities
         // Clear the list of points
         Points.Clear();
 
+        // Gets an array of all the colliders within a radius around a point
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _pullRadius);
+
+        // Local transform list
+        List<Transform> enemyTransforms = new List<Transform>();
+
+
+        // Checks all the colliders and adds the ones with the enemy tag to the list
+        foreach (Collider col in hitColliders)
+        {
+            if (col.tag == "enemy")
+            {
+                enemyTransforms.Add(col.transform);
+            }
+        }
+
+        // Gets the 8 closes enemies to the player and adds them to a list
+        EnemyList = GetClosestEnemies(enemyTransforms);
+
+        _points = EnemyList.Count;
+
+
         // Finds an amount of points equally spaced around a circle
         for (int i = 0; i < _points; i++)
         {
@@ -67,24 +90,7 @@ public class Ability3 : Abilities
             Points.Add(spawnPos, true);
         }
 
-        // Gets an array of all the colliders within a radius around a point
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _pullRadius);
 
-        // Local transform list
-        List<Transform> enemyTransforms = new List<Transform>();
-
-
-        // Checks all the colliders and adds the ones with the enemy tag to the list
-        foreach (Collider col in hitColliders)
-        {
-            if (col.tag == "enemy")
-            {
-                enemyTransforms.Add(col.transform);
-            }
-        }
-
-        // Gets the 8 closes enemies to the player and adds them to a list
-        EnemyList = GetClosestEnemies(enemyTransforms);
 
         // Makes an array of all the keys in the dictionary
         Vector3[] keys = Points.Keys.ToArray();
@@ -112,7 +118,14 @@ public class Ability3 : Abilities
             Points[closestPoint] = false;
 
 
-            enemy.transform.position = new Vector3(closestPoint.x, enemy.transform.position.y, closestPoint.z);
+            enemy.GetComponent<EnemyTesting>().Pulled = true;
+            enemy.GetComponent<EnemyTesting>().PullPoint = closestPoint;
+
+            if (enemy.GetComponent<EnemyTesting>() != null)
+            {
+                // Makes the enemy take damage
+                enemy.GetComponent<EnemyTesting>().TakeDamage(_damage * _controller.AppliedDamageModifier, Vector3.up);
+            }
 
             // If the ability is upgraded
             if (Upgraded)
@@ -133,7 +146,10 @@ public class Ability3 : Abilities
     {
         // Local list for the closest objects
         List<GameObject> closestList = new List<GameObject>();
-        for (int i = 0; i < _points; i++)
+
+        var enemyCount = Mathf.Clamp(enemies.Count, 0, 8);
+
+        for (int i = 0; i < enemyCount; i++)
         {
             // Sets base values
             Transform bestTarget = null;
@@ -146,7 +162,7 @@ public class Ability3 : Abilities
                 // Gets the direction between the target and player
                 Vector3 directionToTarget = potentialTarget.position - currentPosition;
 
-                // Gets the squared length of the vector (Distance)
+                // Gets the squared length of the vector (Distance) Apparently this is better than Vector3.distance because it does the same thing
                 float dSqrToTarget = directionToTarget.sqrMagnitude;
 
                 // If the distance is less than the current saved closes distance
@@ -167,6 +183,12 @@ public class Ability3 : Abilities
 
         // Returns the list of the closes enemies
         return closestList;
+    }
+
+    private IEnumerator Windup(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
     }
 
     private IEnumerator RestrictPlayerMovement(float duration)

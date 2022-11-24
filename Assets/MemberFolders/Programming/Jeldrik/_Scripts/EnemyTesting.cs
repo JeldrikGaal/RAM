@@ -23,6 +23,9 @@ public class EnemyTesting : MonoBehaviour
 
     [HideInInspector] public float StunDuration;
     [HideInInspector] public bool Stunned;
+    [HideInInspector] public bool Pulled;
+
+    [HideInInspector] public Vector3 PullPoint;
 
     // Visual Effects
     [SerializeField] private GameObject _bloodSmoke;
@@ -47,7 +50,7 @@ public class EnemyTesting : MonoBehaviour
         _startingHealth = _health;
 
         // Records the default speed
-        if(GetComponent<Jonas_TempCharacter>()) _defaultSpeed = GetComponent<Jonas_TempCharacter>().MoveSpeed;
+        if (GetComponent<Jonas_TempCharacter>()) _defaultSpeed = GetComponent<Jonas_TempCharacter>().MoveSpeed;
     }
 
     // Update is called once per frame
@@ -67,6 +70,19 @@ public class EnemyTesting : MonoBehaviour
             Stunned = false;
         }
 
+        if (Pulled)
+        {
+            MoveToPullPoint(PullPoint);
+
+            gameObject.layer = 23;
+
+            if (Vector3.Distance(transform.position, PullPoint) < 0.5f)
+            {
+                Pulled = false;
+                gameObject.layer = 0;
+            }
+        }
+
     }
 
     /// <summary>
@@ -79,8 +95,11 @@ public class EnemyTesting : MonoBehaviour
         _health -= damage;
         _healthBar.UpdateHealthBar(-(damage / _startingHealth));
         _lastIncomingHit = hitDirection;
-        var smokeBlood = Instantiate(_bloodSmoke, transform);
-        smokeBlood.transform.localScale *= _bloodSize;
+        if (_bloodSmoke != null)
+        {
+            var smokeBlood = Instantiate(_bloodSmoke, transform);
+            smokeBlood.transform.localScale *= _bloodSize;
+        }
         if (_health <= 0)
         {
             return true;
@@ -93,7 +112,7 @@ public class EnemyTesting : MonoBehaviour
     /// </summary>
     private void Die()
     {
-        _piecesManager.SpawnPieces(_deathPieces, _deathPiecesOnce,transform.position,
+        _piecesManager.SpawnPieces(_deathPieces, _deathPiecesOnce, transform.position,
                                    new Vector2(_lastIncomingHit.x - _deathPiecesSpreadingFactor, _lastIncomingHit.x + _deathPiecesSpreadingFactor),
                                    new Vector2(_lastIncomingHit.y - _deathPiecesSpreadingFactor, _lastIncomingHit.y + _deathPiecesSpreadingFactor),
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
@@ -107,7 +126,7 @@ public class EnemyTesting : MonoBehaviour
             //_utilScript.Respawn(gameObject, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-        
+
     }
 
     public IEnumerator Stun(float duration)
@@ -120,5 +139,10 @@ public class EnemyTesting : MonoBehaviour
 
         // Sets the movespeed to the default speed again
         GetComponent<Jonas_TempCharacter>().MoveSpeed = _defaultSpeed;
+    }
+
+    public void MoveToPullPoint(Vector3 point)
+    {
+        transform.position = Vector3.Lerp(transform.position, point, 2 * Time.deltaTime);
     }
 }

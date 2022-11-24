@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class JumpAttackArea : MonoBehaviour
 {
-    // [HideInInspector]
+    [HideInInspector]
     public float Damage;
-    // [HideInInspector]
+    [HideInInspector]
     public float StunDuration;
 
     private void OnTriggerEnter(Collider other)

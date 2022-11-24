@@ -60,9 +60,7 @@ public class StatManager : MonoBehaviour
         }
         else
         {
-            // If the timer stopped reset the combo kill counter
-            _comboKills = 0;
-            _comboCanvas.gameObject.SetActive(false);
+            EndCombo();
         }
 
         // If you get more than 4 kils in a row
@@ -146,5 +144,12 @@ public class StatManager : MonoBehaviour
 
         // Sets the score timer to 5 seconds
         _scoreTimer = 3;
+    }
+
+    public void EndCombo()
+    {
+        // If the timer stopped reset the combo kill counter
+        _comboKills = 0;
+        _comboCanvas.gameObject.SetActive(false);
     }
 }
