@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// A script that enabeles external events for collisions.
-/// Warning casting Collider to ExternalCollider might be expensive.
 /// </summary>
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -11,11 +10,13 @@ public class ExternalCollider : MonoBehaviour
 {
     private Collider _collider;
     private Rigidbody _rigid;
-    private void Start()
+
+    private void Awake()
     {
         _collider = GetComponent<Collider>();
         _rigid = GetComponent<Rigidbody>();
     }
+    
 
 
     /// <summary>
@@ -43,16 +44,10 @@ public class ExternalCollider : MonoBehaviour
     /// <returns></returns>
     public Rigidbody GetRigidbody() => _rigid;
 
-    /// <summary>
-    /// warning Expensive
-    /// </summary>
-    /// <param name="collider"></param>
-    public static implicit operator ExternalCollider(Collider collider) => collider.TryGetComponent(out ExternalCollider external) ? external : collider.gameObject.AddComponent<ExternalCollider>();
-
-
     // Event handelers
     private void OnCollisionEnter(Collision collision) => CollisionEnter?.Invoke(collision);
     private void OnCollisionStay(Collision collision) => CollisionStay?.Invoke(collision);
     private void OnCollisionExit(Collision collision) => CollisionExit?.Invoke(collision);
+    
 
 }

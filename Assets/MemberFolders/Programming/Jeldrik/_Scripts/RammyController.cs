@@ -23,6 +23,7 @@ public class RammyController : MonoBehaviour
     private InputAction _ability3;
     private InputAction _ability4;
     private InputAction _ability5;
+    
 
     // Vector in which the character is currently moving according to player input
     private Vector2 _moveDirection;
@@ -62,6 +63,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
+    [SerializeField] private TimeStopper _timeStopper;
 
     [Header("Character State")]
     // Bools describing playerstate
@@ -131,19 +133,11 @@ public class RammyController : MonoBehaviour
     // VFX
     [Header("Visual Effects")]
     [SerializeField] private RammyVFX _rammyVFX;
-
-    /*
-    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMin;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMax;
-    [Range(0, 15)] public int _bloodAmount = 5;
-    [Range(0.1f, 5)] public float _bloodSize = 1;
-    [SerializeField] private GameObject _bloodSpreadCalculator; // I'm dumb, so I'm letting Unity do my math -H�vard
-    [SerializeField] private GameObject _bloodBomb;
-    private Vector3 _bloodDir1;
-    private Vector3 _bloodDir2;
-    [SerializeField] private BloodySteps _stepScript;
-    */
+    [SerializeField] private float _freezeScaleRam;
+    [SerializeField] private float _freezeTimeRam;
+    
+    [SerializeField] private float _freezeScaleHit;
+    [SerializeField] private float _freezeTimeHit;
 
     // Help variables for various purposes
     private Plane _groundPlane = new Plane(Vector3.up, 0);
@@ -486,13 +480,6 @@ public class RammyController : MonoBehaviour
         }
         #endregion
 
-        // Showing in engine where the player is gonna dash towards
-        directionIndicator.transform.forward = _lookingAtMouseRotation;
-
-        // Resetting last frame bools ( needs to stay at the bottom of Update ! )
-        _lastFrameLeftMouseButton = false;
-        _lastFrameRightMouseButton = false;
-
         #region Buffs
 
         #region DamageBuff
@@ -519,6 +506,23 @@ public class RammyController : MonoBehaviour
         #endregion
 
         #endregion
+
+        #region Debugging
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            TakeDamageRammy(5);
+        }
+
+        #endregion
+        // Showing in engine where the player is gonna dash towards
+        directionIndicator.transform.forward = _lookingAtMouseRotation;
+
+        // Resetting last frame bools ( needs to stay at the bottom of Update ! )
+        _lastFrameLeftMouseButton = false;
+        _lastFrameRightMouseButton = false;
+
+        
     }
 
 
@@ -545,7 +549,7 @@ public class RammyController : MonoBehaviour
                     if (TagManager.HasTag(g, "enemy"))
                     {
                         _rammyVFX.NormalAttack(g);
-                        if (g.GetComponent<EnemyTesting>().TakeDamage(BasicAttackDamage, transform.up))
+                        if (g.GetComponent<EnemyTesting>().TakeDamage(BasicAttackDamage * AppliedDamageModifier, transform.up))
                         {
                             Kill(g);
                         }
@@ -713,7 +717,7 @@ public class RammyController : MonoBehaviour
             }
 
             // Calling Damage on the enemy script
-            if (rammedObject.GetComponent<EnemyTesting>().TakeDamage(ChargeAttackDamage, transform.up))
+            if (rammedObject.GetComponent<EnemyTesting>().TakeDamage(ChargeAttackDamage * AppliedDamageModifier, transform.up))
             {
                 Kill(rammedObject);
             }
@@ -722,7 +726,12 @@ public class RammyController : MonoBehaviour
 
             _rammyVFX.RamAttack(_chargedEnemy);
 
+            // If time scale is not already slowed, slow down time on enemy hit
+            if (Time.timeScale == 1) _timeStopper.PauseTime(_freezeScaleRam, _freezeTimeRam);
+            
             _cameraScript.ScreenShake(0.5f);
+
+
 
             // Sorry for filling your lovely code up with my old commented out trash code.
             //  Then why not just delete it?  -JG
@@ -782,7 +791,7 @@ public class RammyController : MonoBehaviour
         {
             if (TagManager.HasTag(collision.gameObject, "enemy"))
             {
-                if (collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(DashAttackDamage, transform.up))
+                if (collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(DashAttackDamage * AppliedDamageModifier, transform.up))
                 {
                     Kill(collision.gameObject);
                 }
@@ -849,5 +858,46 @@ public class RammyController : MonoBehaviour
     public void AddScreenShake(float strength)
     {
         _cameraScript.ScreenShake(strength);
+    }
+
+    // Function to call when Rammy takes any sort of damage
+    public void TakeDamageRammy(float _damage)
+    {
+        // If Rammy is currently in an I frame dont take damage and dont show damage effects
+        if (Invincible)
+        {
+            return;
+        }
+        // Short Time slow to emphazise taking damage
+        _timeStopper.PauseTime(_freezeScaleHit, _freezeTimeHit);
+
+        // Checking if Rammy died from taking damage
+        Health -= _damage;
+
+        // Stopping combo 
+        _comboSystem.EndCombo();
+
+        // Cancel Charging Ram Attack 
+        if (_frameCounterRightMouseButton > 0)
+        {
+            _frameCounterRightMouseButton = 0;
+            _frameCounterRightMouseButtonSave = 0;
+        }
+
+        // Die if falls below 0 health
+        if (Health <= 0)
+        {
+            Die();
+        }
+        
+        // TODO: Damage resistance 
+        // TODO: More VFX
+    }
+
+    // Rammy fell below 0 health and has now died. Deal with it in this function
+    private void Die()
+    {
+        Debug.Log("RAMMY HAS DIED!!!!!");
+        Destroy(gameObject);
     }
 }

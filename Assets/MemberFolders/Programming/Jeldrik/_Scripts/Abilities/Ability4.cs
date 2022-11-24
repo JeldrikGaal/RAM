@@ -21,36 +21,41 @@ public class Ability4 : Abilities
     Vector3 _originalPosition;
     Quaternion _originalRotation;
     Rigidbody _rigid;
+    private readonly List<int> _hurt = new();
+
     public override void Start()
     {
         base.Start();
         _rigid = GetComponent<Rigidbody>();
 
-        // Adds an action to external collider
+        // Adds an action to external collider for hitting the enemy.
         _eCollider.CollisionEnter += (Collision collision) => 
-        { 
-            
-            if (collision.gameObject.HasTag("enemy")) 
-            { 
+        {
+
+            if (collision.gameObject.HasTag("enemy") && !_hurt.Contains(collision.gameObject.GetInstanceID()))
+            {
                 
                 var enemy = collision.gameObject.GetComponent<EnemyTesting>();
 
                 enemy.TakeDamage(this.Upgraded ? _upgradedDamage : _initialDamage, transform.up);
-        } };
+                _hurt.Add(collision.gameObject.GetInstanceID());
+                _controller.AddScreenShake(1.2f);
+            } };
     }
     override public void Update()
     {
         base.Update();
 
+        // Controlling the attack process
         switch (_stage)
         {
+            // Windup
             case 1:
                 {
                     var currentRot = CalculateEulerRotationOverTime(Vector3.zero, -(_aulerAngleArea / 2), _prepTime);
 
                     UpdatePositionAndRotation(currentRot, _moveRadius);
-
-
+                    
                     if (Time.time > _startTime + _prepTime)
                     {
                         _stage = 2;
@@ -59,6 +64,7 @@ public class Ability4 : Abilities
                     }
                     break;
                 }
+                // Attacking
             case 2:
                 {
                     var currentRot = CalculateEulerRotationOverTime(-(_aulerAngleArea / 2),_aulerAngleArea /2 , _moveTime);
@@ -71,9 +77,11 @@ public class Ability4 : Abilities
                         _stage = 3;
                         _eCollider.gameObject.SetActive(false);
                         _startTime = Time.time;
+                        _hurt.Clear();
                     }
                     break;
                 }
+                // Resetting
             case 3:
                 {
                     var currentRot = CalculateEulerRotationOverTime(_aulerAngleArea / 2,Vector3.zero , _resetTime);
@@ -113,30 +121,31 @@ public class Ability4 : Abilities
         }*/
     }
 
+    
+
+    // Updates the positio and rotation of rammy during the move
+    private void UpdatePositionAndRotation(Vector3 eulerAngles, float radius) => _rigid.Move(PositionAroundThePoint(eulerAngles, radius), Quaternion.Euler(_originalRotation.eulerAngles + eulerAngles));
+
+    // Gets the position with the radius and the angle away from the start point.
+    private Vector3 PositionAroundThePoint(Vector3 eulerAngles, float radius) => _originalPosition + (Quaternion.Euler(_originalRotation.eulerAngles + eulerAngles) * (Vector3.up * radius));
+
+    // Calculates rotation over time
+    private Vector3 CalculateEulerRotationOverTime(Vector3 start, Vector3 end, float time) => Vector3.Lerp(start, end, movementCurve.Evaluate((Time.time - _startTime) / time));
+    
+    // Updates the position of the externalCollider
+    private void ExtendedAreaOfEffect(Vector3 rot, float radius)
+    {
+        var rotat = Quaternion.Euler(_originalRotation.eulerAngles + rot);
+        _eCollider.GetRigidbody().Move(PositionAroundThePoint(rot, radius - _eCollider.GetCollider().bounds.size.z / 2), rotat);
+    }
+
+
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(transform.position + (Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0,0,30)) * (Vector3.up*2)),.5f);
-        
-        
+
+
         Gizmos.DrawRay(_originalPosition, transform.up);
     }
 
-    private void UpdatePositionAndRotation(Vector3 eulerAngles, float radius)
-    {
-        //_rigid.MovePosition(PositionAroundThePoint(eulerAngles, radius));
-        _rigid.Move(PositionAroundThePoint(eulerAngles, radius), Quaternion.Euler(_originalRotation.eulerAngles + eulerAngles));
-        //transform.rotation = Quaternion.Euler(_originalRotation.eulerAngles + eulerAngles);
-    }
-
-    private Vector3 PositionAroundThePoint(Vector3 eulerAngles, float radius) => _originalPosition + (Quaternion.Euler(_originalRotation.eulerAngles + eulerAngles) * (Vector3.up * radius));
-
-    Vector3 CalculateEulerRotationOverTime(Vector3 start, Vector3 end, float time) => Vector3.Lerp(start, end, movementCurve.Evaluate((Time.time - _startTime) / time));
-    
-    // for the area of effect
-    void ExtendedAreaOfEffect(Vector3 rot, float radius)
-    {
-        var rotat = Quaternion.Euler(_originalRotation.eulerAngles + rot);
-        float boxRadius = .5f;
-        _eCollider.GetRigidbody().Move(PositionAroundThePoint(rot, radius - _eCollider.GetCollider().bounds.size.z / 2), rotat);
-    }
 }
