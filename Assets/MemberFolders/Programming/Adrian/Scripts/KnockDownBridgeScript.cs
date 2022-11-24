@@ -13,6 +13,7 @@ public class KnockDownBridgeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Gets a reference to the parent / pivot point
         _pivotPoint = transform.parent;
     }
 
@@ -20,10 +21,16 @@ public class KnockDownBridgeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Checks to see if it can rotate
         if (CanRotate)
         {
+            // Starts the coroutine that stops the rotation after a while
             StartCoroutine(StopRotating());
+
+            // Rotates the pivot point
             _pivotPoint.Rotate(new Vector3(_degreesPerSecond * Time.deltaTime, 0, 0));
+
+            // Clamps the rotation to 90 degrees
             _pivotPoint.eulerAngles = new Vector3(Mathf.Clamp(_pivotPoint.eulerAngles.x, 0, _finalRotation), 0, 0);
         }
     }
@@ -31,8 +38,13 @@ public class KnockDownBridgeScript : MonoBehaviour
 
     private IEnumerator StopRotating()
     {
+        // Waits the final rotation degrees divided by the degrees per second amount of seconds
         yield return new WaitForSeconds(_finalRotation / _degreesPerSecond);
+
+        // Stops the rotation
         CanRotate = false;
+
+        // Destroys the script so it can't be activated again
         Destroy(this);
     }
 }
