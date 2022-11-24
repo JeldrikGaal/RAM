@@ -9,6 +9,9 @@ public class JumpAttackArea : MonoBehaviour
     [HideInInspector]
     public float StunDuration;
 
+    // VFX:
+    public RammyVFX VFXScript;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "enemy")
@@ -21,6 +24,9 @@ public class JumpAttackArea : MonoBehaviour
 
             // Sets the stund variable to true so the enemy is stunned
             other.GetComponent<EnemyTesting>().Stunned = true;
+
+            // Tells the VFX script to do VFX things:
+            VFXScript.Ab1Attack(other.gameObject);
         }
     }
 }

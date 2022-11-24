@@ -125,6 +125,9 @@ public class Ability3 : Abilities
             {
                 // Makes the enemy take damage
                 enemy.GetComponent<EnemyTesting>().TakeDamage(_damage * _controller.AppliedDamageModifier, Vector3.up);
+
+                // Tells the VFX script to do something
+                GetComponent<RammyVFX>().Ab3Attack(enemy, closestPoint);
             }
 
             // If the ability is upgraded

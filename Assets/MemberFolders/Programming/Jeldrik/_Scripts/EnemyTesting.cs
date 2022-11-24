@@ -79,7 +79,7 @@ public class EnemyTesting : MonoBehaviour
             if (Vector3.Distance(transform.position, PullPoint) < 0.5f)
             {
                 Pulled = false;
-                gameObject.layer = 0;
+                gameObject.layer = 24;
             }
         }
 
@@ -112,11 +112,13 @@ public class EnemyTesting : MonoBehaviour
     /// </summary>
     private void Die()
     {
+        /*
         _piecesManager.SpawnPieces(_deathPieces, _deathPiecesOnce, transform.position,
                                    new Vector2(_lastIncomingHit.x - _deathPiecesSpreadingFactor, _lastIncomingHit.x + _deathPiecesSpreadingFactor),
                                    new Vector2(_lastIncomingHit.y - _deathPiecesSpreadingFactor, _lastIncomingHit.y + _deathPiecesSpreadingFactor),
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
                                    _forceMultipier, _pieceCount, _pieceLiftime); // force multiplier, amount, lifespan
+        */
         if (!_respawnAfterDeath)
         {
             Destroy(gameObject);
