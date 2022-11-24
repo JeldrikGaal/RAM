@@ -8,10 +8,6 @@ public class KnockDownBridgeScript : MonoBehaviour
     [SerializeField] private float _finalRotation;
     [SerializeField] private Transform _pivotPoint;
 
-    private float traverse;
-    private float currentBearing;
-    private float newBearing;
-
     public bool CanRotate;
 
     // Start is called before the first frame update
@@ -26,7 +22,9 @@ public class KnockDownBridgeScript : MonoBehaviour
     {
         if (CanRotate)
         {
-            _pivotPoint.eulerAngles = new Vector3(90, 0, 0);
+            StartCoroutine(StopRotating());
+            _pivotPoint.Rotate(new Vector3(_degreesPerSecond * Time.deltaTime, 0, 0));
+            _pivotPoint.eulerAngles = new Vector3(Mathf.Clamp(_pivotPoint.eulerAngles.x, 0, _finalRotation), 0, 0);
         }
     }
 
@@ -35,6 +33,6 @@ public class KnockDownBridgeScript : MonoBehaviour
     {
         yield return new WaitForSeconds(_finalRotation / _degreesPerSecond);
         CanRotate = false;
-        // Destroy(this);
+        Destroy(this);
     }
 }
