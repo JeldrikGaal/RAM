@@ -26,10 +26,11 @@ public class Splinter : MonoBehaviour
 
         if (collision.gameObject.HasTag("enemy"))
         {
+            var enemy = collision.gameObject.GetComponent<EnemyTesting>();
+
             // damaging the enemy
-            collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(_properties.Damage, transform.forward);
-            // adds knockback
-            collision.rigidbody.velocity = _initialVelocity.normalized * _properties.Knockback;
+            enemy.TakeDamage(_properties.Damage, transform.forward);
+            StartCoroutine(enemy.Stun(_properties.StunTime));
 
            // _rigid.velocity = _initialVelocity;
         }
@@ -69,5 +70,5 @@ public class Splinter : MonoBehaviour
 public class SplinterProperties
 {
     public float Damage;
-    public float Knockback;
+    public float StunTime;
 }
