@@ -8,38 +8,43 @@ public class KnockDownBridgeScript : MonoBehaviour
     [SerializeField] private float _finalRotation;
     [SerializeField] private Transform _pivotPoint;
 
-
-    public bool CanRotate;
+    [HideInInspector] public bool CanRotate;
 
     // Start is called before the first frame update
     void Start()
     {
-        _pivotPoint = transform.GetChild(0);
+        // Gets a reference to the parent / pivot point
+        _pivotPoint = transform.parent;
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        // Checks to see if it can rotate
         if (CanRotate)
         {
-            transform.RotateAround(_pivotPoint.position, _pivotPoint.right, Time.deltaTime * _degreesPerSecond);
+            // Starts the coroutine that stops the rotation after a while
             StartCoroutine(StopRotating());
 
-            print(transform.eulerAngles.x);
+            // Rotates the pivot point
+            _pivotPoint.Rotate(new Vector3(_degreesPerSecond * Time.deltaTime, 0, 0));
 
-            // if (transform.eulerAngles.x >= _finalRotation)
-            // {
-            //     print("too far dude");
-            // }
+            // Clamps the rotation to 90 degrees
+            _pivotPoint.eulerAngles = new Vector3(Mathf.Clamp(_pivotPoint.eulerAngles.x, 0, _finalRotation), 0, 0);
         }
-        // transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x, 0, _finalRotation), transform.eulerAngles.y, transform.eulerAngles.z);
     }
+
 
     private IEnumerator StopRotating()
     {
+        // Waits the final rotation degrees divided by the degrees per second amount of seconds
         yield return new WaitForSeconds(_finalRotation / _degreesPerSecond);
+
+        // Stops the rotation
         CanRotate = false;
-        // Destroy(this);
+
+        // Destroys the script so it can't be activated again
+        Destroy(this);
     }
 }

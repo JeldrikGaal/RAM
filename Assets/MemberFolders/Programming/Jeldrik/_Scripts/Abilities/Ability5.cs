@@ -6,26 +6,34 @@ public class Ability5 : Abilities
 {
     Rigidbody _rb;
     Vector3 _dashDestination;
+    Vector3 _dashStart;
     bool _inProgress = false;
     float _startTimeDash;
-    [SerializeField] float timer = 0f;
+    [SerializeField] float _damage = 30f;
     [SerializeField] float _pushForce = 50f;
+    [SerializeField] float _pushBackForce = 7f;
     [SerializeField] float _pushDistance = 8f;
     [SerializeField] float _moveDuration = 1.5f;
+    [SerializeField] GameObject _externalCollider;
     public override void Start()
     {
         _rb = GetComponent<Rigidbody>();
         base.Start();
+        _externalCollider.GetComponent<ExternalCollider>().CollisionEnter += (Collision collision) =>
+        {
+            if (collision.gameObject.GetComponent<EnemyTesting>() && _inProgress)
+            {
+                collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(_damage, transform.up);
+                _controller.AddScreenShake(1f);
+            }
+        };
     }
     override public void Update()
     {
-        
         base.Update();
         if (_inProgress)
         {
-            timer += Time.deltaTime;
-            print("p");
-            transform.position = Vector3.Lerp(transform.position, _dashDestination, ((Time.time - _startTimeDash) / _moveDuration));
+            _externalCollider.transform.position = Vector3.Lerp(_dashStart, _dashDestination, ((Time.time - _startTimeDash) / _moveDuration));
             print((Time.time - _startTimeDash) / _moveDuration);
         }
     }
@@ -37,10 +45,12 @@ public class Ability5 : Abilities
     IEnumerator WaitForJumpAnim()
     {
         yield return new WaitForSeconds(0.5f);
-        // Checking if player would end up in an object while dashing and shortening dash if thats the case
-        _dashDestination = transform.position + transform.up * _pushDistance;
+        _externalCollider.SetActive(true);
+        _externalCollider.transform.localPosition = new Vector3(0f, 1.5f, 0f);
+        // Checking if the force field would end up in an object while dashing and shortening dash if thats the case
+        _dashDestination = _externalCollider.transform.position + transform.up * _pushDistance;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.up, out hit, _pushDistance))
+        if (Physics.Raycast(_externalCollider.transform.position, transform.up, out hit, _pushDistance))
         {
             RaycastHit hit2;
             if (Physics.Raycast(_dashDestination + Vector3.up * 100, Vector3.down, out hit2, 105) && hit.transform == hit2.transform)
@@ -48,11 +58,12 @@ public class Ability5 : Abilities
                 _dashDestination = hit.point;
             }
         }
+        _dashStart = _externalCollider.transform.position;
         _startTimeDash = Time.time;
-        timer = 0f;
         _inProgress = true;
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(1.5f);
         _inProgress = false;
-        
+        _externalCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
+        _externalCollider.SetActive(false);
     }
 }
