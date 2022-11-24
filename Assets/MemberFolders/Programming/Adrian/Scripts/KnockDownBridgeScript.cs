@@ -26,30 +26,10 @@ public class KnockDownBridgeScript : MonoBehaviour
     {
         if (CanRotate)
         {
-            traverse = _degreesPerSecond * Time.deltaTime;
-            _pivotPoint.Rotate(new Vector3(traverse, 0, 0));
-            // transform.RotateAround(_pivotPoint.position, _pivotPoint.right, Time.deltaTime * _degreesPerSecond);
-            // StartCoroutine(StopRotating());
-
-            print(_pivotPoint.eulerAngles.x);
-
-            newBearing = currentBearing + traverse;
-            SetCurrentBearing(newBearing);
-
-            // if (transform.eulerAngles.x >= _finalRotation)
-            // {
-            //     print("too far dude");
-            // }
+            _pivotPoint.eulerAngles = new Vector3(90, 0, 0);
         }
-        // transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x, 0, _finalRotation), transform.eulerAngles.y, transform.eulerAngles.z);
     }
 
-
-    void SetCurrentBearing(float rot)
-    {
-        currentBearing = Mathf.Clamp(rot, 0, 90);
-        _pivotPoint.transform.rotation = Quaternion.Euler(rot, 0, 0);
-    }
 
     private IEnumerator StopRotating()
     {

@@ -777,7 +777,8 @@ public class RammyController : MonoBehaviour
         }
         else if (TagManager.HasTag(rammedObject, "knockdownbridge"))
         {
-            print("Hit bridge");
+            // Makes the bridge rotate when it is rammed
+            rammedObject.GetComponent<KnockDownBridgeScript>().CanRotate = true;
         }
 
     }
