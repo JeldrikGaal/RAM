@@ -1473,7 +1473,7 @@ Transform:
   - {fileID: 5027866717449145051}
   - {fileID: 448679933}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1706,7 +1706,6 @@ MonoBehaviour:
   _restrictedTime: 0.5
   _damage: 2
   Upgraded: 0
-  _testObject: {fileID: 0}
   EnemyList: []
 --- !u!114 &5920122201635186104
 MonoBehaviour:
@@ -1792,12 +1791,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
-  _bloodSpreadCalculator: {fileID: 1489133655}
+  _bloodSpreadCalculator: {fileID: 0}
   _stepScript: {fileID: 1489133657}
   _timeEffectScript: {fileID: 1973733744572080562}
   _skullObject: {fileID: 3095865599965521266, guid: 929e6a0eff409cf47b1b250ee16330eb, type: 3}
   _heartObject: {fileID: 8085553223252622585, guid: d2c9ad2d9c835264295ffaa2971340ac, type: 3}
-  _intestineObject: {fileID: 0}
+  _intestineObject: {fileID: 1228982729273674745, guid: c9ebeaca40b050241a57013b458c0e90, type: 3}
   _spineObject: {fileID: 5261350053079679687, guid: 79aff601f1d4aa542b2e53a15d20b688, type: 3}
   _brainObject: {fileID: 7256626866936029209, guid: cb6f29ddbe592f44582e248f0a815670, type: 3}
   _eyeballObject: {fileID: 6904728445656177608, guid: 636ec7836a84b484aa52c232e4c88bb0, type: 3}
@@ -1837,19 +1836,19 @@ MonoBehaviour:
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Intestine
-    Spread: 0
-    Angle: 0
-    MinForce: 0
-    MaxForce: 0
+    Spread: 0.79
+    Angle: 24.9
+    MinForce: 3.09
+    MaxForce: 5.84
     MinAmount: 0
-    MaxAmount: 0
+    MaxAmount: 2
   - GoreNames: Spine
-    Spread: 0
-    Angle: 0
-    MinForce: 0
-    MaxForce: 0
+    Spread: 1.07
+    Angle: 37.1
+    MinForce: 2.44
+    MaxForce: 3.72
     MinAmount: 0
-    MaxAmount: 0
+    MaxAmount: 1
   - GoreNames: Brain
     Spread: 0.682
     Angle: 42.7
@@ -1878,30 +1877,46 @@ MonoBehaviour:
   _bloodAmountNormal: 3
   _bloodSizeMinNormal: 0.823
   _bloodSizeMaxNormal: 0.881
-  _bloodSpreadAb1: 0.5
-  _heightAngleAb1: 20
-  _bloodForceMinAb1: 0
-  _bloodForceMaxAb1: 0
-  _bloodAmountAb1: 5
-  _bloodSizeMinAb1: 1
-  _bloodSizeMaxAb1: 1
+  _bloodSpreadAb1: 0.93
+  _heightAngleAb1: 41.3
+  _bloodForceMinAb1: 4.9
+  _bloodForceMaxAb1: 7.4
+  _bloodAmountAb1: 13
+  _bloodSizeMinAb1: 0.89
+  _bloodSizeMaxAb1: 1.24
   _goreValuesAb1: []
-  _bloodSpreadAb3: 0.5
-  _heightAngleAb3: 20
+  _bloodSpreadAb2: 0.5
+  _heightAngleAb2: 20
+  _bloodForceMinAb2: 0
+  _bloodForceMaxAb2: 0
+  _bloodAmountAb2: 5
+  _bloodSizeMinAb2: 1
+  _bloodSizeMaxAb2: 1
+  _goreValuesAb2: []
+  _bloodSpreadAb3: 0.269
+  _heightAngleAb3: 11.2
   _bloodForceMinAb3: 0
   _bloodForceMaxAb3: 0
-  _bloodAmountAb3: 5
-  _bloodSizeMinAb3: 1
-  _bloodSizeMaxAb3: 1
+  _bloodAmountAb3: 2
+  _bloodSizeMinAb3: 0.411
+  _bloodSizeMaxAb3: 0.729
   _goreValuesAb3: []
   _bloodSpreadAb4: 0.5
-  _heightAngleAb4: 20
-  _bloodForceMinAb4: 0
-  _bloodForceMaxAb4: 0
-  _bloodAmountAb4: 5
-  _bloodSizeMinAb4: 1
-  _bloodSizeMaxAb4: 1
+  _heightAngleAb4: 32
+  _bloodForceMinAb4: 2.93
+  _bloodForceMaxAb4: 5.77
+  _bloodAmountAb4: 13
+  _bloodSizeMinAb4: 0.71
+  _bloodSizeMaxAb4: 1.1
   _goreValuesAb4: []
+  _bloodSpreadAb5: 0.5
+  _heightAngleAb5: 20
+  _bloodForceMinAb5: 0
+  _bloodForceMaxAb5: 0
+  _bloodAmountAb5: 5
+  _bloodSizeMinAb5: 1
+  _bloodSizeMaxAb5: 1
+  _goreValuesAb5: []
 --- !u!136 &4974556004237746302
 CapsuleCollider:
   m_ObjectHideFlags: 0
