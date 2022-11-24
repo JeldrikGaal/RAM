@@ -17,6 +17,7 @@ public class AbilityUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        // Fills some needed Lists with Values
         for (int i = 0; i < 5; i++)
         {
             _abilityBlocks.Add(transform.GetChild(i));
@@ -33,6 +34,7 @@ public class AbilityUIManager : MonoBehaviour
     void Update()
     {
         bool anyAbilityInUse = false;
+        // Loops through all abilities and updates the UI according to the status in the respective scripts
         for (int i = 0; i < _abilityScripts.Count; i++)
         {
             if (_abilityScripts[i].IsRunning()) 
@@ -43,6 +45,8 @@ public class AbilityUIManager : MonoBehaviour
             float fillPercentage = Mathf.Min(1, ((Time.time - _abilityScripts[i].GetStartingTime()) / _abilityScripts[i].Cooldown));
             SetAbilityClockToPercent(i, fillPercentage);
         }
+
+        // Resets all abilities if none is being used
         if (!anyAbilityInUse)
         {
             for (int i = 0; i < 5; i++)
@@ -52,11 +56,20 @@ public class AbilityUIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set the specified timing circle to a specified percentage
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="percentage"></param>
     public void SetAbilityClockToPercent(int index, float percentage)
     {
         _coolDownCircles[index].fillAmount = percentage;
     }
 
+    /// <summary>
+    /// Sets the ability UI to display that the ability is currently being used and every other ability to display that it is not being used
+    /// </summary>
+    /// <param name="index"></param>
     public void AbilityBeingUsed(int index)
     {
         for (int i = 0; i < _abilityBlocks.Count; i++)
