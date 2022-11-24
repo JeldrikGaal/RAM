@@ -8,7 +8,7 @@ public class KnockDownBridgeScript : MonoBehaviour
     [SerializeField] private float _finalRotation;
     [SerializeField] private Transform _pivotPoint;
 
-    public bool CanRotate;
+    [HideInInspector] public bool CanRotate;
 
     // Start is called before the first frame update
     void Start()
