@@ -79,7 +79,7 @@ public class EnemyTesting : MonoBehaviour
             if (Vector3.Distance(transform.position, PullPoint) < 0.5f)
             {
                 Pulled = false;
-                gameObject.layer = 0;
+                gameObject.layer = 24;
             }
         }
 

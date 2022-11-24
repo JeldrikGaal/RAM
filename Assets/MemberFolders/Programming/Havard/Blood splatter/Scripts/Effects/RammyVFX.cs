@@ -75,6 +75,17 @@ public class RammyVFX : MonoBehaviour
     [Range(0.1f, 2)] public float _bloodSizeMaxAb1 = 1;
     [SerializeField] private GoreValues[] _goreValuesAb1;
 
+
+    [Header("Pull attack")]
+    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb3 = 0.5f;
+    [Range(0f, 90f)] public float _heightAngleAb3 = 20;
+    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb3;
+    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb3;
+    [Range(0, 15)] public int _bloodAmountAb3 = 5;
+    [Range(0.1f, 2)] public float _bloodSizeMinAb3 = 1;
+    [Range(0.1f, 2)] public float _bloodSizeMaxAb3 = 1;
+    [SerializeField] private GoreValues[] _goreValuesAb3;
+
     #endregion
 
 
@@ -106,10 +117,15 @@ public class RammyVFX : MonoBehaviour
 
         var dir = (enemy.transform.position - transform.position).normalized;
 
-
-        print(dir + transform.position);
-
         SpawnBlood(_bloodSizeMinAb1, _bloodSizeMaxAb1, _bloodSpreadAb1, _heightAngleAb1, _bloodAmountAb1, _bloodForceMinAb1, _bloodForceMaxAb1, enemy, dir);
+    }
+
+    public void Ab3Attack(GameObject enemy, Vector3 point)
+    {
+
+        var dir = (point - enemy.transform.position).normalized;
+
+        SpawnBlood(_bloodSizeMinAb3, _bloodSizeMaxAb3, _bloodSpreadAb3, _heightAngleAb3, _bloodAmountAb3, _bloodForceMinAb3, _bloodForceMaxAb3, enemy, dir);
     }
 
     #endregion
