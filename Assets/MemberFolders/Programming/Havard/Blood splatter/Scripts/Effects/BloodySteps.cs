@@ -33,8 +33,6 @@ public class BloodySteps : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(new Vector3(_locationPoints[i].x, _height, _locationPoints[i].y), (Vector3.up), out hit, 5, _playerLayer))
                 {
-                    Debug.DrawRay(new Vector3(_locationPoints[i].x, _height, _locationPoints[i].y), (Vector3.up) * hit.distance, Color.yellow);
-
                     // Function to give player bloody shoes here
                     _stepScript.RenewBloodSteps();
                     

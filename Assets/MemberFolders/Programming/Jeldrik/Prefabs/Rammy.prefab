@@ -187,7 +187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 58c9c97b7808ad748844f463b2aea604, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -467,6 +467,89 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &570634509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 570634510}
+  - component: {fileID: 570634512}
+  - component: {fileID: 570634511}
+  m_Layer: 15
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &570634510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570634509}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4974556004237746299}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &570634512
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570634509}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &570634511
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570634509}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &698741986
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +737,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 58c9c97b7808ad748844f463b2aea604, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -769,7 +852,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 58c9c97b7808ad748844f463b2aea604, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -815,8 +898,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489133655}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.44035035, y: -25.810003, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -836,7 +919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d9ea62691064245b06203d3e683448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxPoints: 5000
+  _maxPoints: 30
   _playerLayer:
     serializedVersion: 2
     m_Bits: 32768
@@ -1472,8 +1555,9 @@ Transform:
   - {fileID: 7541908173190365020}
   - {fileID: 5027866717449145051}
   - {fileID: 448679933}
+  - {fileID: 570634510}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1490,7 +1574,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4974556004237746303}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1559,18 +1643,18 @@ MonoBehaviour:
   BasicAttackCoolDown: 1
   BasicAttackDamage: 5
   BasicAttackDuration: 0.1
-  DashDuration: 0.1
-  DashDistance: 10
+  DashDuration: 0.3
+  DashDistance: 7
   DashCoolDown: 1
   DashAttackDamage: 2
   DashUpgraded: 0
   _dashVisuals: {fileID: 1279146745}
-  ChargeAttackDuration: 0.3
+  ChargeAttackDuration: 0.2
   ChargeAttackDistance: 10
   ChargeAttackCoolDown: 1
   ChargeAttackDamage: 20
-  MinChargeTime: 0.5
-  MaxChargeTime: 4
+  MinChargeTime: 0.2
+  MaxChargeTime: 1.2
   _chargedEnemyOffset: {x: 0, y: 0, z: 0}
   _rammyVFX: {fileID: 3586331904611896420}
   _freezeScaleRam: 0
@@ -1795,6 +1879,7 @@ MonoBehaviour:
   _stepScript: {fileID: 1489133657}
   _timeEffectScript: {fileID: 1973733744572080562}
   _gorePrefab: {fileID: 8261845704376933755, guid: d076efecf4c1ad94b82cf5f030b918a9, type: 3}
+  _bloodParticle: {fileID: 8017192779821908478, guid: 2834995eb689f5c409d32b26c8effc9c, type: 3}
   _skullObject: {fileID: 3095865599965521266, guid: 929e6a0eff409cf47b1b250ee16330eb, type: 3}
   _heartObject: {fileID: 8085553223252622585, guid: d2c9ad2d9c835264295ffaa2971340ac, type: 3}
   _intestineObject: {fileID: 1228982729273674745, guid: c9ebeaca40b050241a57013b458c0e90, type: 3}
@@ -1818,55 +1903,55 @@ MonoBehaviour:
   _heightAngle: 0
   _bloodForceMin: 5
   _bloodForceMax: 8
-  _bloodAmount: 15
-  _bloodSizeMin: 1
-  _bloodSizeMax: 1.2
+  _bloodAmount: 5
+  _bloodSizeMin: 1.442
+  _bloodSizeMax: 2
   _goreValuesRam:
   - GoreNames: Skull
     Spread: 0.64
-    Angle: 0
+    Angle: 9.6
     MinForce: 0.96
     MaxForce: 3.1
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Heart
     Spread: 0.916
-    Angle: 4.5
+    Angle: 6.6
     MinForce: 1.56
     MaxForce: 3.49
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Intestine
     Spread: 0.79
-    Angle: 0
-    MinForce: 1.21
-    MaxForce: 2.64
+    Angle: 12.6
+    MinForce: 1.62
+    MaxForce: 3.1
     MinAmount: 0
     MaxAmount: 2
   - GoreNames: Spine
     Spread: 1.07
-    Angle: 0
+    Angle: 15.5
     MinForce: 3.71
     MaxForce: 3.72
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Brain
     Spread: 0.682
-    Angle: 0
+    Angle: 9.6
     MinForce: 2.5
     MaxForce: 7.49
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Eyeball
     Spread: 1.973
-    Angle: 1.1
+    Angle: 9.6
     MinForce: 2.24
     MaxForce: 10
     MinAmount: 0
     MaxAmount: 2
   - GoreNames: Meat
     Spread: 0.448
-    Angle: 0
+    Angle: 9.1
     MinForce: 3.38
     MaxForce: 10
     MinAmount: 3
@@ -2023,7 +2108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SmudgeEffect: {fileID: 5000289965411273244, guid: 71255e027c45540419e4fe40099d144d, type: 3}
   _directionObject: {fileID: 4974556003529526528}
-  maxItems: 500
+  maxItems: 200
   _items: []
 --- !u!114 &1279146746
 MonoBehaviour:
@@ -2039,7 +2124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bloodStepsActive: 0
   _bloodStepPrefab: {fileID: 7628057576564074463, guid: e733cb9e32f042e4b894719714e51a79, type: 3}
-  _maxFootprint: 1000
+  _maxFootprint: 500
   _footprints: []
 --- !u!1 &8544788445145993981
 GameObject:
