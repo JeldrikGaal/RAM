@@ -1038,4 +1038,14 @@ public class RammyController : MonoBehaviour
     {
         return UsingAbility;
     }
+
+    // Makes Info about charging available to the Ability UI
+    public List<float> GetChargeInfo()
+    {
+        List<float> chargeInfo = new List<float>();
+        chargeInfo.Add(_frameCounterRightMouseButton);
+        chargeInfo.Add(_frameCounterRightMouseButtonSave);
+        chargeInfo.Add(MaxChargeTime);
+        return chargeInfo;
+    }
 }
