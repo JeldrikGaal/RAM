@@ -9,6 +9,8 @@ public class RagdollVelocity : MonoBehaviour
     public float BloodForceMin;
     public float BloodForceMax;
 
+    private bool _static = false;
+
     void Start()
     {
         // Calculates a random direction and force, and multiplies them together:
@@ -31,5 +33,27 @@ public class RagdollVelocity : MonoBehaviour
     public static Vector3 RandomVector3(Vector3 min, Vector3 max)
     {
         return new Vector3(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
+    }
+
+    private void Update()
+    {
+        // Here we freeze everything when it stops.
+
+        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            if (child.GetComponent<Rigidbody>())
+            {
+                if (_static)
+                {
+                    child.GetComponent<Rigidbody>().isKinematic = true;
+                }
+
+                if (child.GetComponent<Rigidbody>().velocity.magnitude <= 0)
+                {
+                    _static = true;
+                }
+            }
+        }
     }
 }
