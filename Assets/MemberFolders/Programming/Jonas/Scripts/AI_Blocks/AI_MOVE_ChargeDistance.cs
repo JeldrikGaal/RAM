@@ -23,6 +23,8 @@ public class AI_MOVE_ChargeDistance : StateBlock
         _moveDir[user] = (target.transform.position - user.transform.position).normalized;
         _startPos[user] = user.transform.position;
 
+        if (_returnList != null) return;
+
         _returnList = new List<float>();
         _returnList.Add((float)StateReturn.Stop);
     }
@@ -32,7 +34,11 @@ public class AI_MOVE_ChargeDistance : StateBlock
         if (Vector3.Distance(user.transform.position, _startPos[user]) > _distance) return (null, null);
 
         user.MoveInput += _moveDir[user] * _weight;
-        return (null, _returnList);
+
+        if (_asTimer)
+            return (null, _returnList);
+
+        return (null, null);
     }
 
     public override void OnEnd(Jonas_TempCharacter user, GameObject target)

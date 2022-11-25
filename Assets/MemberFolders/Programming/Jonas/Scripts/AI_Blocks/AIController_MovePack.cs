@@ -9,8 +9,6 @@ public class AIController_MovePack : MonoBehaviour
     private float _rotationTime;
 
     private Vector3 _point;
-
-    private AIController _packGroup;
     private List<Jonas_TempCharacter> _packMembers;
 
     public void Init(GameObject target, float distance, float rotationTime)
@@ -36,9 +34,6 @@ public class AIController_MovePack : MonoBehaviour
     public void RemoveMember(Jonas_TempCharacter member)
     {
         _packMembers.Remove(member);
-
-        if (_packMembers.Count == 0)
-            Destroy(gameObject);
     }
 
     public Vector3 GetPoint(Jonas_TempCharacter member)
@@ -49,6 +44,11 @@ public class AIController_MovePack : MonoBehaviour
         Vector3 point = RotateAround(_point, Vector3.zero, new Vector3(0, rotAngle, 0));
 
         return _target.transform.position + point;
+    }
+
+    public void Reset()
+    {
+        Destroy(gameObject);
     }
 
     private Vector3 RotateAround(Vector3 point, Vector3 pivot, Vector3 angle)

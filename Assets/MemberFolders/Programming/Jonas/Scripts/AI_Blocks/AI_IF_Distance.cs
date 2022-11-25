@@ -7,6 +7,7 @@ using UnityEngine;
 // If condition is not met skips next block
 public class AI_IF_Distance : StateBlock
 {
+    [SerializeField] private int _skipCount = 1;
     [SerializeField] private bool _close;
     [SerializeField] private float _distance;
 
@@ -14,14 +15,14 @@ public class AI_IF_Distance : StateBlock
 
     public override (AI_State state, List<float> val) OnUpdate(Jonas_TempCharacter user, GameObject target)
     {
-        if (Vector3.Distance(user.transform.position, target.transform.position) > _distance == _close)
-        {
-            List<float> temp = new List<float>();
-            temp.Add((float)StateReturn.Skip);
-            return (null, temp);
-        }
+        if (Vector3.Distance(user.transform.position, target.transform.position) < _distance == _close)
+            return (null, null);
 
-        return (null, null);
+        List<float> temp = new List<float>();
+        temp.Add((float)StateReturn.Skip);
+        temp.Add(_skipCount);
+        return (null, temp);
+
     }
 
     public override void OnEnd(Jonas_TempCharacter user, GameObject target) { }

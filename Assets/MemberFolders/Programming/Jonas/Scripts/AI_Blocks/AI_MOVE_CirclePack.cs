@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Runs movement of a circling pack of the same characters
-public class AI_MOVE_Pack : StateBlock
+public class AI_MOVE_CirclePack : StateBlock
 {
     [SerializeField] private float _weight;
     [SerializeField] private float _distance;
@@ -47,9 +47,4 @@ public class AI_MOVE_Pack : StateBlock
 
         return (null, null);
     }
-}
-
-public enum AIController
-{
-    WolfPack
 }

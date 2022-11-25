@@ -31,7 +31,7 @@ public class AI_State : ScriptableObject
     {
         // Sets all variables for the start of update
         // MoveInput is reset to allow for stacking of multiple movement types in one state
-        bool skipNext = false;
+        int skipNext = 0;
         int tempTimerCounter = -1;
         user.MoveInput = new Vector3();
         if (_timer[user] > 0) _timer[user] -= Time.deltaTime;
@@ -42,9 +42,9 @@ public class AI_State : ScriptableObject
         // "TIMER" type blocks stops execution of latter blocks until the timer is over
         foreach (StateBlock blk in _aiBlocks)
         {
-            if (skipNext)
+            if (skipNext > 0)
             {
-                skipNext = false;
+                skipNext--;
                 continue;
             }
 
@@ -62,7 +62,7 @@ public class AI_State : ScriptableObject
             switch ((StateReturn)stateVal.val[0])
             {
                 case StateReturn.Skip:
-                    skipNext = true;
+                    skipNext = (int)stateVal.val[1];
                     break;
 
                 case StateReturn.Timer:
