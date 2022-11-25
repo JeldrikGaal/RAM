@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1681767058223214516}
   - component: {fileID: 2777831605142865941}
   - component: {fileID: 2777831605142865939}
-  - component: {fileID: 2777831605142865938}
   - component: {fileID: 2777831605142865936}
   m_Layer: 6
   m_Name: GEO_Meat-Chunk_01
@@ -102,26 +101,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &2777831605142865938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5291567064603710999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 812b3cea168e472479de2e0ef2a4e2c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: {x: 3, y: 20}
-  angularVelocity: {x: 0, y: 360}
-  randomOffsetValue: 1
-  awayFromPlayer: 0
-  CalcDirLeft: {x: 0, y: 0, z: 0}
-  CalcDirRight: {x: 0, y: 0, z: 0}
-  BloodForceMin: 0
-  BloodForceMax: 0
 --- !u!65 &2777831605142865936
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -12,12 +12,12 @@ public class GoreBlood : MonoBehaviour
     private GameObject _smudge;
     private Vector3 _startPos;
 
-    /*
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
+    /*
     void OnCollisionEnter(Collision other)
     {
         if (!_hasSmudge)
@@ -55,6 +55,7 @@ public class GoreBlood : MonoBehaviour
             }
         }
     }
+    */
 
     private void Update()
     {
@@ -65,6 +66,12 @@ public class GoreBlood : MonoBehaviour
             var rot = ((_startPos - new Vector3(this.transform.position.x, _startPos.y, this.transform.position.z)).normalized);
             _smudge.transform.rotation = Quaternion.Euler(rot);
         }
+
+        if(rb.velocity.magnitude <= 0.01f)
+        {
+            rb.isKinematic = true;
+            this.GetComponent<Collider>().enabled = false;
+        }
+
     }
-    */
 }
