@@ -161,6 +161,10 @@ public class RammyController : MonoBehaviour
     public float DamageReductionModifier;
     public float DamageReductionBuffDuration;
     [SerializeField] private float _damageReductionBuffTimer;
+    public bool HasStunBuff;
+    public float StunBuffModifier;
+    public float StunBuffDuration;
+    [SerializeField] private float _stunBuffTimer;
 
 
     // Debugging
@@ -557,6 +561,21 @@ public class RammyController : MonoBehaviour
         }
 
         #endregion
+
+        #region StunBuff
+
+        if (HasStunBuff)
+        {
+            _stunBuffTimer -= Time.deltaTime;
+        }
+
+        if (_stunBuffTimer <= 0)
+        {
+            HasStunBuff = false;
+        }
+
+        #endregion
+
 
         #endregion
 
