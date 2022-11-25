@@ -36,7 +36,6 @@ public class GoreBlood : MonoBehaviour
                 splatRotation = Quaternion.LookRotation(-item.normal);
             }
 
-
             // Spawn the splat:
             var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
 

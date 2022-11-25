@@ -1473,7 +1473,7 @@ Transform:
   - {fileID: 5027866717449145051}
   - {fileID: 448679933}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   _frontCheck: {fileID: 1024294334}
   _cameraScript: {fileID: 0}
   _comboSystem: {fileID: 0}
-  _timeStopper: {fileID: 0}
+  _timeStopper: {fileID: 1973733744572080562}
   Attacking: 0
   BasicAttacking: 0
   Dashing: 0
@@ -1560,7 +1560,7 @@ MonoBehaviour:
   BasicAttackDamage: 5
   BasicAttackDuration: 0.1
   DashDuration: 0.1
-  DashDistance: 5
+  DashDistance: 10
   DashCoolDown: 1
   DashAttackDamage: 2
   DashUpgraded: 0
@@ -1608,8 +1608,8 @@ MonoBehaviour:
   _upgradedArea: {fileID: 3923053621530184638, guid: bb334186cc31d3e47aa1690ea8abc345, type: 3}
   _defaultStunDuration: 0.5
   _upgradetStunDuration: 1
-  _defaultDamage: 2
-  _upgradedDamage: 5
+  _defaultDamage: 20
+  _upgradedDamage: 40
   _jumpHeight: 1
   _jumpDuration: 1
 --- !u!114 &4294135203534987049
@@ -1794,7 +1794,7 @@ MonoBehaviour:
   _bloodSpreadCalculator: {fileID: 1489133655}
   _stepScript: {fileID: 1489133657}
   _timeEffectScript: {fileID: 1973733744572080562}
-  _gorePrefab: {fileID: 4974556004237746303}
+  _gorePrefab: {fileID: 8261845704376933755, guid: d076efecf4c1ad94b82cf5f030b918a9, type: 3}
   _skullObject: {fileID: 3095865599965521266, guid: 929e6a0eff409cf47b1b250ee16330eb, type: 3}
   _heartObject: {fileID: 8085553223252622585, guid: d2c9ad2d9c835264295ffaa2971340ac, type: 3}
   _intestineObject: {fileID: 1228982729273674745, guid: c9ebeaca40b050241a57013b458c0e90, type: 3}
