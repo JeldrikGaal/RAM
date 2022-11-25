@@ -5,10 +5,10 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-using UnityEngine.UIElements.Experimental;
-using static UnityEngine.EventSystems.EventTrigger;
-using static UnityEngine.Rendering.DebugUI.Table;
+//using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+//using UnityEngine.UIElements.Experimental;
+//using static UnityEngine.EventSystems.EventTrigger;
+//using static UnityEngine.Rendering.DebugUI.Table;
 
 public class RammyController : MonoBehaviour
 {
@@ -53,6 +53,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private Ability3 _ability3Script;
     [SerializeField] private Ability4 _ability4Script;
     [SerializeField] private Ability5 _ability5Script;
+    [SerializeField] private bool _startFullAbilities = true;
+
+    private List<bool> _learnedAbilities = new List<bool>();
 
 
     // Components
@@ -60,10 +63,12 @@ public class RammyController : MonoBehaviour
     private float _cameraDepth;
     private Rigidbody _rB;
     private MeshRenderer _mR;
+    private HealthBar _healthBar;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
     [SerializeField] private TimeStopper _timeStopper;
+    
 
     [Header("Character State")]
     // Bools describing playerstate
@@ -147,16 +152,24 @@ public class RammyController : MonoBehaviour
     private Vector3 _directionIndicatorPosSave;
 
     [Header("Buff Values")]
-    public bool HasDamageBuff;
+    [SerializeField] private bool _hasDamageBuff;
     public float DamageModifier;
     [HideInInspector] public float AppliedDamageModifier; // Multiply this by the damage in each ability
     public float DamageBuffDuration;
-    [SerializeField] private float _damageBuffTimer;
-    public bool HasSpeedBuff;
+    private float _damageBuffTimer;
+    [SerializeField] private bool _hasSpeedBuff;
     public float SpeedModifier;
     public float SpeedBuffDuration;
-    [SerializeField] private float _speedBuffTimer;
-    [SerializeField] private bool _setSpeed = true;
+    private float _speedBuffTimer;
+    private bool _setSpeed = true;
+    [SerializeField] private bool _hasDamageReductionBuff;
+    public float DamageReductionModifier;
+    public float DamageReductionBuffDuration;
+    [SerializeField] private float _damageReductionBuffTimer;
+    public bool HasStunBuff;
+    public float StunBuffModifier;
+    public float StunBuffDuration;
+    [SerializeField] private float _stunBuffTimer;
 
 
     // Debugging
@@ -176,10 +189,23 @@ public class RammyController : MonoBehaviour
     {
         _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
+        _healthBar = GetComponentInChildren<HealthBar>();
         if (GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
         _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
         _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
+        for (int i = 0; i < 5; i++)
+        {
+            if (_startFullAbilities)
+            {
+                _learnedAbilities.Add(true);
+            }
+            else
+            {
+                _learnedAbilities.Add(false);
+            }
+               
+        }
     }
 
     // Enabling PlayerControls when player gets enabled in the scene
@@ -465,23 +491,24 @@ public class RammyController : MonoBehaviour
         {
             if (_ability1Key == 1)
             {
-                l[0].CheckActivate();
+                if (_learnedAbilities[0]) l[0].CheckActivate();
+
             }
             else if (_ability2Key == 1)
             {
-                _ability2Script.CheckActivate();
+                if (_learnedAbilities[1]) _ability2Script.CheckActivate();
             }
             else if (_ability3Key == 1)
             {
-                _ability3Script.CheckActivate();
+                if (_learnedAbilities[2]) _ability3Script.CheckActivate();
             }
             else if (_ability4Key == 1)
             {
-                _ability4Script.CheckActivate();
+                if (_learnedAbilities[3]) _ability4Script.CheckActivate();
             }
             else if (_ability5Key == 1)
             {
-                _ability5Script.CheckActivate();
+                if (_learnedAbilities[4]) _ability5Script.CheckActivate();
             }
         }
         #endregion
@@ -489,8 +516,9 @@ public class RammyController : MonoBehaviour
         #region Buffs
 
         #region DamageBuff
+
         // Checks if the buff is active
-        if (HasDamageBuff)
+        if (_hasDamageBuff)
         {
             // Timer counts down every second
             _damageBuffTimer -= Time.deltaTime;
@@ -503,7 +531,7 @@ public class RammyController : MonoBehaviour
         if (_damageBuffTimer <= 0)
         {
             // "Turns off" the buff
-            HasDamageBuff = false;
+            _hasDamageBuff = false;
 
             // Sets the damage back to normal
             AppliedDamageModifier = 1;
@@ -514,17 +542,17 @@ public class RammyController : MonoBehaviour
         #region  SpeedBuff
 
         // Checks if the buff is active
-        if (HasSpeedBuff)
+        if (_hasSpeedBuff)
         {
             // Timer counts down every second
             _speedBuffTimer -= Time.deltaTime;
         }
 
         // Checks to see if the timer is over, if we haven't already set the speed modifier, and if we have the buff
-        if (_speedBuffTimer <= 0 && !_setSpeed && HasSpeedBuff)
+        if (_speedBuffTimer <= 0 && !_setSpeed && _hasSpeedBuff)
         {
             // Turns off the buff
-            HasSpeedBuff = false;
+            _hasSpeedBuff = false;
 
             // Reduces the speed of the player by the modifier again
             MovementSpeed /= SpeedModifier;
@@ -534,6 +562,39 @@ public class RammyController : MonoBehaviour
         }
 
         #endregion
+
+        #region  DamageReductionBuff
+
+        // Checks if the buff is active
+        if (_hasDamageReductionBuff)
+        {
+            // Timer counts down every second
+            _damageReductionBuffTimer -= Time.deltaTime;
+        }
+
+        // Checks to see if the timer is over
+        if (_damageReductionBuffTimer <= 0)
+        {
+            // Turns off the buff
+            _hasDamageReductionBuff = false;
+        }
+
+        #endregion
+
+        #region StunBuff
+
+        if (HasStunBuff)
+        {
+            _stunBuffTimer -= Time.deltaTime;
+        }
+
+        if (_stunBuffTimer <= 0)
+        {
+            HasStunBuff = false;
+        }
+
+        #endregion
+
 
         #endregion
 
@@ -551,7 +612,6 @@ public class RammyController : MonoBehaviour
         // Resetting last frame bools ( needs to stay at the bottom of Update ! )
         _lastFrameLeftMouseButton = false;
         _lastFrameRightMouseButton = false;
-
 
     }
 
@@ -840,7 +900,7 @@ public class RammyController : MonoBehaviour
         if (other.tag == "DamagePowerup")
         {
             // Turns on the buff
-            HasDamageBuff = true;
+            _hasDamageBuff = true;
 
             // Adds time to the buff timer
             _damageBuffTimer = DamageBuffDuration;
@@ -853,7 +913,7 @@ public class RammyController : MonoBehaviour
         if (other.tag == "SpeedPowerup")
         {
             // Turns on the speed buff
-            HasSpeedBuff = true;
+            _hasSpeedBuff = true;
 
             // Adds time to the buff timer
             _speedBuffTimer = SpeedBuffDuration;
@@ -864,7 +924,19 @@ public class RammyController : MonoBehaviour
             // Sets a bool that helps with setting the speed when the buff is over
             _setSpeed = false;
 
-            // Destroys the buff so it can't e picked up more than once
+            // Destroys the buff so it can't be picked up more than once
+            Destroy(other.gameObject);
+        }
+
+        if (other.tag == "DamageReductionPowerup")
+        {
+            // Turns on the damage reduction buff
+            _hasDamageReductionBuff = true;
+
+            // Adds time to the buff timer
+            _damageReductionBuffTimer = DamageReductionBuffDuration;
+
+            // Destroys the buff so it can't be picked up more than once 
             Destroy(other.gameObject);
         }
     }
@@ -875,6 +947,7 @@ public class RammyController : MonoBehaviour
     public void Heal(int healing)
     {
         Health = Math.Min(MaxHealth, Health + healing);
+        _healthBar.UpdateHealthBar(healing / MaxHealth);
     }
 
     /// <summary>
@@ -888,7 +961,7 @@ public class RammyController : MonoBehaviour
         if (_comboSystem) _comboSystem.AddKill();
     }
 
-    #region Setterfunctions
+    #region Setter / Getter functions
     // Functions to start and end the usage of any ability
     public void StartUsingAbility()
     {
@@ -909,54 +982,6 @@ public class RammyController : MonoBehaviour
     {
         _blockMovement = false;
     }
-    #endregion
-
-    // Triggerin ScreenShake with defined strength
-    public void AddScreenShake(float strength)
-    {
-        _cameraScript.ScreenShake(strength);
-    }
-
-    // Function to call when Rammy takes any sort of damage
-    public void TakeDamageRammy(float _damage)
-    {
-        // If Rammy is currently in an I frame dont take damage and dont show damage effects
-        if (Invincible)
-        {
-            return;
-        }
-        // Short Time slow to emphazise taking damage
-        _timeStopper.PauseTime(_freezeScaleHit, _freezeTimeHit);
-
-        // Checking if Rammy died from taking damage
-        Health -= _damage;
-
-        // Stopping combo 
-        _comboSystem.EndCombo();
-
-        // Cancel Charging Ram Attack 
-        if (_frameCounterRightMouseButton > 0)
-        {
-            _frameCounterRightMouseButton = 0;
-            _frameCounterRightMouseButtonSave = 0;
-        }
-
-        // Die if falls below 0 health
-        if (Health <= 0)
-        {
-            Die();
-        }
-
-        // TODO: Damage resistance 
-        // TODO: More VFX
-    }
-
-    // Rammy fell below 0 health and has now died. Deal with it in this function
-    private void Die()
-    {
-        Debug.Log("RAMMY HAS DIED!!!!!");
-        Destroy(gameObject);
-    }
 
     public List<Abilities> GetAbilityScripts()
     {
@@ -975,4 +1000,103 @@ public class RammyController : MonoBehaviour
     {
         return UsingAbility;
     }
+
+    // Makes Info about charging available to the Ability UI
+    public List<float> GetChargeInfo()
+    {
+        List<float> chargeInfo = new List<float>();
+        chargeInfo.Add(_frameCounterRightMouseButton);
+        chargeInfo.Add(_frameCounterRightMouseButtonSave);
+        chargeInfo.Add(MaxChargeTime);
+        return chargeInfo;
+    }
+
+    public bool GetAttacking()
+    {
+        return Attacking;
+    }
+
+    public bool GetDashing()
+    {
+        return Dashing;
+    }
+
+    public List<bool> GetAbilitiesLearned()
+    {
+        return _learnedAbilities;
+    }
+
+    public void LearnAbility(int index)
+    {
+        _learnedAbilities[index] = true;
+    }
+    #endregion
+
+    // Triggerin ScreenShake with defined strength
+    public void AddScreenShake(float strength)
+    {
+        _cameraScript.ScreenShake(strength);
+    }
+
+    // Function to call when Rammy takes any sort of damage
+    public void TakeDamageRammy(float _damage)
+    {
+        // If Rammy is currently in an I frame dont take damage and dont show damage effects
+        if (Invincible)
+        {
+            return;
+        }
+        // Short Time slow to emphazise taking damage
+        _timeStopper.PauseTime(_freezeScaleHit, _freezeTimeHit);
+        // Small ScreenShake
+        AddScreenShake(0.3f);
+
+        float appliedDamage;
+        // If the player has the damage reduction buff
+        if (_hasDamageReductionBuff)
+        {
+            // Take damage divided by the damage reduction modifier
+            appliedDamage = (_damage / DamageReductionModifier);
+        }
+        else
+        {
+            // Checking if Rammy died from taking damage
+            appliedDamage = _damage;
+        }
+
+        // Actually apply damage
+        Health -= appliedDamage;
+
+        // Apply damage to health bar
+        _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
+
+        // Stopping combo 
+        _comboSystem.EndCombo();
+
+        // Cancel Charging Ram Attack 
+        if (_frameCounterRightMouseButton > 0)
+        {
+            _frameCounterRightMouseButton = 0;
+            _frameCounterRightMouseButtonSave = 0;
+        }
+
+        // Die if falls below 0 health
+        if (Health <= 0)
+        {
+            Die();
+        }
+        
+        
+
+        // TODO: More VFX
+    }
+
+    // Rammy fell below 0 health and has now died. Deal with it in this function
+    private void Die()
+    {
+        Debug.Log("RAMMY HAS DIED!!!!!");
+        Destroy(gameObject);
+    }
+
+    
 }

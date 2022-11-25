@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 
-public class Splinter : MonoBehaviour
+public class Splinter : Pooltoy
 {
     
     [SerializeField] Rigidbody _rigid;
@@ -57,17 +57,20 @@ public class Splinter : MonoBehaviour
     }*/
 
 
-    public void SetProperties(SplinterProperties properties)
+    public override void SetProperties(Properties properties)
     {
-        _properties = properties;
+        _properties = (SplinterProperties)properties;
     }
+
+
+
     // Enables conversion between Rigidbody and Splinter
-    public static implicit operator Rigidbody(Splinter splinter)=>splinter._rigid;
-    public static implicit operator Splinter( Rigidbody body)=>body.gameObject.GetComponent<Splinter>();
+    public override Rigidbody Rb => _rigid;
+
 
 }
 [System.Serializable]
-public class SplinterProperties
+public class SplinterProperties : Properties
 {
     public float Damage;
     public float StunTime;

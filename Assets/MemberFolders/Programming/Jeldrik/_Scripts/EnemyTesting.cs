@@ -104,6 +104,12 @@ public class EnemyTesting : MonoBehaviour
         {
             return true;
         }
+
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<RammyController>().HasStunBuff)
+        {
+            Stun(GameObject.FindGameObjectWithTag("Player").GetComponent<RammyController>().StunBuffModifier);
+        }
+
         return false;
     }
 

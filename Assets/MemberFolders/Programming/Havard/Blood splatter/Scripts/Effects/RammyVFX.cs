@@ -24,6 +24,7 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private BloodySteps _stepScript;
     [SerializeField] private TimeStopper _timeEffectScript;
     [SerializeField] private GameObject _gorePrefab;
+    [SerializeField] private GameObject _bloodParticle;
 
     [Header("Gore prefabs")]
     [SerializeField] private GameObject _skullObject;
@@ -136,6 +137,9 @@ public class RammyVFX : MonoBehaviour
             SpawnGore(_goreValuesRam[5], _eyeballObject, enemy);
             SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy);
         }
+
+        // Intantiates the blood particle at the correct location and direction
+        Instantiate(_bloodParticle, enemy.transform.position, this.transform.rotation);
     }
     public void NormalAttack(GameObject enemy)
     {
@@ -162,6 +166,12 @@ public class RammyVFX : MonoBehaviour
         var dir = -normal;
 
         SpawnBlood(_bloodSizeMinAb4, _bloodSizeMaxAb4, _bloodSpreadAb4, _heightAngleAb4, _bloodAmountAb4, _bloodForceMinAb4, _bloodForceMaxAb4, enemy, dir);
+    }
+
+    public void Ab5Attack(GameObject enemy, Vector3 rotation)
+    {
+
+        SpawnBlood(_bloodSizeMinAb5, _bloodSizeMaxAb5, _bloodSpreadAb5, _heightAngleAb5, _bloodAmountAb5, _bloodForceMinAb5, _bloodForceMaxAb5, enemy, rotation);
     }
 
     #endregion
@@ -208,6 +218,7 @@ public class RammyVFX : MonoBehaviour
             {
                 child.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
             }
+
         }
     }
 

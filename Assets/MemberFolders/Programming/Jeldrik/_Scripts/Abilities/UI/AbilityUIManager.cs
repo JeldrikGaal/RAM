@@ -12,6 +12,12 @@ public class AbilityUIManager : MonoBehaviour
     private List<Image> _abilityImages = new List<Image>();
     private List<Image> _coolDownCircles = new List<Image>();
 
+    private Transform _basicAbilityBlock;
+    private Image _basicAbilityImage;
+    private Image _basicAbilityCoolDownCircle;
+
+    private List<float> _chargeInfo;
+
     private List<Abilities> _abilityScripts;
 
     // Start is called before the first frame update
@@ -28,6 +34,10 @@ public class AbilityUIManager : MonoBehaviour
             _abilityImages.Add(t.GetComponent<Image>());
         }
         _abilityScripts = _controller.GetAbilityScripts();
+
+        _basicAbilityBlock = transform.GetChild(5);
+        _basicAbilityImage = _basicAbilityBlock.GetComponent<Image>();
+        _basicAbilityCoolDownCircle = _basicAbilityBlock.GetChild(0).GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -48,6 +58,24 @@ public class AbilityUIManager : MonoBehaviour
             SetAbilityClockToPercent(i, fillPercentage);
         }
 
+        // Read Input about charging from RammyController Script
+        _chargeInfo = _controller.GetChargeInfo();
+        if (_chargeInfo[0] > 0)
+        {
+            DisplayCharging();
+            
+        }
+        else if (!_controller.GetDashing())
+        {
+            ResetDisplayCharging();
+        }
+        
+        // Display Dashing
+        if (_controller.GetDashing())
+        {
+            _basicAbilityImage.color = Color.green;
+        }
+
         // Resets all abilities if none is being used
         if (!anyAbilityInUse)
         {
@@ -56,6 +84,36 @@ public class AbilityUIManager : MonoBehaviour
                 DisableAbility(i);
             }
         }
+
+        for (int i = 0; i < _abilityImages.Count; i++)
+        {
+            if (!_controller.GetAbilitiesLearned()[i])
+            {
+                _abilityImages[i].gameObject.SetActive(false);
+
+            }
+            else
+            {
+                _abilityImages[i].gameObject.SetActive(true);
+            }
+        }
+
+
+    }
+
+    /// <summary>
+    /// Displaying that the player is currently charging up his chargeattack and how far the charging progess has gone so far
+    /// </summary>
+    public void DisplayCharging()
+    {
+        _basicAbilityImage.color = Color.red;
+        _basicAbilityCoolDownCircle.fillAmount = Mathf.Min(1, (_chargeInfo[0] / _chargeInfo[2]));
+
+    }
+    public void ResetDisplayCharging()
+    {
+        _basicAbilityImage.color = Color.white;
+        _basicAbilityCoolDownCircle.fillAmount = 1f;
     }
 
     /// <summary>

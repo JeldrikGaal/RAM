@@ -7,6 +7,7 @@ public class Ability5 : Abilities
     Rigidbody _rb;
     Vector3 _dashDestination;
     Vector3 _dashStart;
+    Quaternion _dashStartRot;
     bool _inProgress = false;
     float _startTimeDash;
     [SerializeField] float _damage = 30f;
@@ -26,6 +27,7 @@ public class Ability5 : Abilities
             if (collision.gameObject.GetComponent<EnemyTesting>() && _inProgress)
             {
                 collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(_damage, transform.up);
+                GetComponent<RammyVFX>().Ab5Attack(collision.gameObject, (_dashDestination - _dashStart).normalized);
                 _controller.AddScreenShake(1f);
             }
         };
@@ -54,6 +56,7 @@ public class Ability5 : Abilities
         //Sets the external collider active, sets its position to be just in front of Rammy
         _externalCollider.SetActive(true);
         _externalCollider.transform.localPosition = new Vector3(0f, 1.5f, 0f);
+        _externalCollider.transform.SetParent(null);
 
         // Checking if the force field would end up in an object while dashing and shortening dash if thats the case
         _dashDestination = _externalCollider.transform.position + transform.up * _pushDistance;
@@ -69,12 +72,14 @@ public class Ability5 : Abilities
 
         //Sets start position and time for the lerp calculations
         _dashStart = _externalCollider.transform.position;
+        _dashStartRot = _externalCollider.transform.rotation;
         _startTimeDash = Time.time;
         _inProgress = true;
         yield return new WaitForSeconds(_moveDuration);
 
         //Stops the abiliy
         _inProgress = false;
+        _externalCollider.transform.SetParent(transform);
         _externalCollider.transform.localPosition = new Vector3(0f, 0f, 0f);
         _externalCollider.SetActive(false);
     }
