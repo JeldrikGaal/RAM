@@ -2,22 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Sirenix.OdinInspector;
 
 public class Journal : MonoBehaviour
 {
     [SerializeField] Sprite[] _pageSprites;
-    //[ShowInInspector] Dictionary<int, Sprite> _pages = new Dictionary<int, Sprite>();
     [SerializeField] List<Pages> _pages = new List<Pages>();
     [SerializeField] Image _pageLeft;
     [SerializeField] Image _pageRight;
     [SerializeField] int _currentLeftNum;
     [SerializeField] int _currentRightNum;
+    [SerializeField] int[] _tabs = new int[6];
 
     // Start is called before the first frame update
     void Start()
     {
-        //Takes all the sprites from the array and puts them in the dictionary with their numbers as keys
+        //Takes all the sprites from the array and puts them in a list with their numbers
         for (int i = 0; i < _pageSprites.Length; i++)
         {
             _pages.Add(new Pages() {pageNum = i, pageSprite = _pageSprites[i]});
@@ -54,6 +53,7 @@ public class Journal : MonoBehaviour
     /// <param name="direction"></param>
     public void ChangeThePage(bool direction)
     {
+        //Checks the direction and if there are enough pages to said direction
         if (direction && _currentLeftNum < _pageSprites.Length - 1)
         {
             _currentLeftNum += 2;
@@ -65,6 +65,29 @@ public class Journal : MonoBehaviour
         {
             _currentLeftNum -= 2;
             _currentRightNum -= 2;
+            _pageLeft.sprite = _pages[_currentLeftNum].pageSprite;
+            _pageRight.sprite = _pages[_currentRightNum].pageSprite;
+        }
+    }
+
+    /// <summary>
+    /// Use this to go to a specific page using the tabs.
+    /// </summary>
+    /// <param name="tabLocation"></param>
+    public void GoToTab(int tabLocation)
+    {
+        //Checks if the tab number is even or odd and places the page on the correct side acccordingly
+        if (tabLocation % 2 == 0)
+        {
+            _currentLeftNum = tabLocation;
+            _currentRightNum = tabLocation + 1;
+            _pageLeft.sprite = _pages[_currentLeftNum].pageSprite;
+            _pageRight.sprite = _pages[_currentRightNum].pageSprite;
+        }
+        else if (tabLocation % 2 == 1)
+        {
+            _currentLeftNum = tabLocation - 1;
+            _currentRightNum = tabLocation;
             _pageLeft.sprite = _pages[_currentLeftNum].pageSprite;
             _pageRight.sprite = _pages[_currentRightNum].pageSprite;
         }
