@@ -168,6 +168,12 @@ public class RammyVFX : MonoBehaviour
         SpawnBlood(_bloodSizeMinAb4, _bloodSizeMaxAb4, _bloodSpreadAb4, _heightAngleAb4, _bloodAmountAb4, _bloodForceMinAb4, _bloodForceMaxAb4, enemy, dir);
     }
 
+    public void Ab5Attack(GameObject enemy, Vector3 rotation)
+    {
+
+        SpawnBlood(_bloodSizeMinAb5, _bloodSizeMaxAb5, _bloodSpreadAb5, _heightAngleAb5, _bloodAmountAb5, _bloodForceMinAb5, _bloodForceMaxAb5, enemy, rotation);
+    }
+
     #endregion
 
     // This big function essentially sets up everything we need to make blood!
