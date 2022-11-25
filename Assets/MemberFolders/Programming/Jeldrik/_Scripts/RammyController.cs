@@ -152,6 +152,12 @@ public class RammyController : MonoBehaviour
     [HideInInspector] public float AppliedDamageModifier; // Multiply this by the damage in each ability
     public float DamageBuffDuration;
     [SerializeField] private float _damageBuffTimer;
+    public bool HasSpeedBuff;
+    public float SpeedModifier;
+    public float SpeedBuffDuration;
+    [SerializeField] private float _speedBuffTimer;
+    [SerializeField] private bool _setSpeed = true;
+
 
     // Debugging
     [Header("DEBUGGING STUFF")]
@@ -505,6 +511,30 @@ public class RammyController : MonoBehaviour
 
         #endregion
 
+        #region  SpeedBuff
+
+        // Checks if the buff is active
+        if (HasSpeedBuff)
+        {
+            // Timer counts down every second
+            _speedBuffTimer -= Time.deltaTime;
+        }
+
+        // Checks to see if the timer is over, if we haven't already set the speed modifier, and if we have the buff
+        if (_speedBuffTimer <= 0 && !_setSpeed && HasSpeedBuff)
+        {
+            // Turns off the buff
+            HasSpeedBuff = false;
+
+            // Reduces the speed of the player by the modifier again
+            MovementSpeed /= SpeedModifier;
+
+            // Says that we have already set the speed so that it doesn't reduce the speed every frame
+            _setSpeed = true;
+        }
+
+        #endregion
+
         #endregion
 
         #region Debugging
@@ -814,6 +844,28 @@ public class RammyController : MonoBehaviour
 
             // Adds time to the buff timer
             _damageBuffTimer = DamageBuffDuration;
+
+            // Destroys the buff so it can't be picked up more than once
+            Destroy(other.gameObject);
+        }
+
+        // Checks to see if we collided with a speed powerup
+        if (other.tag == "SpeedPowerup")
+        {
+            // Turns on the speed buff
+            HasSpeedBuff = true;
+
+            // Adds time to the buff timer
+            _speedBuffTimer = SpeedBuffDuration;
+
+            // Modifies the speed of the player by the speed modifier
+            MovementSpeed *= SpeedModifier;
+
+            // Sets a bool that helps with setting the speed when the buff is over
+            _setSpeed = false;
+
+            // Destroys the buff so it can't e picked up more than once
+            Destroy(other.gameObject);
         }
     }
 
