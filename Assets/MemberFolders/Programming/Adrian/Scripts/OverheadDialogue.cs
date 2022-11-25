@@ -33,7 +33,7 @@ public class OverheadDialogue : MonoBehaviour
         _cameraTransform = Camera.main.transform;
 
         // For testing purposes
-        StartCoroutine(ShowDialogue(_timeBetweenSpeaking));
+
     }
 
     // Update is called once per frame
@@ -64,12 +64,6 @@ public class OverheadDialogue : MonoBehaviour
 
     private IEnumerator ShowDialogue(float duration)
     {
-        // Wait for one second
-        yield return new WaitForSeconds(1);
-
-        // Sets the bool to true to start the camera move
-        PanCamera = true;
-
         // Stops the cinemachine from controlling the camera
         _cameraTransform.GetComponent<CinemachineBrain>().enabled = false;
 
@@ -120,15 +114,20 @@ public class OverheadDialogue : MonoBehaviour
         _cameraTransform.GetComponent<CinemachineBrain>().enabled = true;
 
         // Destroys this gameobject
-        Destroy(gameObject);
+        Destroy(this);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Enables the camera pan
-        PanCamera = true;
+        if (other.tag == "Player")
+        {
+            StartCoroutine(ShowDialogue(_timeBetweenSpeaking));
 
-        // Stores the transform of the player for the pan back
-        _playerTransform = other.transform;
+            // Enables the camera pan
+            PanCamera = true;
+
+            // Stores the transform of the player for the pan back
+            _playerTransform = other.transform;
+        }
     }
 }
