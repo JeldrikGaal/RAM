@@ -7,6 +7,7 @@ public class Ability5 : Abilities
     Rigidbody _rb;
     Vector3 _dashDestination;
     Vector3 _dashStart;
+    Quaternion _dashStartRot;
     bool _inProgress = false;
     float _startTimeDash;
     [SerializeField] float _damage = 30f;
@@ -37,6 +38,7 @@ public class Ability5 : Abilities
         //Moves the collider forward so it can deal damage
         if (_inProgress)
         {
+            _externalCollider.transform.rotation = _dashStartRot;
             _externalCollider.transform.position = Vector3.Lerp(_dashStart, _dashDestination, ((Time.time - _startTimeDash) / _moveDuration));
         }
     }
@@ -69,6 +71,7 @@ public class Ability5 : Abilities
 
         //Sets start position and time for the lerp calculations
         _dashStart = _externalCollider.transform.position;
+        _dashStartRot = _externalCollider.transform.rotation;
         _startTimeDash = Time.time;
         _inProgress = true;
         yield return new WaitForSeconds(_moveDuration);
