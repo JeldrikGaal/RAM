@@ -41,6 +41,12 @@ public class CinemachineTopDown : MonoBehaviour
         {
             //transform.position = transform.position + _cameraDistanceVector;
         }
+
+        // Debug.DrawLine(_virtualCamera., transform.position);
+        if(Input.GetKeyDown(KeyCode.B))
+            _virtualCamera.Follow = (GameObject.Find("Sphere").transform);
+
+        
     }
 
     /// <summary>
