@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProtoBlast : MonoBehaviour, IRammable
 {
-    private Dictionary<int,EnemyTesting> _enemiesInRange;
+    private Dictionary<int,EnemyTesting> _enemiesInRange = new();
     [SerializeField] private float _timeToRun;
     [SerializeField] private float _damage;
     [Tooltip(" Range is based on the collider radius")]
