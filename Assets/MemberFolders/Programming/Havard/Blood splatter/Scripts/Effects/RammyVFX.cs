@@ -139,7 +139,7 @@ public class RammyVFX : MonoBehaviour
         }
 
         // Intantiates the blood particle at the correct location and direction
-        Instantiate(_bloodParticle, enemy.transform.position, this.transform.rotation *= Quaternion.Euler(90,90,0));
+        Instantiate(_bloodParticle, enemy.transform.position, this.transform.rotation);
     }
     public void NormalAttack(GameObject enemy)
     {
