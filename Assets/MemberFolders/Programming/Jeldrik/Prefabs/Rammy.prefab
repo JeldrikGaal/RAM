@@ -1473,7 +1473,7 @@ Transform:
   - {fileID: 5027866717449145051}
   - {fileID: 448679933}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1824,49 +1824,49 @@ MonoBehaviour:
   _goreValuesRam:
   - GoreNames: Skull
     Spread: 0.64
-    Angle: 12.6
+    Angle: 0
     MinForce: 0.96
     MaxForce: 3.1
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Heart
     Spread: 0.916
-    Angle: 13.4
+    Angle: 4.5
     MinForce: 1.56
     MaxForce: 3.49
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Intestine
     Spread: 0.79
-    Angle: 14.9
-    MinForce: 1.62
-    MaxForce: 3.1
+    Angle: 0
+    MinForce: 1.21
+    MaxForce: 2.64
     MinAmount: 0
     MaxAmount: 2
   - GoreNames: Spine
     Spread: 1.07
-    Angle: 15.5
+    Angle: 0
     MinForce: 3.71
     MaxForce: 3.72
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Brain
     Spread: 0.682
-    Angle: 9.6
+    Angle: 0
     MinForce: 2.5
     MaxForce: 7.49
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Eyeball
     Spread: 1.973
-    Angle: 9.6
+    Angle: 1.1
     MinForce: 2.24
     MaxForce: 10
     MinAmount: 0
     MaxAmount: 2
   - GoreNames: Meat
     Spread: 0.448
-    Angle: 9.1
+    Angle: 0
     MinForce: 3.38
     MaxForce: 10
     MinAmount: 3
@@ -1885,7 +1885,56 @@ MonoBehaviour:
   _bloodAmountAb1: 13
   _bloodSizeMinAb1: 0.89
   _bloodSizeMaxAb1: 1.24
-  _goreValuesAb1: []
+  _goreValuesAb1:
+  - GoreNames: Skull
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: Heart
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: Intestine
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: Spine
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: Brain
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: Eyeball
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: Meat
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
   _bloodSpreadAb2: 0.5
   _heightAngleAb2: 20
   _bloodForceMinAb2: 0
