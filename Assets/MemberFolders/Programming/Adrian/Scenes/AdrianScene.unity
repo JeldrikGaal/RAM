@@ -737,7 +737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8937515686100368116, guid: 809e81930cb07b44bbea83ae9856bc19, type: 3}
       propertyPath: m_TagString
-      value: DamagePowerup
+      value: SpeedPowerup
       objectReference: {fileID: 0}
     - target: {fileID: 8937515686100368120, guid: 809e81930cb07b44bbea83ae9856bc19, type: 3}
       propertyPath: m_RootOrder
@@ -745,7 +745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8937515686100368120, guid: 809e81930cb07b44bbea83ae9856bc19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.56
+      value: -12.36
       objectReference: {fileID: 0}
     - target: {fileID: 8937515686100368120, guid: 809e81930cb07b44bbea83ae9856bc19, type: 3}
       propertyPath: m_LocalPosition.y
@@ -753,7 +753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8937515686100368120, guid: 809e81930cb07b44bbea83ae9856bc19, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.15
+      value: -43.71
       objectReference: {fileID: 0}
     - target: {fileID: 8937515686100368120, guid: 809e81930cb07b44bbea83ae9856bc19, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1111,6 +1111,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1352477441}
     - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: SpeedModifier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _cameraScript
       value: 
       objectReference: {fileID: 1666171856}
@@ -1119,7 +1123,19 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: SpeedBuffDuration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: DamageBuffDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: DamageReductionModifier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: DamageReductionBuffDuration
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4974556004237746298, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
@@ -1827,7 +1843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bridge: {fileID: 177005052}
   _collapseBridge: 0
-  _lerpSpeed: 1
+  _lerpSpeed: 0.5
 --- !u!4 &421506004
 Transform:
   m_ObjectHideFlags: 0

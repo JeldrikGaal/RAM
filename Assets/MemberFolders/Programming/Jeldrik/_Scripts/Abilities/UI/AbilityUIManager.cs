@@ -12,6 +12,10 @@ public class AbilityUIManager : MonoBehaviour
     private List<Image> _abilityImages = new List<Image>();
     private List<Image> _coolDownCircles = new List<Image>();
 
+    private Transform _basicAbilityBlock;
+    private Image _basicAbilityImage;
+    private Image _basicAbilityCoolDownCircle;
+
     private List<Abilities> _abilityScripts;
 
     // Start is called before the first frame update
@@ -28,6 +32,10 @@ public class AbilityUIManager : MonoBehaviour
             _abilityImages.Add(t.GetComponent<Image>());
         }
         _abilityScripts = _controller.GetAbilityScripts();
+
+        _basicAbilityBlock = transform.GetChild(5);
+        _basicAbilityImage = _basicAbilityBlock.GetComponent<Image>();
+        _basicAbilityCoolDownCircle = _basicAbilityBlock.GetChild(0).GetComponent<Image>();
     }
 
     // Update is called once per frame
