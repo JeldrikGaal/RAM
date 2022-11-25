@@ -119,12 +119,15 @@ public class OverheadDialogue : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(ShowDialogue(_timeBetweenSpeaking));
+        if (other.tag == "Player")
+        {
+            StartCoroutine(ShowDialogue(_timeBetweenSpeaking));
 
-        // Enables the camera pan
-        PanCamera = true;
+            // Enables the camera pan
+            PanCamera = true;
 
-        // Stores the transform of the player for the pan back
-        _playerTransform = other.transform;
+            // Stores the transform of the player for the pan back
+            _playerTransform = other.transform;
+        }
     }
 }

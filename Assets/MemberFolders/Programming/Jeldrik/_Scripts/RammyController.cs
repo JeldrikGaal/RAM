@@ -5,10 +5,10 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-using UnityEngine.UIElements.Experimental;
-using static UnityEngine.EventSystems.EventTrigger;
-using static UnityEngine.Rendering.DebugUI.Table;
+//using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+//using UnityEngine.UIElements.Experimental;
+//using static UnityEngine.EventSystems.EventTrigger;
+//using static UnityEngine.Rendering.DebugUI.Table;
 
 public class RammyController : MonoBehaviour
 {
@@ -53,6 +53,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private Ability3 _ability3Script;
     [SerializeField] private Ability4 _ability4Script;
     [SerializeField] private Ability5 _ability5Script;
+    [SerializeField] private bool _startFullAbilities = true;
+
+    private List<bool> _learnedAbilities = new List<bool>();
 
 
     // Components
@@ -60,10 +63,12 @@ public class RammyController : MonoBehaviour
     private float _cameraDepth;
     private Rigidbody _rB;
     private MeshRenderer _mR;
+    private HealthBar _healthBar;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
     [SerializeField] private TimeStopper _timeStopper;
+    
 
     [Header("Character State")]
     // Bools describing playerstate
@@ -184,10 +189,23 @@ public class RammyController : MonoBehaviour
     {
         _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
+        _healthBar = GetComponentInChildren<HealthBar>();
         if (GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
         _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
         _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
+        for (int i = 0; i < 5; i++)
+        {
+            if (_startFullAbilities)
+            {
+                _learnedAbilities.Add(true);
+            }
+            else
+            {
+                _learnedAbilities.Add(false);
+            }
+               
+        }
     }
 
     // Enabling PlayerControls when player gets enabled in the scene
@@ -473,23 +491,24 @@ public class RammyController : MonoBehaviour
         {
             if (_ability1Key == 1)
             {
-                l[0].CheckActivate();
+                if (_learnedAbilities[0]) l[0].CheckActivate();
+
             }
             else if (_ability2Key == 1)
             {
-                _ability2Script.CheckActivate();
+                if (_learnedAbilities[1]) _ability2Script.CheckActivate();
             }
             else if (_ability3Key == 1)
             {
-                _ability3Script.CheckActivate();
+                if (_learnedAbilities[2]) _ability3Script.CheckActivate();
             }
             else if (_ability4Key == 1)
             {
-                _ability4Script.CheckActivate();
+                if (_learnedAbilities[3]) _ability4Script.CheckActivate();
             }
             else if (_ability5Key == 1)
             {
-                _ability5Script.CheckActivate();
+                if (_learnedAbilities[4]) _ability5Script.CheckActivate();
             }
         }
         #endregion
@@ -928,6 +947,7 @@ public class RammyController : MonoBehaviour
     public void Heal(int healing)
     {
         Health = Math.Min(MaxHealth, Health + healing);
+        _healthBar.UpdateHealthBar(healing / MaxHealth);
     }
 
     /// <summary>
@@ -941,7 +961,7 @@ public class RammyController : MonoBehaviour
         if (_comboSystem) _comboSystem.AddKill();
     }
 
-    #region Setterfunctions
+    #region Setter / Getter functions
     // Functions to start and end the usage of any ability
     public void StartUsingAbility()
     {
@@ -961,63 +981,6 @@ public class RammyController : MonoBehaviour
     public void UnBlockPlayerMovement()
     {
         _blockMovement = false;
-    }
-    #endregion
-
-    // Triggerin ScreenShake with defined strength
-    public void AddScreenShake(float strength)
-    {
-        _cameraScript.ScreenShake(strength);
-    }
-
-    // Function to call when Rammy takes any sort of damage
-    public void TakeDamageRammy(float _damage)
-    {
-        // If Rammy is currently in an I frame dont take damage and dont show damage effects
-        if (Invincible)
-        {
-            return;
-        }
-        // Short Time slow to emphazise taking damage
-        _timeStopper.PauseTime(_freezeScaleHit, _freezeTimeHit);
-
-        // If the player has the damage reduction buff
-        if (_hasDamageReductionBuff)
-        {
-            // Take damage divided by the damage reduction modifier
-            Health -= (_damage / DamageReductionModifier);
-        }
-        else
-        {
-            // Checking if Rammy died from taking damage
-            Health -= _damage;
-        }
-
-        // Stopping combo 
-        _comboSystem.EndCombo();
-
-        // Cancel Charging Ram Attack 
-        if (_frameCounterRightMouseButton > 0)
-        {
-            _frameCounterRightMouseButton = 0;
-            _frameCounterRightMouseButtonSave = 0;
-        }
-
-        // Die if falls below 0 health
-        if (Health <= 0)
-        {
-            Die();
-        }
-
-        // TODO: Damage resistance 
-        // TODO: More VFX
-    }
-
-    // Rammy fell below 0 health and has now died. Deal with it in this function
-    private void Die()
-    {
-        Debug.Log("RAMMY HAS DIED!!!!!");
-        Destroy(gameObject);
     }
 
     public List<Abilities> GetAbilityScripts()
@@ -1047,4 +1010,93 @@ public class RammyController : MonoBehaviour
         chargeInfo.Add(MaxChargeTime);
         return chargeInfo;
     }
+
+    public bool GetAttacking()
+    {
+        return Attacking;
+    }
+
+    public bool GetDashing()
+    {
+        return Dashing;
+    }
+
+    public List<bool> GetAbilitiesLearned()
+    {
+        return _learnedAbilities;
+    }
+
+    public void LearnAbility(int index)
+    {
+        _learnedAbilities[index] = true;
+    }
+    #endregion
+
+    // Triggerin ScreenShake with defined strength
+    public void AddScreenShake(float strength)
+    {
+        _cameraScript.ScreenShake(strength);
+    }
+
+    // Function to call when Rammy takes any sort of damage
+    public void TakeDamageRammy(float _damage)
+    {
+        // If Rammy is currently in an I frame dont take damage and dont show damage effects
+        if (Invincible)
+        {
+            return;
+        }
+        // Short Time slow to emphazise taking damage
+        _timeStopper.PauseTime(_freezeScaleHit, _freezeTimeHit);
+        // Small ScreenShake
+        AddScreenShake(0.3f);
+
+        float appliedDamage;
+        // If the player has the damage reduction buff
+        if (_hasDamageReductionBuff)
+        {
+            // Take damage divided by the damage reduction modifier
+            appliedDamage = (_damage / DamageReductionModifier);
+        }
+        else
+        {
+            // Checking if Rammy died from taking damage
+            appliedDamage = _damage;
+        }
+
+        // Actually apply damage
+        Health -= appliedDamage;
+
+        // Apply damage to health bar
+        _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
+
+        // Stopping combo 
+        _comboSystem.EndCombo();
+
+        // Cancel Charging Ram Attack 
+        if (_frameCounterRightMouseButton > 0)
+        {
+            _frameCounterRightMouseButton = 0;
+            _frameCounterRightMouseButtonSave = 0;
+        }
+
+        // Die if falls below 0 health
+        if (Health <= 0)
+        {
+            Die();
+        }
+        
+        
+
+        // TODO: More VFX
+    }
+
+    // Rammy fell below 0 health and has now died. Deal with it in this function
+    private void Die()
+    {
+        Debug.Log("RAMMY HAS DIED!!!!!");
+        Destroy(gameObject);
+    }
+
+    
 }
