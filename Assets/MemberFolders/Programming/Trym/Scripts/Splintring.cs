@@ -40,7 +40,7 @@ public class Splintring : MonoBehaviour, IRammable
                           Random.Range(-_spread, _spread)
                       )).normalized;
 
-            SplinterManager.RequestSplinter(transform.position + (dir * _spawnOffset), dir, _velosity, Random.Range(_minLifetime,_maxLifetime), _properties);
+            ObjectPoolManager.RequestObject( typeof(Splinter),transform.position + (dir * _spawnOffset), dir, dir * _velosity , Random.Range(_minLifetime,_maxLifetime), _properties);
         }
     }
 

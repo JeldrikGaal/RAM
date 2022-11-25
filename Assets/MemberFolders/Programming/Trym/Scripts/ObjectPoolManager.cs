@@ -3,48 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameManager))]
-public class SplinterManager : MonoBehaviour
+public class ObjectPoolManager : MonoBehaviour
 {
     #region keeps it to one instance
     // Enshures only one instance
-    private static SplinterManager _instance;
+    private static Dictionary<System.Type, ObjectPoolManager> _instances = new();
     private void Awake()
     {
-        if (_instance == null)
+        if (!_instances.ContainsKey(_objectPrefab.GetType()))
         {
-            _instance = this;
+            _instances.Add(_objectPrefab.GetType(), this);
         }
         else
         {
             Destroy(this);
         }
         #endregion
-        #region Initialize Splinters
+        #region Initialize Objects
         _amount = _pool;
-        _splinters = new Splinter[_amount];
+        _splinters = new Pooltoy[_amount];
     }
     
     
-    [SerializeField] Splinter _splinterPrefab;
+    [SerializeField] Pooltoy _objectPrefab;
     [SerializeField] int _pool = 300;
     
     static int _amount;
-    static Splinter[] _splinters;
+    static Pooltoy[] _splinters;
     static int _currentSplinter;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnSplinters());
+        StartCoroutine(SpawnObjects());
 
     }
 
     // populates the object pool
-    private IEnumerator SpawnSplinters()
+    private IEnumerator SpawnObjects()
     {
         for (int i = 0; i < _amount; i++)
         {
-            _splinters[i] = Instantiate(_splinterPrefab,null);
+            _splinters[i] = 
+                Instantiate(_objectPrefab,null);
             _splinters[i].gameObject.SetActive(false);
             if (Time.deltaTime >= 1/60)
             {
@@ -59,9 +60,9 @@ public class SplinterManager : MonoBehaviour
 
 
 
-    #region For getting splinters
+    #region For getting objects
     // List of splinter requests to be handeled.
-    static List<(Vector3 position, Vector3 direction, float speed, float time, SplinterProperties properties)> _requests = new();
+    static List<(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity, float time, Properties properties)> _requests = new();
     static bool _running = false;
 
     /// <summary>
@@ -70,30 +71,31 @@ public class SplinterManager : MonoBehaviour
     /// <param name="position"></param>
     /// <param name="direction"></param>
     /// <param name="speed"></param>
-    public static void RequestSplinter(Vector3 position, Vector3 direction, float speed, float time, SplinterProperties properties)
+    public static void RequestObject(System.Type type, Vector3 position, Vector3 direction, Vector3 velocity, float time, Properties properties)
     {
-        _requests.Add((position, direction, speed, time, properties));
+        _requests.Add((type, position, direction, velocity, time, properties));
         if (!_running && _requests.Count>0)
         {
-            _instance.StartCoroutine(ServesSplinters());
+            _instances[type].StartCoroutine(ServesObjects());
         }
 
     }
-    // handles all requests for splinters
-    static IEnumerator ServesSplinters()
+    // handles all requests for Objects
+    static IEnumerator ServesObjects()
     {
         _running = true;
-        int i = 0;
+        
         while (_requests.Count>0)
         {
             // extacts the dataand tries to get a splinter
             _running = true;
             var position = _requests[0].position;
             var direction = _requests[0].direction;
-            var speed = _requests[0].speed;
+            var speed = _requests[0].velocity;
             var time = _requests[0].time;
             var properties = _requests[0].properties;
-            if (GetSplinter(position, direction, speed, time, properties))
+            var type = _requests[0].type;
+            if (GetObject(type,position, direction, speed, time, properties))
             {
                 _requests.RemoveAt(0);
             }
@@ -101,7 +103,7 @@ public class SplinterManager : MonoBehaviour
             {
                 yield return new WaitForEndOfFrame();
             }
-            i++;
+            
             
         }
         
@@ -115,7 +117,7 @@ public class SplinterManager : MonoBehaviour
     /// <param name="direction"></param>
     /// <param name="speed"></param>
     /// <returns></returns>
-    private static bool GetSplinter(Vector3 position, Vector3 direction, float speed, float time, SplinterProperties properties)
+    private static bool GetObject(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity , float time, Properties properties)
     {
         var splinter = _splinters[_currentSplinter];
 
@@ -135,18 +137,18 @@ public class SplinterManager : MonoBehaviour
         _currentSplinter = _currentSplinter + 1 < _amount ? _currentSplinter + 1 : 0;
         
         // setting all relevant data
-        ((Rigidbody)splinter).gameObject.SetActive(true);
-        ((Rigidbody)splinter).position = position;
-        ((Rigidbody)splinter).transform.LookAt(position + direction);
-        ((Rigidbody)splinter).velocity = direction * speed;
+        splinter.Rb.gameObject.SetActive(true);
+        splinter.Rb.position = position;
+        splinter.Rb.transform.LookAt(position + direction);
+        splinter.Rb.velocity = velocity;
         splinter.SetProperties(properties);
-        _instance.StartCoroutine(DisableSplinter(splinter, time));
+        _instances[type].StartCoroutine(DisableObject(splinter.Rb, time));
         return true;
     }
     #endregion
 
     // disables the object after it's lifetime.
-    private static IEnumerator DisableSplinter(Rigidbody splinter, float time)
+    private static IEnumerator DisableObject(Rigidbody splinter, float time)
     {
         yield return new WaitForSeconds(time);
         splinter.gameObject.SetActive(false);
@@ -155,13 +157,15 @@ public class SplinterManager : MonoBehaviour
 
 }
 
-/*
+[System.Serializable]
 public abstract class Properties
 {
+    
 
 }
 
-public abstract class Pooltoys: MonoBehaviour
+public abstract class Pooltoy: MonoBehaviour 
 {
     public abstract void SetProperties(Properties properties );
-}*/
+    public abstract Rigidbody Rb { get;  }
+}
