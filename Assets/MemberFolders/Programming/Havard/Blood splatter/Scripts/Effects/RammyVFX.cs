@@ -168,7 +168,7 @@ public class RammyVFX : MonoBehaviour
         SpawnBlood(_bloodSizeMinAb4, _bloodSizeMaxAb4, _bloodSpreadAb4, _heightAngleAb4, _bloodAmountAb4, _bloodForceMinAb4, _bloodForceMaxAb4, enemy, dir);
     }
 
-    public void Ab4Attack(GameObject enemy, GameObject collider)
+    public void Ab5Attack(GameObject enemy, GameObject collider)
     {
         var dir = (enemy.transform.position - collider.transform.position).normalized;
 
