@@ -594,7 +594,6 @@ public class RammyController : MonoBehaviour
         _lastFrameLeftMouseButton = false;
         _lastFrameRightMouseButton = false;
 
-
     }
 
 
