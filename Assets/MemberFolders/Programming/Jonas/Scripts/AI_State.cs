@@ -8,14 +8,14 @@ public class AI_State : ScriptableObject
 {
     [SerializeField] private List<StateBlock> _aiBlocks;
 
-    private Dictionary<Jonas_TempCharacter, int> _timerCount;
-    private Dictionary<Jonas_TempCharacter, float> _timer;
+    private Dictionary<EnemyController, int> _timerCount;
+    private Dictionary<EnemyController, float> _timer;
 
     // Runs the starting function of all AI blocks and makes sure all variables are correct
-    public void StateStart(Jonas_TempCharacter user, GameObject target)
+    public void StateStart(EnemyController user, GameObject target)
     {
-        if (_timerCount == null) _timerCount = new Dictionary<Jonas_TempCharacter, int>();
-        if (_timer == null) _timer = new Dictionary<Jonas_TempCharacter, float>();
+        if (_timerCount == null) _timerCount = new Dictionary<EnemyController, int>();
+        if (_timer == null) _timer = new Dictionary<EnemyController, float>();
 
         _timerCount[user] = -1;
         _timer[user] = 0;
@@ -27,7 +27,7 @@ public class AI_State : ScriptableObject
     }
 
     // Runs the update function of all AI blocks and handles any returned logic
-    public AI_State StateUpdate(Jonas_TempCharacter user, GameObject target)
+    public AI_State StateUpdate(EnemyController user, GameObject target)
     {
         // Sets all variables for the start of update
         // MoveInput is reset to allow for stacking of multiple movement types in one state
@@ -88,7 +88,7 @@ public class AI_State : ScriptableObject
     }
 
     // Runs the ending function of all the AI blocks
-    public void StateEnd(Jonas_TempCharacter user, GameObject target)
+    public void StateEnd(EnemyController user, GameObject target)
     {
         foreach (StateBlock blk in _aiBlocks)
             blk.OnEnd(user, target);

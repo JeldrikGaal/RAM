@@ -8,12 +8,12 @@ public class AI_StateChange : StateBlock
 {
     [SerializeField] private AI_State _nextState;
 
-    public override void OnStart(Jonas_TempCharacter user, GameObject target) { }
+    public override void OnStart(EnemyController user, GameObject target) { }
 
-    public override (AI_State state, List<float> val) OnUpdate(Jonas_TempCharacter user, GameObject target)
+    public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
         return (_nextState, null);
     }
 
-    public override void OnEnd(Jonas_TempCharacter user, GameObject target) { }
+    public override void OnEnd(EnemyController user, GameObject target) { }
 }

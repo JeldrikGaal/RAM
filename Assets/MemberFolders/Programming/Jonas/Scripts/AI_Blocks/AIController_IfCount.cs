@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class AIController_IfCount : MonoBehaviour
 {
-    private List<Jonas_TempCharacter> _packMembers;
+    private List<EnemyController> _packMembers;
 
     public void Init()
     {
-        _packMembers = new List<Jonas_TempCharacter>();
+        _packMembers = new List<EnemyController>();
     }
 
-    public void AddMember(Jonas_TempCharacter member)
+    public void AddMember(EnemyController member)
     {
         _packMembers.Add(member);
     }
 
-    public void RemoveMember(Jonas_TempCharacter member)
+    public void RemoveMember(EnemyController member)
     {
         _packMembers.Remove(member);
 
@@ -24,7 +24,7 @@ public class AIController_IfCount : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public int GetPos(Jonas_TempCharacter member)
+    public int GetPos(EnemyController member)
     {
         return _packMembers.IndexOf(member);
     }

@@ -9,13 +9,13 @@ public class AI_ModelHeight : StateBlock
 
     [SerializeField] private bool _asTimer;
 
-    private Dictionary<Jonas_TempCharacter, Transform> _models;
+    private Dictionary<EnemyController, Transform> _models;
 
     private List<float> _returnList;
 
-    public override void OnStart(Jonas_TempCharacter user, GameObject target)
+    public override void OnStart(EnemyController user, GameObject target)
     {
-        if (_models == null) _models = new Dictionary<Jonas_TempCharacter, Transform>();
+        if (_models == null) _models = new Dictionary<EnemyController, Transform>();
 
         _models[user] = user.transform.Find("Model");
 
@@ -23,7 +23,7 @@ public class AI_ModelHeight : StateBlock
         _returnList.Add((float)StateReturn.Stop);
     }
 
-    public override (AI_State state, List<float> val) OnUpdate(Jonas_TempCharacter user, GameObject target)
+    public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
         if (Mathf.Abs(_height - _models[user].position.y) < 1f) return (null, null);
 
@@ -36,7 +36,7 @@ public class AI_ModelHeight : StateBlock
         return (null, null);
     }
 
-    public override void OnEnd(Jonas_TempCharacter user, GameObject target)
+    public override void OnEnd(EnemyController user, GameObject target)
     {
         _models.Remove(user);
     }

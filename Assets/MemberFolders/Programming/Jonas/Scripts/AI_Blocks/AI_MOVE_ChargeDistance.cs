@@ -10,26 +10,24 @@ public class AI_MOVE_ChargeDistance : StateBlock
 
     [SerializeField] private bool _asTimer;
 
-    private Dictionary<Jonas_TempCharacter, Vector3> _moveDir;
-    private Dictionary<Jonas_TempCharacter, Vector3> _startPos;
+    private Dictionary<EnemyController, Vector3> _moveDir;
+    private Dictionary<EnemyController, Vector3> _startPos;
 
     private List<float> _returnList;
 
-    public override void OnStart(Jonas_TempCharacter user, GameObject target)
+    public override void OnStart(EnemyController user, GameObject target)
     {
-        if (_moveDir == null) _moveDir = new Dictionary<Jonas_TempCharacter, Vector3>();
-        if (_startPos == null) _startPos = new Dictionary<Jonas_TempCharacter, Vector3>();
+        _returnList = new List<float>();
+        _returnList.Add((float)StateReturn.Stop);
+
+        if (_moveDir == null) _moveDir = new Dictionary<EnemyController, Vector3>();
+        if (_startPos == null) _startPos = new Dictionary<EnemyController, Vector3>();
 
         _moveDir[user] = (target.transform.position - user.transform.position).normalized;
         _startPos[user] = user.transform.position;
-
-        if (_returnList != null) return;
-
-        _returnList = new List<float>();
-        _returnList.Add((float)StateReturn.Stop);
     }
 
-    public override (AI_State state, List<float> val) OnUpdate(Jonas_TempCharacter user, GameObject target)
+    public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
         if (Vector3.Distance(user.transform.position, _startPos[user]) > _distance) return (null, null);
 
@@ -41,7 +39,7 @@ public class AI_MOVE_ChargeDistance : StateBlock
         return (null, null);
     }
 
-    public override void OnEnd(Jonas_TempCharacter user, GameObject target)
+    public override void OnEnd(EnemyController user, GameObject target)
     {
         _moveDir.Remove(user);
         _startPos.Remove(user);

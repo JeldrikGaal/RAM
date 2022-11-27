@@ -50,7 +50,7 @@ public class EnemyTesting : MonoBehaviour
         _startingHealth = _health;
 
         // Records the default speed
-        if (GetComponent<Jonas_TempCharacter>()) _defaultSpeed = GetComponent<Jonas_TempCharacter>().MoveSpeed;
+        if (GetComponent<EnemyController>()) _defaultSpeed = GetComponent<EnemyController>().MoveSpeed;
     }
 
     // Update is called once per frame
@@ -140,13 +140,13 @@ public class EnemyTesting : MonoBehaviour
     public IEnumerator Stun(float duration)
     {
         // Sets the movespeed to 0 to fake the enemy being stunned
-        GetComponent<Jonas_TempCharacter>().MoveSpeed = 0;
+        GetComponent<EnemyController>().MoveSpeed = 0;
 
         // Wait for stun duration
         yield return new WaitForSeconds(duration);
 
         // Sets the movespeed to the default speed again
-        GetComponent<Jonas_TempCharacter>().MoveSpeed = _defaultSpeed;
+        GetComponent<EnemyController>().MoveSpeed = _defaultSpeed;
     }
 
     public void MoveToPullPoint(Vector3 point)

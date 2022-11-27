@@ -10,15 +10,17 @@ public class StateMachine : MonoBehaviour
 
     [SerializeField] private AI_State _currentState;
 
-    private Jonas_TempCharacter _user;
+    private EnemyController _user;
     private GameObject _target;
+
+    private bool _reset = false;
 
     private void Awake()
     {
         if (_startState == null) return;
         _currentState = _startState;
 
-        _user = GetComponent<Jonas_TempCharacter>();
+        _user = GetComponent<EnemyController>();
         _target = GameObject.FindGameObjectWithTag("Player");
         _currentState.StateStart(_user, _target);
     }
@@ -26,6 +28,12 @@ public class StateMachine : MonoBehaviour
     private void Update()
     {
         AI_State nextState = _currentState?.StateUpdate(_user, _target);
+
+        if (_reset)
+        {
+            _reset = false;
+            NextState(_startState);
+        }
 
         if (nextState != null)
             NextState(nextState);
@@ -42,5 +50,10 @@ public class StateMachine : MonoBehaviour
             _currentState = nextState;
 
         _currentState.StateStart(_user, _target);
+    }
+
+    public void ResetState()
+    {
+        _reset = true;
     }
 }

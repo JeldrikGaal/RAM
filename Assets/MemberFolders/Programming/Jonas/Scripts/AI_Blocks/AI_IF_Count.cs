@@ -17,7 +17,7 @@ public class AI_IF_Count : StateBlock
 
     // Creates a controller if there is none
     // Adds the current character to the controller
-    public override void OnStart(Jonas_TempCharacter user, GameObject target)
+    public override void OnStart(EnemyController user, GameObject target)
     {
         // Connect to controller, create if none
         if (_controller == null)
@@ -32,12 +32,12 @@ public class AI_IF_Count : StateBlock
     }
 
     // Removes itself from the controller
-    public override void OnEnd(Jonas_TempCharacter user, GameObject target)
+    public override void OnEnd(EnemyController user, GameObject target)
     {
         _controller.RemoveMember(user);
     }
 
-    public override (AI_State state, List<float> val) OnUpdate(Jonas_TempCharacter user, GameObject target)
+    public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
         if (_controller.GetCount() > _count == _more)
             return (null, null);

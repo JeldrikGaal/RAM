@@ -15,7 +15,7 @@ public class AI_MOVE_CirclePack : StateBlock
 
     // Creates a controller if there is none
     // Adds the current character to the controller
-    public override void OnStart(Jonas_TempCharacter user, GameObject target)
+    public override void OnStart(EnemyController user, GameObject target)
     {
         // Connect to controller, create if none
         if (_controller == null)
@@ -30,13 +30,13 @@ public class AI_MOVE_CirclePack : StateBlock
     }
 
     // Removes itself from the controller
-    public override void OnEnd(Jonas_TempCharacter user, GameObject target)
+    public override void OnEnd(EnemyController user, GameObject target)
     {
         _controller.RemoveMember(user);
     }
 
     // Gets its target position from the controller and moves towards it
-    public override (AI_State state, List<float> val) OnUpdate(Jonas_TempCharacter user, GameObject target)
+    public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
         Vector3 followPos = (_controller.GetPoint(user));
 

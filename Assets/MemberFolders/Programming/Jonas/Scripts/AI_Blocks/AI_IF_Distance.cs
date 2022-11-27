@@ -11,9 +11,9 @@ public class AI_IF_Distance : StateBlock
     [SerializeField] private bool _close;
     [SerializeField] private float _distance;
 
-    public override void OnStart(Jonas_TempCharacter user, GameObject target) { }
+    public override void OnStart(EnemyController user, GameObject target) { }
 
-    public override (AI_State state, List<float> val) OnUpdate(Jonas_TempCharacter user, GameObject target)
+    public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
         if (Vector3.Distance(user.transform.position, target.transform.position) < _distance == _close)
             return (null, null);
@@ -25,5 +25,5 @@ public class AI_IF_Distance : StateBlock
 
     }
 
-    public override void OnEnd(Jonas_TempCharacter user, GameObject target) { }
+    public override void OnEnd(EnemyController user, GameObject target) { }
 }
