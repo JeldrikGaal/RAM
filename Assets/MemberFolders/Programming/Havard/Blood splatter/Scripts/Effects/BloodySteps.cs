@@ -5,10 +5,14 @@ using UnityEngine;
 public class BloodySteps : MonoBehaviour
 {
     [SerializeField] private int _maxPoints = 500;
+    [SerializeField] private int _backupPoints = 50;
     private int _completedPoint;
+    private int _completedBackup;
     private GameObject[] _bloodSplats;
     private Vector2[] _locationPoints;
+    private GameObject[] _bloodSplatsBackup;
     private bool _deleting = false;
+    public bool _backupDeleting = false;
 
     [SerializeField] private LayerMask _playerLayer;
     private float _height = 0;
@@ -21,6 +25,7 @@ public class BloodySteps : MonoBehaviour
     {
         _locationPoints = new Vector2[_maxPoints];
         _bloodSplats = new GameObject[_maxPoints];
+        _bloodSplatsBackup = new GameObject[_backupPoints];
     }
 
     // Update is called once per frame
@@ -60,6 +65,7 @@ public class BloodySteps : MonoBehaviour
         if (_deleting == true)
         {
             _bloodSplats[_completedPoint].GetComponent<FadeOnTrigger>().Fade = true;
+            // AddBackupPoint(_bloodSplats[_completedPoint]);
             Destroy(_bloodSplats[_completedPoint].gameObject, 5);
         }
         _bloodSplats[_completedPoint] = ob;
@@ -67,5 +73,32 @@ public class BloodySteps : MonoBehaviour
         _completedPoint++;
         return;
     }
+
+    public GameObject GetSplat()
+    {
+        return _bloodSplatsBackup[_completedBackup];
+    }
+
+    private void AddBackupPoint(GameObject splat)
+    {
+        print(_completedBackup);
+        print(_bloodSplatsBackup.Length);
+        if(_completedBackup >= _bloodSplatsBackup.Length)
+        {
+            _completedBackup = 0;
+            _backupDeleting = true;
+        }
+        if (_backupDeleting)
+        {
+
+        }
+
+        
+
+        _bloodSplatsBackup[_completedBackup] = splat;
+
+        _completedBackup++;
+    }
+
 
 }

@@ -11,6 +11,7 @@ public class WolfLumberTrap : MonoBehaviour
 
     [SerializeField] private GameObject _wall;
 
+
     private Transform _wallRotatePoint;
 
     [SerializeField] private bool _canRotate;
@@ -18,6 +19,7 @@ public class WolfLumberTrap : MonoBehaviour
     [SerializeField] private float _degreesPerSecond;
     [SerializeField] private float _finalRotation;
 
+    [SerializeField] private GameObject[] _logs;
 
     private void Awake()
     {
@@ -29,7 +31,7 @@ public class WolfLumberTrap : MonoBehaviour
         _interact = _interactController.Player.Interact;
         _interact.Enable();
 
-        _interact.performed += Interact;
+        // _interact.performed += Interact;
     }
 
     // Start is called before the first frame update
@@ -50,12 +52,24 @@ public class WolfLumberTrap : MonoBehaviour
 
     private IEnumerator StopRotating()
     {
+        foreach (GameObject log in _logs)
+        {
+            Destroy(log, 40);
+        }
         yield return new WaitForSeconds(_finalRotation / _degreesPerSecond);
         _canRotate = false;
     }
 
-    private void Interact(InputAction.CallbackContext context)
+    // private void Interact(InputAction.CallbackContext context)
+    // {
+    //     _canRotate = true;
+    // }
+
+    private void OnTriggerEnter(Collider other)
     {
-        _canRotate = true;
+        if (other.tag == "Player")
+        {
+            _canRotate = true;
+        }
     }
 }

@@ -331,7 +331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5920122201635186104, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _moveTime
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5920122201635186104, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _prepTime
@@ -343,7 +343,7 @@ PrefabInstance:
       objectReference: {fileID: 1358812313}
     - target: {fileID: 5920122201635186104, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _resetTime
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5920122201635186104, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _moveRadius
@@ -462,7 +462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3709908290141839986, guid: 3d1d05fbeff0541498b9a3a0a3a867fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.652775
+      value: -6.22
       objectReference: {fileID: 0}
     - target: {fileID: 3709908290141839986, guid: 3d1d05fbeff0541498b9a3a0a3a867fb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -470,7 +470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3709908290141839986, guid: 3d1d05fbeff0541498b9a3a0a3a867fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.17
+      value: -17.07
       objectReference: {fileID: 0}
     - target: {fileID: 3709908290141839986, guid: 3d1d05fbeff0541498b9a3a0a3a867fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -675,26 +675,70 @@ MonoBehaviour:
   _instanceProperties:
     ToBeDisplayed: 
     FadeTime: 3
-    FadeRate:
+    AlphaOverTime:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: -0.034524973
-        outSlope: -0.034524973
+        value: 0
+        inSlope: 54.246468
+        outSlope: 54.246468
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.044289835
+        outWeight: 0.02731281
       - serializedVersion: 3
-        time: 1.0000339
-        value: 0
-        inSlope: -3.129109
-        outSlope: -3.129109
+        time: 0.05132337
+        value: 1.0007113
+        inSlope: -0.13345756
+        outSlope: -0.13345756
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.024920514
+        inWeight: 0.33333334
+        outWeight: 0.036151208
+      - serializedVersion: 3
+        time: 0.99694973
+        value: 0.005550027
+        inSlope: -1.7466742
+        outSlope: -1.7466742
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.03439141
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    MinSize: 0.2
+    MaxSise: 1
+    SizeOverTime:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2.0713556
+        outSlope: 2.0713556
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.029526558
+      - serializedVersion: 3
+        time: 0.6503071
+        value: 0.9992263
+        inSlope: -0.017012056
+        outSlope: -0.017012056
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0000339
+        value: 0.0030593872
+        inSlope: -5.374316
+        outSlope: -5.374316
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.015078332
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -1069,6 +1113,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Testing
       objectReference: {fileID: 0}
+    - target: {fileID: 974092246494830069, guid: ffea55b0e265c8146828a70b788b2e11, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 974092246494830075, guid: ffea55b0e265c8146828a70b788b2e11, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -1111,14 +1159,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 974092246494830075, guid: ffea55b0e265c8146828a70b788b2e11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 974092247489720313, guid: ffea55b0e265c8146828a70b788b2e11, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 974092247489720313, guid: ffea55b0e265c8146828a70b788b2e11, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
