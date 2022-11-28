@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SandboxEnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject _bearPrefab;
+    [SerializeField] private GameObject _wolfPrefab;
+    [SerializeField] private GameObject _hawkPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,17 +18,30 @@ public class SandboxEnemySpawner : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            Vector3 worldPosition = Vector3.zero;
-            Plane plane = new Plane(Vector3.up, 0);
-
-            float distance;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (plane.Raycast(ray, out distance))
-            {
-                worldPosition = ray.GetPoint(distance);
-            }
-
-            Instantiate(_enemyPrefab, new Vector3(worldPosition.x, worldPosition.y + 1, worldPosition.z), Quaternion.identity);
+            SpawnEnemy(_bearPrefab);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            SpawnEnemy(_wolfPrefab);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            SpawnEnemy(_hawkPrefab);
+        }
+    }
+
+    void SpawnEnemy(GameObject enemy)
+    {
+        Vector3 worldPosition = Vector3.zero;
+        Plane plane = new Plane(Vector3.up, 0);
+
+        float distance;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (plane.Raycast(ray, out distance))
+        {
+            worldPosition = ray.GetPoint(distance);
+        }
+
+        Instantiate(enemy, new Vector3(worldPosition.x, worldPosition.y + 1, worldPosition.z), Quaternion.identity);
     }
 }

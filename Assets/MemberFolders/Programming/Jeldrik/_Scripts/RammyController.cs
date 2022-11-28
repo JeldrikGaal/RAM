@@ -869,6 +869,10 @@ public class RammyController : MonoBehaviour
             // Makes the bridge rotate when it is rammed
             rammedObject.GetComponent<KnockDownBridgeScript>().CanRotate = true;
         }
+        else if (TagManager.HasTag(rammedObject, "objectfalltree"))
+        {
+            rammedObject.GetComponent<ObjectFallFromTree>().DropItem = true;
+        }
 
     }
 

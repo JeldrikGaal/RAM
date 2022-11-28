@@ -54,8 +54,20 @@ public class StickyBlood : MonoBehaviour
                 splatRotation = Quaternion.LookRotation(-item.normal);
             }
 
-
             // Spawn the splat:
+            var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
+            prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
+            BloodStepScript.AddPoint(new Vector2(item.point.x, item.point.z), prefab.gameObject);
+            prefab.GetComponent<DecalProjector>().material = BloodMaterial;
+            // Randomize colour:
+            Color randomRed = new Color(
+                Random.Range(0.7f, 1f),
+                Random.Range(0f, 0.1f),
+                Random.Range(0f, 0.1f)
+            );
+            prefab.GetComponent<DecalProjector>().material.SetColor("_Colour", randomRed);
+
+            /*
             if (!BloodStepScript._backupDeleting)
             {
                 var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
@@ -83,7 +95,7 @@ public class StickyBlood : MonoBehaviour
                 );
                 prefab.GetComponent<DecalProjector>().material.SetColor("_Colour", randomRed);
             }
-
+            */
 
             /// All of this was for a quad which spawned on the item normal. DONT DELETE, we might need to use it later if the decal doesn't work that well
             /*
