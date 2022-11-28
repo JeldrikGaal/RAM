@@ -42,21 +42,25 @@ public class RagdollVelocity : MonoBehaviour
         Transform[] allChildren = GetComponentsInChildren<Transform>();
         foreach (Transform child in allChildren)
         {
+
+            if (child.GetComponent<CapsuleCollider>())
+            {
+                if (_static)
+                {
+                    child.GetComponent<CapsuleCollider>().enabled = false;
+                }
+
+            }
             if (child.GetComponent<Rigidbody>())
             {
                 if (_static)
                 {
                     child.GetComponent<Rigidbody>().isKinematic = true;
 
-                    if (GetComponent<CapsuleCollider>())
-                    {
-                        child.GetComponent<CapsuleCollider>().enabled = false;
-                    }
                 }
 
                 if (child.GetComponent<Rigidbody>().velocity.magnitude <= 0.1)
                 {
-                    print(this.name);
                     _static = true;
                 }
             }
