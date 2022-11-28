@@ -24,7 +24,7 @@ public class ObjectPoolManager : MonoBehaviour
         _splinters = new Pooltoy[_amount];
     }
     
-    
+    [Tooltip("There should only be one instance of a Object Pool Manager per prefab.")]
     [SerializeField] Pooltoy _objectPrefab;
     [SerializeField] int _pool = 300;
     
@@ -57,21 +57,18 @@ public class ObjectPoolManager : MonoBehaviour
     #endregion
 
 
-
-
-
     #region For getting objects
     // List of splinter requests to be handeled.
-    static List<(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity, float time, Properties properties)> _requests = new();
+    static List<(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity, float time, IProperties properties)> _requests = new();
     static bool _running = false;
 
     /// <summary>
-    /// Requests a splinter from the object pool, will come when awailable.
+    /// Requests a object from the object pool, will come when awailable.
     /// </summary>
     /// <param name="position"></param>
     /// <param name="direction"></param>
     /// <param name="speed"></param>
-    public static void RequestObject(System.Type type, Vector3 position, Vector3 direction, Vector3 velocity, float time, Properties properties)
+    public static void RequestObject(System.Type type, Vector3 position, Vector3 direction, Vector3 velocity, float time, IProperties properties)
     {
         _requests.Add((type, position, direction, velocity, time, properties));
         if (!_running && _requests.Count>0)
@@ -111,13 +108,13 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Pulls a splinter from the object pool, if awailable.
+    /// Pulls a object from the object pool, if awailable.
     /// </summary>
     /// <param name="position"></param>
     /// <param name="direction"></param>
     /// <param name="speed"></param>
     /// <returns></returns>
-    private static bool GetObject(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity , float time, Properties properties)
+    private static bool GetObject(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity , float time, IProperties properties)
     {
         var splinter = _splinters[_currentSplinter];
 
@@ -157,15 +154,24 @@ public class ObjectPoolManager : MonoBehaviour
 
 }
 
-[System.Serializable]
-public abstract class Properties
+/// <summary>
+/// Just to identify wha is properties for ObjectPoolManager
+/// </summary>
+public interface IProperties
 {
     
 
 }
 
+/// <summary>
+/// base class for classes for prefabs that can ba managed by the ObjectPoolManager.
+/// </summary>
 public abstract class Pooltoy: MonoBehaviour 
 {
-    public abstract void SetProperties(Properties properties );
+    /// <summary>
+    /// Sets the properties of the object that it spawns.
+    /// </summary>
+    /// <param name="properties"></param>
+    public abstract void SetProperties(IProperties properties );
     public abstract Rigidbody Rb { get;  }
 }

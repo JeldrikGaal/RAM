@@ -57,7 +57,7 @@ public class Splinter : Pooltoy
     }*/
 
 
-    public override void SetProperties(Properties properties)
+    public override void SetProperties(IProperties properties)
     {
         _properties = (SplinterProperties)properties;
     }
@@ -70,7 +70,7 @@ public class Splinter : Pooltoy
 
 }
 [System.Serializable]
-public class SplinterProperties : Properties
+public class SplinterProperties : IProperties
 {
     public float Damage;
     public float StunTime;
