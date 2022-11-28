@@ -6,7 +6,7 @@ using TMPro;
 public class FloatingDamageObject : Pooltoy
 {
 
-    private Rigidbody _rigid;
+    [SerializeField] private Rigidbody _rigid;
     private FDOProperties _properties;
     private Transform _cameraTransform;
     private float _startTime;
@@ -14,37 +14,35 @@ public class FloatingDamageObject : Pooltoy
     public override Rigidbody Rb => _rigid;
 
 
-    private void Awake()
-    {
-        _rigid = GetComponent<Rigidbody>();
-
-    }
-
-
     private void Start()
     {
+        
         _cameraTransform = Camera.main.transform;
     }
 
-    public override void SetProperties(Properties properties)
+    public override void SetProperties(IProperties properties)
     {
         _properties = (FDOProperties)properties;
 
         text.text = _properties.ToBeDisplayed;
         _startTime = Time.time;
+        
     }
 
-    
 
     // Update is called once per frame
     void Update()
     {
         transform.rotation = Quaternion.LookRotation(-_cameraTransform.forward, _cameraTransform.up);
+
+        // Modifying the transparrency over time.
         var original = text.color;
-
-        var alpha = _properties.FadeRate.Evaluate((Time.time - _startTime) / _properties.FadeTime);
-
+        var alpha = _properties.AlphaOverTime.Evaluate((Time.time - _startTime) / _properties.FadeTime);
         text.color = new Color(original.r, original.g, original.b, alpha);
+
+        // Modifies the font size over time
+        text.fontSize = _properties.MinSize + ((_properties.MaxSise - _properties.MinSize) * _properties.SizeOverTime.Evaluate((Time.time - _startTime) / _properties.FadeTime));
+
     }
     
 
@@ -52,11 +50,17 @@ public class FloatingDamageObject : Pooltoy
 
 }
 [System.Serializable]
-public class FDOProperties : Properties
+public class FDOProperties : IProperties
 {
+    [HideInInspector]
     public string ToBeDisplayed;
-    public float FadeTime;
-    public AnimationCurve FadeRate;
 
+    public float FadeTime;
+    [Tooltip("Text Transparrency over time")]
+    public AnimationCurve AlphaOverTime;
+
+    public float MinSize, MaxSise;
+    [Tooltip("0 is Min Size, 1 is Max Size")]
+    public AnimationCurve SizeOverTime;
 
 }
