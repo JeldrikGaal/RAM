@@ -31,9 +31,6 @@ public class OverheadDialogue : MonoBehaviour
     {
         // Gets a reference to the main camera
         _cameraTransform = Camera.main.transform;
-
-        // For testing purposes
-
     }
 
     // Update is called once per frame
@@ -96,7 +93,7 @@ public class OverheadDialogue : MonoBehaviour
         PanCamera = false;
 
         // Waits for 4 seconds
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(2);
 
         // Instantiates a replacement enemy with all the enemy functionality for the first dialogue npc
         var char1 = Instantiate(_character1Replacement, _character1Canvas.transform.parent.position, Quaternion.identity);
@@ -121,6 +118,7 @@ public class OverheadDialogue : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            // Starts the coroutine to show the dialogue with the given time between each "line"
             StartCoroutine(ShowDialogue(_timeBetweenSpeaking));
 
             // Enables the camera pan
