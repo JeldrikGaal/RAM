@@ -24,7 +24,7 @@ public class PauseGame : MonoBehaviour
 
     }
     // Intened for pausing and unpausing with escape
-    
+
     /// <summary>
     /// toggles between paused and unpaused.
     /// </summary>
@@ -49,9 +49,8 @@ public class PauseGame : MonoBehaviour
     /// <summary>
     /// Pauses the game.
     /// </summary>
-    private void Pause()
+    public void Pause()
     {
-   
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
         _paused = true;
@@ -63,7 +62,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void UnPause()
     {
-       
+
         Time.timeScale = 1;
         _settingsMenu.SetActive(false);
         _pauseMenu.SetActive(false);
@@ -102,7 +101,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public static event System.Action<bool> PauseEvent;
 
-    
+
     /// <summary>
     /// To check if the game is paused.
     /// </summary>
@@ -128,7 +127,6 @@ public class PauseGame : MonoBehaviour
         if (_paused)
         {
             UnPause();
-            
         }
 
         //removes old references

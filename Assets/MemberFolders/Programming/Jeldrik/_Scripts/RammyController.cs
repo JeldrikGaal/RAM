@@ -911,17 +911,18 @@ public class RammyController : MonoBehaviour
         // Checks to see if we collided with a speed powerup
         if (other.tag == "SpeedPowerup")
         {
+            if (!_hasSpeedBuff)
+            {
+                // Modifies the speed of the player by the speed modifier
+                MovementSpeed *= SpeedModifier;
+            }
+
             // Turns on the speed buff
             _hasSpeedBuff = true;
 
             // Adds time to the buff timer
             _speedBuffTimer = SpeedBuffDuration;
 
-            if (!_hasSpeedBuff)
-            {
-                // Modifies the speed of the player by the speed modifier
-                MovementSpeed *= SpeedModifier;
-            }
 
             // Sets a bool that helps with setting the speed when the buff is over
             _setSpeed = false;

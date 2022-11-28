@@ -110,11 +110,11 @@ GameObject:
   - component: {fileID: 869448052962533336}
   - component: {fileID: 869448052962533337}
   - component: {fileID: 869448052962533338}
-  - component: {fileID: 869448052962533339}
   - component: {fileID: 869448052962533332}
   - component: {fileID: 6358619953179181629}
   - component: {fileID: 6358619953179181630}
   - component: {fileID: 6358619953179181631}
+  - component: {fileID: -7718576187109726528}
   m_Layer: 0
   m_Name: MeleeBear
   m_TagString: enemy
@@ -219,20 +219,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &869448052962533339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869448052962533333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a2e10902bf012428f813022e5a6471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveInput: {x: 0, y: 0, z: 0}
-  MoveSpeed: 8
 --- !u!114 &869448052962533332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +264,8 @@ MonoBehaviour:
   _utilScript: {fileID: 0}
   StunDuration: 0
   Stunned: 0
+  Pulled: 0
+  PullPoint: {x: 0, y: 0, z: 0}
   _bloodSmoke: {fileID: 2108200065783262711, guid: c55d2c8bd11052c479dbe2a02121e533, type: 3}
   _bloodSize: 1
 --- !u!114 &6358619953179181630
@@ -306,6 +294,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7cbc118d904cd4e96f484e55f7d88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7718576187109726528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869448052962533333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveInput: {x: 0, y: 0, z: 0}
+  MoveSpeed: 8
+  AttackDamage: 6
 --- !u!1001 &6358619951322481316
 PrefabInstance:
   m_ObjectHideFlags: 0
