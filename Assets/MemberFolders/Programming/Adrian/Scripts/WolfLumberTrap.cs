@@ -29,7 +29,7 @@ public class WolfLumberTrap : MonoBehaviour
         _interact = _interactController.Player.Interact;
         _interact.Enable();
 
-        _interact.performed += Interact;
+        // _interact.performed += Interact;
     }
 
     // Start is called before the first frame update
@@ -54,8 +54,16 @@ public class WolfLumberTrap : MonoBehaviour
         _canRotate = false;
     }
 
-    private void Interact(InputAction.CallbackContext context)
+    // private void Interact(InputAction.CallbackContext context)
+    // {
+    //     _canRotate = true;
+    // }
+
+    private void OnTriggerEnter(Collider other)
     {
-        _canRotate = true;
+        if (other.tag == "Player")
+        {
+            _canRotate = true;
+        }
     }
 }

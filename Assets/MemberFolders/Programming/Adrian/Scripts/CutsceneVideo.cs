@@ -12,6 +12,9 @@ public class CutsceneVideo : MonoBehaviour
 
     [SerializeField] private GameObject _instructions;
 
+    [SerializeField] private GameObject _player;
+    [SerializeField] private float _defaultSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,7 @@ public class CutsceneVideo : MonoBehaviour
             // Play the cutscene
             _videoPlayer.enabled = true;
             _videoPlayer.Play();
+            _player.GetComponent<RammyController>().MovementSpeed = 0;
         }
     }
 
@@ -41,13 +45,21 @@ public class CutsceneVideo : MonoBehaviour
     {
         //Destroy(gameObject);
         _videoPlayer.enabled = false;
+        _player.GetComponent<RammyController>().MovementSpeed = _defaultSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        _canPlayVideo = true;
+        if (other.tag == "Player")
+        {
+            _player = other.gameObject;
 
-        _instructions.SetActive(true);
+            _defaultSpeed = _player.GetComponent<RammyController>().MovementSpeed;
+
+            _canPlayVideo = true;
+
+            _instructions.SetActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)

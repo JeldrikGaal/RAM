@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            var enemy = Instantiate(Enemy, SpawnPoint.position, Quaternion.identity);
+            var enemy = Instantiate(Enemy, SpawnPoint.position + (new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.x) * 6f), Quaternion.identity);
 
             AmountOfEnemiesToSpawn--;
 
@@ -29,8 +29,8 @@ public class EnemySpawner : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            StartCoroutine(SpawnEnemies(AmountOfEnemiesToSpawn, WaitDurationBetweenEnemies));
-            Destroy(GetComponent<Collider>());
+            StartCoroutine(SpawnEnemies(5, WaitDurationBetweenEnemies));
+            // Destroy(GetComponent<Collider>());
         }
     }
 }
