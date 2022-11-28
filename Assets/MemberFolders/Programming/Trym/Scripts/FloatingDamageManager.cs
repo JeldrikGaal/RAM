@@ -7,7 +7,9 @@ public class FloatingDamageManager : MonoBehaviour
 {
 
     [SerializeField] private FDOProperties _instanceProperties;
+    [SerializeField] private Vector3 _moveDirection;
     static FDOProperties _fDOProperties;
+    static Vector3 _Dir;
     private void Awake()
     {
         if (_fDOProperties != null)
@@ -17,6 +19,7 @@ public class FloatingDamageManager : MonoBehaviour
         else
         {
             _fDOProperties = _instanceProperties;
+            _Dir = _moveDirection;
         }
         
     }
@@ -29,7 +32,7 @@ public class FloatingDamageManager : MonoBehaviour
     {
 
         _fDOProperties.ToBeDisplayed = damage.ToString();
-        ObjectPoolManager.RequestObject(typeof(FloatingDamageObject), worldPosition, Vector3.zero, Vector3.forward + Vector3.up, _fDOProperties.FadeTime, _fDOProperties);
+        ObjectPoolManager.RequestObject(typeof(FloatingDamageObject), worldPosition, Vector3.zero, _Dir , _fDOProperties.FadeTime, _fDOProperties);
     }
 }
 

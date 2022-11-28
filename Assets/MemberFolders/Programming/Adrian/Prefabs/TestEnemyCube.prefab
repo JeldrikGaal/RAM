@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8495192557401638318}
   - component: {fileID: 8495192557401638314}
   - component: {fileID: 8495192557401638315}
-  - component: {fileID: 8495192557401638312}
   m_Layer: 0
   m_Name: TestEnemyCube
   m_TagString: enemy
@@ -36,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 4708189275074000884}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8495192557401638316
 MeshFilter:
@@ -145,20 +144,6 @@ MonoBehaviour:
   PullPoint: {x: 0, y: 0, z: 0}
   _bloodSmoke: {fileID: 0}
   _bloodSize: 1
---- !u!114 &8495192557401638312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8495192557401638305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a2e10902bf012428f813022e5a6471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveInput: {x: 0, y: 0, z: 0}
-  MoveSpeed: 0
 --- !u!1001 &8495192557443501078
 PrefabInstance:
   m_ObjectHideFlags: 0
