@@ -68,7 +68,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
     [SerializeField] private TimeStopper _timeStopper;
-    
+
 
     [Header("Character State")]
     // Bools describing playerstate
@@ -204,7 +204,6 @@ public class RammyController : MonoBehaviour
             {
                 _learnedAbilities.Add(false);
             }
-               
         }
     }
 
@@ -910,7 +909,7 @@ public class RammyController : MonoBehaviour
         }
 
         // Checks to see if we collided with a speed powerup
-        if (other.tag == "SpeedPowerup")
+        if (other.tag == "SpeedPowerup" && !_hasSpeedBuff)
         {
             // Turns on the speed buff
             _hasSpeedBuff = true;
@@ -1085,9 +1084,6 @@ public class RammyController : MonoBehaviour
         {
             Die();
         }
-        
-        
-
         // TODO: More VFX
     }
 
@@ -1098,5 +1094,4 @@ public class RammyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    
 }
