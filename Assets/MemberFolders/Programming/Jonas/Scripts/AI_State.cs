@@ -62,6 +62,7 @@ public class AI_State : ScriptableObject
             switch ((StateReturn)stateVal.val[0])
             {
                 case StateReturn.Skip:
+                    if ((int)stateVal.val[1] < 0) return null;
                     skipNext = (int)stateVal.val[1];
                     break;
 

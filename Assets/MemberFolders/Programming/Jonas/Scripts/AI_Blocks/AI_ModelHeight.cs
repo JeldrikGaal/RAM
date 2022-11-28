@@ -25,6 +25,7 @@ public class AI_ModelHeight : StateBlock
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
+        Debug.Log(Mathf.Abs(_height - _models[user].position.y));
         if (Mathf.Abs(_height - _models[user].position.y) < 1f) return (null, null);
 
         _models[user].position += new Vector3(0, Mathf.Sign(_height -_models[user].position.y) * user.MoveSpeed * _weight * Time.deltaTime, 0);

@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_AttackHitbox : StateBlock
+public class AI_AttackManual : StateBlock
 {
-    [SerializeField] private float _damage;
-    [SerializeField] private float _dmgWeight;
-
     [SerializeField] private string _attackName;
 
     private Dictionary<EnemyController, bool> _isDone;
 
-    // Enables or disables attack with the name _attackName in the Attacks child object of user
+    // Manually disables attack with the name _attackName in the Attacks child object of user
     public override void OnStart(EnemyController user, GameObject target)
     {
         if (_isDone == null) _isDone = new Dictionary<EnemyController, bool>();
@@ -24,8 +21,7 @@ public class AI_AttackHitbox : StateBlock
         if (!_isDone[user])
         {
             GameObject atk = user.transform.Find($"Attacks/{_attackName}").gameObject;
-            atk.SetActive(true);
-            atk.GetComponent<EnemyAttack>().Init(_damage != 0 ? _damage : (user.AttackDamage * _dmgWeight));
+            atk.SetActive(false);
             _isDone[user] = true;
         }
 
