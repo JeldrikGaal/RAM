@@ -11,8 +11,6 @@ public class Ability5 : Abilities
     bool _inProgress = false;
     float _startTimeDash;
     [SerializeField] float _damage = 30f;
-    [SerializeField] float _pushForce = 50f;
-    [SerializeField] float _pushBackForce = 7f;
     [SerializeField] float _pushDistance = 8f;
     [SerializeField] float _moveDuration = 1.5f;
     [SerializeField] GameObject _externalCollider;

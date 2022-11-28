@@ -895,6 +895,13 @@ public class RammyController : MonoBehaviour
                 }
             }
         }
+
+        //Egg damage
+        if (collision.gameObject.CompareTag("egg"))
+        {
+            TakeDamageRammy(1.5f);
+            collision.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -1078,7 +1085,11 @@ public class RammyController : MonoBehaviour
         _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
 
         // Stopping combo 
-        _comboSystem.EndCombo();
+        if (_comboSystem != null)
+        {
+            _comboSystem.EndCombo();
+        }
+        
 
         // Cancel Charging Ram Attack 
         if (_frameCounterRightMouseButton > 0)
