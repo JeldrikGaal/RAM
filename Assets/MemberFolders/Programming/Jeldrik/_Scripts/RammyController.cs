@@ -157,7 +157,7 @@ public class RammyController : MonoBehaviour
     [HideInInspector] public float AppliedDamageModifier; // Multiply this by the damage in each ability
     public float DamageBuffDuration;
     private float _damageBuffTimer;
-    [SerializeField] private bool _hasSpeedBuff;
+    public bool HasSpeedBuff;
     public float SpeedModifier;
     public float SpeedBuffDuration;
     private float _speedBuffTimer;
@@ -541,17 +541,17 @@ public class RammyController : MonoBehaviour
         #region  SpeedBuff
 
         // Checks if the buff is active
-        if (_hasSpeedBuff)
+        if (HasSpeedBuff)
         {
             // Timer counts down every second
             _speedBuffTimer -= Time.deltaTime;
         }
 
         // Checks to see if the timer is over, if we haven't already set the speed modifier, and if we have the buff
-        if (_speedBuffTimer <= 0 && !_setSpeed && _hasSpeedBuff)
+        if (_speedBuffTimer <= 0 && !_setSpeed && HasSpeedBuff)
         {
             // Turns off the buff
-            _hasSpeedBuff = false;
+            HasSpeedBuff = false;
 
             // Reduces the speed of the player by the modifier again
             MovementSpeed /= SpeedModifier;
@@ -869,6 +869,10 @@ public class RammyController : MonoBehaviour
             // Makes the bridge rotate when it is rammed
             rammedObject.GetComponent<KnockDownBridgeScript>().CanRotate = true;
         }
+        else if (TagManager.HasTag(rammedObject, "objectfalltree"))
+        {
+            rammedObject.GetComponent<ObjectFallFromTree>().DropItem = true;
+        }
 
     }
 
@@ -891,6 +895,13 @@ public class RammyController : MonoBehaviour
                 }
             }
         }
+
+        //Egg damage
+        if (collision.gameObject.CompareTag("egg"))
+        {
+            TakeDamageRammy(1.5f);
+            collision.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -911,14 +922,14 @@ public class RammyController : MonoBehaviour
         // Checks to see if we collided with a speed powerup
         if (other.tag == "SpeedPowerup")
         {
-            if (!_hasSpeedBuff)
+            if (!HasSpeedBuff)
             {
                 // Modifies the speed of the player by the speed modifier
                 MovementSpeed *= SpeedModifier;
             }
 
             // Turns on the speed buff
-            _hasSpeedBuff = true;
+            HasSpeedBuff = true;
 
             // Adds time to the buff timer
             _speedBuffTimer = SpeedBuffDuration;
@@ -1074,7 +1085,11 @@ public class RammyController : MonoBehaviour
         _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
 
         // Stopping combo 
-        _comboSystem.EndCombo();
+        if (_comboSystem != null)
+        {
+            _comboSystem.EndCombo();
+        }
+
 
         // Cancel Charging Ram Attack 
         if (_frameCounterRightMouseButton > 0)

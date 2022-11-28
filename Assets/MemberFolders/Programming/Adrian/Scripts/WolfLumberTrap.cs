@@ -11,6 +11,7 @@ public class WolfLumberTrap : MonoBehaviour
 
     [SerializeField] private GameObject _wall;
 
+
     private Transform _wallRotatePoint;
 
     [SerializeField] private bool _canRotate;
@@ -18,6 +19,7 @@ public class WolfLumberTrap : MonoBehaviour
     [SerializeField] private float _degreesPerSecond;
     [SerializeField] private float _finalRotation;
 
+    [SerializeField] private GameObject[] _logs;
 
     private void Awake()
     {
@@ -50,6 +52,10 @@ public class WolfLumberTrap : MonoBehaviour
 
     private IEnumerator StopRotating()
     {
+        foreach (GameObject log in _logs)
+        {
+            Destroy(log, 40);
+        }
         yield return new WaitForSeconds(_finalRotation / _degreesPerSecond);
         _canRotate = false;
     }
