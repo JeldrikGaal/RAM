@@ -23,6 +23,7 @@ public class Ability4 : Abilities
     Rigidbody _rigid;
     private readonly List<int> _hurt = new();
 
+    // Setup
     public override void Start()
     {
         base.Start();
@@ -39,7 +40,7 @@ public class Ability4 : Abilities
                 var damage = this.Upgraded ? _upgradedDamage : _initialDamage;
 
                 enemy.TakeDamage(damage, transform.up);
-                FloatingDamageManager.DisplayDamage(damage, collision.transform.position);
+                //FloatingDamageManager.DisplayDamage(damage, collision.transform.position);
                 _hurt.Add(collision.gameObject.GetInstanceID());
                 _controller.AddScreenShake(1.2f);
 
@@ -49,6 +50,8 @@ public class Ability4 : Abilities
 
             } };
     }
+
+    // managing stages and animating.
     override public void Update()
     {
         base.Update();
@@ -120,6 +123,7 @@ public class Ability4 : Abilities
         }
     }
 
+    // May be reimplemented if neccesary.
     private void OnCollisionEnter(Collision collision)
     {
         /*if (collision.gameObject.HasTag("enemy") && _active )
@@ -128,7 +132,7 @@ public class Ability4 : Abilities
         }*/
     }
 
-    
+    #region calculating and updating rotation and Positions
 
     // Updates the positio and rotation of rammy during the move
     private void UpdatePositionAndRotation(Vector3 eulerAngles, float radius) => _rigid.Move(PositionAroundThePoint(eulerAngles, radius), Quaternion.Euler(_originalRotation.eulerAngles + eulerAngles));
@@ -145,7 +149,7 @@ public class Ability4 : Abilities
         var rotat = Quaternion.Euler(_originalRotation.eulerAngles + rot);
         _eCollider.GetRigidbody().Move(PositionAroundThePoint(rot, radius - _eCollider.GetCollider().bounds.size.z / 2), rotat);
     }
-
+    #endregion
 
     private void OnDrawGizmos()
     {

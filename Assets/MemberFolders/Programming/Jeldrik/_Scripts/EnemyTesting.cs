@@ -92,6 +92,7 @@ public class EnemyTesting : MonoBehaviour
     /// <returns></returns>
     public bool TakeDamage(float damage, Vector3 hitDirection)
     {
+        FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
         _health -= damage;
         _healthBar.UpdateHealthBar(-(damage / _startingHealth));
         _lastIncomingHit = hitDirection;

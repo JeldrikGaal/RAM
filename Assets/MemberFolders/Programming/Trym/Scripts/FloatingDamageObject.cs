@@ -20,7 +20,7 @@ public class FloatingDamageObject : Pooltoy
         _cameraTransform = Camera.main.transform;
     }
 
-    public override void SetProperties(IProperties properties)
+    public override void SetProperties(Properties properties)
     {
         _properties = (FDOProperties)properties;
 
@@ -33,7 +33,7 @@ public class FloatingDamageObject : Pooltoy
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.LookRotation(-_cameraTransform.forward, _cameraTransform.up);
+        transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
 
         // Modifying the transparrency over time.
         var original = text.color;
@@ -50,7 +50,7 @@ public class FloatingDamageObject : Pooltoy
 
 }
 [System.Serializable]
-public class FDOProperties : IProperties
+public class FDOProperties : Properties
 {
     [HideInInspector]
     public string ToBeDisplayed;
