@@ -1085,7 +1085,11 @@ public class RammyController : MonoBehaviour
         _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
 
         // Stopping combo 
-        _comboSystem.EndCombo();
+        if (_comboSystem != null)
+        {
+            _comboSystem.EndCombo();
+        }
+        
 
         // Cancel Charging Ram Attack 
         if (_frameCounterRightMouseButton > 0)
