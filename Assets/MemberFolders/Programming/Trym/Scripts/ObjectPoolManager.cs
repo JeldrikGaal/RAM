@@ -5,48 +5,60 @@ using UnityEngine;
 [RequireComponent(typeof(GameManager))]
 public class ObjectPoolManager : MonoBehaviour
 {
-    #region keeps it to one instance
+    #region keeps it to one instance per prefab
     // Enshures only one instance
-    private static Dictionary<System.Type, ObjectPoolManager> _instances = new();
+    private static ObjectPoolManager _instance;
     private void Awake()
     {
-        if (!_instances.ContainsKey(_objectPrefab.GetType()))
+        if (_instance == null)
         {
-            _instances.Add(_objectPrefab.GetType(), this);
+            _instance = this;
         }
         else
         {
+            Debug.LogWarning("Multiple instances of Object Pool Manager with same prefab was found");
             Destroy(this);
         }
         #endregion
         #region Initialize Objects
-        _amount = _pool;
-        _splinters = new Pooltoy[_amount];
+        foreach (var item in _objectsToManage)
+        {
+            _ObjectsPerType.Add(item.Prefab.GetType(), (item.Pool, new Pooltoy[item.Pool], 0));
+        }
     }
+
+    [SerializeField] List<ObjectToManage> _objectsToManage;
+
+    [System.Serializable]
+    public struct ObjectToManage
+    {
+        public Pooltoy Prefab;
+        public int Pool;
+    }
+
+    static Dictionary<System.Type, (int amount, Pooltoy[] objects, int current)> _ObjectsPerType = new();
     
-    [Tooltip("There should only be one instance of a Object Pool Manager per prefab.")]
-    [SerializeField] Pooltoy _objectPrefab;
-    [SerializeField] int _pool = 300;
-    
-    static int _amount;
-    static Pooltoy[] _splinters;
-    static int _currentSplinter;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnObjects());
+
+        foreach (var item in _objectsToManage)
+        {
+            StartCoroutine(SpawnObjects(item.Prefab,item.Pool));
+        }
+        
 
     }
 
     // populates the object pool
-    private IEnumerator SpawnObjects()
+    private IEnumerator SpawnObjects(Pooltoy objectPrefab, int amount)
     {
-        for (int i = 0; i < _amount; i++)
+        for (int i = 0; i < amount; i++)
         {
-            _splinters[i] = 
-                Instantiate(_objectPrefab,null);
-            _splinters[i].gameObject.SetActive(false);
+            _ObjectsPerType[objectPrefab.GetType()].objects[i] = 
+                Instantiate(objectPrefab,null);
+            _ObjectsPerType[objectPrefab.GetType()].objects[i].gameObject.SetActive(false);
             if (Time.deltaTime >= 1/60)
             {
                 yield return new WaitForEndOfFrame();
@@ -59,26 +71,26 @@ public class ObjectPoolManager : MonoBehaviour
 
     #region For getting objects
     // List of splinter requests to be handeled.
-    static List<(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity, float time, IProperties properties)> _requests = new();
+    static List<(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity, float time, Properties properties)> _requests = new();
     static bool _running = false;
 
     /// <summary>
-    /// Requests a object from the object pool, will come when awailable.
+    /// Requests a object from the object pool with a spesified type, will come when awailable.
     /// </summary>
     /// <param name="position"></param>
     /// <param name="direction"></param>
     /// <param name="speed"></param>
-    public static void RequestObject(System.Type type, Vector3 position, Vector3 direction, Vector3 velocity, float time, IProperties properties)
+    public static void RequestObject(System.Type type, Vector3 position, Vector3 direction, Vector3 velocity, float time, Properties properties)
     {
         _requests.Add((type, position, direction, velocity, time, properties));
         if (!_running && _requests.Count>0)
         {
-            _instances[type].StartCoroutine(ServesObjects());
+            _instance.StartCoroutine(ServesObjects());
         }
 
     }
     // handles all requests for Objects
-    static IEnumerator ServesObjects()
+     static IEnumerator ServesObjects()
     {
         _running = true;
         
@@ -114,32 +126,34 @@ public class ObjectPoolManager : MonoBehaviour
     /// <param name="direction"></param>
     /// <param name="speed"></param>
     /// <returns></returns>
-    private static bool GetObject(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity , float time, IProperties properties)
+    private static bool GetObject(System.Type type,Vector3 position, Vector3 direction, Vector3 velocity , float time, Properties properties)
     {
-        var splinter = _splinters[_currentSplinter];
+        var (amount, objects, current) = _ObjectsPerType[type];
+        var @object = objects[current];
 
-        if (splinter == null)
+        if (@object == null)
         {
             return false;
         }
 
 
-        if (splinter.gameObject.activeSelf)
+        if (@object.gameObject.activeSelf)
         {
             return false;
             
         }
 
         // gets the next number to cycle trough the list
-        _currentSplinter = _currentSplinter + 1 < _amount ? _currentSplinter + 1 : 0;
-        
+        current = current + 1 < amount ? current + 1 : 0;
+        _ObjectsPerType[type] = (amount, objects, current);
+
         // setting all relevant data
-        splinter.Rb.gameObject.SetActive(true);
-        splinter.Rb.position = position;
-        splinter.Rb.transform.LookAt(position + direction);
-        splinter.Rb.velocity = velocity;
-        splinter.SetProperties(properties);
-        _instances[type].StartCoroutine(DisableObject(splinter.Rb, time));
+        @object.Rb.gameObject.SetActive(true);
+        @object.Rb.position = position;
+        @object.Rb.transform.LookAt(position + direction);
+        @object.Rb.velocity = velocity;
+        @object.SetProperties(properties);
+        _instance.StartCoroutine(DisableObject(@object.Rb, time));
         return true;
     }
     #endregion
@@ -157,7 +171,7 @@ public class ObjectPoolManager : MonoBehaviour
 /// <summary>
 /// Just to identify wha is properties for ObjectPoolManager
 /// </summary>
-public interface IProperties
+public abstract class Properties
 {
     
 
@@ -172,6 +186,6 @@ public abstract class Pooltoy: MonoBehaviour
     /// Sets the properties of the object that it spawns.
     /// </summary>
     /// <param name="properties"></param>
-    public abstract void SetProperties(IProperties properties );
+    public abstract void SetProperties(Properties properties );
     public abstract Rigidbody Rb { get;  }
 }
