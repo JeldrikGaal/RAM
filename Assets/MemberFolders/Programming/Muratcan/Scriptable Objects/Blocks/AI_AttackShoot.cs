@@ -22,6 +22,7 @@ public class AI_AttackShoot : StateBlock
         if (!_isDone[user])
         {
             //atk.GetComponent<EnemyAttack>().Init(_damage != 0 ? _damage : (user.AttackDamage * _dmgWeight));
+
             _isDone[user] = true;
         }
 
