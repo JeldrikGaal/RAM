@@ -2591,6 +2591,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wall: {fileID: 1235333401}
+  _canRotate: 0
+  _degreesPerSecond: 40
+  _finalRotation: 125
   _logs:
   - {fileID: 1590233651}
   - {fileID: 144985538}
@@ -2610,9 +2613,6 @@ MonoBehaviour:
   - {fileID: 1628289253}
   - {fileID: 800385443}
   - {fileID: 236868035}
-  _canRotate: 0
-  _degreesPerSecond: 40
-  _finalRotation: 125
 --- !u!1 &403973639
 GameObject:
   m_ObjectHideFlags: 0
@@ -5948,7 +5948,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc0f988577d62845802d076d6e69417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 869448052962533333, guid: 7d911da0358ab764d8b7e8dea2050b9f, type: 3}
+  _bearPrefab: {fileID: 869448052962533333, guid: 7d911da0358ab764d8b7e8dea2050b9f, type: 3}
+  _wolfPrefab: {fileID: 1718208062672609074, guid: 65c304af767eeb34388b9fd5371f933d, type: 3}
+  _hawkPrefab: {fileID: 3017985193138049565, guid: 2559f7de62866cb4e8575811fce54b4c, type: 3}
 --- !u!1001 &1098679131
 PrefabInstance:
   m_ObjectHideFlags: 0
