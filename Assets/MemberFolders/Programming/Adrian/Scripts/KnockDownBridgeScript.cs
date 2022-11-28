@@ -31,7 +31,7 @@ public class KnockDownBridgeScript : MonoBehaviour
             _pivotPoint.Rotate(new Vector3(_degreesPerSecond * Time.deltaTime, 0, 0));
 
             // Clamps the rotation to 90 degrees
-            _pivotPoint.eulerAngles = new Vector3(Mathf.Clamp(_pivotPoint.eulerAngles.x, 0, _finalRotation), 0, 0);
+            _pivotPoint.eulerAngles = new Vector3(Mathf.Clamp(_pivotPoint.eulerAngles.x, 0, _finalRotation), _pivotPoint.eulerAngles.y, _pivotPoint.eulerAngles.z);
         }
     }
 
