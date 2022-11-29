@@ -25,6 +25,8 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private TimeStopper _timeEffectScript;
     [SerializeField] private GameObject _gorePrefab;
     [SerializeField] private GameObject _bloodParticle;
+    [SerializeField] private DoubleArrayPooling _goreSmudgeArrayPool;
+    [SerializeField] private DoubleArrayPooling _goreArrayPool;
 
     [Header("Gore prefabs")]
     [SerializeField] private GameObject _skullObject;
@@ -119,6 +121,27 @@ public class RammyVFX : MonoBehaviour
 
     #endregion
 
+    #region max amounts of each type of blood;
+
+    [Header("Max amounts of gore and blood")]
+    [SerializeField] private int _maxGoreSmudge;
+    [SerializeField] private int _maxGoreSmudgeBackup;
+
+    #endregion
+
+
+    private void Start()
+    {
+        #region Setting all the double array scripts' value at the beginning:
+        _goreSmudgeArrayPool.Array1 = new GameObject[_maxGoreSmudge];
+        _goreSmudgeArrayPool.Array2 = new GameObject[_maxGoreSmudgeBackup];
+        _goreSmudgeArrayPool.FullArray1 = false;
+        _goreSmudgeArrayPool.FullArray2 = false;
+        _goreSmudgeArrayPool.CurrentArray1 = 0;
+        _goreSmudgeArrayPool.CurrentArray2 = 0;
+
+        #endregion
+    }
 
     #region blood functions for each attack
 
@@ -252,6 +275,8 @@ public class RammyVFX : MonoBehaviour
 
                 // Just sets the splat prefab to be the one we want:
                 bloodScript.SplatObject = _gorePrefab;
+                // Tell the gore that it has a double array scriptableobject:
+                bloodScript.DoubleArrayScript = _goreSmudgeArrayPool;
 
                 // Applies gore settings to velocity:
                 Vector3 bloodDir1;

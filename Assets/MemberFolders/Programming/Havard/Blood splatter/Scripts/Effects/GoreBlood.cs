@@ -11,38 +11,64 @@ public class GoreBlood : MonoBehaviour
     private bool _hasSmudge = false;
     [SerializeField] private GameObject _smudge;
     private Vector3 _startPos;
+    private Vector3 _currentVel;
+
+    public DoubleArrayPooling DoubleArrayScript;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        // InvokeRepeating("ResetSmudge", 0.3f, 0.3f);
     }
 
+    private void SpawnSplat(Vector3 position)
+    {
+        Quaternion splatRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        if (!DoubleArrayScript.FullArray2)
+        {
+            // Spawn the splat:
+            _smudge = Instantiate(SplatObject, position, splatRotation);
+            _startPos = position;
+            _hasSmudge = true;
+            DoubleArrayScript.AddPoint(_smudge);
+        }
+        else if (DoubleArrayScript.FullArray2)
+        {
+            _smudge = DoubleArrayScript.NextToTake;
+            _startPos = position;
+            _smudge.transform.position = position;
+            _smudge.transform.rotation = splatRotation;
+            if (_smudge.GetComponent<FadeOnTrigger>())
+            {
+                _smudge.GetComponent<FadeOnTrigger>().Fade = false;
+                _smudge.GetComponent<FadeOnTrigger>().Decal.fadeFactor = 1f;
+            }
+            _hasSmudge = true;
+            DoubleArrayScript.AddPoint(_smudge);
+        }
+    }
    
     void OnCollisionEnter(Collision other)
     {
-        if (!_hasSmudge)
+        foreach (var item in other.contacts)
         {
-
-            foreach (var item in other.contacts)
+            if (!_hasSmudge)
             {
+                    // Figure out the rotation for the splat:
 
-                // Figure out the rotation for the splat:
-
-                if (other.gameObject.layer == 10)
+                    if (other.gameObject.layer == 10)
                     {
-                    Quaternion splatRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
-                    // Spawn the splat:
-                    _smudge = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
-                    _startPos = item.point + item.normal * 0.6f;
-                    _hasSmudge = true;
+                        SpawnSplat(item.point + item.normal * 0.6f);
+                    }
+            } else if (_hasSmudge)
+            {
+                if(other.gameObject.layer != 10)
+                {
+                    SpawnSplat(new Vector3(transform.position.x,1.1f,transform.position.z));
                 }
-
-
             }
         }
     }
-
     private void OnCollisionExit(Collision collision)
     {
         if(collision.gameObject.layer == 10)
@@ -53,8 +79,6 @@ public class GoreBlood : MonoBehaviour
             }
         }
     }
-
-
     private void Update()
     {
         if (_hasSmudge)
@@ -63,15 +87,33 @@ public class GoreBlood : MonoBehaviour
             _smudge.transform.localScale = new Vector3(Vector3.Distance(_startPos, _smudge.transform.position)*2, 1, 1);
             var rot = ((_startPos - new Vector3(this.transform.position.x, _startPos.y, this.transform.position.z)).normalized);
             _smudge.transform.rotation = Quaternion.LookRotation(rot) * Quaternion.Euler(90,0,90);
-
-
+            
+            /*
+            if (_currentVel != rb.velocity.normalized)
+            {
+                print(_currentVel);
+                print(rb.velocity.normalized);
+                print(gameObject.name + " changed direction!");
+            }
+            _currentVel = rb.velocity.normalized;
+            */
         }
 
         if(rb.velocity.magnitude <= 0.01f)
         {
             rb.isKinematic = true;
             this.GetComponent<Collider>().enabled = false;
+            Destroy(this.GetComponent<Rigidbody>());
+            Destroy(this);
         }
-
     }
+
+    /*private void ResetSmudge()
+    {
+        if (_hasSmudge && _currentVel != rb.velocity.normalized)
+        {
+            _hasSmudge = false;
+        }
+    }*/
+
 }

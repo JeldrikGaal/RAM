@@ -897,7 +897,7 @@ public class RammyController : MonoBehaviour
         }
 
         //Egg damage
-        if (collision.gameObject.CompareTag("egg"))
+        if (TagManager.HasTag(collision.gameObject, "egg"))
         {
             TakeDamageRammy(1.5f);
             collision.gameObject.SetActive(false);
