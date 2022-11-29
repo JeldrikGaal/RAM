@@ -897,11 +897,13 @@ public class RammyController : MonoBehaviour
         }
 
         //Egg damage
+        /*
         if (collision.gameObject.CompareTag("egg"))
         {
             TakeDamageRammy(1.5f);
             collision.gameObject.SetActive(false);
         }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
