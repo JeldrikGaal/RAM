@@ -13,74 +13,72 @@ public class GoreBlood : MonoBehaviour
     private Vector3 _startPos;
     private Vector3 _currentVel;
 
+    public DoubleArrayPooling DoubleArrayScript;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         // InvokeRepeating("ResetSmudge", 0.3f, 0.3f);
     }
 
-
+    private void SpawnSplat(Vector3 position)
+    {
+        Quaternion splatRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        if (!DoubleArrayScript.FullArray2)
+        {
+            // Spawn the splat:
+            _smudge = Instantiate(SplatObject, position, splatRotation);
+            _startPos = position;
+            _hasSmudge = true;
+            DoubleArrayScript.AddPoint(_smudge);
+        }
+        else if (DoubleArrayScript.FullArray2)
+        {
+            _smudge = DoubleArrayScript.NextToTake;
+            _startPos = position;
+            _smudge.transform.position = position;
+            _smudge.transform.rotation = splatRotation;
+            if (_smudge.GetComponent<FadeOnTrigger>())
+            {
+                _smudge.GetComponent<FadeOnTrigger>().Fade = false;
+                _smudge.GetComponent<FadeOnTrigger>().Decal.fadeFactor = 1f;
+            }
+            _hasSmudge = true;
+            DoubleArrayScript.AddPoint(_smudge);
+        }
+    }
    
     void OnCollisionEnter(Collision other)
     {
-        if (!_hasSmudge)
+        foreach (var item in other.contacts)
         {
-
-            foreach (var item in other.contacts)
+            if (!_hasSmudge)
             {
+                    // Figure out the rotation for the splat:
 
-                // Figure out the rotation for the splat:
-
-                if (other.gameObject.layer == 10)
+                    if (other.gameObject.layer == 10)
                     {
-                    Quaternion splatRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
-                    // Spawn the splat:
-                    _smudge = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
-                    _startPos = item.point + item.normal * 0.6f;
-                    _hasSmudge = true;
-                }
-            }
-        } else if (_hasSmudge)
-        {
-            if(other.gameObject.layer != 10)
+                        SpawnSplat(item.point + item.normal * 0.6f);
+                    }
+            } else if (_hasSmudge)
             {
-                Quaternion splatRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
-                // Spawn the splat:
-                _smudge = Instantiate(SplatObject, new Vector3(transform.position.x, 1.1f, transform.position.z), splatRotation);
-                _startPos = new Vector3(transform.position.x, 1.1f, transform.position.z);
-                _hasSmudge = true;
+                if(other.gameObject.layer != 10)
+                {
+                    SpawnSplat(new Vector3(transform.position.x,1.1f,transform.position.z));
+                }
             }
         }
     }
-
     private void OnCollisionExit(Collision collision)
     {
         if(collision.gameObject.layer == 10)
         {
             if (_hasSmudge)
             {
-                foreach (var item in collision.contacts)
-                {
-
-                    // Figure out the rotation for the splat:
-
-                    if (collision.gameObject.layer == 10)
-                    {
-                        Quaternion splatRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
-                        // Spawn the splat:
-                        _smudge = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
-                        _startPos = item.point + item.normal * 0.6f;
-                        _hasSmudge = true;
-                    }
-                }
+                _hasSmudge = false;
             }
         }
     }
-
-    public bool debug = false;
     private void Update()
     {
         if (_hasSmudge)
@@ -105,6 +103,8 @@ public class GoreBlood : MonoBehaviour
         {
             rb.isKinematic = true;
             this.GetComponent<Collider>().enabled = false;
+            Destroy(this.GetComponent<Rigidbody>());
+            Destroy(this);
         }
     }
 

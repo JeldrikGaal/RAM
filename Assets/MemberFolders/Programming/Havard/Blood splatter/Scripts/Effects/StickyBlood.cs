@@ -54,19 +54,35 @@ public class StickyBlood : MonoBehaviour
                 splatRotation = Quaternion.LookRotation(-item.normal);
             }
 
-            // Spawn the splat:
-            var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
-            prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
-            BloodStepScript.AddPoint(new Vector2(item.point.x, item.point.z), prefab.gameObject);
-            prefab.GetComponent<DecalProjector>().material = BloodMaterial;
+            if (!BloodStepScript.FullArray2)
+            {
+                // Spawn the splat:
+                var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
+                prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
+                BloodStepScript.AddPoint(prefab.gameObject);
+                prefab.GetComponent<DecalProjector>().material = BloodMaterial;
 
-            // Randomize colour:
-            Color randomRed = new Color(
-                Random.Range(0.7f, 1f),
-                Random.Range(0f, 0.1f),
-                Random.Range(0f, 0.1f)
-            );
-            prefab.GetComponent<DecalProjector>().material.SetColor("_Colour", randomRed);
+                // Randomize colour:
+                Color randomRed = new Color(
+                    Random.Range(0.7f, 1f),
+                    Random.Range(0f, 0.1f),
+                    Random.Range(0f, 0.1f)
+                );
+                prefab.GetComponent<DecalProjector>().material.SetColor("_Colour", randomRed);
+            } else if (BloodStepScript.FullArray2)
+            {
+                // Spawn the splat:
+                var prefab = BloodStepScript.NextToTake;
+                prefab.transform.position = item.point + item.normal * 0.6f;
+                prefab.transform.rotation = splatRotation;
+                prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
+                BloodStepScript.AddPoint(prefab.gameObject);
+                if (prefab.GetComponent<FadeOnTrigger>())
+                {
+                    prefab.GetComponent<FadeOnTrigger>().Fade = false;
+                    prefab.GetComponent<FadeOnTrigger>().Decal.fadeFactor = 1f;
+                }
+            }
 
             /*
             if (!BloodStepScript._backupDeleting)

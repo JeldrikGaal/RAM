@@ -9,9 +9,9 @@ public class DoubleArrayPooling : ScriptableObject
     public GameObject[] Array2;
     public int CurrentArray1 = 10;
     public int CurrentArray2 = 5;
-    [SerializeField] private bool _fullArray1 = false;
 
     // After "FullArray2" is full, stop spawning objects and reuse the NextToTake object instead.
+    public bool FullArray1 = false;
     public bool FullArray2 = false;
     public GameObject NextToTake;
 
@@ -33,14 +33,17 @@ public class DoubleArrayPooling : ScriptableObject
         {
             CurrentArray1 = 0;
             // When its full , this means we can start circling inputs to the other script.
-            _fullArray1 = true;
+            FullArray1 = true;
         }
-        if (_fullArray1)
+        if (FullArray1)
         {
             // Start moving things to array 2
             SecondArrayFiller(Array1[CurrentArray1]);
             // Animate the object to fade away here:
-            // _array1[_currentArray1].fade
+            if (Array1[CurrentArray1].GetComponent<FadeOnTrigger>())
+            {
+                Array1[CurrentArray1].GetComponent<FadeOnTrigger>().Fade = true;
+            }
         }
         // Sets the input object to be the most recent one in the array
         Array1[CurrentArray1] = newObject;
@@ -53,13 +56,11 @@ public class DoubleArrayPooling : ScriptableObject
         // If the current array number is higher than the length of the array, it resets and says that it has become full once.
         if (CurrentArray2 >= Array2.Length)
         {
-            Debug.Log(CurrentArray2);
-            Debug.Log(Array2.Length);
             CurrentArray2 = 0;
             // When this is full, we can tell other scripts to stop making new objects and instead reuse the oldest one here.
             FullArray2 = true;
         }
-        if (_fullArray1)
+        if (FullArray1)
         {
             // Tells the script that the next one it should use is the oldest one from the second array. It will then be sorted back into the main array by the script which generates the objects.
             NextToTake = Array2[CurrentArray2];

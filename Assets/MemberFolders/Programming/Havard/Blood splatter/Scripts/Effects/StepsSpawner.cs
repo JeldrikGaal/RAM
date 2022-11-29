@@ -22,6 +22,10 @@ public class StepsSpawner : MonoBehaviour
     {
         _doubleArrayScript.Array1 = new GameObject[_maxFootprints];
         _doubleArrayScript.Array2 = new GameObject[_maxFootprintBackups];
+        _doubleArrayScript.FullArray1 = false;
+        _doubleArrayScript.FullArray2 = false;
+        _doubleArrayScript.CurrentArray1 = 0;
+        _doubleArrayScript.CurrentArray2 = 0;
     }
 
     void Update()
@@ -58,11 +62,14 @@ public class StepsSpawner : MonoBehaviour
                 _doubleArrayScript.AddPoint(_step);
             } else if (_doubleArrayScript.FullArray2)
             {
-                print(_doubleArrayScript.CurrentArray2);
-                print(_doubleArrayScript.Array2.Length);
                 _step = _doubleArrayScript.NextToTake;
                 _step.transform.position = new Vector3(point.x, 0.51f, point.z);
                 _step.transform.rotation = this.transform.rotation;
+                if (_step.GetComponent<FadeOnTrigger>())
+                {
+                    _step.GetComponent<FadeOnTrigger>().Fade = false;
+                    _step.GetComponent<FadeOnTrigger>().Decal.fadeFactor = 1f;
+                }
                 _doubleArrayScript.AddPoint(_step);
             }
         }
