@@ -6,23 +6,28 @@ using UnityEngine.Rendering.Universal;
 public class FadeOnTrigger : MonoBehaviour
 {
     public DecalProjector Decal;
-    public bool Fade = false;
-
-    // Start is called before the first frame update
     void Awake()
     {
         Decal = GetComponent<DecalProjector>();
     }
 
-    private void FixedUpdate()
+    public void TriggerFade() 
     {
-        if (Fade)
+        InvokeRepeating("Fade", 0.05f, 0.05f);
+    }
+
+    public void StopFade()
+    {
+        CancelInvoke();
+        Decal.fadeFactor = 1;
+    }
+
+    private void Fade()
+    {
+        Decal.fadeFactor -= 0.1f;
+        if(Decal.fadeFactor <= 0)
         {
-            Decal.fadeFactor -= 0.1f;
-            if(Decal.fadeFactor <= 0)
-            {
-                Fade = false;
-            }
+            CancelInvoke();
         }
     }
 

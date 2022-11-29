@@ -27,6 +27,7 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private GameObject _bloodParticle;
     [SerializeField] private DoubleArrayPooling _goreSmudgeArrayPool;
     [SerializeField] private DoubleArrayPooling _goreArrayPool;
+    [SerializeField] private float _spawnHeightOffset = 0.5f;
 
     [Header("Gore prefabs")]
     [SerializeField] private GameObject _skullObject;
@@ -174,6 +175,18 @@ public class RammyVFX : MonoBehaviour
         var dir = (enemy.transform.position - transform.position).normalized;
 
         SpawnBlood(_bloodSizeMinAb1, _bloodSizeMaxAb1, _bloodSpreadAb1, _heightAngleAb1, _bloodAmountAb1, _bloodForceMinAb1, _bloodForceMaxAb1, enemy, dir);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            SpawnGore(_goreValuesRam[0], _skullObject, enemy, dir);
+            SpawnGore(_goreValuesRam[1], _heartObject, enemy, dir);
+            SpawnGore(_goreValuesRam[2], _intestineObject, enemy, dir);
+            SpawnGore(_goreValuesRam[3], _spineObject, enemy, dir);
+            SpawnGore(_goreValuesRam[4], _brainObject, enemy, dir);
+            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, dir);
+            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, dir);
+        }
+
     }
 
     public void Ab3Attack(GameObject enemy, Vector3 point)
@@ -203,7 +216,7 @@ public class RammyVFX : MonoBehaviour
     private void SpawnBlood(float bloodSizeMin, float bloodSizeMax, float bloodSpread, float angle, float bloodAmount, float bloodForceMin, float bloodForceMax, GameObject rammedObject, Vector3 direction = default(Vector3))
     {
         // Here we instantiate the bloodprojectiles. The way I have it set up, lets it use one prefab with 15 projectiles inside it.
-        var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+        var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position += _spawnHeightOffset * Vector3.up, Quaternion.Euler(new Vector3(0, 0, 0)));
         _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
 
 

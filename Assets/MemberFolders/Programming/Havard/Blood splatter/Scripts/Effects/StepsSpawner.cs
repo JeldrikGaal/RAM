@@ -67,8 +67,7 @@ public class StepsSpawner : MonoBehaviour
                 _step.transform.rotation = this.transform.rotation;
                 if (_step.GetComponent<FadeOnTrigger>())
                 {
-                    _step.GetComponent<FadeOnTrigger>().Fade = false;
-                    _step.GetComponent<FadeOnTrigger>().Decal.fadeFactor = 1f;
+                    _step.GetComponent<FadeOnTrigger>().StopFade();
                 }
                 _doubleArrayScript.AddPoint(_step);
             }

@@ -69,6 +69,7 @@ public class StickyBlood : MonoBehaviour
                     Random.Range(0f, 0.1f)
                 );
                 prefab.GetComponent<DecalProjector>().material.SetColor("_Colour", randomRed);
+                // Destroy(prefab.GetComponent<FadeOnTrigger>());
             } else if (BloodStepScript.FullArray2)
             {
                 // Spawn the splat:
@@ -79,8 +80,7 @@ public class StickyBlood : MonoBehaviour
                 BloodStepScript.AddPoint(prefab.gameObject);
                 if (prefab.GetComponent<FadeOnTrigger>())
                 {
-                    prefab.GetComponent<FadeOnTrigger>().Fade = false;
-                    prefab.GetComponent<FadeOnTrigger>().Decal.fadeFactor = 1f;
+                    prefab.GetComponent<FadeOnTrigger>().StopFade();
                 }
             }
 

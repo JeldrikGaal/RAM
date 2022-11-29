@@ -40,8 +40,7 @@ public class GoreBlood : MonoBehaviour
             _smudge.transform.rotation = splatRotation;
             if (_smudge.GetComponent<FadeOnTrigger>())
             {
-                _smudge.GetComponent<FadeOnTrigger>().Fade = false;
-                _smudge.GetComponent<FadeOnTrigger>().Decal.fadeFactor = 1f;
+                _smudge.GetComponent<FadeOnTrigger>().StopFade();
             }
             _hasSmudge = true;
             DoubleArrayScript.AddPoint(_smudge);
