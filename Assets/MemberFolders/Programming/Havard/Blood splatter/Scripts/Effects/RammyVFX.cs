@@ -25,6 +25,9 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private TimeStopper _timeEffectScript;
     [SerializeField] private GameObject _gorePrefab;
     [SerializeField] private GameObject _bloodParticle;
+    [SerializeField] private DoubleArrayPooling _goreSmudgeArrayPool;
+    [SerializeField] private DoubleArrayPooling _goreArrayPool;
+    [SerializeField] private float _spawnHeightOffset = 0.5f;
 
     [Header("Gore prefabs")]
     [SerializeField] private GameObject _skullObject;
@@ -119,6 +122,27 @@ public class RammyVFX : MonoBehaviour
 
     #endregion
 
+    #region max amounts of each type of blood;
+
+    [Header("Max amounts of gore and blood")]
+    [SerializeField] private int _maxGoreSmudge;
+    [SerializeField] private int _maxGoreSmudgeBackup;
+
+    #endregion
+
+
+    private void Start()
+    {
+        #region Setting all the double array scripts' value at the beginning:
+        _goreSmudgeArrayPool.Array1 = new GameObject[_maxGoreSmudge];
+        _goreSmudgeArrayPool.Array2 = new GameObject[_maxGoreSmudgeBackup];
+        _goreSmudgeArrayPool.FullArray1 = false;
+        _goreSmudgeArrayPool.FullArray2 = false;
+        _goreSmudgeArrayPool.CurrentArray1 = 0;
+        _goreSmudgeArrayPool.CurrentArray2 = 0;
+
+        #endregion
+    }
 
     #region blood functions for each attack
 
@@ -151,6 +175,18 @@ public class RammyVFX : MonoBehaviour
         var dir = (enemy.transform.position - transform.position).normalized;
 
         SpawnBlood(_bloodSizeMinAb1, _bloodSizeMaxAb1, _bloodSpreadAb1, _heightAngleAb1, _bloodAmountAb1, _bloodForceMinAb1, _bloodForceMaxAb1, enemy, dir);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            SpawnGore(_goreValuesRam[0], _skullObject, enemy, dir);
+            SpawnGore(_goreValuesRam[1], _heartObject, enemy, dir);
+            SpawnGore(_goreValuesRam[2], _intestineObject, enemy, dir);
+            SpawnGore(_goreValuesRam[3], _spineObject, enemy, dir);
+            SpawnGore(_goreValuesRam[4], _brainObject, enemy, dir);
+            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, dir);
+            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, dir);
+        }
+
     }
 
     public void Ab3Attack(GameObject enemy, Vector3 point)
@@ -180,7 +216,7 @@ public class RammyVFX : MonoBehaviour
     private void SpawnBlood(float bloodSizeMin, float bloodSizeMax, float bloodSpread, float angle, float bloodAmount, float bloodForceMin, float bloodForceMax, GameObject rammedObject, Vector3 direction = default(Vector3))
     {
         // Here we instantiate the bloodprojectiles. The way I have it set up, lets it use one prefab with 15 projectiles inside it.
-        var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+        var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position += _spawnHeightOffset * Vector3.up, Quaternion.Euler(new Vector3(0, 0, 0)));
         _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
 
 
@@ -252,6 +288,8 @@ public class RammyVFX : MonoBehaviour
 
                 // Just sets the splat prefab to be the one we want:
                 bloodScript.SplatObject = _gorePrefab;
+                // Tell the gore that it has a double array scriptableobject:
+                bloodScript.DoubleArrayScript = _goreSmudgeArrayPool;
 
                 // Applies gore settings to velocity:
                 Vector3 bloodDir1;

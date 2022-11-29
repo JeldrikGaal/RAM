@@ -10,14 +10,22 @@ public class StepsSpawner : MonoBehaviour
     [SerializeField] private GameObject _bloodStepPrefab;
 
     // Tracker:
-    [SerializeField] private int _maxFootprint = 50;
+    [SerializeField] private int _maxFootprints = 50;
+    [SerializeField] private int _maxFootprintBackups = 50;
     [SerializeField] private GameObject[] _footprints;
     private int _completedFootprints = 0;
     private bool _deleting = false;
 
+    [SerializeField] private DoubleArrayPooling _doubleArrayScript;
+
     private void Start()
     {
-        _footprints = new GameObject[_maxFootprint];
+        _doubleArrayScript.Array1 = new GameObject[_maxFootprints];
+        _doubleArrayScript.Array2 = new GameObject[_maxFootprintBackups];
+        _doubleArrayScript.FullArray1 = false;
+        _doubleArrayScript.FullArray2 = false;
+        _doubleArrayScript.CurrentArray1 = 0;
+        _doubleArrayScript.CurrentArray2 = 0;
     }
 
     void Update()
@@ -47,14 +55,31 @@ public class StepsSpawner : MonoBehaviour
         {
             GameObject _step;
             //print(this.transform.rotation.eulerAngles.y);
-            _step = Instantiate(_bloodStepPrefab, new Vector3(point.x, 0.51f, point.z), this.transform.rotation); // Issue here where the rotation sometimes is not (90, 0, correctRotation) so it shows as a bit of white.
-            DeleteOldest(_step);
+
+            if (!_doubleArrayScript.FullArray2)
+            {
+                _step = Instantiate(_bloodStepPrefab, new Vector3(point.x, 0.51f, point.z), this.transform.rotation);
+                _doubleArrayScript.AddPoint(_step);
+            } else if (_doubleArrayScript.FullArray2)
+            {
+                _step = _doubleArrayScript.NextToTake;
+                _step.transform.position = new Vector3(point.x, 0.51f, point.z);
+                _step.transform.rotation = this.transform.rotation;
+                if (_step.GetComponent<FadeOnTrigger>())
+                {
+                    _step.GetComponent<FadeOnTrigger>().StopFade();
+                }
+                _doubleArrayScript.AddPoint(_step);
+            }
         }
         // do and "else if" here if there are any other steps that should happen
     }
 
+
+
+
     // Deletes the oldest one if one is added when created
-    public void DeleteOldest(GameObject footprint)
+    /*public void DeleteOldest(GameObject footprint)
     {
         if (_completedFootprints >= _footprints.Length)
         {
@@ -68,6 +93,6 @@ public class StepsSpawner : MonoBehaviour
         }
         _footprints[_completedFootprints] = footprint;
         _completedFootprints++;        
-    }
+    }*/
 
 }

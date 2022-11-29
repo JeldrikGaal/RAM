@@ -12,15 +12,22 @@ public class DashVisuals : MonoBehaviour
     [SerializeField] private Transform _directionObject;
 
     // Tracker:
-    [SerializeField] private int maxItems = 50;
+    [SerializeField] private int _maxItems = 50;
+    [SerializeField] private int _maxItemsBackups = 50;
     [SerializeField] private GameObject[] _items;
     private int _completedItems = 0;
     private bool _deleting = false;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private DoubleArrayPooling _doubleArrayScript;
+
+    private void Start()
     {
-        _items = new GameObject[maxItems];
+        _doubleArrayScript.Array1 = new GameObject[_maxItems];
+        _doubleArrayScript.Array2 = new GameObject[_maxItemsBackups];
+        _doubleArrayScript.FullArray1 = false;
+        _doubleArrayScript.FullArray2 = false;
+        _doubleArrayScript.CurrentArray1 = 0;
+        _doubleArrayScript.CurrentArray2 = 0;
     }
 
     // Update is called once per frame
@@ -38,11 +45,26 @@ public class DashVisuals : MonoBehaviour
     {
         if (_isDashing && !_currentSmudge)
         {
-            // Sets the rotation to be same as player,
-            _currentSmudge = Instantiate(_SmudgeEffect, transform.position, _dashingDirection);
-            // Sets the first position so we can calculate the middle
-            _startSmudgeSpot = this.transform.position;
-            DeleteOldest(_currentSmudge);
+            if (!_doubleArrayScript.FullArray2)
+            {
+                // Sets the rotation to be same as player,
+                _currentSmudge = Instantiate(_SmudgeEffect, transform.position, _dashingDirection);
+                // Sets the first position so we can calculate the middle
+                _startSmudgeSpot = this.transform.position;
+                _doubleArrayScript.AddPoint(_currentSmudge);
+            }
+            else if (_doubleArrayScript.FullArray2)
+            {
+                _currentSmudge = _doubleArrayScript.NextToTake;
+                _currentSmudge.transform.position = transform.position;
+                _currentSmudge.transform.rotation = _dashingDirection;
+                if (_currentSmudge.GetComponent<FadeOnTrigger>())
+                {
+                    _currentSmudge.GetComponent<FadeOnTrigger>().StopFade();
+                }
+                _doubleArrayScript.AddPoint(_currentSmudge);
+                _startSmudgeSpot = this.transform.position;
+            }
         }
     }
 
@@ -58,21 +80,5 @@ public class DashVisuals : MonoBehaviour
         // Stops the dash and makess it so our smudge is unlinked
         _isDashing = false;
         _currentSmudge = null;
-    }
-
-    public void DeleteOldest(GameObject footprint)
-    {
-        if (_completedItems >= _items.Length)
-        {
-            _completedItems = 0;
-            _deleting = true;
-        }
-        if (_deleting == true)
-        {
-            _items[_completedItems].GetComponent<FadeOnTrigger>().Fade = true;
-            Destroy(_items[_completedItems].gameObject, 1);
-        }
-        _items[_completedItems] = footprint;
-        _completedItems++;
     }
 }

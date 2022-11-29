@@ -30,22 +30,20 @@ public class CinemachineTopDown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _cameraDistanceCurrent = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
-        _cameraDistanceVectorCurrent = transform.position - _virtualCamera.m_Follow.transform.position;
-        if (_shakeStart)
+        if (_virtualCamera.m_Follow == null)
         {
-            _impulseSource.GenerateImpulseWithForce(screenShakeForce);
-            _shakeStart = false;
+            _cameraDistanceCurrent = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
+            _cameraDistanceVectorCurrent = transform.position - _virtualCamera.m_Follow.transform.position;
+            if (_shakeStart)
+            {
+                _impulseSource.GenerateImpulseWithForce(screenShakeForce);
+                _shakeStart = false;
+            }
+            if (_cameraDistanceCurrent > _cameraDistance * 1.05f || _cameraDistanceCurrent < _cameraDistance * 0.95f)
+            {
+                //transform.position = transform.position + _cameraDistanceVector;
+            }
         }
-        if (_cameraDistanceCurrent > _cameraDistance * 1.05f || _cameraDistanceCurrent < _cameraDistance * 0.95f)
-        {
-            //transform.position = transform.position + _cameraDistanceVector;
-        }
-
-        // Debug.DrawLine(_virtualCamera., transform.position);
-        if(Input.GetKeyDown(KeyCode.B))
-            _virtualCamera.Follow = (GameObject.Find("Sphere").transform);
-
         
     }
 

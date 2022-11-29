@@ -20,23 +20,34 @@ public class BloodySteps : MonoBehaviour
     [SerializeField] private StepsSpawner _stepScript;
     [SerializeField] private DashVisuals _dashScript;
 
+    [SerializeField] private GameObject[] _array1;
+    [SerializeField] private GameObject[] _array2;
+    [SerializeField] private int _currentArray1 = 10;
+    [SerializeField] private int _currentArray2 = 5;
+    [SerializeField] private bool _fullArray1 = false;
+    // After "FullArray2" is full, stop spawning objects and reuse the NextToTake object instead.
+    public bool FullArray2 = false;
+    public GameObject NextToTake;
+
     // Start is called before the first frame update
     void Start()
     {
-        _locationPoints = new Vector2[_maxPoints];
-        _bloodSplats = new GameObject[_maxPoints];
-        _bloodSplatsBackup = new GameObject[_backupPoints];
+        _array1 = new GameObject[_currentArray1];
+        _array2 = new GameObject[_currentArray2];
+        _currentArray1 = 0;
+        _currentArray2 = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < _locationPoints.Length; i++)
+        for (int i = 0; i < _array1.Length; i++)
         {
-            if(_locationPoints[i] != new Vector2(0, 0))
+            if(_array1[i] != null)
             {
+               var locationPoint = _array1[i].transform.position;
                 RaycastHit hit;
-                if (Physics.Raycast(new Vector3(_locationPoints[i].x, _height, _locationPoints[i].y), (Vector3.up), out hit, 5, _playerLayer))
+                if (Physics.Raycast(new Vector3(locationPoint.x, _height, locationPoint.z), (Vector3.up), out hit, 5, _playerLayer))
                 {
                     // Function to give player bloody shoes here
                     _stepScript.RenewBloodSteps();
@@ -49,55 +60,57 @@ public class BloodySteps : MonoBehaviour
                 }
                 else
                 {
-                    Debug.DrawRay(new Vector3(_locationPoints[i].x, _height, _locationPoints[i].y), (Vector3.up) * 5, Color.white);
+                    Debug.DrawRay(new Vector3(locationPoint.x, _height, locationPoint.z), (Vector3.up) * 5, Color.white);
                 }
             }
         }
     }
-    // Function to add new point. Latest ones gets deleted if it exceeds the max.
-    public void AddPoint(Vector2 point, GameObject ob)
+
+    public void AddPoint(GameObject newObject)
     {
-        if(_completedPoint >= _locationPoints.Length)
+        // If the current array number is higher than the length of the array, it resets and says that it has become full once.
+        if (_currentArray1 >= _array1.Length)
         {
-            _completedPoint = 0;
-            _deleting = true;
+            _currentArray1 = 0;
+            // When its full , this means we can start circling inputs to the other script.
+            _fullArray1 = true;
         }
-        if (_deleting == true)
+        if (_fullArray1)
         {
-            _bloodSplats[_completedPoint].GetComponent<FadeOnTrigger>().Fade = true;
-            // AddBackupPoint(_bloodSplats[_completedPoint]);
-            Destroy(_bloodSplats[_completedPoint].gameObject, 5);
+            // Start moving things to array 2
+            SecondArrayFiller(_array1[_currentArray1]);
+            // Animate the object to fade away here:
+            if (_array1[_currentArray1].GetComponent<FadeOnTrigger>())
+            {
+                _array1[_currentArray1].GetComponent<FadeOnTrigger>().TriggerFade();
+            }
         }
-        _bloodSplats[_completedPoint] = ob;
-        _locationPoints[_completedPoint] = point;
-        _completedPoint++;
-        return;
+        // Sets the input object to be the most recent one in the array
+        _array1[_currentArray1] = newObject;
+        // Increases one so we can do the same to the next object.
+        _currentArray1++;
     }
 
-    public GameObject GetSplat()
+    private void SecondArrayFiller(GameObject oldestArray1)
     {
-        return _bloodSplatsBackup[_completedBackup];
-    }
-
-    private void AddBackupPoint(GameObject splat)
-    {
-        print(_completedBackup);
-        print(_bloodSplatsBackup.Length);
-        if(_completedBackup >= _bloodSplatsBackup.Length)
+        // If the current array number is higher than the length of the array, it resets and says that it has become full once.
+        if (_currentArray2 >= _array2.Length)
         {
-            _completedBackup = 0;
-            _backupDeleting = true;
+            Debug.Log(_currentArray2);
+            Debug.Log(_array2.Length);
+            _currentArray2 = 0;
+            // When this is full, we can tell other scripts to stop making new objects and instead reuse the oldest one here.
+            FullArray2 = true;
         }
-        if (_backupDeleting)
+        if (_fullArray1)
         {
-
+            // Tells the script that the next one it should use is the oldest one from the second array. It will then be sorted back into the main array by the script which generates the objects.
+            NextToTake = _array2[_currentArray2];
         }
-
-        
-
-        _bloodSplatsBackup[_completedBackup] = splat;
-
-        _completedBackup++;
+        // Now that we've sent one away, we can use that number for the next object...
+        _array2[_currentArray2] = oldestArray1;
+        // ... before doing it all again with the next int.
+        _currentArray2++;
     }
 
 
