@@ -34,7 +34,7 @@ public class DoubleArrayPooling : MonoBehaviour
             // When its full , this means we can start circling inputs to the other script.
             _fullArray1 = true;
         }
-        if (_fullArray1 == true)
+        if (_fullArray1)
         {
             // Start moving things to array 2
             SecondArrayFiller(_array1[_currentArray1]);
