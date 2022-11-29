@@ -9,6 +9,8 @@ public class JumpAttackArea : MonoBehaviour
     [HideInInspector]
     public float StunDuration;
 
+    [HideInInspector] public RammyController PlayerController;
+
     // VFX:
     public RammyVFX VFXScript;
 
@@ -16,8 +18,11 @@ public class JumpAttackArea : MonoBehaviour
     {
         if (other.tag == "enemy")
         {
-            // Makes the enemy take damage
-            other.GetComponent<EnemyTesting>().TakeDamage(Damage, transform.up);
+            // If the damage kills the enemy, do cool stuff
+            if (other.gameObject.GetComponent<EnemyTesting>().TakeDamage(Damage, transform.up))
+            {
+                PlayerController.Kill(other.gameObject);
+            }
 
             // Sets the stun duration in the enemy script
             other.GetComponent<EnemyTesting>().StunDuration = StunDuration;
