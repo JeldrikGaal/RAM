@@ -59,6 +59,7 @@ public class StickyBlood : MonoBehaviour
             prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
             BloodStepScript.AddPoint(new Vector2(item.point.x, item.point.z), prefab.gameObject);
             prefab.GetComponent<DecalProjector>().material = BloodMaterial;
+
             // Randomize colour:
             Color randomRed = new Color(
                 Random.Range(0.7f, 1f),
