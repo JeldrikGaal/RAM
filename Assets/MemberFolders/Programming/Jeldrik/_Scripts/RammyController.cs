@@ -902,7 +902,6 @@ public class RammyController : MonoBehaviour
             TakeDamageRammy(1.5f);
             collision.gameObject.SetActive(false);
         }
-        */
     }
 
     private void OnTriggerEnter(Collider other)

@@ -140,14 +140,17 @@ public class EnemyTesting : MonoBehaviour
 
     public IEnumerator Stun(float duration)
     {
-        // Sets the movespeed to 0 to fake the enemy being stunned
-        GetComponent<EnemyController>().MoveSpeed = 0;
+        if (GetComponent<EnemyController>())
+        {
+            // Sets the movespeed to 0 to fake the enemy being stunned
+            GetComponent<EnemyController>().MoveSpeed = 0;
 
-        // Wait for stun duration
-        yield return new WaitForSeconds(duration);
+            // Wait for stun duration
+            yield return new WaitForSeconds(duration);
 
-        // Sets the movespeed to the default speed again
-        GetComponent<EnemyController>().MoveSpeed = _defaultSpeed;
+            // Sets the movespeed to the default speed again
+            GetComponent<EnemyController>().MoveSpeed = _defaultSpeed;
+        }
     }
 
     public void MoveToPullPoint(Vector3 point)
