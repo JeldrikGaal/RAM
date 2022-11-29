@@ -1110,6 +1110,7 @@ public class RammyController : MonoBehaviour
     private void Die()
     {
         Debug.Log("RAMMY HAS DIED!!!!!");
+        Time.timeScale = 1;
         Destroy(gameObject);
     }
 
