@@ -11,17 +11,7 @@ public class ProtoBlast : MonoBehaviour, IRammable
     [SerializeField] private AnimationCurve _damageFalloffByDistance;
     [SerializeField] private SphereCollider _trigger;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #region monitors enemies in range
 
     private void OnTriggerEnter(Collider other)
     {
@@ -45,10 +35,10 @@ public class ProtoBlast : MonoBehaviour, IRammable
         }
     }
 
+    #endregion
 
 
-    
-
+    // registers that rammy rammed the object.
     public bool Hit(GameObject g)
     {
         StartCoroutine(Explode());

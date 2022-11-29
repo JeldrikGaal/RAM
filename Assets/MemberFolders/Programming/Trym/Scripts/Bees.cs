@@ -31,6 +31,8 @@ public class Bees : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    #region checks that rammy is in range
     private void OnTriggerEnter(Collider other)
     {
         // chacks taht the player is in range
@@ -45,18 +47,7 @@ public class Bees : MonoBehaviour
             _inRange = true;
         }
     }
-    /// <summary>
-    /// overrides the properties of the bees
-    /// </summary>
-    /// <param name="damage"></param>
-    /// <param name="timing"></param>
-    /// <param name="lifeTime"></param>
-    public void SetProperties(float damage,float timing, float lifeTime)
-    {
-        _damage = damage;
-        _damageTiming = timing;
-        _lifeTime = lifeTime;
-    }
+   
     private void OnTriggerExit(Collider other)
     {
         // checks that the player is out of range
@@ -65,6 +56,18 @@ public class Bees : MonoBehaviour
             _inRange = false;
         }
     }
+    #endregion
 
-   
+    /// <summary>
+    /// overrides the properties of the bees
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="timing"></param>
+    /// <param name="lifeTime"></param>
+    public void SetProperties(float damage, float timing, float lifeTime)
+    {
+        _damage = damage;
+        _damageTiming = timing;
+        _lifeTime = lifeTime;
+    }
 }
