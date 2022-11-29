@@ -30,7 +30,7 @@ public class CinemachineTopDown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_virtualCamera.m_Follow == null)
+        if (_virtualCamera.m_Follow != null)
         {
             _cameraDistanceCurrent = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
             _cameraDistanceVectorCurrent = transform.position - _virtualCamera.m_Follow.transform.position;
@@ -44,7 +44,6 @@ public class CinemachineTopDown : MonoBehaviour
                 //transform.position = transform.position + _cameraDistanceVector;
             }
         }
-        
     }
 
     /// <summary>
