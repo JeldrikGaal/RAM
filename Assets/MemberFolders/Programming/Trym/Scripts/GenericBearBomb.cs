@@ -21,6 +21,7 @@ public class GenericBearBomb : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // activates the timer after hitting the ground.
         if (collision.collider.attachedRigidbody != null)
         {
             if (collision.collider.attachedRigidbody.isKinematic)
