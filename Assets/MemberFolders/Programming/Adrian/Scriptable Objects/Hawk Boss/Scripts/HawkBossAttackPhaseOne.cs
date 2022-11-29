@@ -7,20 +7,25 @@ using Random = UnityEngine.Random;
 
 public class HawkBossAttackPhaseOne : StateBlock
 {
-    [SerializeField] private int _weight1;
-    [SerializeField] private int _weight2;
-    private Dictionary<string, int> _weightTable = new Dictionary<string, int>()
-    {
-        {"Basic Attack", 1},
-        {"Horizontal Spray", 1}
-    };
+    private Dictionary<string, int> _weightTable = new Dictionary<string, int>();
 
+    [SerializeField] private List<WeightedAttacks> _weightedAttacks;
+
+    [System.Serializable]
+    public struct WeightedAttacks
+    {
+        public string Attack;
+        public int Weight;
+    }
 
     private Dictionary<EnemyController, bool> _isDone;
     public override void OnStart(EnemyController user, GameObject target)
     {
-        _weightTable["Basic Attack"] = _weight1;
-        _weightTable["Horizontal Spray"] = _weight2;
+        // Adds the specified attacks and their weights to the dictionary (don't think this is necessary tbh)
+        for (int i = 0; i < _weightedAttacks.Count; i++)
+        {
+            _weightTable.Add(_weightedAttacks[i].Attack, _weightedAttacks[i].Weight);
+        }
 
         if (_isDone == null)
         {
@@ -34,8 +39,10 @@ public class HawkBossAttackPhaseOne : StateBlock
     {
         if (!_isDone[user])
         {
+            // Makes an array of all the key values
             string[] keys = _weightTable.Keys.ToArray();
 
+            // Switch statement for the different Values
             switch (keys[GetWeightedValue()])
             {
                 case "Basic Attack":
@@ -43,6 +50,10 @@ public class HawkBossAttackPhaseOne : StateBlock
                     break;
                 case "Horizontal Spray":
                     HorizontalSpray();
+                    break;
+                case "Minion Swarm":
+                    break;
+                case "Super Claw Melee":
                     break;
                 default:
                     break;
