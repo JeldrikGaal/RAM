@@ -76,6 +76,9 @@ public class Ability1 : Abilities
                 // Sets the VFX script
                 jumpArea.GetComponent<JumpAttackArea>().VFXScript = GetComponent<RammyVFX>();
 
+                // Sets the controller script
+                jumpArea.GetComponent<JumpAttackArea>().PlayerController = _controller;
+
                 // Destroy the damage area after 0.5 seconds
                 Destroy(jumpArea, 0.5f);
 
@@ -135,6 +138,9 @@ public class Ability1 : Abilities
 
         // Sets the VFX script
         upgradedArea.GetComponent<JumpAttackArea>().VFXScript = GetComponent<RammyVFX>();
+
+        // Sets the controller script
+        upgradedArea.GetComponent<JumpAttackArea>().PlayerController = _controller;
 
         // Destroys the area after 0.5 seconds
         Destroy(upgradedArea, 0.5f);
