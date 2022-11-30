@@ -4403,6 +4403,57 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1361032749}
   m_SourcePrefab: {fileID: 100100000, guid: 3d1d05fbeff0541498b9a3a0a3a867fb, type: 3}
+--- !u!1 &678341741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 678341743}
+  - component: {fileID: 678341742}
+  m_Layer: 0
+  m_Name: HawkBoss Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &678341742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678341741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e75d52d4a688454fa275830f8dea1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controller: {fileID: 1196037309}
+  _phaseOne: 0
+  _phaseTwo: 0
+  _phaseThree: 0
+  _stageOne: 0
+  _stageTwo: 0
+  _stageThree: 0
+--- !u!4 &678341743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678341741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 61.500908, y: 5.4368596, z: -83.59567}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &721748707
 GameObject:
   m_ObjectHideFlags: 0
@@ -6919,7 +6970,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196037307}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb878e12ef8c932488f8e40c1402c695, type: 3}
   m_Name: 
@@ -6941,6 +6992,8 @@ MonoBehaviour:
   MoveInput: {x: 0, y: 0, z: 0}
   MoveSpeed: 8
   AttackDamage: 0
+  Health: 100
+  MaxHealth: 100
 --- !u!54 &1196037310
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7521,6 +7574,8 @@ MonoBehaviour:
   MoveInput: {x: 0, y: 0, z: 0}
   MoveSpeed: 0
   AttackDamage: 0
+  Health: 0
+  MaxHealth: 0
 --- !u!1 &1288643324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7325948863840573209, guid: 10e5b093f6acf624388740037a376147, type: 3}

@@ -23,7 +23,8 @@ public class AI_MOVE_ChargeDistance : StateBlock
         if (_moveDir == null) _moveDir = new Dictionary<EnemyController, Vector3>();
         if (_startPos == null) _startPos = new Dictionary<EnemyController, Vector3>();
 
-        _moveDir[user] = (target.transform.position - user.transform.position).normalized;
+        Vector3 moveDir = (target.transform.position - user.transform.position).normalized;
+        _moveDir[user] = new Vector3(moveDir.x, 0, moveDir.z);
         _startPos[user] = user.transform.position;
     }
 
