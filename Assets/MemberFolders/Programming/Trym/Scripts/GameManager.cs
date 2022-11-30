@@ -35,9 +35,13 @@ public class GameManager : MonoBehaviour
     {
         stats = Stats.GetData();
     }
-    
 
-    
+    /// <summary>
+    /// For running coroutines despite the caller being destroid.
+    /// </summary>
+    /// <param name="enumerator"></param>
+    /// <returns></returns>
+    public static Coroutine HandleCoroutine(IEnumerator enumerator) => _instance.StartCoroutine(enumerator);
     
 
 }
