@@ -9,8 +9,6 @@ public class EnemyController : MonoBehaviour
 
     public float MoveSpeed;
     public float AttackDamage;
-    public float Health;
-    public float MaxHealth;
 
     private Rigidbody _rb;
 
@@ -26,12 +24,6 @@ public class EnemyController : MonoBehaviour
         if (MoveInput != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.z));
-        }
-
-        // For testing
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            Health -= 5;
         }
     }
 }

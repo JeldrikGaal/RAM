@@ -7,7 +7,6 @@ public class HawkChargeAttack : MonoBehaviour
     [SerializeField] GameObject[] _egg = new GameObject[3];
     [SerializeField] int _ammo = 3;
     [SerializeField] float _shootSpeed = 50f;
-    public float damage = 1.5f;
     // Start is called before the first frame update
     void Start()
     {
