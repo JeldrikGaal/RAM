@@ -18,55 +18,49 @@ public class HawkBossAttackPhaseOne : StateBlock
         public int Weight;
     }
 
-    private Dictionary<EnemyController, bool> _isDone;
     public override void OnStart(EnemyController user, GameObject target)
     {
-        // Adds the specified attacks and their weights to the dictionary (don't think this is necessary tbh)
+        // Adds the specified attacks and their weights to the dictionary
         for (int i = 0; i < _weightedAttacks.Count; i++)
         {
-            _weightTable.Add(_weightedAttacks[i].Attack, _weightedAttacks[i].Weight);
+            if (_weightTable.ContainsKey(_weightedAttacks[i].Attack))
+            {
+                _weightTable[_weightedAttacks[i].Attack] = _weightedAttacks[i].Weight;
+            }
+            else
+            {
+                _weightTable.Add(_weightedAttacks[i].Attack, _weightedAttacks[i].Weight);
+            }
         }
-
-        if (_isDone == null)
-        {
-            _isDone = new Dictionary<EnemyController, bool>();
-        }
-
-        _isDone[user] = false;
     }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        if (!_isDone[user])
+        // Makes an array of all the key values
+        string[] keys = _weightTable.Keys.ToArray();
+
+        // Switch statement for the different Values
+        switch (keys[GetWeightedValue()])
         {
-            // Makes an array of all the key values
-            string[] keys = _weightTable.Keys.ToArray();
-
-            // Switch statement for the different Values
-            switch (keys[GetWeightedValue()])
-            {
-                case "Basic Attack":
-                    BasicAttack();
-                    break;
-                case "Horizontal Spray":
-                    HorizontalSpray();
-                    break;
-                case "Minion Swarm":
-                    break;
-                case "Super Claw Melee":
-                    break;
-                default:
-                    break;
-            }
-
-            _isDone[user] = true;
+            case "Basic Attack":
+                BasicAttack();
+                break;
+            case "Horizontal Spray":
+                HorizontalSpray();
+                break;
+            case "Minion Swarm":
+                break;
+            case "Super Claw Melee":
+                break;
+            default:
+                break;
         }
 
         return (null, null);
     }
     public override void OnEnd(EnemyController user, GameObject target)
     {
-        _isDone.Remove(user);
+
     }
 
     void BasicAttack()
