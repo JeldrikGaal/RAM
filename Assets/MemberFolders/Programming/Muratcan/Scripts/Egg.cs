@@ -22,6 +22,11 @@ public class Egg : MonoBehaviour
         if (collision.gameObject.GetComponent<RammyController>())
         {
             collision.gameObject.GetComponent<RammyController>().TakeDamageRammy(damage);
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 }
