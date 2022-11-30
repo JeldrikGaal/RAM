@@ -7,43 +7,58 @@ using Random = UnityEngine.Random;
 
 public class HawkBossAttackPhaseOne : StateBlock
 {
-    private Dictionary<string, int> _weightTable = new Dictionary<string, int>();
-
-    [SerializeField] private List<WeightedAttacks> _weightedAttacks;
-
-    [System.Serializable]
-    public struct WeightedAttacks
+    public Dictionary<string, int> WeightTable = new Dictionary<string, int>()
     {
-        public string Attack;
-        public int Weight;
-    }
+        {"Basic Attack", 90},
+        {"Horizontal Spray", 10},
+        {"Minion Swarm", 0},
+        {"Super Claw Melee", 0}
+    };
+
+    private bool _attacking;
+
+    [HideInInspector] public GameObject Egg;
+    [HideInInspector] public float ShootSpeed;
+    [HideInInspector] public Transform ShootPoint;
+
+    private float _eggTimer;
+    private int _eggsShot;
+
+    // [SerializeField] private List<WeightedAttacks> _weightedAttacks;
+
+    // [System.Serializable]
+    // public struct WeightedAttacks
+    // {
+    //     public string Attack;
+    //     public int Weight;
+    // }
 
     public override void OnStart(EnemyController user, GameObject target)
     {
         // Adds the specified attacks and their weights to the dictionary
-        for (int i = 0; i < _weightedAttacks.Count; i++)
-        {
-            if (_weightTable.ContainsKey(_weightedAttacks[i].Attack))
-            {
-                _weightTable[_weightedAttacks[i].Attack] = _weightedAttacks[i].Weight;
-            }
-            else
-            {
-                _weightTable.Add(_weightedAttacks[i].Attack, _weightedAttacks[i].Weight);
-            }
-        }
+        // for (int i = 0; i < _weightedAttacks.Count; i++)
+        // {
+        //     if (WeightTable.ContainsKey(_weightedAttacks[i].Attack))
+        //     {
+        //         WeightTable[_weightedAttacks[i].Attack] = _weightedAttacks[i].Weight;
+        //     }
+        //     else
+        //     {
+        //         WeightTable.Add(_weightedAttacks[i].Attack, _weightedAttacks[i].Weight);
+        //     }
+        // }
     }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
         // Makes an array of all the key values
-        string[] keys = _weightTable.Keys.ToArray();
+        string[] keys = WeightTable.Keys.ToArray();
 
         // Switch statement for the different Values
         switch (keys[GetWeightedValue()])
         {
             case "Basic Attack":
-                BasicAttack();
+                BasicAttack(user);
                 break;
             case "Horizontal Spray":
                 HorizontalSpray();
@@ -58,25 +73,34 @@ public class HawkBossAttackPhaseOne : StateBlock
 
         return (null, null);
     }
+
     public override void OnEnd(EnemyController user, GameObject target)
     {
 
     }
 
-    void BasicAttack()
+    private void BasicAttack(EnemyController user)
     {
-        Debug.Log("basic attack " + _weightTable["Basic Attack"]);
+        Debug.Log("Basic attack");
+
+        for (int i = 0; i < 3; i++)
+        {
+            var egg = Instantiate(Egg, ShootPoint.position, Quaternion.identity);
+            egg.GetComponent<Rigidbody>().AddForce(user.transform.forward * ShootSpeed);
+            Destroy(egg, 6);
+        }
+        _attacking = false;
     }
 
     void HorizontalSpray()
     {
-        Debug.Log("Horizontal Spray " + _weightTable["Horizontal Spray"]);
+        Debug.Log("Horizontal Spray " + WeightTable["Horizontal Spray"]);
     }
 
     private int GetWeightedValue()
     {
         // Gets all the different weights and adds them to a sepparate array
-        int[] weights = _weightTable.Values.ToArray();
+        int[] weights = WeightTable.Values.ToArray();
 
         // Gets a random weight
         int randomWeight = Random.Range(0, weights.Sum());
