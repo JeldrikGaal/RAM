@@ -33,6 +33,7 @@ public class StateMachine : MonoBehaviour
         {
             _reset = false;
             NextState(_startState);
+            return;
         }
 
         if (nextState != null)
