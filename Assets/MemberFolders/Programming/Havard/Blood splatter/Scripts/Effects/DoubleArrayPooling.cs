@@ -42,7 +42,7 @@ public class DoubleArrayPooling : ScriptableObject
             // Animate the object to fade away here:
             if (Array1[CurrentArray1].GetComponent<FadeOnTrigger>())
             {
-                Array1[CurrentArray1].GetComponent<FadeOnTrigger>().Fade = true;
+                Array1[CurrentArray1].GetComponent<FadeOnTrigger>().TriggerFade();
             }
         }
         // Sets the input object to be the most recent one in the array

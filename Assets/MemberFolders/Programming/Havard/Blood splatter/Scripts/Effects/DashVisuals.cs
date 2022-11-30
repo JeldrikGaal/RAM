@@ -60,8 +60,7 @@ public class DashVisuals : MonoBehaviour
                 _currentSmudge.transform.rotation = _dashingDirection;
                 if (_currentSmudge.GetComponent<FadeOnTrigger>())
                 {
-                    _currentSmudge.GetComponent<FadeOnTrigger>().Fade = false;
-                    _currentSmudge.GetComponent<FadeOnTrigger>().Decal.fadeFactor = 1f;
+                    _currentSmudge.GetComponent<FadeOnTrigger>().StopFade();
                 }
                 _doubleArrayScript.AddPoint(_currentSmudge);
                 _startSmudgeSpot = this.transform.position;

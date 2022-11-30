@@ -13,7 +13,8 @@ public class AI_MOVE_Charge : StateBlock
     {
         if (_moveDir == null) _moveDir = new Dictionary<EnemyController, Vector3>();
 
-        _moveDir[user] = (target.transform.position - user.transform.position).normalized;
+        Vector3 moveDir = (target.transform.position - user.transform.position).normalized;
+        _moveDir[user] = new Vector3(moveDir.x, 0, moveDir.z);
     }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)

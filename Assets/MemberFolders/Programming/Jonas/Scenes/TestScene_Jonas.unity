@@ -434,7 +434,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &583305377
 Rigidbody:
@@ -480,7 +480,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4974556004237746299, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4974556004237746299, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: m_LocalPosition.x
@@ -539,7 +539,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1718208062672609065, guid: 65c304af767eeb34388b9fd5371f933d, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1718208062672609065, guid: 65c304af767eeb34388b9fd5371f933d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -585,6 +585,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeWolf
       objectReference: {fileID: 0}
+    - target: {fileID: 1718208062672609079, guid: 65c304af767eeb34388b9fd5371f933d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 65c304af767eeb34388b9fd5371f933d, type: 3}
@@ -598,7 +602,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3017985193138049561, guid: 2559f7de62866cb4e8575811fce54b4c, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3017985193138049561, guid: 2559f7de62866cb4e8575811fce54b4c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -643,6 +647,10 @@ PrefabInstance:
     - target: {fileID: 3017985193138049565, guid: 2559f7de62866cb4e8575811fce54b4c, type: 3}
       propertyPath: m_Name
       value: MeleeHawk
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017985193138049565, guid: 2559f7de62866cb4e8575811fce54b4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -1108,9 +1116,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeBear
       objectReference: {fileID: 0}
+    - target: {fileID: 6065993889637490160, guid: 5b3a96c83def9b94aae895a48fcb4b5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6065993889637490171, guid: 5b3a96c83def9b94aae895a48fcb4b5b, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6065993889637490171, guid: 5b3a96c83def9b94aae895a48fcb4b5b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1165,7 +1177,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8655419250528072276, guid: 3fc34cc4fd72c364e89d4ea56759431f, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8655419250528072276, guid: 3fc34cc4fd72c364e89d4ea56759431f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1210,6 +1222,10 @@ PrefabInstance:
     - target: {fileID: 8655419250528072283, guid: 3fc34cc4fd72c364e89d4ea56759431f, type: 3}
       propertyPath: m_Name
       value: MeleeBear_Charge
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655419250528072283, guid: 3fc34cc4fd72c364e89d4ea56759431f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

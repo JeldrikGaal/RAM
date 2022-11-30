@@ -82,7 +82,7 @@ public class BloodySteps : MonoBehaviour
             // Animate the object to fade away here:
             if (_array1[_currentArray1].GetComponent<FadeOnTrigger>())
             {
-                _array1[_currentArray1].GetComponent<FadeOnTrigger>().Fade = true;
+                _array1[_currentArray1].GetComponent<FadeOnTrigger>().TriggerFade();
             }
         }
         // Sets the input object to be the most recent one in the array

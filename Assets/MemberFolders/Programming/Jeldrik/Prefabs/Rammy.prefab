@@ -241,6 +241,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 514763385530999209}
+  - {fileID: 543450652072461437}
   m_Father: {fileID: 4974556004237746299}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -920,12 +921,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d9ea62691064245b06203d3e683448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxPoints: 30
+  _maxPoints: 25
+  _backupPoints: 50
+  _backupDeleting: 0
   _playerLayer:
     serializedVersion: 2
     m_Bits: 32768
   _stepScript: {fileID: 1279146746}
   _dashScript: {fileID: 1279146745}
+  _array1: []
+  _array2: []
+  _currentArray1: 500
+  _currentArray2: 100
+  _fullArray1: 0
+  FullArray2: 0
+  NextToTake: {fileID: 0}
 --- !u!1 &1650080018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,7 +1569,7 @@ Transform:
   - {fileID: 448679933}
   - {fileID: 570634510}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1628,6 +1638,7 @@ MonoBehaviour:
   _ability3Script: {fileID: 2117861001280260777}
   _ability4Script: {fileID: 5920122201635186104}
   _ability5Script: {fileID: 7400901502415930422}
+  _startFullAbilities: 1
   _frontCheck: {fileID: 1024294334}
   _cameraScript: {fileID: 0}
   _comboSystem: {fileID: 0}
@@ -1667,7 +1678,7 @@ MonoBehaviour:
   DamageModifier: 0
   AppliedDamageModifier: 0
   DamageBuffDuration: 0
-  _hasSpeedBuff: 0
+  HasSpeedBuff: 0
   SpeedModifier: 0
   SpeedBuffDuration: 0
   _hasDamageReductionBuff: 0
@@ -1869,8 +1880,6 @@ MonoBehaviour:
   Duration: 2
   _controller: {fileID: 0}
   _damage: 30
-  _pushForce: 50
-  _pushBackForce: 700
   _pushDistance: 8
   _moveDuration: 0.5
   _externalCollider: {fileID: 448679932}
@@ -1892,6 +1901,9 @@ MonoBehaviour:
   _timeEffectScript: {fileID: 1973733744572080562}
   _gorePrefab: {fileID: 8261845704376933755, guid: d076efecf4c1ad94b82cf5f030b918a9, type: 3}
   _bloodParticle: {fileID: 8017192779821908478, guid: 2834995eb689f5c409d32b26c8effc9c, type: 3}
+  _goreSmudgeArrayPool: {fileID: 11400000, guid: 943ab2d0618940643aa3eeb05bbc2b17, type: 2}
+  _goreArrayPool: {fileID: 11400000, guid: 220db1ec40b6fac468ea65d6370b624b, type: 2}
+  _spawnHeightOffset: 0.5
   _skullObject: {fileID: 3095865599965521266, guid: 929e6a0eff409cf47b1b250ee16330eb, type: 3}
   _heartObject: {fileID: 8085553223252622585, guid: d2c9ad2d9c835264295ffaa2971340ac, type: 3}
   _intestineObject: {fileID: 1228982729273674745, guid: c9ebeaca40b050241a57013b458c0e90, type: 3}
@@ -1915,9 +1927,9 @@ MonoBehaviour:
   _heightAngle: 0
   _bloodForceMin: 5
   _bloodForceMax: 8
-  _bloodAmount: 5
-  _bloodSizeMin: 1.442
-  _bloodSizeMax: 2
+  _bloodAmount: 9
+  _bloodSizeMin: 0.87
+  _bloodSizeMax: 1.24
   _goreValuesRam:
   - GoreNames: Skull
     Spread: 0.64
@@ -1964,10 +1976,10 @@ MonoBehaviour:
   - GoreNames: Meat
     Spread: 0.448
     Angle: 9.1
-    MinForce: 3.38
-    MaxForce: 10
-    MinAmount: 3
-    MaxAmount: 10
+    MinForce: 1.67
+    MaxForce: 5.66
+    MinAmount: 1
+    MaxAmount: 6
   _bloodSpreadNormal: 0.5
   _heightAngleNormal: 43.5
   _bloodForceMinNormal: 2.03
@@ -1976,62 +1988,62 @@ MonoBehaviour:
   _bloodSizeMinNormal: 0.823
   _bloodSizeMaxNormal: 0.881
   _bloodSpreadAb1: 0.93
-  _heightAngleAb1: 41.3
+  _heightAngleAb1: 29.9
   _bloodForceMinAb1: 4.9
   _bloodForceMaxAb1: 7.4
-  _bloodAmountAb1: 13
-  _bloodSizeMinAb1: 0.89
-  _bloodSizeMaxAb1: 1.24
+  _bloodAmountAb1: 3
+  _bloodSizeMinAb1: 1.123
+  _bloodSizeMaxAb1: 2
   _goreValuesAb1:
   - GoreNames: Skull
-    Spread: 0
-    Angle: 0
-    MinForce: 0
-    MaxForce: 0
+    Spread: 0.553
+    Angle: 28.5
+    MinForce: 2.89
+    MaxForce: 4.03
     MinAmount: 0
-    MaxAmount: 0
+    MaxAmount: 1
   - GoreNames: Heart
-    Spread: 0
-    Angle: 0
-    MinForce: 0
-    MaxForce: 0
+    Spread: 0.378
+    Angle: 39.5
+    MinForce: 1.96
+    MaxForce: 3.27
     MinAmount: 0
-    MaxAmount: 0
+    MaxAmount: 1
   - GoreNames: Intestine
-    Spread: 0
-    Angle: 0
-    MinForce: 0
-    MaxForce: 0
+    Spread: 0.668
+    Angle: 27.3
+    MinForce: 1.49
+    MaxForce: 4.93
     MinAmount: 0
-    MaxAmount: 0
+    MaxAmount: 1
   - GoreNames: Spine
-    Spread: 0
-    Angle: 0
+    Spread: 0.662
+    Angle: 29.2
     MinForce: 0
     MaxForce: 0
     MinAmount: 0
-    MaxAmount: 0
+    MaxAmount: 1
   - GoreNames: Brain
-    Spread: 0
-    Angle: 0
-    MinForce: 0
-    MaxForce: 0
+    Spread: 0.648
+    Angle: 19.8
+    MinForce: 1.01
+    MaxForce: 4.25
     MinAmount: 0
-    MaxAmount: 0
+    MaxAmount: 1
   - GoreNames: Eyeball
-    Spread: 0
-    Angle: 0
-    MinForce: 0
-    MaxForce: 0
+    Spread: 0.608
+    Angle: 26.4
+    MinForce: 3.17
+    MaxForce: 4.79
     MinAmount: 0
-    MaxAmount: 0
+    MaxAmount: 2
   - GoreNames: Meat
-    Spread: 0
-    Angle: 0
-    MinForce: 0
-    MaxForce: 0
-    MinAmount: 0
-    MaxAmount: 0
+    Spread: 0.891
+    Angle: 33.7
+    MinForce: 2.84
+    MaxForce: 5.54
+    MinAmount: 2
+    MaxAmount: 5
   _bloodSpreadAb2: 0.5
   _heightAngleAb2: 20
   _bloodForceMinAb2: 0
@@ -2050,7 +2062,7 @@ MonoBehaviour:
   _goreValuesAb3: []
   _bloodSpreadAb4: 0.5
   _heightAngleAb4: 32
-  _bloodForceMinAb4: 2.93
+  _bloodForceMinAb4: 0.72
   _bloodForceMaxAb4: 5.77
   _bloodAmountAb4: 13
   _bloodSizeMinAb4: 0.71
@@ -2064,6 +2076,8 @@ MonoBehaviour:
   _bloodSizeMinAb5: 1
   _bloodSizeMaxAb5: 1
   _goreValuesAb5: []
+  _maxGoreSmudge: 500
+  _maxGoreSmudgeBackup: 50
 --- !u!136 &4974556004237746302
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2120,8 +2134,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SmudgeEffect: {fileID: 5000289965411273244, guid: 71255e027c45540419e4fe40099d144d, type: 3}
   _directionObject: {fileID: 4974556003529526528}
-  maxItems: 200
+  _maxItems: 100
+  _maxItemsBackups: 5
   _items: []
+  _doubleArrayScript: {fileID: 11400000, guid: 9bb85f90ee8e8d94aaa4ce1d0746376c, type: 2}
 --- !u!114 &1279146746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2136,8 +2152,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bloodStepsActive: 0
   _bloodStepPrefab: {fileID: 7628057576564074463, guid: e733cb9e32f042e4b894719714e51a79, type: 3}
-  _maxFootprint: 500
+  _maxFootprints: 400
+  _maxFootprintBackups: 10
   _footprints: []
+  _doubleArrayScript: {fileID: 11400000, guid: 39cfdab331c3d214b9068d1babdcf29c, type: 2}
 --- !u!114 &1585275057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2398,6 +2416,70 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
   m_PrefabInstance: {fileID: 970196609}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &49108515496403797
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 448679933}
+    m_Modifications:
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710653
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071071
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 895968105771548050, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+      propertyPath: m_Name
+      value: ab5Forcefield
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+--- !u!4 &543450652072461437 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 514763385366636328, guid: f0bc17e09d302c344b50e9e6e82c5ade, type: 3}
+  m_PrefabInstance: {fileID: 49108515496403797}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2901968677264507879
 PrefabInstance:
