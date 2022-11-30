@@ -7,20 +7,12 @@ public class GenericBearBomb : MonoBehaviour
     [SerializeField] GameObject _effect;
     [SerializeField] float _fuse;
     [SerializeField] Vector3 _effectPosMod;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    
 
     private void OnCollisionEnter(Collision collision)
     {
+        // activates the timer after hitting the ground.
         if (collision.collider.attachedRigidbody != null)
         {
             if (collision.collider.attachedRigidbody.isKinematic)

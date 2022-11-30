@@ -11,20 +11,11 @@ public class ProtoBlast : MonoBehaviour, IRammable
     [SerializeField] private AnimationCurve _damageFalloffByDistance;
     [SerializeField] private SphereCollider _trigger;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #region monitors enemies in range
 
     private void OnTriggerEnter(Collider other)
     {
+        // registers that an enemy is in range
         if (other.gameObject.HasTag("enemy"))
         {
             _enemiesInRange.Add(other.GetInstanceID(), other.gameObject.GetComponent<EnemyTesting>());
@@ -33,6 +24,7 @@ public class ProtoBlast : MonoBehaviour, IRammable
 
     private void OnTriggerExit(Collider other)
     {
+        // registers that an enemy is out of range
         if (other.gameObject.HasTag("enemy"))
         {
             int id = other.GetInstanceID();
@@ -43,19 +35,21 @@ public class ProtoBlast : MonoBehaviour, IRammable
         }
     }
 
+    #endregion
 
 
-    
-
+    // registers that rammy rammed the object.
     public bool Hit(GameObject g)
     {
         StartCoroutine(Explode());
         return false;
     }
-
+    // explodes after _timeToRun
     private IEnumerator Explode()
     {
         yield return new WaitForSeconds(_timeToRun);
+
+        // damages all the enemies in range
         foreach (var item in _enemiesInRange)
         {
             var enemy = item.Value;
