@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b9af1774ecb3c408b15d0f57aed785, type: 3}
+  m_Name: HoneyBearBombThrow
+  m_EditorClassIdentifier: 
+  _bomb: {fileID: 5824584183443300883, guid: 555c5a6a376f1d9409fc0f41a29a3844, type: 3}
+  _speed: 10
+  _relativeSpeedOverDistance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0007019043
+      value: 1.0015259
+      inSlope: -2.5475252
+      outSlope: -2.5475252
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.04915981
+    - serializedVersion: 3
+      time: 0.50126183
+      value: 0.4976025
+      inSlope: -0.017784681
+      outSlope: -0.017784681
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2.2823308
+      outSlope: 2.2823308
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.045672044
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _relativeTrajectory:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 4.567339
+      outSlope: 4.567339
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.014060742
+    - serializedVersion: 3
+      time: 1
+      value: 0.0061149597
+      inSlope: -3.5509574
+      outSlope: -3.5509574
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.020669281
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
