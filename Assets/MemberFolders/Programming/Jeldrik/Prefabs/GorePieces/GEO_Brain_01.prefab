@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 9202063227065237964}
   - component: {fileID: 7527166863823478090}
   - component: {fileID: -5466810077641856134}
+  - component: {fileID: 4947135184743321900}
+  - component: {fileID: -148808359570492812}
   m_Layer: 6
   m_Name: GEO_Brain_01
   m_TagString: Untagged
@@ -114,3 +116,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8855095, y: 0.9236181, z: 0.65135}
   m_Center: {x: 0.000000044703484, y: 0.047612663, z: 0.32884657}
+--- !u!114 &4947135184743321900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7256626866936029209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 812b3cea168e472479de2e0ef2a4e2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: {x: 0, y: 2}
+  angularVelocity: {x: 0, y: 360}
+  randomOffsetValue: 1
+  awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
+--- !u!114 &-148808359570492812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7256626866936029209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5e4dc897769d24082955ccbea419ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SplatObject: {fileID: 0}
+  HasSmudge: 0
+  Smudge: {fileID: 0}
+  StartPos: {x: 0, y: 0, z: 0}
+  DoubleArrayScript: {fileID: 0}
