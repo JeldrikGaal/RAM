@@ -2,28 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] private float _damage;
-    [SerializeField] private float _lingerTime = .2f;
+    [SerializeField] private float _dmgWeight;
 
-    private float _timer;
+    private float _damage;
 
     private void OnEnable()
     {
-        _timer = _lingerTime;
-    }
-
-    private void Update()
-    {
-        _timer -= Time.deltaTime;
-        if (_timer <= 0)
-            gameObject.SetActive(false);
-    }
-
-    public void Init(float damage)
-    {
-        if (damage != -1) _damage = damage;
+        _damage = transform.parent.parent.parent.GetComponent<EnemyController>().AttackDamage * _dmgWeight;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -8,9 +8,9 @@ public class GoreBlood : MonoBehaviour
     public GameObject SplatObject;
     private Rigidbody rb;
 
-    private bool _hasSmudge = false;
-    [SerializeField] private GameObject _smudge;
-    private Vector3 _startPos;
+    public bool HasSmudge = false;
+    public GameObject Smudge;
+    public Vector3 StartPos;
     private Vector3 _currentVel;
 
     public DoubleArrayPooling DoubleArrayScript;
@@ -27,23 +27,25 @@ public class GoreBlood : MonoBehaviour
         if (!DoubleArrayScript.FullArray2)
         {
             // Spawn the splat:
-            _smudge = Instantiate(SplatObject, position, splatRotation);
-            _startPos = position;
-            _hasSmudge = true;
-            DoubleArrayScript.AddPoint(_smudge);
+            Smudge = Instantiate(SplatObject, position, splatRotation);
+            StartPos = position;
+            StartPos = new Vector3(StartPos.x, 1.1f, StartPos.z);
+            HasSmudge = true;
+            DoubleArrayScript.AddPoint(Smudge);
         }
         else if (DoubleArrayScript.FullArray2)
         {
-            _smudge = DoubleArrayScript.NextToTake;
-            _startPos = position;
-            _smudge.transform.position = position;
-            _smudge.transform.rotation = splatRotation;
-            if (_smudge.GetComponent<FadeOnTrigger>())
+            Smudge = DoubleArrayScript.NextToTake;
+            StartPos = position;
+            StartPos = new Vector3(StartPos.x, 1.1f, StartPos.z);
+            Smudge.transform.position = position;
+            Smudge.transform.rotation = splatRotation;
+            if (Smudge.GetComponent<FadeOnTrigger>())
             {
-                _smudge.GetComponent<FadeOnTrigger>().StopFade();
+                Smudge.GetComponent<FadeOnTrigger>().StopFade();
             }
-            _hasSmudge = true;
-            DoubleArrayScript.AddPoint(_smudge);
+            HasSmudge = true;
+            DoubleArrayScript.AddPoint(Smudge);
         }
     }
    
@@ -51,7 +53,7 @@ public class GoreBlood : MonoBehaviour
     {
         foreach (var item in other.contacts)
         {
-            if (!_hasSmudge)
+            if (!HasSmudge)
             {
                     // Figure out the rotation for the splat:
 
@@ -59,7 +61,7 @@ public class GoreBlood : MonoBehaviour
                     {
                         SpawnSplat(item.point + item.normal * 0.6f);
                     }
-            } else if (_hasSmudge)
+            } else if (HasSmudge)
             {
                 if(other.gameObject.layer != 10)
                 {
@@ -72,20 +74,20 @@ public class GoreBlood : MonoBehaviour
     {
         if(collision.gameObject.layer == 10)
         {
-            if (_hasSmudge)
+            if (HasSmudge)
             {
-                _hasSmudge = false;
+                HasSmudge = false;
             }
         }
     }
     private void Update()
     {
-        if (_hasSmudge)
+        if (HasSmudge)
         {
-            _smudge.transform.position = Vector3.Lerp(_startPos, new Vector3(this.transform.position.x, _startPos.y, this.transform.position.z), 0.5f);
-            _smudge.transform.localScale = new Vector3(Vector3.Distance(_startPos, _smudge.transform.position)*2, 1, 1);
-            var rot = ((_startPos - new Vector3(this.transform.position.x, _startPos.y, this.transform.position.z)).normalized);
-            _smudge.transform.rotation = Quaternion.LookRotation(rot) * Quaternion.Euler(90,0,90);
+            Smudge.transform.position = Vector3.Lerp(StartPos, new Vector3(this.transform.position.x, StartPos.y, this.transform.position.z), 0.5f);
+            Smudge.transform.localScale = new Vector3(Vector3.Distance(StartPos, Smudge.transform.position)*2, 1, 1);
+            var rot = ((StartPos - new Vector3(this.transform.position.x, StartPos.y, this.transform.position.z)).normalized);
+            Smudge.transform.rotation = Quaternion.LookRotation(rot) * Quaternion.Euler(90,0,90);
             
             /*
             if (_currentVel != rb.velocity.normalized)
@@ -102,8 +104,6 @@ public class GoreBlood : MonoBehaviour
         {
             rb.isKinematic = true;
             this.GetComponent<Collider>().enabled = false;
-            Destroy(this.GetComponent<Rigidbody>());
-            Destroy(this);
         }
     }
 

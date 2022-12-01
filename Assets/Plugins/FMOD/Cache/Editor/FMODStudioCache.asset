@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5904905547963399252
+--- !u!114 &-5077099160989990065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,20 +67,20 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 985654875919126122}
-  - {fileID: -4323036999956825638}
-  - {fileID: 6536087849998050708}
-  - {fileID: -5904905547963399252}
-  - {fileID: -2541960344811243190}
+  - {fileID: 2374823310665813512}
+  - {fileID: 3939690996503517712}
+  - {fileID: 6637569971627372443}
+  - {fileID: 4890945033858081716}
+  - {fileID: -5077099160989990065}
   EditorEvents: []
   EditorParameters: []
   MasterBanks:
-  - {fileID: 6536087849998050708}
+  - {fileID: 6637569971627372443}
   StringsBanks:
   - {fileID: 985654875919126122}
   cacheTime: 638053103379725481
   cacheVersion: 131593
---- !u!114 &985654875919126122
+--- !u!114 &2374823310665813512
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +100,43 @@ MonoBehaviour:
   - Name: 
     Value: 844
   Exists: 1
---- !u!114 &6536087849998050708
+--- !u!114 &3939690996503517712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Ambience.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/Ambience.bank
+  Name: Ambience
+  StudioPath: bank:/Ambience
+  lastModified: 638053108528367610
+  FileSizes: []
+  Exists: 1
+--- !u!114 &4890945033858081716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/Music.bank
+  Name: Music
+  StudioPath: bank:/Music
+  lastModified: 638053108528372609
+  FileSizes: []
+  Exists: 1
+--- !u!114 &6637569971627372443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

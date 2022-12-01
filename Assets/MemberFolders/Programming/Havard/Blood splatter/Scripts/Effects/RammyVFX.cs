@@ -38,6 +38,24 @@ public class RammyVFX : MonoBehaviour
     [SerializeField] private GameObject _eyeballObject;
     [SerializeField] private GameObject[] _meatPrefabs;
 
+    [Header("Gore Array Pool Scripts")]
+    [SerializeField] private DoubleArrayPooling _skullArray;
+    [SerializeField] private DoubleArrayPooling _heartArray;
+    [SerializeField] private DoubleArrayPooling _intestineArray;
+    [SerializeField] private DoubleArrayPooling _spineArray;
+    [SerializeField] private DoubleArrayPooling _brainArray;
+    [SerializeField] private DoubleArrayPooling _eyeballArray;
+    [SerializeField] private DoubleArrayPooling _meatArray;
+
+    [Header("Max Gore Items")]
+    [SerializeField] private Vector2 _skullArrayAmount;
+    [SerializeField] private Vector2 _heartArrayAmount;
+    [SerializeField] private Vector2 _intestineArrayAmount;
+    [SerializeField] private Vector2 _spineArrayAmount;
+    [SerializeField] private Vector2 _brainArrayAmount;
+    [SerializeField] private Vector2 _eyeballArrayAmount;
+    [SerializeField] private Vector2 _meatArrayAmount;
+
     // Graphics settings:
     [Header("Graphics settings")]
     public bool IsBlue = false;
@@ -141,6 +159,49 @@ public class RammyVFX : MonoBehaviour
         _goreSmudgeArrayPool.CurrentArray1 = 0;
         _goreSmudgeArrayPool.CurrentArray2 = 0;
 
+        _skullArray.Array1 = new GameObject[(int) _skullArrayAmount.x];
+        _skullArray.Array2 = new GameObject[(int) _skullArrayAmount.y];
+        _skullArray.FullArray1 = false;
+        _skullArray.FullArray2 = false;
+        _skullArray.CurrentArray1 = 0;
+        _skullArray.CurrentArray2 = 0;
+        _heartArray.Array1 = new GameObject[(int) _heartArrayAmount.x];
+        _heartArray.Array2 = new GameObject[(int) _heartArrayAmount.y];
+        _heartArray.FullArray1 = false;
+        _heartArray.FullArray2 = false;
+        _heartArray.CurrentArray1 = 0;
+        _heartArray.CurrentArray2 = 0;
+        _intestineArray.Array1 = new GameObject[(int) _intestineArrayAmount.x];
+        _intestineArray.Array2 = new GameObject[(int) _intestineArrayAmount.y];
+        _intestineArray.FullArray1 = false;
+        _intestineArray.FullArray2 = false;
+        _intestineArray.CurrentArray1 = 0;
+        _intestineArray.CurrentArray2 = 0;
+        _spineArray.Array1 = new GameObject[(int) _spineArrayAmount.x];
+        _spineArray.Array2 = new GameObject[(int) _spineArrayAmount.y];
+        _spineArray.FullArray1 = false;
+        _spineArray.FullArray2 = false;
+        _spineArray.CurrentArray1 = 0;
+        _spineArray.CurrentArray2 = 0;
+        _brainArray.Array1 = new GameObject[(int) _brainArrayAmount.x];
+        _brainArray.Array2 = new GameObject[(int) _brainArrayAmount.y];
+        _brainArray.FullArray1 = false;
+        _brainArray.FullArray2 = false;
+        _brainArray.CurrentArray1 = 0;
+        _brainArray.CurrentArray2 = 0;
+        _eyeballArray.Array1 = new GameObject[(int) _eyeballArrayAmount.x];
+        _eyeballArray.Array2 = new GameObject[(int) _eyeballArrayAmount.y];
+        _eyeballArray.FullArray1 = false;
+        _eyeballArray.FullArray2 = false;
+        _eyeballArray.CurrentArray1 = 0;
+        _eyeballArray.CurrentArray2 = 0;
+        _meatArray.Array1 = new GameObject[(int) _meatArrayAmount.x];
+        _meatArray.Array2 = new GameObject[(int) _meatArrayAmount.y];
+        _meatArray.FullArray1 = false;
+        _meatArray.FullArray2 = false;
+        _meatArray.CurrentArray1 = 0;
+        _meatArray.CurrentArray2 = 0;
+
         #endregion
     }
 
@@ -153,13 +214,13 @@ public class RammyVFX : MonoBehaviour
         
         if(enemy.GetComponent<EnemyTesting>()._health <= 0)
         {
-            SpawnGore(_goreValuesRam[0], _skullObject, enemy);
-            SpawnGore(_goreValuesRam[1], _heartObject, enemy);
+            SpawnGore(_goreValuesRam[0], _skullObject, enemy, _skullArray);
+            SpawnGore(_goreValuesRam[1], _heartObject, enemy, _heartArray);
             SpawnGore(_goreValuesRam[2], _intestineObject, enemy);
             SpawnGore(_goreValuesRam[3], _spineObject, enemy);
-            SpawnGore(_goreValuesRam[4], _brainObject, enemy);
-            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy);
-            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy);
+            SpawnGore(_goreValuesRam[4], _brainObject, enemy, _brainArray);
+            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, _eyeballArray);
+            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, _meatArray);
         }
 
         // Intantiates the blood particle at the correct location and direction
@@ -178,13 +239,13 @@ public class RammyVFX : MonoBehaviour
 
         if (enemy.GetComponent<EnemyTesting>()._health <= 0)
         {
-            SpawnGore(_goreValuesRam[0], _skullObject, enemy, dir);
-            SpawnGore(_goreValuesRam[1], _heartObject, enemy, dir);
-            SpawnGore(_goreValuesRam[2], _intestineObject, enemy, dir);
-            SpawnGore(_goreValuesRam[3], _spineObject, enemy, dir);
-            SpawnGore(_goreValuesRam[4], _brainObject, enemy, dir);
-            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, dir);
-            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, dir);
+            SpawnGore(_goreValuesRam[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesRam[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesRam[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesRam[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesRam[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, _eyeballArray,dir);
+            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, _meatArray, dir);
         }
 
     }
@@ -259,13 +320,48 @@ public class RammyVFX : MonoBehaviour
     }
 
     // This function sets up everything we want for the gore to be!
-    private void SpawnGore(GoreValues goreSettings, GameObject spawnObject, GameObject enemy, Vector3 direction = default(Vector3))
+    private void SpawnGore(GoreValues goreSettings, GameObject spawnObject, GameObject enemy, DoubleArrayPooling arrayScript = default(DoubleArrayPooling), Vector3 direction = default(Vector3))
     {
         // Randomize the amount of gore piece we want
         var amountOfGore = Random.Range(goreSettings.MinAmount, goreSettings.MaxAmount+1);
         for (int i = 0; i < amountOfGore; i++)
         {
-            var gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
+            // Here we set the gore piece as an empty so we can adjust it in seperate if statements
+            GameObject gorePiece = null;
+
+            // If the array script does exist, we can do array pooling
+            if(arrayScript != null)
+            {
+                // If the arrays have not filled up yet, we create new ones and add them
+                if (!arrayScript.FullArray2)
+                {
+                    gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
+                // If they have filled up, we reuse the ones that exist
+                } else if (arrayScript.FullArray2)
+                {
+                    gorePiece = arrayScript.NextToTake;
+                    gorePiece.transform.position = enemy.transform.position;
+
+                    if (gorePiece.GetComponent<RagdollVelocity>())
+                    {
+                        // This will only affect the ragdolls
+                    } else
+                    {
+                        // This resets all the components
+                        gorePiece.GetComponent<Rigidbody>().isKinematic = false;
+                        gorePiece.GetComponent<Collider>().enabled = true;
+                        var goreBlood = gorePiece.GetComponent<GoreBlood>();
+                        goreBlood.HasSmudge = false;
+                        goreBlood.Smudge = null;
+                    }
+                }
+                arrayScript.AddPoint(gorePiece);
+            // If the array script does not exist, we do simple things with it
+            } else if(arrayScript == null)
+            {
+                gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
+            }
+
 
             // Here we check if it has the ragdoll script. If it does, we add the settings to that instead of the rigidbody velocity script.
             if(gorePiece.GetComponent<RagdollVelocity>())
@@ -282,9 +378,9 @@ public class RammyVFX : MonoBehaviour
             } else
             {
                 // Adds the velocity script:
-                var gorePieceVel = gorePiece.AddComponent<InitVelocity>();
+                var gorePieceVel = gorePiece.GetComponent<InitVelocity>();
                 // Adds the blood splat creator:
-                var bloodScript = gorePiece.AddComponent<GoreBlood>();
+                var bloodScript = gorePiece.GetComponent<GoreBlood>();
 
                 // Just sets the splat prefab to be the one we want:
                 bloodScript.SplatObject = _gorePrefab;
@@ -300,7 +396,6 @@ public class RammyVFX : MonoBehaviour
                 gorePieceVel.CalcDirLeft = bloodDir1;
                 gorePieceVel.CalcDirRight = bloodDir2;
             }
-
         }
     }
 
