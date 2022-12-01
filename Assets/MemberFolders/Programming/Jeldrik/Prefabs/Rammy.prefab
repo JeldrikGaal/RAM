@@ -1650,7 +1650,7 @@ MonoBehaviour:
   Walking: 0
   UsingAbility: 0
   Health: 90
-  MaxHealth: 100
+  <MaxHealth>k__BackingField: 0
   HealPercentage: 5
   MovementSpeed: 10
   BasicAttackCoolDown: 1
@@ -1914,6 +1914,20 @@ MonoBehaviour:
   - {fileID: 5291567064603710999, guid: 80cd9931f454fd4438ab05609fc2ed8b, type: 3}
   - {fileID: 3906882621796642699, guid: 3b594bcea8ecf0d4c9d1fbfc968c4579, type: 3}
   - {fileID: 2945347816356749357, guid: 53a4e5a076257d04a9f992c514aadeac, type: 3}
+  _skullArray: {fileID: 11400000, guid: d18841e668b2fff47b4d8b263c9e43e9, type: 2}
+  _heartArray: {fileID: 11400000, guid: 16b5f67593055824ab26dd08cee61b23, type: 2}
+  _intestineArray: {fileID: 11400000, guid: e92df972472de154ab663029f8b3a647, type: 2}
+  _spineArray: {fileID: 11400000, guid: 9ae145050010f7a40968f03cb64b6e55, type: 2}
+  _brainArray: {fileID: 11400000, guid: 6d74f9904f2cc5d42be1b1f3548b1e85, type: 2}
+  _eyeballArray: {fileID: 11400000, guid: 0884b7ebf06f6ab4f89398c2cea363d9, type: 2}
+  _meatArray: {fileID: 11400000, guid: 010891eb9bc80e744abc6a9e0967fb98, type: 2}
+  _skullArrayAmount: {x: 10, y: 5}
+  _heartArrayAmount: {x: 10, y: 5}
+  _intestineArrayAmount: {x: 10, y: 5}
+  _spineArrayAmount: {x: 20, y: 10}
+  _brainArrayAmount: {x: 10, y: 5}
+  _eyeballArrayAmount: {x: 10, y: 5}
+  _meatArrayAmount: {x: 10, y: 5}
   IsBlue: 0
   _bloodVariations:
   - {fileID: 2100000, guid: c9bb0ad3224b91f4f8f21474be7406e1, type: 2}
@@ -2029,7 +2043,7 @@ MonoBehaviour:
     MinForce: 1.01
     MaxForce: 4.25
     MinAmount: 0
-    MaxAmount: 1
+    MaxAmount: 10
   - GoreNames: Eyeball
     Spread: 0.608
     Angle: 26.4

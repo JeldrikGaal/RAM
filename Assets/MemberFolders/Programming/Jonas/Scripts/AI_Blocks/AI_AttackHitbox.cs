@@ -23,9 +23,8 @@ public class AI_AttackHitbox : StateBlock
     {
         if (!_isDone[user])
         {
-            GameObject atk = user.transform.Find($"Attacks/{_attackName}").gameObject;
+            GameObject atk = user.transform.Find($"Model/Attacks/{_attackName}").gameObject;
             atk.SetActive(true);
-            atk.GetComponent<EnemyAttack>().Init(_damage != 0 ? _damage : (user.AttackDamage * _dmgWeight));
             _isDone[user] = true;
         }
 
