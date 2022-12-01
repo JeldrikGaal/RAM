@@ -24,6 +24,8 @@ public class HawkBossAttackPhaseOne : StateBlock
     private float _eggTimer;
     private int _eggsShot;
 
+    private Dictionary<EnemyController, bool> _isDone;
+
     // [SerializeField] private List<WeightedAttacks> _weightedAttacks;
 
     // [System.Serializable]
@@ -47,28 +49,38 @@ public class HawkBossAttackPhaseOne : StateBlock
         //         WeightTable.Add(_weightedAttacks[i].Attack, _weightedAttacks[i].Weight);
         //     }
         // }
+
+        if (_isDone == null) _isDone = new Dictionary<EnemyController, bool>();
+
+        _isDone[user] = false;
     }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        // Makes an array of all the key values
-        string[] keys = WeightTable.Keys.ToArray();
-
-        // Switch statement for the different Values
-        switch (keys[GetWeightedValue()])
+        if (!_isDone[user])
         {
-            case "Basic Attack":
-                BasicAttack(user);
-                break;
-            case "Horizontal Spray":
-                HorizontalSpray();
-                break;
-            case "Minion Swarm":
-                break;
-            case "Super Claw Melee":
-                break;
-            default:
-                break;
+            // Makes an array of all the key values
+            string[] keys = WeightTable.Keys.ToArray();
+
+            // Switch statement for the different Values
+            switch (keys[GetWeightedValue()])
+            {
+                case "Basic Attack":
+                    BasicAttack(user);
+                    break;
+                case "Horizontal Spray":
+                    HorizontalSpray();
+                    break;
+                case "Minion Swarm":
+                    MinionSwarm();
+                    break;
+                case "Super Claw Melee":
+                    SuperClawMelee();
+                    break;
+                default:
+                    break;
+            }
+            _isDone[user] = true;
         }
 
         return (null, null);
@@ -76,12 +88,12 @@ public class HawkBossAttackPhaseOne : StateBlock
 
     public override void OnEnd(EnemyController user, GameObject target)
     {
-
+        _isDone.Remove(user);
     }
 
     private void BasicAttack(EnemyController user)
     {
-        Debug.Log("Basic attack");
+        Debug.Log("Basic attack " + WeightTable["Basic Attack"]);
 
         for (int i = 0; i < 3; i++)
         {
@@ -95,6 +107,16 @@ public class HawkBossAttackPhaseOne : StateBlock
     void HorizontalSpray()
     {
         Debug.Log("Horizontal Spray " + WeightTable["Horizontal Spray"]);
+    }
+
+    private void MinionSwarm()
+    {
+        Debug.Log("Minion Swarm " + WeightTable["Minion Swarm"]);
+    }
+
+    private void SuperClawMelee()
+    {
+        Debug.Log("Super Claw Melee " + WeightTable["Super Claw Melee"]);
     }
 
     private int GetWeightedValue()
