@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_AttackManual : StateBlock
+public class AI_ANIM_SetTrigger : StateBlock
 {
-    [SerializeField] private string _attackName;
+    [SerializeField] private string _name;
 
     private Dictionary<EnemyController, bool> _isDone;
 
-    // Manually disables attack with the name _attackName in the Attacks child object of user
     public override void OnStart(EnemyController user, GameObject target)
     {
         if (_isDone == null) _isDone = new Dictionary<EnemyController, bool>();
@@ -20,9 +19,7 @@ public class AI_AttackManual : StateBlock
     {
         if (!_isDone[user])
         {
-            GameObject atk = user.transform.Find($"Model/Attacks/{_attackName}").gameObject;
-            atk.SetActive(false);
-            _isDone[user] = true;
+            user.AnimSetTrigger(_name);
         }
 
         return (null, null);
