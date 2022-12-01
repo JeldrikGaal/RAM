@@ -7,6 +7,16 @@ public class HawkBossManager : MonoBehaviour
 {
     [SerializeField] private EnemyController _controller;
 
+    [SerializeField] private HawkBossAttackPhaseOne _state;
+
+
+    [SerializeField] private GameObject _egg;
+
+
+    [SerializeField] private Transform _shootPoint;
+
+    [SerializeField] private float _shootSpeed;
+
     private Dictionary<string, int> _weightedAttacks = new Dictionary<string, int>()
     {
         {"Basic Attack", 90},
@@ -14,6 +24,14 @@ public class HawkBossManager : MonoBehaviour
         {"Minion Swarm", 0},
         {"Super Claw Melee", 0}
     };
+
+    private GameObject _player;
+
+    private Rigidbody _rb;
+
+    private Vector3 _moveInput;
+
+    private bool _canAttack;
 
     // [SerializeField] private List<WeightedAttacks> _weightedAttacks;
 
@@ -32,13 +50,24 @@ public class HawkBossManager : MonoBehaviour
     [SerializeField] private bool _stageTwo;
     [SerializeField] private bool _stageThree;
 
-    [SerializeField] private bool attacking;
+    [SerializeField] private bool _attacking;
+    [SerializeField] private bool _flee;
+    [SerializeField] private bool _chase;
+
+    [SerializeField] private float _fleeTimer;
+
 
     // Start is called before the first frame update
     void Start()
     {
         _phaseOne = true;
         _stageOne = true;
+
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _rb = GetComponent<Rigidbody>();
+        _state.ShootSpeed = _shootSpeed;
+        _state.ShootPoint = _shootPoint;
+        _state.Egg = _egg;
     }
 
     // Update is called once per frame
@@ -49,30 +78,24 @@ public class HawkBossManager : MonoBehaviour
             #region PhaseOne
             if (_stageOne)
             {
-                _weightedAttacks["Basic Attack"] = 90;
-                _weightedAttacks["Horizontal Spray"] = 10;
+                _state.WeightTable["Basic Attack"] = 90;
+                _state.WeightTable["Horizontal Spray"] = 10;
 
                 ChangeToStageTwo();
-
-                Attack();
             }
             else if (_stageTwo)
             {
-                _weightedAttacks["Basic Attack"] = 65;
-                _weightedAttacks["Horizontal Spray"] = 35;
+                _state.WeightTable["Basic Attack"] = 65;
+                _state.WeightTable["Horizontal Spray"] = 35;
 
                 ChangeToStageThree();
-
-                Attack();
             }
             else if (_stageThree)
             {
-                _weightedAttacks["Basic Attack"] = 35;
-                _weightedAttacks["Horizontal Spray"] = 65;
+                _state.WeightTable["Basic Attack"] = 35;
+                _state.WeightTable["Horizontal Spray"] = 65;
 
                 ChangeToStageOne();
-
-                Attack();
             }
             #endregion
         }
@@ -81,33 +104,27 @@ public class HawkBossManager : MonoBehaviour
             #region PhaseTwo
             if (_stageOne)
             {
-                _weightedAttacks["Basic Attack"] = 70;
-                _weightedAttacks["Horizontal Spray"] = 10;
-                _weightedAttacks["Minion Swarm"] = 20;
+                _state.WeightTable["Basic Attack"] = 70;
+                _state.WeightTable["Horizontal Spray"] = 10;
+                _state.WeightTable["Minion Swarm"] = 20;
 
                 ChangeToStageTwo();
-
-                Attack();
             }
             else if (_stageTwo)
             {
-                _weightedAttacks["Basic Attack"] = 45;
-                _weightedAttacks["Horizontal Spray"] = 15;
-                _weightedAttacks["Minion Swarm"] = 40;
+                _state.WeightTable["Basic Attack"] = 45;
+                _state.WeightTable["Horizontal Spray"] = 15;
+                _state.WeightTable["Minion Swarm"] = 40;
 
                 ChangeToStageThree();
-
-                Attack();
             }
             else if (_stageThree)
             {
-                _weightedAttacks["Basic Attack"] = 25;
-                _weightedAttacks["Horizontal Spray"] = 10;
-                _weightedAttacks["Minion Swarm"] = 65;
+                _state.WeightTable["Basic Attack"] = 25;
+                _state.WeightTable["Horizontal Spray"] = 10;
+                _state.WeightTable["Minion Swarm"] = 65;
 
                 ChangeToStageOne();
-
-                Attack();
             }
             #endregion
         }
@@ -116,37 +133,55 @@ public class HawkBossManager : MonoBehaviour
             #region PhaseThree
             if (_stageOne)
             {
-                _weightedAttacks["Basic Attack"] = 55;
-                _weightedAttacks["Horizontal Spray"] = 10;
-                _weightedAttacks["Minion Swarm"] = 10;
-                _weightedAttacks["Super Claw Melee"] = 25;
+                _state.WeightTable["Basic Attack"] = 55;
+                _state.WeightTable["Horizontal Spray"] = 10;
+                _state.WeightTable["Minion Swarm"] = 10;
+                _state.WeightTable["Super Claw Melee"] = 25;
 
                 ChangeToStageTwo();
-
-                Attack();
             }
             else if (_stageTwo)
             {
-                _weightedAttacks["Basic Attack"] = 25;
-                _weightedAttacks["Horizontal Spray"] = 10;
-                _weightedAttacks["Minion Swarm"] = 30;
-                _weightedAttacks["Super Claw Melee"] = 35;
+                _state.WeightTable["Basic Attack"] = 25;
+                _state.WeightTable["Horizontal Spray"] = 10;
+                _state.WeightTable["Minion Swarm"] = 30;
+                _state.WeightTable["Super Claw Melee"] = 35;
 
                 ChangeToStageThree();
-
-                Attack();
             }
             else if (_stageThree)
             {
-                _weightedAttacks["Basic Attack"] = 10;
-                _weightedAttacks["Horizontal Spray"] = 10;
-                _weightedAttacks["Minion Swarm"] = 25;
-                _weightedAttacks["Super Claw Melee"] = 65;
-
-                Attack();
+                _state.WeightTable["Basic Attack"] = 10;
+                _state.WeightTable["Horizontal Spray"] = 10;
+                _state.WeightTable["Minion Swarm"] = 25;
+                _state.WeightTable["Super Claw Melee"] = 65;
             }
             #endregion
         }
+
+        // if (!_flee)
+        // {
+        //     transform.LookAt(_player.transform);
+        // }
+
+        // Chase();
+        // Flee();
+
+        // if (_chase || _flee)
+        // {
+        //     _canAttack = false;
+        // }
+        // else
+        // {
+        //     _canAttack = true;
+        // }
+
+        // if (!_chase && !_flee)
+        // {
+        //     _controller.MoveInput = Vector3.zero;
+        // }
+
+        // Attack();
     }
 
     private void ChangeToStageOne()
@@ -191,7 +226,7 @@ public class HawkBossManager : MonoBehaviour
     private int GetWeightedValue()
     {
         // Gets all the different weights and adds them to a sepparate array
-        int[] weights = _weightedAttacks.Values.ToArray();
+        int[] weights = _state.WeightTable.Values.ToArray();
 
         // Gets a random weight
         int randomWeight = Random.Range(0, weights.Sum());
@@ -246,60 +281,108 @@ public class HawkBossManager : MonoBehaviour
         return low;
     }
 
-    private void Attack()
-    {
-        if (!attacking)
-        {
-            attacking = true;
-            string[] attacks = _weightedAttacks.Keys.ToArray();
+    // private void Attack()
+    // {
+    //     if (!_attacking && _canAttack)
+    //     {
+    //         _attacking = true;
+    //         string[] attacks = _state.WeightTable.Keys.ToArray();
 
-            var attack = attacks[GetWeightedValue()];
+    //         var attack = attacks[GetWeightedValue()];
 
-            switch (attack)
-            {
-                case "Basic Attack":
-                    StartCoroutine(BasicAttack());
-                    break;
-                case "Horizontal Spray":
-                    StartCoroutine(HorizontalSpray());
-                    break;
-                case "Minion Swarm":
-                    StartCoroutine(MinionSwarm());
-                    break;
-                case "Super Claw Melee":
-                    StartCoroutine(SuperClawMelee());
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+    //         switch (attack)
+    //         {
+    //             case "Basic Attack":
+    //                 StartCoroutine(BasicAttack());
+    //                 break;
+    //             case "Horizontal Spray":
+    //                 StartCoroutine(HorizontalSpray());
+    //                 break;
+    //             case "Minion Swarm":
+    //                 StartCoroutine(MinionSwarm());
+    //                 break;
+    //             case "Super Claw Melee":
+    //                 StartCoroutine(SuperClawMelee());
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //     }
+    // }
+
+    // private void Chase()
+    // {
+    //     int distance;
+    //     if (_phaseOne)
+    //     {
+    //         distance = 15;
+    //     }
+    //     else
+    //     {
+    //         distance = 10;
+    //     }
+
+    //     if (Vector3.Distance(transform.position, _player.transform.position) > distance && !_attacking && !_flee)
+    //     {
+    //         _controller.MoveInput = (_player.transform.position - transform.position).normalized;
+    //         // print(_rb.velocity);
+    //         _chase = true;
+    //     }
+    //     else
+    //     {
+    //         _chase = false;
+    //     }
+    // }
+
+    // private void Flee()
+    // {
+    //     if (_flee)
+    //     {
+    //         _controller.MoveInput = -(_player.transform.position - transform.position).normalized;
+    //     }
+    // }
 
     private IEnumerator BasicAttack()
     {
         print("Basic attack");
-        yield return new WaitForSeconds(1);
-        attacking = false;
+
+        for (int i = 0; i < 3; i++)
+        {
+            var egg = Instantiate(_egg, _shootPoint.position, Quaternion.identity);
+            egg.GetComponent<Rigidbody>().AddForce(transform.forward * _shootSpeed);
+            Destroy(egg, 6);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(2);
+        _attacking = false;
     }
 
     private IEnumerator HorizontalSpray()
     {
         print("Horizontal Spray");
         yield return new WaitForSeconds(1);
-        attacking = false;
+        _attacking = false;
+
     }
 
     private IEnumerator MinionSwarm()
     {
         print("Minion Swarm");
         yield return new WaitForSeconds(1);
-        attacking = false;
     }
 
     private IEnumerator SuperClawMelee()
     {
         print("Super Claw Melee");
         yield return new WaitForSeconds(1);
-        attacking = false;
+
+    }
+
+    private IEnumerator ToggleFlee()
+    {
+        if (!_phaseOne && !_stageOne)
+        {
+            yield return new WaitForSeconds(1);
+        }
     }
 }
