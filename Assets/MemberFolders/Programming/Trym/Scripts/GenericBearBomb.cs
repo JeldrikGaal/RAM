@@ -5,11 +5,12 @@ using UnityEngine;
 public class GenericBearBomb : MonoBehaviour
 {
     [SerializeField] GameObject _effect;
+    [SerializeField] Rigidbody _rigid;
     [SerializeField] float _fuse;
     [SerializeField] Vector3 _effectPosMod;
     
-    
-
+    public Rigidbody Rb { get; }
+    public bool HitCheck { get; }
     private void OnCollisionEnter(Collision collision)
     {
         // activates the timer after hitting the ground.
@@ -43,9 +44,9 @@ public class GenericBearBomb : MonoBehaviour
     /// </summary>
     /// <param name="effect"></param>
     /// <param name="fuseTime"></param>
-    public void SetProperties(GameObject effect,float fuseTime)
+    public void SetProperties(float fuseTime)
     {
-        _effect = effect;
+        
         _fuse = fuseTime;
     }
 
