@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.strings.bank
   m_EditorClassIdentifier: 
-  Path: Assets/FMODBanks/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638053103379715506
-  FileSizes:
-  - Name: 
-    Value: 844
+  Path: Assets/FMODBanks/Desktop/Music.bank
+  Name: Music
+  StudioPath: bank:/Music
+  lastModified: 638053967105266849
+  FileSizes: []
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -32,21 +30,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: -2794864781011448091}
-  - {fileID: 4614709394130526504}
-  - {fileID: 2139570515127743297}
-  - {fileID: 2570242255734266757}
-  - {fileID: 8857135745436329543}
-  EditorEvents: []
-  EditorParameters: []
-  MasterBanks:
-  - {fileID: 2139570515127743297}
-  StringsBanks:
-  - {fileID: -2794864781011448091}
-  cacheTime: 638053103379725481
-  cacheVersion: 131593
---- !u!114 &2139570515127743297
+  Path: Assets/FMODBanks/Desktop/Ambience.bank
+  Name: Ambience
+  StudioPath: bank:/Ambience
+  lastModified: 638053967105226955
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-2541960344811243190
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,10 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.bank
   m_EditorClassIdentifier: 
-  Path: Assets/FMODBanks/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638053103379715506
+  Path: Assets/FMODBanks/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 638053967105310258
   FileSizes: []
   Exists: 1
 --- !u!114 &2570242255734266757
@@ -76,13 +66,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Music.bank
   m_EditorClassIdentifier: 
-  Path: Assets/FMODBanks/Desktop/Music.bank
-  Name: Music
-  StudioPath: bank:/Music
-  lastModified: 638053103379725481
-  FileSizes: []
-  Exists: 1
---- !u!114 &4614709394130526504
+  EditorBanks:
+  - {fileID: 985654875919126122}
+  - {fileID: -4323036999956825638}
+  - {fileID: 6536087849998050708}
+  - {fileID: -5904905547963399252}
+  - {fileID: -2541960344811243190}
+  EditorEvents: []
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: 6536087849998050708}
+  StringsBanks:
+  - {fileID: 985654875919126122}
+  cacheTime: 638053967105310258
+  cacheVersion: 131593
+--- !u!114 &985654875919126122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,11 +92,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Ambience.bank
   m_EditorClassIdentifier: 
-  Path: Assets/FMODBanks/Desktop/Ambience.bank
-  Name: Ambience
-  StudioPath: bank:/Ambience
-  lastModified: 638053103379705530
-  FileSizes: []
+  Path: Assets/FMODBanks/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638053967105256875
+  FileSizes:
+  - Name: 
+    Value: 844
   Exists: 1
 --- !u!114 &8857135745436329543
 MonoBehaviour:
@@ -112,9 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/SFX.bank
   m_EditorClassIdentifier: 
-  Path: Assets/FMODBanks/Desktop/SFX.bank
-  Name: SFX
-  StudioPath: bank:/SFX
-  lastModified: 638053103379715506
+  Path: Assets/FMODBanks/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638053967105236927
   FileSizes: []
   Exists: 1
