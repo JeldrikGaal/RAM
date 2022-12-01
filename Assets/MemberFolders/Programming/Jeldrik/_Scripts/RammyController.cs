@@ -82,7 +82,7 @@ public class RammyController : MonoBehaviour
     [Header("Player Stats")]
     // Player Values
     [SerializeField] private float Health;
-    [SerializeField] private float MaxHealth;
+    [field: SerializeField] private float MaxHealth { get; set; }
     [SerializeField] private float HealPercentage;
 
     // Speed Modifier 
