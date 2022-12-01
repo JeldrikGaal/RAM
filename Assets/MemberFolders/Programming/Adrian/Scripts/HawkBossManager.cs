@@ -6,6 +6,7 @@ using UnityEngine;
 public class HawkBossManager : MonoBehaviour
 {
     [SerializeField] private EnemyController _controller;
+    [SerializeField] private EnemyTesting _testingScript;
 
     // [SerializeField] private HawkBossAttackPhaseOne _state;
 
@@ -206,7 +207,7 @@ public class HawkBossManager : MonoBehaviour
             if (_sprayTimer < 0)
             {
                 var egg = Instantiate(_egg, _shootPoint.position, Quaternion.identity);
-                egg.GetComponent<Rigidbody>().AddForce(transform.forward * _shootSpeed);
+                egg.GetComponent<Rigidbody>().AddForce(transform.forward * (_shootSpeed * 1.5f));
                 Destroy(egg, 6);
 
                 _sprayTimer += _sprayShotDelay;
@@ -217,9 +218,11 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageOne()
     {
-        if (_controller.Health < 10)
+        if (_testingScript._health < 10)
         {
-            _controller.Health = _controller.MaxHealth;
+            transform.GetChild(0).GetComponent<HealthBar>().UpdateHealthBar((_controller.MaxHealth - _testingScript._health) / 100);
+            print(_controller.MaxHealth - _testingScript._health);
+            _testingScript._health = _controller.MaxHealth;
             _stageThree = false;
             _stageOne = true;
 
@@ -238,7 +241,7 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageTwo()
     {
-        if (_controller.Health < 90)
+        if (_testingScript._health < 90)
         {
             _stageOne = false;
             _stageTwo = true;
@@ -247,7 +250,7 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageThree()
     {
-        if (_controller.Health < 40)
+        if (_testingScript._health < 40)
         {
             _stageTwo = false;
             _stageThree = true;
@@ -393,16 +396,18 @@ public class HawkBossManager : MonoBehaviour
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 90, transform.localEulerAngles.z);
 
         _sprayTimer += _sprayShotDelay;
-        print("Horizontal Spray");
+        // print("Horizontal Spray");
         yield return new WaitForSeconds(_realFinalRotation / _sprayRotationSpeed);
         _spraying = false;
+
+        yield return new WaitForSeconds(2);
         _attacking = false;
 
     }
 
     private IEnumerator MinionSwarm()
     {
-        print("Minion Swarm");
+        // print("Minion Swarm");
         for (int i = 0; i < _enemyWaveAmount; i++)
         {
             for (int j = 0; j < _spawnPoints.Length; j++)
@@ -417,7 +422,7 @@ public class HawkBossManager : MonoBehaviour
 
     private IEnumerator SuperClawMelee()
     {
-        print("Super Claw Melee");
+        // print("Super Claw Melee");
         yield return new WaitForSeconds(1);
 
     }
