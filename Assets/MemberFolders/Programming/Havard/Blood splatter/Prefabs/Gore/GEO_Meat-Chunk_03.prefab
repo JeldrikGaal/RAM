@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8126950187846413733}
   - component: {fileID: 2945347816356749347}
   - component: {fileID: 2945347816356749344}
+  - component: {fileID: -5457865741195858421}
+  - component: {fileID: -5119990224530416671}
   m_Layer: 6
   m_Name: GEO_Meat-Chunk_03
   m_TagString: Untagged
@@ -114,3 +116,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.059485834, y: 0.07675864, z: 0.04582165}
   m_Center: {x: 0.0023201983, y: -0.002337074, z: -0.0034495173}
+--- !u!114 &-5457865741195858421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2945347816356749357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5e4dc897769d24082955ccbea419ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SplatObject: {fileID: 0}
+  HasSmudge: 0
+  Smudge: {fileID: 0}
+  StartPos: {x: 0, y: 0, z: 0}
+  DoubleArrayScript: {fileID: 0}
+--- !u!114 &-5119990224530416671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2945347816356749357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 812b3cea168e472479de2e0ef2a4e2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: {x: 0, y: 2}
+  angularVelocity: {x: 0, y: 360}
+  randomOffsetValue: 1
+  awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
