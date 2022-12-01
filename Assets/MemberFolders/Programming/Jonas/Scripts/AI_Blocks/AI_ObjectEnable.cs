@@ -21,7 +21,7 @@ public class AI_ObjectEnable : StateBlock
     {
         if (!_isDone[user])
         {
-            user.transform.Find(_childName).gameObject.SetActive(_enable);
+            user.transform.Find("Model/"+_childName).gameObject.SetActive(_enable);
         }
 
         return (null, null);
