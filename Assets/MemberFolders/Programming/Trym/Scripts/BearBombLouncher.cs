@@ -20,23 +20,33 @@ public class BearBombLouncher : MonoBehaviour
         var rigid = bomb.Rb;
 
         float distance = Vector2.Distance(target2D, origin2D);
+        float relativePositionInSequence;
 
-        while (!bomb.HitCheck )
+        while (!bomb.HitCheck)
         {
             currentPosition2D = new(bomb.Rb.position.x, bomb.Rb.position.z);
 
 
 
-            var relativepositionInSequence = (Vector2.Distance(origin2D, currentPosition2D) / distance);
+            relativePositionInSequence = (Vector2.Distance(origin2D, currentPosition2D) / distance);
 
-            Vector2 newPos = currentPosition2D + dir *( relativeSpeed.Evaluate(relativepositionInSequence) * speed * Time.deltaTime);
-            float newHeight = originHeight + (relativeTrajectory.Evaluate(relativepositionInSequence) * distance);
-            rigid.MovePosition(new Vector3(newPos.x,newHeight,newPos.y));
-
-            if (relativepositionInSequence > 1)
+            if (relativePositionInSequence <= 1)
+            {
+                Vector2 newPos = currentPosition2D + dir * (relativeSpeed.Evaluate(relativePositionInSequence) * speed * Time.deltaTime);
+                float newHeight = originHeight + (relativeTrajectory.Evaluate(relativePositionInSequence) * distance);
+                rigid.MovePosition(new Vector3(newPos.x, newHeight, newPos.y)); 
+            }
+            else
             {
                 rigid.isKinematic = false;
+                if (rigid.velocity.magnitude > 10)
+                {
+                    rigid.velocity = rigid.velocity / 2;
+                }
+
             }
+
+            
 
             if (bomb.transform.position.y <= -10)
             {
@@ -45,9 +55,9 @@ public class BearBombLouncher : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
-
+        rigid.velocity = Vector3.zero;
         rigid.isKinematic = false;
-
+        rigid.velocity = Vector3.zero;
     }
 
     // Start is called before the first frame update
