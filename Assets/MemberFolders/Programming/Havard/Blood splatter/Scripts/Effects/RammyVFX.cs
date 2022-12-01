@@ -160,43 +160,43 @@ public class RammyVFX : MonoBehaviour
         _goreSmudgeArrayPool.CurrentArray2 = 0;
 
         _skullArray.Array1 = new GameObject[(int) _skullArrayAmount.x];
-        _skullArray.Array1 = new GameObject[(int) _skullArrayAmount.y];
+        _skullArray.Array2 = new GameObject[(int) _skullArrayAmount.y];
         _skullArray.FullArray1 = false;
         _skullArray.FullArray2 = false;
         _skullArray.CurrentArray1 = 0;
         _skullArray.CurrentArray2 = 0;
         _heartArray.Array1 = new GameObject[(int) _heartArrayAmount.x];
-        _heartArray.Array1 = new GameObject[(int) _heartArrayAmount.y];
+        _heartArray.Array2 = new GameObject[(int) _heartArrayAmount.y];
         _heartArray.FullArray1 = false;
         _heartArray.FullArray2 = false;
         _heartArray.CurrentArray1 = 0;
         _heartArray.CurrentArray2 = 0;
         _intestineArray.Array1 = new GameObject[(int) _intestineArrayAmount.x];
-        _intestineArray.Array1 = new GameObject[(int) _intestineArrayAmount.y];
+        _intestineArray.Array2 = new GameObject[(int) _intestineArrayAmount.y];
         _intestineArray.FullArray1 = false;
         _intestineArray.FullArray2 = false;
         _intestineArray.CurrentArray1 = 0;
         _intestineArray.CurrentArray2 = 0;
         _spineArray.Array1 = new GameObject[(int) _spineArrayAmount.x];
-        _spineArray.Array1 = new GameObject[(int) _spineArrayAmount.y];
+        _spineArray.Array2 = new GameObject[(int) _spineArrayAmount.y];
         _spineArray.FullArray1 = false;
         _spineArray.FullArray2 = false;
         _spineArray.CurrentArray1 = 0;
         _spineArray.CurrentArray2 = 0;
         _brainArray.Array1 = new GameObject[(int) _brainArrayAmount.x];
-        _brainArray.Array1 = new GameObject[(int) _brainArrayAmount.y];
+        _brainArray.Array2 = new GameObject[(int) _brainArrayAmount.y];
         _brainArray.FullArray1 = false;
         _brainArray.FullArray2 = false;
         _brainArray.CurrentArray1 = 0;
         _brainArray.CurrentArray2 = 0;
         _eyeballArray.Array1 = new GameObject[(int) _eyeballArrayAmount.x];
-        _eyeballArray.Array1 = new GameObject[(int) _eyeballArrayAmount.y];
+        _eyeballArray.Array2 = new GameObject[(int) _eyeballArrayAmount.y];
         _eyeballArray.FullArray1 = false;
         _eyeballArray.FullArray2 = false;
         _eyeballArray.CurrentArray1 = 0;
         _eyeballArray.CurrentArray2 = 0;
         _meatArray.Array1 = new GameObject[(int) _meatArrayAmount.x];
-        _meatArray.Array1 = new GameObject[(int) _meatArrayAmount.y];
+        _meatArray.Array2 = new GameObject[(int) _meatArrayAmount.y];
         _meatArray.FullArray1 = false;
         _meatArray.FullArray2 = false;
         _meatArray.CurrentArray1 = 0;
@@ -336,14 +336,26 @@ public class RammyVFX : MonoBehaviour
                 if (!arrayScript.FullArray2)
                 {
                     gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
-                    arrayScript.AddPoint(gorePiece);
                 // If they have filled up, we reuse the ones that exist
                 } else if (arrayScript.FullArray2)
                 {
                     gorePiece = arrayScript.NextToTake;
+                    gorePiece.transform.position = enemy.transform.position;
 
+                    if (gorePiece.GetComponent<RagdollVelocity>())
+                    {
+                        // This will only affect the ragdolls
+                    } else
+                    {
+                        // This resets all the components
+                        gorePiece.GetComponent<Rigidbody>().isKinematic = false;
+                        gorePiece.GetComponent<Collider>().enabled = true;
+                        var goreBlood = gorePiece.GetComponent<GoreBlood>();
+                        goreBlood.HasSmudge = false;
+                        goreBlood.Smudge = null;
+                    }
                 }
-
+                arrayScript.AddPoint(gorePiece);
             // If the array script does not exist, we do simple things with it
             } else if(arrayScript == null)
             {
@@ -366,9 +378,9 @@ public class RammyVFX : MonoBehaviour
             } else
             {
                 // Adds the velocity script:
-                var gorePieceVel = gorePiece.AddComponent<InitVelocity>();
+                var gorePieceVel = gorePiece.GetComponent<InitVelocity>();
                 // Adds the blood splat creator:
-                var bloodScript = gorePiece.AddComponent<GoreBlood>();
+                var bloodScript = gorePiece.GetComponent<GoreBlood>();
 
                 // Just sets the splat prefab to be the one we want:
                 bloodScript.SplatObject = _gorePrefab;
@@ -384,7 +396,6 @@ public class RammyVFX : MonoBehaviour
                 gorePieceVel.CalcDirLeft = bloodDir1;
                 gorePieceVel.CalcDirRight = bloodDir2;
             }
-
         }
     }
 
