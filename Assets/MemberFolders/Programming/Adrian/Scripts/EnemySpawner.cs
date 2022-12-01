@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField] private bool _spawnMultipleTimes;
     public int AmountOfEnemiesToSpawn;
 
     public float WaitDurationBetweenEnemies;
@@ -30,7 +31,10 @@ public class EnemySpawner : MonoBehaviour
         if (other.tag == "Player")
         {
             StartCoroutine(SpawnEnemies(5, WaitDurationBetweenEnemies));
-            // Destroy(GetComponent<Collider>());
+            if (!_spawnMultipleTimes)
+            {
+                Destroy(GetComponent<Collider>());
+            }
         }
     }
 }
