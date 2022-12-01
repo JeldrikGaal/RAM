@@ -20,7 +20,7 @@ public class AI_AttackManual : StateBlock
     {
         if (!_isDone[user])
         {
-            GameObject atk = user.transform.Find($"Attacks/{_attackName}").gameObject;
+            GameObject atk = user.transform.Find($"Model/Attacks/{_attackName}").gameObject;
             atk.SetActive(false);
             _isDone[user] = true;
         }

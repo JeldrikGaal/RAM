@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4959159732354988573}
   - component: {fileID: 5986387958965610135}
   - component: {fileID: 6262216544616049796}
+  - component: {fileID: -3602800341759544703}
+  - component: {fileID: -5437445611650669231}
   m_Layer: 6
   m_Name: GEO_Eyeball_01
   m_TagString: Untagged
@@ -114,3 +116,40 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.15356985
   m_Center: {x: -0.000000007450581, y: -0.000000014901165, z: 0.00000008195641}
+--- !u!114 &-3602800341759544703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6904728445656177608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 812b3cea168e472479de2e0ef2a4e2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: {x: 0, y: 2}
+  angularVelocity: {x: 0, y: 360}
+  randomOffsetValue: 1
+  awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
+--- !u!114 &-5437445611650669231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6904728445656177608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5e4dc897769d24082955ccbea419ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SplatObject: {fileID: 0}
+  HasSmudge: 0
+  Smudge: {fileID: 0}
+  StartPos: {x: 0, y: 0, z: 0}
+  DoubleArrayScript: {fileID: 0}
