@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTesting : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
 
+    [HideInInspector]
+    public Vector3 MoveInput;
 
-    [SerializeField] public float _health;
+    public float MoveSpeed;
+    public float AttackDamage;
+    public float MaxHealth;
+    public float Health;
 
     [Header("Death Explosion Values")]
     [SerializeField] private GameObject[] _deathPieces;
@@ -22,8 +27,6 @@ public class EnemyTesting : MonoBehaviour
     [SerializeField] public BuildSceneUtility _utilScript;
 
     [HideInInspector] public float StunDuration;
-    [HideInInspector] public bool Stunned;
-    [HideInInspector] public bool Pulled;
 
     [HideInInspector] public Vector3 PullPoint;
 
@@ -32,57 +35,58 @@ public class EnemyTesting : MonoBehaviour
     [SerializeField] private float _bloodSize = 1;
 
 
-    private float _startingHealth;
     private HealthBar _healthBar;
     private PiecesManager _piecesManager;
 
     private Vector3 _lastIncomingHit;
 
+    private Rigidbody _rb;
+    private Animator _anim;
+    private int _animMoveHash;
 
+    private bool _doDie;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
+        _rb = GetComponent<Rigidbody>();
+        _anim = GetComponent<Animator>();
+        _animMoveHash = Animator.StringToHash("MoveSpeed");
+
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
-        _startingHealth = _health;
-
-        // Records the default speed
-        if (GetComponent<EnemyController>()) _defaultSpeed = GetComponent<EnemyController>().MoveSpeed;
+        Health = MaxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (_health <= 0)
+        _rb.velocity = MoveInput * MoveSpeed;
+        _anim.SetFloat(_animMoveHash, _rb.velocity.magnitude);
+
+        if (MoveInput != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.z));
+
+        if (_doDie)
         {
             Die();
         }
 
-        if (Stunned)
+    }
+
+    public void Stun()
+    {
+        StartCoroutine(Stun(StunDuration));
+    }
+
+    public void Pull()
+    {
+        MoveToPullPoint(PullPoint);
+
+        gameObject.layer = 23;
+
+        if (Vector3.Distance(transform.position, PullPoint) < 0.5f)
         {
-            // Starts the coroutine to stun the enemy
-            StartCoroutine(Stun(StunDuration));
-
-            // Sets the bool to false so the enemy only gets stunned once
-            Stunned = false;
+            gameObject.layer = 24;
         }
-
-        if (Pulled)
-        {
-            MoveToPullPoint(PullPoint);
-
-            gameObject.layer = 23;
-
-            if (Vector3.Distance(transform.position, PullPoint) < 0.5f)
-            {
-                Pulled = false;
-                gameObject.layer = 24;
-            }
-        }
-
     }
 
     /// <summary>
@@ -93,16 +97,17 @@ public class EnemyTesting : MonoBehaviour
     public bool TakeDamage(float damage, Vector3 hitDirection)
     {
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
-        _health -= damage;
-        _healthBar.UpdateHealthBar(-(damage / _startingHealth));
+        Health -= damage;
+        _healthBar.UpdateHealthBar(-(damage / MaxHealth));
         _lastIncomingHit = hitDirection;
         if (_bloodSmoke != null)
         {
             var smokeBlood = Instantiate(_bloodSmoke, transform);
             smokeBlood.transform.localScale *= _bloodSize;
         }
-        if (_health <= 0)
+        if (Health <= 0)
         {
+            _doDie = true;
             return true;
         }
 
@@ -157,4 +162,28 @@ public class EnemyTesting : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, point, 2 * Time.deltaTime);
     }
+
+    #region Animation
+
+    public void AnimSetFloat(string name, float value)
+    {
+        _anim.SetFloat(name, value);
+    }
+
+    public void AnimSetBool(string name, bool value)
+    {
+        _anim.SetBool(name, value);
+    }
+
+    public void AnimSetTrigger(string name)
+    {
+        _anim.SetTrigger(name);
+    }
+
+    public bool AnimGetState(string name)
+    {
+        return _anim.GetCurrentAnimatorStateInfo(0).IsName(name);
+    }
+
+    #endregion
 }

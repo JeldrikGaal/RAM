@@ -19,6 +19,7 @@ public class AI_ANIM_SetTrigger : StateBlock
     {
         if (!_isDone[user])
         {
+            _isDone[user] = true;
             user.AnimSetTrigger(_name);
         }
 

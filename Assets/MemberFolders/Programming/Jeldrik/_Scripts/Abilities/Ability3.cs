@@ -118,13 +118,13 @@ public class Ability3 : Abilities
             Points[closestPoint] = false;
 
 
-            enemy.GetComponent<EnemyTesting>().Pulled = true;
-            enemy.GetComponent<EnemyTesting>().PullPoint = closestPoint;
+            enemy.GetComponent<EnemyController>().Pull();
+            enemy.GetComponent<EnemyController>().PullPoint = closestPoint;
 
-            if (enemy.GetComponent<EnemyTesting>() != null)
+            if (enemy.GetComponent<EnemyController>() != null)
             {
                 // Makes the enemy take damage
-                enemy.GetComponent<EnemyTesting>().TakeDamage(_damage * _controller.AppliedDamageModifier, Vector3.up);
+                enemy.GetComponent<EnemyController>().TakeDamage(_damage * _controller.AppliedDamageModifier, Vector3.up);
 
                 // Tells the VFX script to do something
                 GetComponent<RammyVFX>().Ab3Attack(enemy, closestPoint);
@@ -134,8 +134,8 @@ public class Ability3 : Abilities
             if (Upgraded)
             {
                 // Pass the stun duration and the stun bool to the enemy
-                enemy.GetComponent<EnemyTesting>().StunDuration = _stunDuration;
-                enemy.GetComponent<EnemyTesting>().Stunned = true;
+                enemy.GetComponent<EnemyController>().StunDuration = _stunDuration;
+                enemy.GetComponent<EnemyController>().Stun();
             }
         }
 

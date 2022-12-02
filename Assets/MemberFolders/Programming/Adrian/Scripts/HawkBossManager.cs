@@ -6,7 +6,7 @@ using UnityEngine;
 public class HawkBossManager : MonoBehaviour
 {
     [SerializeField] private EnemyController _controller;
-    [SerializeField] private EnemyTesting _testingScript;
+    [SerializeField] private EnemyController _testingScript;
 
     [SerializeField] private GameObject _model;
 
@@ -313,11 +313,11 @@ public class HawkBossManager : MonoBehaviour
     #region StageChanges
     private void ChangeToStageOne()
     {
-        if (_testingScript._health < 10)
+        if (_testingScript.Health < 10)
         {
-            transform.GetChild(0).GetComponent<HealthBar>().UpdateHealthBar((_controller.MaxHealth - _testingScript._health) / 100);
-            print(_controller.MaxHealth - _testingScript._health);
-            _testingScript._health = _controller.MaxHealth;
+            transform.GetChild(0).GetComponent<HealthBar>().UpdateHealthBar((_controller.MaxHealth - _testingScript.Health) / 100);
+            print(_controller.MaxHealth - _testingScript.Health);
+            _testingScript.Health = _controller.MaxHealth;
             _stageThree = false;
             _stageOne = true;
 
@@ -336,7 +336,7 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageTwo()
     {
-        if (_testingScript._health < 90)
+        if (_testingScript.Health < 90)
         {
             _stageOne = false;
             _stageTwo = true;
@@ -345,7 +345,7 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageThree()
     {
-        if (_testingScript._health < 40)
+        if (_testingScript.Health < 40)
         {
             _stageTwo = false;
             _stageThree = true;

@@ -20,7 +20,7 @@ public class LogDamage : MonoBehaviour
     {
         if (other.gameObject.tag == "enemy")
         {
-            other.gameObject.GetComponent<EnemyTesting>().TakeDamage(5, Vector3.up);
+            other.gameObject.GetComponent<EnemyController>().TakeDamage(5, Vector3.up);
         }
     }
 }

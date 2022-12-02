@@ -26,7 +26,7 @@ public class Splinter : Pooltoy
 
         if (collision.gameObject.HasTag("enemy"))
         {
-            var enemy = collision.gameObject.GetComponent<EnemyTesting>();
+            var enemy = collision.gameObject.GetComponent<EnemyController>();
 
             // damaging the enemy
             enemy.TakeDamage(_properties.Damage, transform.forward);

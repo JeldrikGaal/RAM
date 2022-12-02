@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 1718208062672609078}
   - component: {fileID: 1718208062672609076}
   - component: {fileID: 1718208062672609077}
-  - component: {fileID: 8580261368379498705}
+  - component: {fileID: 6702499235442645787}
   - component: {fileID: 1718208062672609064}
   - component: {fileID: 8593564325294042548}
   m_Layer: 0
@@ -119,7 +119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1718208062672609065
 Transform:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &8580261368379498705
+--- !u!114 &6702499235442645787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,14 +183,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1718208062672609074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
   MoveSpeed: 8
   AttackDamage: 0
-  Health: 0
   MaxHealth: 0
+  Health: 0
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  Stunned: 0
+  Pulled: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  _bloodSmoke: {fileID: 0}
+  _bloodSize: 1
 --- !u!114 &1718208062672609064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +230,7 @@ Animator:
   m_GameObject: {fileID: 1718208062672609074}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 584e8d9a797ac3548ab29a3b01ace73c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

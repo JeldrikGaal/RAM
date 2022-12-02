@@ -22,9 +22,9 @@ public class Ability5 : Abilities
         //Accesses collider's OnColiisonEnter and deals the damage to the enemies
         _externalCollider.GetComponent<ExternalCollider>().CollisionEnter += (Collision collision) =>
         {
-            if (collision.gameObject.GetComponent<EnemyTesting>() && _inProgress)
+            if (collision.gameObject.GetComponent<EnemyController>() && _inProgress)
             {
-                collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(_damage, transform.up);
+                collision.gameObject.GetComponent<EnemyController>().TakeDamage(_damage, transform.up);
                 GetComponent<RammyVFX>().Ab5Attack(collision.gameObject, (_dashDestination - _dashStart).normalized);
                 _controller.AddScreenShake(1f);
             }

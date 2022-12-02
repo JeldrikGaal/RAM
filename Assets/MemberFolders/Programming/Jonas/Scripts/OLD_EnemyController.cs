@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
-public class EnemyController : MonoBehaviour
+public class OLD_EnemyController : MonoBehaviour
 {
     [HideInInspector]
     public Vector3 MoveInput;
