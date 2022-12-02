@@ -12,7 +12,7 @@ public class HawkBossManager : MonoBehaviour
 
     // [SerializeField] private HawkBossAttackPhaseOne _state;
 
-
+    [Header("Basic Attack")]
     [SerializeField] private GameObject _egg;
 
 
@@ -20,6 +20,7 @@ public class HawkBossManager : MonoBehaviour
 
     [SerializeField] private float _shootSpeed;
 
+    [Header("Horizontal Spray")]
     [SerializeField] private float _sprayRotationSpeed;
     [SerializeField] private float _finalRotation;
     private float _realFinalRotation;
@@ -27,11 +28,12 @@ public class HawkBossManager : MonoBehaviour
     [SerializeField] private float _sprayShotDelay;
     [SerializeField] private bool _spraying;
 
+    [Header("Minion Swarm")]
     [SerializeField] private GameObject[] _spawnPoints;
     [SerializeField] private int _enemyWaveAmount;
 
-
-    private bool _meleeAttack;
+    [Header("Super Claw Melee")]
+    [SerializeField] private bool _meleeAttack;
     private bool _rising;
     private bool _crashing;
     private Vector3 _modelStartPos;
@@ -73,6 +75,15 @@ public class HawkBossManager : MonoBehaviour
     //     public int Weight;
     // }
 
+    [Header("Flee")]
+    [SerializeField] private GameObject[] _fleePoints;
+    [SerializeField] private Vector3 _selectedFleePoint;
+    public float DamageTakenRecently;
+    [SerializeField] private bool _risingFlee;
+
+
+
+    [Header("States")]
     [SerializeField] private bool _phaseOne;
     [SerializeField] private bool _phaseTwo;
     [SerializeField] private bool _phaseThree;
@@ -88,6 +99,7 @@ public class HawkBossManager : MonoBehaviour
     [SerializeField] private float _fleeTimer;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +108,8 @@ public class HawkBossManager : MonoBehaviour
 
         _player = GameObject.FindGameObjectWithTag("Player");
         _rb = GetComponent<Rigidbody>();
+
+        GenerateCurve();
         // _state.ShootSpeed = _shootSpeed;
         // _state.ShootPoint = _shootPoint;
         // _state.Egg = _egg;
@@ -212,6 +226,7 @@ public class HawkBossManager : MonoBehaviour
             _controller.MoveInput = Vector3.zero;
         }
 
+        #region UpdateAttacks
         Attack();
 
         if (_spraying)
@@ -234,7 +249,7 @@ public class HawkBossManager : MonoBehaviour
             }
         }
 
-        if (_rising)
+        if (_rising || _risingFlee)
         {
             // Increased the jump timer
             _flightTimer += Time.deltaTime;
@@ -242,27 +257,16 @@ public class HawkBossManager : MonoBehaviour
             // Sets the y position based on the animation curve
             _model.transform.position = new Vector3(transform.position.x, _modelStartPos.y + _modelPosCurve.Evaluate(_flightTimer), transform.position.z);
 
+            // Sets the layer so it doesn't collide with the player
             gameObject.layer = 23;
         }
 
         if (_crashing)
         {
-            // transform.position = Vector3.MoveTowards(transform.position, _crashPos, (_controller.MoveSpeed * 4f) * Time.deltaTime);
-            // _model.transform.position = Vector3.MoveTowards(_model.transform.position, transform.position, (_controller.MoveSpeed * 4f) * Time.deltaTime);
-
-            // if (Vector3.Distance(transform.position, _crashPos) < 0.2f)
-            // {
-            //     _crashing = false;
-            //     gameObject.layer = 0;
-            //     StartCoroutine(WaitAfterMeleeAttack());
-            // }
-
-            float timeToReachTarget = 0.6f;
+            float timeToReachTarget = 0.3f;
             if (_crashTimer < 1)
             {
                 _crashTimer += timeToReachTarget * Time.deltaTime;
-                Instantiate(_crashPath, _model.transform.position, Quaternion.identity);
-                // Instantiate(_crashPath, transform.position, Quaternion.identity);
             }
 
             if (_crashTimer > 0.13f)
@@ -292,12 +296,18 @@ public class HawkBossManager : MonoBehaviour
 
         if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time)
         {
-            _meleeAttack = false;
-            _flightTimer = 0;
-            _crashing = true;
-            _crashPos = _player.transform.position;
-            _rising = false;
+            if (!_flee)
+            {
+                _meleeAttack = false;
+                _flightTimer = 0;
+                _crashing = true;
+                _crashPos = _player.transform.position;
+                _rising = false;
+                print("This should not be happening");
+            }
         }
+
+        #endregion
     }
 
     #region StageChanges
@@ -458,9 +468,31 @@ public class HawkBossManager : MonoBehaviour
 
     private void Flee()
     {
+        if (DamageTakenRecently > 30 && !_flee && !_risingFlee)
+        {
+            StartCoroutine(ToggleFlee());
+            DamageTakenRecently = 0;
+            _risingFlee = true;
+        }
+
+        if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time && _risingFlee)
+        {
+            _risingFlee = false;
+            _flee = true;
+        }
+
         if (_flee)
         {
-            _controller.MoveInput = -(_player.transform.position - transform.position).normalized;
+            float timeToDestination = 0.2f;
+            if (_fleeTimer < 1)
+            {
+                _fleeTimer += timeToDestination * Time.deltaTime;
+
+                transform.position = Vector3.Lerp(transform.position, new Vector3(_selectedFleePoint.x, transform.position.y, _selectedFleePoint.z), _fleeTimer);
+                _model.transform.position = Vector3.Lerp(_model.transform.position, new Vector3(_model.transform.position.x, _selectedFleePoint.y, _model.transform.position.z), _fleeTimer);
+                Instantiate(_crashPath, _model.transform.position, Quaternion.identity);
+                Instantiate(_crashPath, transform.position, Quaternion.identity);
+            }
         }
     }
 
@@ -523,22 +555,7 @@ public class HawkBossManager : MonoBehaviour
 
         _crashTimer = 0;
 
-        // Creates a local keyframe array with 3 values
-        Keyframe[] keyframes = new Keyframe[3];
-
-        // Sets the first keyfram at 0 seconds and 0 value
-        keyframes[0] = new Keyframe(0, 0);
-
-        // Sets the second keyframe to be at half the duration of the jump and at max height
-        keyframes[1] = new Keyframe(_riseTime, _flightHeight);
-
-        // Sets the last keyframe at the full duration of the jump and the value to 0
-        keyframes[2] = new Keyframe(_riseTime + _flightTime, _flightHeight);
-
-        // keyframes[3].outWeight = 0f;
-
-        // Sets the keyframe values to the animation curve
-        _modelPosCurve = new AnimationCurve(keyframes);
+        GenerateCurve();
 
         yield return new WaitForSeconds(1);
     }
@@ -561,7 +578,29 @@ public class HawkBossManager : MonoBehaviour
     {
         if (!_phaseOne && !_stageOne)
         {
+            _selectedFleePoint = _fleePoints[Random.Range(0, _fleePoints.Length)].transform.position;
+            _modelStartPos = _model.transform.position;
             yield return new WaitForSeconds(1);
         }
+    }
+
+    private void GenerateCurve()
+    {
+        // Creates a local keyframe array with 3 values
+        Keyframe[] keyframes = new Keyframe[3];
+
+        // Sets the first keyfram at 0 seconds and 0 value
+        keyframes[0] = new Keyframe(0, 0);
+
+        // Sets the second keyframe to be at half the duration of the jump and at max height
+        keyframes[1] = new Keyframe(_riseTime, _flightHeight);
+
+        // Sets the last keyframe at the full duration of the jump and the value to 0
+        keyframes[2] = new Keyframe(_riseTime + _flightTime, _flightHeight);
+
+        // keyframes[3].outWeight = 0f;
+
+        // Sets the keyframe values to the animation curve
+        _modelPosCurve = new AnimationCurve(keyframes);
     }
 }

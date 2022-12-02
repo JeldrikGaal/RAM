@@ -225,6 +225,8 @@ public class RammyVFX : MonoBehaviour
 
         // Intantiates the blood particle at the correct location and direction
         Instantiate(_bloodParticle, enemy.transform.position, this.transform.rotation);
+
+
     }
     public void NormalAttack(GameObject enemy)
     {
@@ -239,15 +241,14 @@ public class RammyVFX : MonoBehaviour
 
         if (enemy.GetComponent<EnemyTesting>()._health <= 0)
         {
-            SpawnGore(_goreValuesRam[0], _skullObject, enemy, _skullArray, dir);
-            SpawnGore(_goreValuesRam[1], _heartObject, enemy, _heartArray, dir);
-            SpawnGore(_goreValuesRam[2], _intestineObject, enemy, null, dir);
-            SpawnGore(_goreValuesRam[3], _spineObject, enemy, null, dir);
-            SpawnGore(_goreValuesRam[4], _brainObject, enemy, _brainArray, dir);
-            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, _eyeballArray,dir);
-            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, _meatArray, dir);
+            SpawnGore(_goreValuesAb1[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb1[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb1[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb1[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb1[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb1[5], _eyeballObject, enemy, _eyeballArray,dir);
+            SpawnGore(_goreValuesAb1[6], _meatPrefabs[0], enemy, _meatArray, dir);
         }
-
     }
 
     public void Ab3Attack(GameObject enemy, Vector3 point)
@@ -255,6 +256,17 @@ public class RammyVFX : MonoBehaviour
         var dir = (point - enemy.transform.position).normalized;
 
         SpawnBlood(_bloodSizeMinAb3, _bloodSizeMaxAb3, _bloodSpreadAb3, _heightAngleAb3, _bloodAmountAb3, _bloodForceMinAb3, _bloodForceMaxAb3, enemy, dir);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            SpawnGore(_goreValuesAb3[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb3[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb3[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb3[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb3[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb3[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb3[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
     }
 
     public void Ab4Attack(GameObject enemy, Vector3 normal)
@@ -263,12 +275,37 @@ public class RammyVFX : MonoBehaviour
         var dir = -normal;
 
         SpawnBlood(_bloodSizeMinAb4, _bloodSizeMaxAb4, _bloodSpreadAb4, _heightAngleAb4, _bloodAmountAb4, _bloodForceMinAb4, _bloodForceMaxAb4, enemy, dir);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            SpawnGore(_goreValuesAb4[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb4[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb4[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb4[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb4[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb4[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb4[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
     }
 
     public void Ab5Attack(GameObject enemy, Vector3 rotation)
     {
 
         SpawnBlood(_bloodSizeMinAb5, _bloodSizeMaxAb5, _bloodSpreadAb5, _heightAngleAb5, _bloodAmountAb5, _bloodForceMinAb5, _bloodForceMaxAb5, enemy, rotation);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            var dir = (enemy.transform.position - transform.position).normalized;
+
+            SpawnGore(_goreValuesAb5[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb5[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb5[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb5[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb5[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb5[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb5[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
+
     }
 
     #endregion
@@ -277,45 +314,48 @@ public class RammyVFX : MonoBehaviour
     private void SpawnBlood(float bloodSizeMin, float bloodSizeMax, float bloodSpread, float angle, float bloodAmount, float bloodForceMin, float bloodForceMax, GameObject rammedObject, Vector3 direction = default(Vector3))
     {
         // Here we instantiate the bloodprojectiles. The way I have it set up, lets it use one prefab with 15 projectiles inside it.
-        var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position += _spawnHeightOffset * Vector3.up, Quaternion.Euler(new Vector3(0, 0, 0)));
-        _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
-
-
-        // Here we're inserting some settings to change and calculate the direction the blood should move in.
-        Vector3 bloodDir1;
-        Vector3 bloodDir2;
-        CalculateDirections(out bloodDir1, out bloodDir2, direction, angle, bloodSpread);
-
-        // This foreach lets us access all projectiles inside the prefab.
-        var i = 0;
-        foreach (Transform child in _bloodPrefab.transform)
+        for (int i = 0; i < bloodAmount; i++)
         {
+            var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position += _spawnHeightOffset * Vector3.up, Quaternion.Euler(new Vector3(0, 0, 0)));
+            _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
+
+
+            // Here we're inserting some settings to change and calculate the direction the blood should move in.
+            Vector3 bloodDir1;
+            Vector3 bloodDir2;
+            CalculateDirections(out bloodDir1, out bloodDir2, direction, angle, bloodSpread);
+
+            //// This foreach lets us access all projectiles inside the prefab.
+            //var i = 0;
+            //foreach (Transform child in _bloodPrefab.transform)
+            //{
             int randomMaterialNum = Random.Range(0, _bloodVariations.Length);
 
-            // If we want less than 15, it deletes the rest! Probably not the best to spawn and delete the ones we don't need, but hey, that's bad programming for you.
-            if (i >= bloodAmount)
-            {
-                Destroy(child.gameObject);
-            }
-            i++;
+            //    // If we want less than 15, it deletes the rest! Probably not the best to spawn and delete the ones we don't need, but hey, that's bad programming for you.
+            //    if (i >= bloodAmount)
+            //    {
+            //        Destroy(child.gameObject);
+            //    }
+            //    i++;
 
             // Here we're accessing the projectile scripts to change the final splat's settings and the projectile direction and force.
-            child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
-            child.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
-            child.GetComponent<InitVelocity>().CalcDirLeft = bloodDir1;
-            child.GetComponent<InitVelocity>().CalcDirRight = bloodDir2;
-            child.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
-            child.GetComponent<InitVelocity>().BloodForceMax = bloodForceMax;
-            // Here we just check if it's supposed to be blue, and assign the correct materials
-            if (!IsBlue)
-            {
-                child.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
-            }
-            else if (IsBlue)
-            {
-                child.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
-            }
+            _bloodPrefab.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
+            _bloodPrefab.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
+            _bloodPrefab.GetComponent<InitVelocity>().CalcDirLeft = bloodDir1;
+            _bloodPrefab.GetComponent<InitVelocity>().CalcDirRight = bloodDir2;
+            _bloodPrefab.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
+            _bloodPrefab.GetComponent<InitVelocity>().BloodForceMax = bloodForceMax;
+                // Here we just check if it's supposed to be blue, and assign the correct materials
+                if (!IsBlue)
+                {
+                    _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
+                }
+                else if (IsBlue)
+                {
+                    _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
+                }
 
+            // }
         }
     }
 
