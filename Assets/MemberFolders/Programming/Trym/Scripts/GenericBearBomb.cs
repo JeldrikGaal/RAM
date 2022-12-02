@@ -18,16 +18,21 @@ public class GenericBearBomb : MonoBehaviour
         {
             if (collision.collider.attachedRigidbody.isKinematic)
             {
-                StartCoroutine(Counting());
-                HitCheck = true;
+                LightFuse();
             }
         }
         else
         {
-            StartCoroutine(Counting());
-            HitCheck = true;
+            LightFuse();
         }
         
+    }
+
+    private void LightFuse()
+    {
+        StartCoroutine(Counting());
+        HitCheck = true;
+        _rigid.isKinematic = true;
     }
 
     //activate when the fuse is finished.

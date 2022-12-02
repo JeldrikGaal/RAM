@@ -32,16 +32,16 @@ public class BearBombLouncher : MonoBehaviour
 
             if (relativePositionInSequence <= 1)
             {
-                Vector2 newPos = currentPosition2D + dir * (relativeSpeed.Evaluate(relativePositionInSequence) * speed * Time.deltaTime);
+                Vector2 newPos = currentPosition2D + dir * (relativeSpeed.Evaluate(relativePositionInSequence) * speed * Time.deltaTime );
                 float newHeight = originHeight + (relativeTrajectory.Evaluate(relativePositionInSequence) * distance);
                 rigid.MovePosition(new Vector3(newPos.x, newHeight, newPos.y)); 
             }
             else
             {
                 rigid.isKinematic = false;
-                if (rigid.velocity.magnitude > 10)
+                if (rigid.velocity.magnitude > 20)
                 {
-                    rigid.velocity = rigid.velocity / 2;
+                    rigid.velocity /= 1.2f;
                 }
 
             }
