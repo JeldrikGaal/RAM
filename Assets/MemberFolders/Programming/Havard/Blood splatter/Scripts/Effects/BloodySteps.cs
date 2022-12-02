@@ -47,7 +47,7 @@ public class BloodySteps : MonoBehaviour
             {
                var locationPoint = _array1[i].transform.position;
                 RaycastHit hit;
-                if (Physics.Raycast(new Vector3(locationPoint.x, _height, locationPoint.z), (Vector3.up), out hit, 5, _playerLayer))
+                if (Physics.Raycast(new Vector3(locationPoint.x, _height, locationPoint.z), (Vector3.up), out hit, 1000, _playerLayer))
                 {
                     // Function to give player bloody shoes here
                     _stepScript.RenewBloodSteps();
@@ -60,7 +60,7 @@ public class BloodySteps : MonoBehaviour
                 }
                 else
                 {
-                    Debug.DrawRay(new Vector3(locationPoint.x, _height, locationPoint.z), (Vector3.up) * 5, Color.white);
+                    Debug.DrawRay(new Vector3(locationPoint.x, _height, locationPoint.z), (Vector3.up) * 1000, Color.white);
                 }
             }
         }

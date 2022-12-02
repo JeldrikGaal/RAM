@@ -9,8 +9,8 @@ public class GenericBearBomb : MonoBehaviour
     [SerializeField] float _fuse;
     [SerializeField] Vector3 _effectPosMod;
     
-    public Rigidbody Rb { get; }
-    public bool HitCheck { get; }
+    public Rigidbody Rb { get { return _rigid; } }
+    public bool HitCheck { get; private set; } = false;
     private void OnCollisionEnter(Collision collision)
     {
         // activates the timer after hitting the ground.
@@ -19,11 +19,13 @@ public class GenericBearBomb : MonoBehaviour
             if (collision.collider.attachedRigidbody.isKinematic)
             {
                 StartCoroutine(Counting());
+                HitCheck = true;
             }
         }
         else
         {
             StartCoroutine(Counting());
+            HitCheck = true;
         }
         
     }

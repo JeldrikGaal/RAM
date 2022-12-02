@@ -22,11 +22,12 @@ public class ExternalDataManager : MonoBehaviour
     {
         List<Dictionary<string, object>> data = CSVReader.Read("DamageSheet");
 
-        /*for (var i = 0; i < data.Count; i++)
+        for (var i = 0; i < data.Count; i++)
         {
-            print(data[i]["Unit"]);
-            print(data[i]["HP"]);
-        }*/
+            //print(data[i]["Unit"]);
+            Debug.Log(data[i].ToString());
+            //print(data[i]["HP"]);
+        }
     }
 }
 

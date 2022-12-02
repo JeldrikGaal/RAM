@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponent<Animator>();
         _animMoveHash = Animator.StringToHash("MoveSpeed");
+
+        Health = MaxHealth;
     }
 
     private void Update()
@@ -40,6 +42,16 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int dmg)
+    {
+        Health -= dmg;
+
+        if(Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     #region Animation
 
     public void AnimSetFloat(string name, float value)
@@ -54,7 +66,13 @@ public class EnemyController : MonoBehaviour
 
     public void AnimSetTrigger(string name)
     {
+        Debug.Log("Set Trigger");
         _anim.SetTrigger(name);
+    }
+
+    public bool AnimGetState(string name)
+    {
+        return _anim.GetCurrentAnimatorStateInfo(0).IsName(name);
     }
 
     #endregion
