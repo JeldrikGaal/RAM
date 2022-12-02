@@ -4,18 +4,9 @@ using UnityEngine;
 
 public class BloodySteps : MonoBehaviour
 {
-    [SerializeField] private int _maxPoints = 500;
-    [SerializeField] private int _backupPoints = 50;
-    private int _completedPoint;
-    private int _completedBackup;
-    private GameObject[] _bloodSplats;
-    private Vector2[] _locationPoints;
-    private GameObject[] _bloodSplatsBackup;
-    private bool _deleting = false;
-    public bool _backupDeleting = false;
 
     [SerializeField] private LayerMask _playerLayer;
-    private float _height = 0;
+    [SerializeField] private float _detectRadius = 0.5f;
 
     [SerializeField] private StepsSpawner _stepScript;
     [SerializeField] private DashVisuals _dashScript;
@@ -45,8 +36,22 @@ public class BloodySteps : MonoBehaviour
         {
             if(_array1[i] != null)
             {
-               var locationPoint = _array1[i].transform.position;
-                RaycastHit hit;
+                var locationPoint = _array1[i].transform.position;
+
+                Collider[] hitColliders = Physics.OverlapSphere(locationPoint, _array1[i].transform.localScale.x * _detectRadius, _playerLayer);
+                foreach (var hitCollider in hitColliders)
+                {
+                    // Function to give player bloody shoes here
+                    _stepScript.RenewBloodSteps();
+
+                    // Telling the dash script that we're above a blood spot
+                    if (_dashScript)
+                    {
+                        _dashScript.OverBlood();
+                    }
+                }
+
+                /*RaycastHit hit;
                 if (Physics.Raycast(new Vector3(locationPoint.x, _height, locationPoint.z), (Vector3.up), out hit, 1000, _playerLayer))
                 {
                     // Function to give player bloody shoes here
@@ -61,9 +66,22 @@ public class BloodySteps : MonoBehaviour
                 else
                 {
                     Debug.DrawRay(new Vector3(locationPoint.x, _height, locationPoint.z), (Vector3.up) * 1000, Color.white);
-                }
+                }*/
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        for (int i = 0; i < _array1.Length; i++)
+        {
+            if(_array1[i] != null)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(_array1[i].transform.position, _array1[i].transform.localScale.x * _detectRadius);
+            }
+        }
+
     }
 
     public void AddPoint(GameObject newObject)

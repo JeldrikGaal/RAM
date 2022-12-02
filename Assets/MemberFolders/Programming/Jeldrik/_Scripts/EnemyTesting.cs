@@ -95,6 +95,12 @@ public class EnemyTesting : MonoBehaviour
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
         _health -= damage;
         _healthBar.UpdateHealthBar(-(damage / _startingHealth));
+
+        if (GetComponent<HawkBossManager>())
+        {
+            GetComponent<HawkBossManager>().DamageTakenRecently += damage;
+        }
+
         _lastIncomingHit = hitDirection;
         if (_bloodSmoke != null)
         {
