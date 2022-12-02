@@ -31,18 +31,22 @@ public class HawkBossManager : MonoBehaviour
     [SerializeField] private int _enemyWaveAmount;
 
 
-    [SerializeField] private bool _meleeAttack;
-    [SerializeField] private bool _rising;
-    [SerializeField] private bool _crashing;
+    private bool _meleeAttack;
+    private bool _rising;
+    private bool _crashing;
     private Vector3 _modelStartPos;
     [SerializeField] private AnimationCurve _modelPosCurve;
     [SerializeField] private float _flightTime;
     [SerializeField] private float _riseTime;
     [SerializeField] private float _flightHeight;
-    [SerializeField] private float _flightTimer;
+    private float _flightTimer;
     private Vector3 _crashPos;
     private float _crashTimer;
     [SerializeField] private GameObject _crashPath;
+    [SerializeField] private float _slowDownDistance;
+    private bool _slowedDown;
+    private bool _insideSlowRange;
+    [SerializeField] private GameObject _damageArea;
 
     private Dictionary<string, int> _weightedAttacks = new Dictionary<string, int>()
     {
@@ -253,21 +257,37 @@ public class HawkBossManager : MonoBehaviour
             //     StartCoroutine(WaitAfterMeleeAttack());
             // }
 
-            float timeToReachTarget = 1.5f;
+            float timeToReachTarget = 0.6f;
             if (_crashTimer < 1)
             {
                 _crashTimer += timeToReachTarget * Time.deltaTime;
-                transform.position = Vector3.Lerp(transform.position, _crashPos, _crashTimer);
-                _model.transform.localPosition = Vector3.Lerp(_model.transform.localPosition, new Vector3(0, 0, 0), _crashTimer);
                 Instantiate(_crashPath, _model.transform.position, Quaternion.identity);
                 // Instantiate(_crashPath, transform.position, Quaternion.identity);
             }
-            else
+
+            if (_crashTimer > 0.13f)
             {
                 _crashing = false;
                 gameObject.layer = 0;
+                var damageArea = Instantiate(_damageArea, transform.position, Quaternion.identity);
+                Destroy(damageArea, 0.5f);
                 StartCoroutine(WaitAfterMeleeAttack());
             }
+
+            if (Vector3.Distance(transform.position, _crashPos) < _slowDownDistance && !_slowedDown)
+            {
+                _insideSlowRange = true;
+            }
+
+            if (_insideSlowRange)
+            {
+                _crashTimer = 0;
+                _crashPos = _player.transform.position;
+                StartCoroutine(SlowDownWait());
+            }
+
+            transform.position = Vector3.Lerp(transform.position, _crashPos, _crashTimer);
+            _model.transform.localPosition = Vector3.Lerp(_model.transform.localPosition, new Vector3(0, 0, 0), _crashTimer);
         }
 
         if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time)
@@ -499,6 +519,8 @@ public class HawkBossManager : MonoBehaviour
 
         _rising = true;
 
+        _slowedDown = false;
+
         _crashTimer = 0;
 
         // Creates a local keyframe array with 3 values
@@ -519,6 +541,13 @@ public class HawkBossManager : MonoBehaviour
         _modelPosCurve = new AnimationCurve(keyframes);
 
         yield return new WaitForSeconds(1);
+    }
+
+    private IEnumerator SlowDownWait()
+    {
+        yield return new WaitForSeconds(1);
+        _slowedDown = true;
+        _insideSlowRange = false;
     }
 
     private IEnumerator WaitAfterMeleeAttack()
