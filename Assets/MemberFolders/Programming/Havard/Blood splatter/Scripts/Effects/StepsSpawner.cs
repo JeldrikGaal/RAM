@@ -58,7 +58,7 @@ public class StepsSpawner : MonoBehaviour
 
             if (!_doubleArrayScript.FullArray2)
             {
-                _step = Instantiate(_bloodStepPrefab, new Vector3(point.x, 0.51f, point.z), this.transform.rotation);
+                _step = Instantiate(_bloodStepPrefab, point, this.transform.rotation);
                 _doubleArrayScript.AddPoint(_step);
             } else if (_doubleArrayScript.FullArray2)
             {
