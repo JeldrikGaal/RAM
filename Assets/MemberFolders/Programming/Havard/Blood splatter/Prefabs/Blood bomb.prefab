@@ -52,6 +52,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -65,6 +66,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -119,6 +124,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738151170283205 stripped
 Transform:
@@ -146,11 +152,16 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!1001 &8268201989658361420
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -164,6 +175,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -218,6 +233,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738151454322563 stripped
 Transform:
@@ -245,11 +261,16 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!1001 &8268201989755296849
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -263,6 +284,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -317,6 +342,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!1 &5873738150753422737 stripped
 GameObject:
@@ -339,6 +365,10 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!4 &5873738150753422750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -349,6 +379,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -362,6 +393,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -416,6 +451,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!1 &5873738150742628419 stripped
 GameObject:
@@ -438,6 +474,10 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!4 &5873738150742628428 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -448,6 +488,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -461,6 +502,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -515,6 +560,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!1 &5873738150807089169 stripped
 GameObject:
@@ -537,6 +583,10 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!4 &5873738150807089182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -547,6 +597,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -560,6 +611,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -614,6 +669,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738150602068244 stripped
 Transform:
@@ -641,11 +697,16 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!1001 &8268201990162604895
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -659,6 +720,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -713,6 +778,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738150882996880 stripped
 Transform:
@@ -740,11 +806,16 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!1001 &8268201990226123976
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -758,6 +829,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -812,6 +887,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738150953651463 stripped
 Transform:
@@ -839,11 +915,16 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!1001 &8268201990304709647
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -857,6 +938,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -911,6 +996,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738150203993536 stripped
 Transform:
@@ -938,11 +1024,16 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!1001 &8268201990852962815
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -956,6 +1047,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -1010,6 +1105,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738149660489776 stripped
 Transform:
@@ -1037,11 +1133,16 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!1001 &8268201990964558774
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -1055,6 +1156,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -1109,6 +1214,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!1 &5873738149544667766 stripped
 GameObject:
@@ -1131,6 +1237,10 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!4 &5873738149544667769 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -1141,6 +1251,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -1154,6 +1265,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -1208,6 +1323,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!1 &5873738149540255728 stripped
 GameObject:
@@ -1230,6 +1346,10 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!4 &5873738149540255743 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -1240,6 +1360,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -1253,6 +1374,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -1307,6 +1432,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738149601758579 stripped
 Transform:
@@ -1334,11 +1460,16 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!1001 &8268201991123153090
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -1352,6 +1483,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -1406,6 +1541,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!1 &5873738149989523714 stripped
 GameObject:
@@ -1428,6 +1564,10 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!4 &5873738149989523725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -1438,6 +1578,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -1451,6 +1592,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -1505,6 +1650,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738149801734579 stripped
 Transform:
@@ -1532,11 +1678,16 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
 --- !u!1001 &8268201991297747882
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 8268201989584909855}
     m_Modifications:
     - target: {fileID: 1030782787237121455, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
@@ -1550,6 +1701,10 @@ PrefabInstance:
     - target: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_Layer
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539247738765939139, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539247738765939151, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
       propertyPath: m_RootOrder
@@ -1604,6 +1759,7 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
 --- !u!4 &5873738149886253669 stripped
 Transform:
@@ -1631,3 +1787,7 @@ MonoBehaviour:
   angularVelocity: {x: 0, y: 0}
   randomOffsetValue: 5
   awayFromPlayer: 1
+  CalcDirLeft: {x: 0, y: 0, z: 0}
+  CalcDirRight: {x: 0, y: 0, z: 0}
+  BloodForceMin: 0
+  BloodForceMax: 0
