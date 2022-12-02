@@ -69,5 +69,10 @@ public class EnemyController : MonoBehaviour
         _anim.SetTrigger(name);
     }
 
+    public bool AnimGetState(string name)
+    {
+        return _anim.GetCurrentAnimatorStateInfo(0).IsName(name);
+    }
+
     #endregion
 }
