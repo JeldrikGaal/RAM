@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Sirenix.OdinInspector;
 
 public class RammyVFX : MonoBehaviour
 {
@@ -19,42 +20,42 @@ public class RammyVFX : MonoBehaviour
     }
 
     // Some essential things for the script:
-    [SerializeField] private GameObject _bloodBomb;
-    [SerializeField] private GameObject _bloodSpreadCalculator;
-    [SerializeField] private BloodySteps _stepScript;
-    [SerializeField] private TimeStopper _timeEffectScript;
-    [SerializeField] private GameObject _gorePrefab;
-    [SerializeField] private GameObject _bloodParticle;
-    [SerializeField] private DoubleArrayPooling _goreSmudgeArrayPool;
-    [SerializeField] private DoubleArrayPooling _goreArrayPool;
-    [SerializeField] private float _spawnHeightOffset = 0.5f;
+    [FoldoutGroup("Essentials")] [SerializeField] private GameObject _bloodBomb;
+    [FoldoutGroup("Essentials")] [SerializeField] private GameObject _bloodSpreadCalculator;
+    [FoldoutGroup("Essentials")] [SerializeField] private BloodySteps _stepScript;
+    [FoldoutGroup("Essentials")] [SerializeField] private TimeStopper _timeEffectScript;
+    [FoldoutGroup("Essentials")] [SerializeField] private GameObject _gorePrefab;
+    [FoldoutGroup("Essentials")] [SerializeField] private GameObject _bloodParticle;
+    [FoldoutGroup("Essentials")] [SerializeField] private DoubleArrayPooling _goreSmudgeArrayPool;
+    [FoldoutGroup("Essentials")] [SerializeField] private DoubleArrayPooling _goreArrayPool;
+    [FoldoutGroup("Essentials")] [SerializeField] private float _spawnHeightOffset = 0.5f;
 
-    [Header("Gore prefabs")]
-    [SerializeField] private GameObject _skullObject;
-    [SerializeField] private GameObject _heartObject;
-    [SerializeField] private GameObject _intestineObject;
-    [SerializeField] private GameObject _spineObject;
-    [SerializeField] private GameObject _brainObject;
-    [SerializeField] private GameObject _eyeballObject;
-    [SerializeField] private GameObject[] _meatPrefabs;
+    //[Header("Gore prefabs")]
+    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _skullObject;
+    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _heartObject;
+    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _intestineObject;
+    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _spineObject;
+    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _brainObject;
+    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _eyeballObject;
+    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject[] _meatPrefabs;
 
-    [Header("Gore Array Pool Scripts")]
-    [SerializeField] private DoubleArrayPooling _skullArray;
-    [SerializeField] private DoubleArrayPooling _heartArray;
-    [SerializeField] private DoubleArrayPooling _intestineArray;
-    [SerializeField] private DoubleArrayPooling _spineArray;
-    [SerializeField] private DoubleArrayPooling _brainArray;
-    [SerializeField] private DoubleArrayPooling _eyeballArray;
-    [SerializeField] private DoubleArrayPooling _meatArray;
+    //[Header("Gore Array Pool Scripts")]
+    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _skullArray;
+    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _heartArray;
+    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _intestineArray;
+    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _spineArray;
+    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _brainArray;
+    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _eyeballArray;
+    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _meatArray;
 
-    [Header("Max Gore Items")]
-    [SerializeField] private Vector2 _skullArrayAmount;
-    [SerializeField] private Vector2 _heartArrayAmount;
-    [SerializeField] private Vector2 _intestineArrayAmount;
-    [SerializeField] private Vector2 _spineArrayAmount;
-    [SerializeField] private Vector2 _brainArrayAmount;
-    [SerializeField] private Vector2 _eyeballArrayAmount;
-    [SerializeField] private Vector2 _meatArrayAmount;
+    //[Header("Max Gore Items")]
+    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _skullArrayAmount;
+    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _heartArrayAmount;
+    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _intestineArrayAmount;
+    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _spineArrayAmount;
+    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _brainArrayAmount;
+    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _eyeballArrayAmount;
+    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _meatArrayAmount;
 
     // Graphics settings:
     [Header("Graphics settings")]
@@ -68,75 +69,75 @@ public class RammyVFX : MonoBehaviour
     #region blood and gore settings for each ability
 
     // Here you can customize the values for every type of attack!
-    [Header("Ram attack")]
-    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
-    [Range(0f, 90f)] public float _heightAngle = 20;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMin;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMax;
-    [Range(0, 15)] public int _bloodAmount = 5;
-    [Range(0.1f, 2)] public float _bloodSizeMin = 1;
-    [Range(0.1f, 2)] public float _bloodSizeMax = 1;
+    //[Header("Ram attack")]
+    [TabGroup("Ram")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
+    [TabGroup("Ram")] [Range(0f, 90f)] public float _heightAngle = 20;
+    [TabGroup("Ram")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMin;
+    [TabGroup("Ram")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMax;
+    [TabGroup("Ram")] [Range(0, 15)] public int _bloodAmount = 5;
+    [TabGroup("Ram")] [Range(0.1f, 2)] public float _bloodSizeMin = 1;
+    [TabGroup("Ram")] [Range(0.1f, 2)] public float _bloodSizeMax = 1;
     // Death gore variables:
-    [SerializeField] private GoreValues[] _goreValuesRam;
+    [TabGroup("Ram")] [SerializeField] private GoreValues[] _goreValuesRam;
 
-    [Header("Normal attack")]
-    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadNormal = 0.5f;
-    [Range(0f, 90f)] public float _heightAngleNormal = 20;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinNormal;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxNormal;
-    [Range(0, 15)] public int _bloodAmountNormal = 5;
-    [Range(0.1f, 2)] public float _bloodSizeMinNormal = 1;
-    [Range(0.1f, 2)] public float _bloodSizeMaxNormal = 1;
+    //[Header("Normal attack")]
+    [TabGroup("Normal")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadNormal = 0.5f;
+    [TabGroup("Normal")] [Range(0f, 90f)] public float _heightAngleNormal = 20;
+    [TabGroup("Normal")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinNormal;
+    [TabGroup("Normal")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxNormal;
+    [TabGroup("Normal")] [Range(0, 15)] public int _bloodAmountNormal = 5;
+    [TabGroup("Normal")] [Range(0.1f, 2)] public float _bloodSizeMinNormal = 1;
+    [TabGroup("Normal")] [Range(0.1f, 2)] public float _bloodSizeMaxNormal = 1;
 
-    [Header("Stomp attack")]
-    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb1 = 0.5f;
-    [Range(0f, 90f)] public float _heightAngleAb1 = 20;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb1;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb1;
-    [Range(0, 15)] public int _bloodAmountAb1 = 5;
-    [Range(0.1f, 2)] public float _bloodSizeMinAb1 = 1;
-    [Range(0.1f, 2)] public float _bloodSizeMaxAb1 = 1;
-    [SerializeField] private GoreValues[] _goreValuesAb1;
+    //[Header("Stomp attack")]
+    [TabGroup("Stomp")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb1 = 0.5f;
+    [TabGroup("Stomp")] [Range(0f, 90f)] public float _heightAngleAb1 = 20;
+    [TabGroup("Stomp")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb1;
+    [TabGroup("Stomp")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb1;
+    [TabGroup("Stomp")] [Range(0, 15)] public int _bloodAmountAb1 = 5;
+    [TabGroup("Stomp")] [Range(0.1f, 2)] public float _bloodSizeMinAb1 = 1;
+    [TabGroup("Stomp")] [Range(0.1f, 2)] public float _bloodSizeMaxAb1 = 1;
+    [TabGroup("Stomp")] [SerializeField] private GoreValues[] _goreValuesAb1;
 
-    [Header("Spin attack")]
-    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb2 = 0.5f;
-    [Range(0f, 90f)] public float _heightAngleAb2 = 20;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb2;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb2;
-    [Range(0, 15)] public int _bloodAmountAb2 = 5;
-    [Range(0.1f, 2)] public float _bloodSizeMinAb2 = 1;
-    [Range(0.1f, 2)] public float _bloodSizeMaxAb2 = 1;
-    [SerializeField] private GoreValues[] _goreValuesAb2;
+    //[Header("Spin attack")]
+    [TabGroup("Spin")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb2 = 0.5f;
+    [TabGroup("Spin")] [Range(0f, 90f)] public float _heightAngleAb2 = 20;
+    [TabGroup("Spin")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb2;
+    [TabGroup("Spin")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb2;
+    [TabGroup("Spin")] [Range(0, 15)] public int _bloodAmountAb2 = 5;
+    [TabGroup("Spin")] [Range(0.1f, 2)] public float _bloodSizeMinAb2 = 1;
+    [TabGroup("Spin")] [Range(0.1f, 2)] public float _bloodSizeMaxAb2 = 1;
+    [TabGroup("Spin")] [SerializeField] private GoreValues[] _goreValuesAb2;
 
-    [Header("Pull attack")]
-    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb3 = 0.5f;
-    [Range(0f, 90f)] public float _heightAngleAb3 = 20;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb3;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb3;
-    [Range(0, 15)] public int _bloodAmountAb3 = 5;
-    [Range(0.1f, 2)] public float _bloodSizeMinAb3 = 1;
-    [Range(0.1f, 2)] public float _bloodSizeMaxAb3 = 1;
-    [SerializeField] private GoreValues[] _goreValuesAb3;
+    //[Header("Pull attack")]
+    [TabGroup("Pull")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb3 = 0.5f;
+    [TabGroup("Pull")] [Range(0f, 90f)] public float _heightAngleAb3 = 20;
+    [TabGroup("Pull")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb3;
+    [TabGroup("Pull")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb3;
+    [TabGroup("Pull")] [Range(0, 15)] public int _bloodAmountAb3 = 5;
+    [TabGroup("Pull")] [Range(0.1f, 2)] public float _bloodSizeMinAb3 = 1;
+    [TabGroup("Pull")] [Range(0.1f, 2)] public float _bloodSizeMaxAb3 = 1;
+    [TabGroup("Pull")] [SerializeField] private GoreValues[] _goreValuesAb3;
 
-    [Header("Sweep attack")]
-    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb4 = 0.5f;
-    [Range(0f, 90f)] public float _heightAngleAb4 = 20;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb4;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb4;
-    [Range(0, 15)] public int _bloodAmountAb4 = 5;
-    [Range(0.1f, 2)] public float _bloodSizeMinAb4 = 1;
-    [Range(0.1f, 2)] public float _bloodSizeMaxAb4 = 1;
-    [SerializeField] private GoreValues[] _goreValuesAb4;
+    //[Header("Sweep attack")]
+    [TabGroup("Sweep")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb4 = 0.5f;
+    [TabGroup("Sweep")] [Range(0f, 90f)] public float _heightAngleAb4 = 20;
+    [TabGroup("Sweep")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb4;
+    [TabGroup("Sweep")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb4;
+    [TabGroup("Sweep")] [Range(0, 15)] public int _bloodAmountAb4 = 5;
+    [TabGroup("Sweep")] [Range(0.1f, 2)] public float _bloodSizeMinAb4 = 1;
+    [TabGroup("Sweep")] [Range(0.1f, 2)] public float _bloodSizeMaxAb4 = 1;
+    [TabGroup("Sweep")] [SerializeField] private GoreValues[] _goreValuesAb4;
 
-    [Header("Bodyslam attack")]
-    [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb5 = 0.5f;
-    [Range(0f, 90f)] public float _heightAngleAb5 = 20;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb5;
-    [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb5;
-    [Range(0, 15)] public int _bloodAmountAb5 = 5;
-    [Range(0.1f, 2)] public float _bloodSizeMinAb5 = 1;
-    [Range(0.1f, 2)] public float _bloodSizeMaxAb5 = 1;
-    [SerializeField] private GoreValues[] _goreValuesAb5;
+    //[Header("Bodyslam attack")]
+    [TabGroup("Bodyslam")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb5 = 0.5f;
+    [TabGroup("Bodyslam")] [Range(0f, 90f)] public float _heightAngleAb5 = 20;
+    [TabGroup("Bodyslam")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb5;
+    [TabGroup("Bodyslam")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb5;
+    [TabGroup("Bodyslam")] [Range(0, 15)] public int _bloodAmountAb5 = 5;
+    [TabGroup("Bodyslam")] [Range(0.1f, 2)] public float _bloodSizeMinAb5 = 1;
+    [TabGroup("Bodyslam")] [Range(0.1f, 2)] public float _bloodSizeMaxAb5 = 1;
+    [TabGroup("Bodyslam")] [SerializeField] private GoreValues[] _goreValuesAb5;
 
     #endregion
 
@@ -212,7 +213,7 @@ public class RammyVFX : MonoBehaviour
     {
         SpawnBlood(_bloodSizeMin, _bloodSizeMax, _bloodSpread, _heightAngle, _bloodAmount, _bloodForceMin, _bloodForceMax, enemy);
         
-        if(enemy.GetComponent<EnemyTesting>()._health <= 0)
+        if(enemy.GetComponent<EnemyController>().Health <= 0)
         {
             SpawnGore(_goreValuesRam[0], _skullObject, enemy, _skullArray);
             SpawnGore(_goreValuesRam[1], _heartObject, enemy, _heartArray);
@@ -225,6 +226,8 @@ public class RammyVFX : MonoBehaviour
 
         // Intantiates the blood particle at the correct location and direction
         Instantiate(_bloodParticle, enemy.transform.position, this.transform.rotation);
+
+
     }
     public void NormalAttack(GameObject enemy)
     {
@@ -237,17 +240,16 @@ public class RammyVFX : MonoBehaviour
 
         SpawnBlood(_bloodSizeMinAb1, _bloodSizeMaxAb1, _bloodSpreadAb1, _heightAngleAb1, _bloodAmountAb1, _bloodForceMinAb1, _bloodForceMaxAb1, enemy, dir);
 
-        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        if (enemy.GetComponent<EnemyController>().Health <= 0)
         {
-            SpawnGore(_goreValuesRam[0], _skullObject, enemy, _skullArray, dir);
-            SpawnGore(_goreValuesRam[1], _heartObject, enemy, _heartArray, dir);
-            SpawnGore(_goreValuesRam[2], _intestineObject, enemy, null, dir);
-            SpawnGore(_goreValuesRam[3], _spineObject, enemy, null, dir);
-            SpawnGore(_goreValuesRam[4], _brainObject, enemy, _brainArray, dir);
-            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, _eyeballArray,dir);
-            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, _meatArray, dir);
+            SpawnGore(_goreValuesAb1[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb1[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb1[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb1[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb1[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb1[5], _eyeballObject, enemy, _eyeballArray,dir);
+            SpawnGore(_goreValuesAb1[6], _meatPrefabs[0], enemy, _meatArray, dir);
         }
-
     }
 
     public void Ab3Attack(GameObject enemy, Vector3 point)
@@ -255,6 +257,17 @@ public class RammyVFX : MonoBehaviour
         var dir = (point - enemy.transform.position).normalized;
 
         SpawnBlood(_bloodSizeMinAb3, _bloodSizeMaxAb3, _bloodSpreadAb3, _heightAngleAb3, _bloodAmountAb3, _bloodForceMinAb3, _bloodForceMaxAb3, enemy, dir);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            SpawnGore(_goreValuesAb3[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb3[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb3[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb3[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb3[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb3[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb3[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
     }
 
     public void Ab4Attack(GameObject enemy, Vector3 normal)
@@ -263,12 +276,37 @@ public class RammyVFX : MonoBehaviour
         var dir = -normal;
 
         SpawnBlood(_bloodSizeMinAb4, _bloodSizeMaxAb4, _bloodSpreadAb4, _heightAngleAb4, _bloodAmountAb4, _bloodForceMinAb4, _bloodForceMaxAb4, enemy, dir);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            SpawnGore(_goreValuesAb4[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb4[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb4[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb4[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb4[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb4[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb4[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
     }
 
     public void Ab5Attack(GameObject enemy, Vector3 rotation)
     {
 
         SpawnBlood(_bloodSizeMinAb5, _bloodSizeMaxAb5, _bloodSpreadAb5, _heightAngleAb5, _bloodAmountAb5, _bloodForceMinAb5, _bloodForceMaxAb5, enemy, rotation);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            var dir = (enemy.transform.position - transform.position).normalized;
+
+            SpawnGore(_goreValuesAb5[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb5[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb5[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb5[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb5[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb5[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb5[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
+
     }
 
     #endregion
@@ -277,45 +315,48 @@ public class RammyVFX : MonoBehaviour
     private void SpawnBlood(float bloodSizeMin, float bloodSizeMax, float bloodSpread, float angle, float bloodAmount, float bloodForceMin, float bloodForceMax, GameObject rammedObject, Vector3 direction = default(Vector3))
     {
         // Here we instantiate the bloodprojectiles. The way I have it set up, lets it use one prefab with 15 projectiles inside it.
-        var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position += _spawnHeightOffset * Vector3.up, Quaternion.Euler(new Vector3(0, 0, 0)));
-        _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
-
-
-        // Here we're inserting some settings to change and calculate the direction the blood should move in.
-        Vector3 bloodDir1;
-        Vector3 bloodDir2;
-        CalculateDirections(out bloodDir1, out bloodDir2, direction, angle, bloodSpread);
-
-        // This foreach lets us access all projectiles inside the prefab.
-        var i = 0;
-        foreach (Transform child in _bloodPrefab.transform)
+        for (int i = 0; i < bloodAmount; i++)
         {
+            var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position += _spawnHeightOffset * Vector3.up, Quaternion.Euler(new Vector3(0, 0, 0)));
+            _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
+
+
+            // Here we're inserting some settings to change and calculate the direction the blood should move in.
+            Vector3 bloodDir1;
+            Vector3 bloodDir2;
+            CalculateDirections(out bloodDir1, out bloodDir2, direction, angle, bloodSpread);
+
+            //// This foreach lets us access all projectiles inside the prefab.
+            //var i = 0;
+            //foreach (Transform child in _bloodPrefab.transform)
+            //{
             int randomMaterialNum = Random.Range(0, _bloodVariations.Length);
 
-            // If we want less than 15, it deletes the rest! Probably not the best to spawn and delete the ones we don't need, but hey, that's bad programming for you.
-            if (i >= bloodAmount)
-            {
-                Destroy(child.gameObject);
-            }
-            i++;
+            //    // If we want less than 15, it deletes the rest! Probably not the best to spawn and delete the ones we don't need, but hey, that's bad programming for you.
+            //    if (i >= bloodAmount)
+            //    {
+            //        Destroy(child.gameObject);
+            //    }
+            //    i++;
 
             // Here we're accessing the projectile scripts to change the final splat's settings and the projectile direction and force.
-            child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
-            child.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
-            child.GetComponent<InitVelocity>().CalcDirLeft = bloodDir1;
-            child.GetComponent<InitVelocity>().CalcDirRight = bloodDir2;
-            child.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
-            child.GetComponent<InitVelocity>().BloodForceMax = bloodForceMax;
-            // Here we just check if it's supposed to be blue, and assign the correct materials
-            if (!IsBlue)
-            {
-                child.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
-            }
-            else if (IsBlue)
-            {
-                child.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
-            }
+            _bloodPrefab.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
+            _bloodPrefab.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
+            _bloodPrefab.GetComponent<InitVelocity>().CalcDirLeft = bloodDir1;
+            _bloodPrefab.GetComponent<InitVelocity>().CalcDirRight = bloodDir2;
+            _bloodPrefab.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
+            _bloodPrefab.GetComponent<InitVelocity>().BloodForceMax = bloodForceMax;
+                // Here we just check if it's supposed to be blue, and assign the correct materials
+                if (!IsBlue)
+                {
+                    _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
+                }
+                else if (IsBlue)
+                {
+                    _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
+                }
 
+            // }
         }
     }
 

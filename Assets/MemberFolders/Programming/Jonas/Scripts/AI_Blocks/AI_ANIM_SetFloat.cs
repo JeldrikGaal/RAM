@@ -20,6 +20,7 @@ public class AI_ANIM_SetFloat : StateBlock
     {
         if (!_isDone[user])
         {
+            _isDone[user] = true;
             user.AnimSetFloat(_name, _value);
         }
 
