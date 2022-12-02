@@ -225,6 +225,8 @@ public class RammyVFX : MonoBehaviour
 
         // Intantiates the blood particle at the correct location and direction
         Instantiate(_bloodParticle, enemy.transform.position, this.transform.rotation);
+
+
     }
     public void NormalAttack(GameObject enemy)
     {
@@ -247,7 +249,6 @@ public class RammyVFX : MonoBehaviour
             SpawnGore(_goreValuesAb1[5], _eyeballObject, enemy, _eyeballArray,dir);
             SpawnGore(_goreValuesAb1[6], _meatPrefabs[0], enemy, _meatArray, dir);
         }
-
     }
 
     public void Ab3Attack(GameObject enemy, Vector3 point)

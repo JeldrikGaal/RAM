@@ -23,7 +23,7 @@ public class StickyBlood : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         // Sets the material to be a new material so we can change the material colour. Totally won't be expensive to do this 5000 times.
-        BloodMaterial = new Material(BloodMaterial);
+        // BloodMaterial = new Material(BloodMaterial);
     }
 
     void Update()
@@ -60,7 +60,7 @@ public class StickyBlood : MonoBehaviour
                 var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
                 prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
                 BloodStepScript.AddPoint(prefab.gameObject);
-                prefab.GetComponent<DecalProjector>().material = BloodMaterial;
+                /*prefab.GetComponent<DecalProjector>().material = BloodMaterial;
 
                 // Randomize colour:
                 Color randomRed = new Color(
@@ -68,9 +68,12 @@ public class StickyBlood : MonoBehaviour
                     Random.Range(0f, 0.1f),
                     Random.Range(0f, 0.1f)
                 );
-                prefab.GetComponent<DecalProjector>().material.SetColor("_Colour", randomRed);
+                //prefab.GetComponent<DecalProjector>().material.SetColor("_Colour", randomRed);
+                prefab.GetComponent<DecalProjector>().material.SetColor("_Colour", Color.red);
                 // Destroy(prefab.GetComponent<FadeOnTrigger>());
-            } else if (BloodStepScript.FullArray2)
+                */
+            }
+            else if (BloodStepScript.FullArray2)
             {
                 // Spawn the splat:
                 var prefab = BloodStepScript.NextToTake;
