@@ -9,6 +9,11 @@ public class HawkBossManager : MonoBehaviour
     [SerializeField] private EnemyTesting _testingScript;
 
     [SerializeField] private GameObject _model;
+<<<<<<< HEAD
+=======
+
+    // [SerializeField] private HawkBossAttackPhaseOne _state;
+>>>>>>> b7becb6... All Local Changes _ delete Intended
 
     // [SerializeField] private HawkBossAttackPhaseOne _state;
 
@@ -32,15 +37,23 @@ public class HawkBossManager : MonoBehaviour
     [SerializeField] private GameObject[] _spawnPoints;
     [SerializeField] private int _enemyWaveAmount;
 
+<<<<<<< HEAD
     [Header("Super Claw Melee")]
     [SerializeField] private bool _meleeAttack;
     private bool _rising;
     private bool _crashing;
+=======
+
+    [SerializeField] private bool _meleeAttack;
+    [SerializeField] private bool _rising;
+    [SerializeField] private bool _crashing;
+>>>>>>> b7becb6... All Local Changes _ delete Intended
     private Vector3 _modelStartPos;
     [SerializeField] private AnimationCurve _modelPosCurve;
     [SerializeField] private float _flightTime;
     [SerializeField] private float _riseTime;
     [SerializeField] private float _flightHeight;
+<<<<<<< HEAD
     private float _flightTimer;
     private Vector3 _crashPos;
     private float _crashTimer;
@@ -49,6 +62,12 @@ public class HawkBossManager : MonoBehaviour
     private bool _slowedDown;
     private bool _insideSlowRange;
     [SerializeField] private GameObject _damageArea;
+=======
+    [SerializeField] private float _flightTimer;
+    private Vector3 _crashPos;
+    private float _crashTimer;
+    [SerializeField] private GameObject _crashPath;
+>>>>>>> b7becb6... All Local Changes _ delete Intended
 
     private Dictionary<string, int> _weightedAttacks = new Dictionary<string, int>()
     {
@@ -248,6 +267,7 @@ public class HawkBossManager : MonoBehaviour
                 _sprayTimer += _sprayShotDelay;
             }
         }
+<<<<<<< HEAD
 
         if (_rising || _risingFlee)
         {
@@ -259,6 +279,56 @@ public class HawkBossManager : MonoBehaviour
 
             // Sets the layer so it doesn't collide with the player
             gameObject.layer = 23;
+=======
+
+        if (_rising)
+        {
+            // Increased the jump timer
+            _flightTimer += Time.deltaTime;
+
+            // Sets the y position based on the animation curve
+            _model.transform.position = new Vector3(transform.position.x, _modelStartPos.y + _modelPosCurve.Evaluate(_flightTimer), transform.position.z);
+
+            gameObject.layer = 23;
+        }
+
+        if (_crashing)
+        {
+            // transform.position = Vector3.MoveTowards(transform.position, _crashPos, (_controller.MoveSpeed * 4f) * Time.deltaTime);
+            // _model.transform.position = Vector3.MoveTowards(_model.transform.position, transform.position, (_controller.MoveSpeed * 4f) * Time.deltaTime);
+
+            // if (Vector3.Distance(transform.position, _crashPos) < 0.2f)
+            // {
+            //     _crashing = false;
+            //     gameObject.layer = 0;
+            //     StartCoroutine(WaitAfterMeleeAttack());
+            // }
+
+            float timeToReachTarget = 1.5f;
+            if (_crashTimer < 1)
+            {
+                _crashTimer += timeToReachTarget * Time.deltaTime;
+                transform.position = Vector3.Lerp(transform.position, _crashPos, _crashTimer);
+                _model.transform.localPosition = Vector3.Lerp(_model.transform.localPosition, new Vector3(0, 0, 0), _crashTimer);
+                Instantiate(_crashPath, _model.transform.position, Quaternion.identity);
+                // Instantiate(_crashPath, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                _crashing = false;
+                gameObject.layer = 0;
+                StartCoroutine(WaitAfterMeleeAttack());
+            }
+        }
+
+        if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time)
+        {
+            _meleeAttack = false;
+            _flightTimer = 0;
+            _crashing = true;
+            _crashPos = _player.transform.position;
+            _rising = false;
+>>>>>>> b7becb6... All Local Changes _ delete Intended
         }
 
         if (_crashing)
@@ -551,6 +621,7 @@ public class HawkBossManager : MonoBehaviour
 
         _rising = true;
 
+<<<<<<< HEAD
         _slowedDown = false;
 
         _crashTimer = 0;
@@ -566,6 +637,29 @@ public class HawkBossManager : MonoBehaviour
         _slowedDown = true;
         _insideSlowRange = false;
     }
+=======
+        _crashTimer = 0;
+
+        // Creates a local keyframe array with 3 values
+        Keyframe[] keyframes = new Keyframe[3];
+
+        // Sets the first keyfram at 0 seconds and 0 value
+        keyframes[0] = new Keyframe(0, 0);
+
+        // Sets the second keyframe to be at half the duration of the jump and at max height
+        keyframes[1] = new Keyframe(_riseTime, _flightHeight);
+
+        // Sets the last keyframe at the full duration of the jump and the value to 0
+        keyframes[2] = new Keyframe(_riseTime + _flightTime, _flightHeight);
+
+        // keyframes[3].outWeight = 0f;
+
+        // Sets the keyframe values to the animation curve
+        _modelPosCurve = new AnimationCurve(keyframes);
+
+        yield return new WaitForSeconds(1);
+    }
+>>>>>>> b7becb6... All Local Changes _ delete Intended
 
     private IEnumerator WaitAfterMeleeAttack()
     {
