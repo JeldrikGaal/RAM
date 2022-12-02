@@ -278,45 +278,48 @@ public class RammyVFX : MonoBehaviour
     private void SpawnBlood(float bloodSizeMin, float bloodSizeMax, float bloodSpread, float angle, float bloodAmount, float bloodForceMin, float bloodForceMax, GameObject rammedObject, Vector3 direction = default(Vector3))
     {
         // Here we instantiate the bloodprojectiles. The way I have it set up, lets it use one prefab with 15 projectiles inside it.
-        var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position += _spawnHeightOffset * Vector3.up, Quaternion.Euler(new Vector3(0, 0, 0)));
-        _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
-
-
-        // Here we're inserting some settings to change and calculate the direction the blood should move in.
-        Vector3 bloodDir1;
-        Vector3 bloodDir2;
-        CalculateDirections(out bloodDir1, out bloodDir2, direction, angle, bloodSpread);
-
-        // This foreach lets us access all projectiles inside the prefab.
-        var i = 0;
-        foreach (Transform child in _bloodPrefab.transform)
+        for (int i = 0; i < bloodAmount; i++)
         {
+            var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position += _spawnHeightOffset * Vector3.up, Quaternion.Euler(new Vector3(0, 0, 0)));
+            _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
+
+
+            // Here we're inserting some settings to change and calculate the direction the blood should move in.
+            Vector3 bloodDir1;
+            Vector3 bloodDir2;
+            CalculateDirections(out bloodDir1, out bloodDir2, direction, angle, bloodSpread);
+
+            //// This foreach lets us access all projectiles inside the prefab.
+            //var i = 0;
+            //foreach (Transform child in _bloodPrefab.transform)
+            //{
             int randomMaterialNum = Random.Range(0, _bloodVariations.Length);
 
-            // If we want less than 15, it deletes the rest! Probably not the best to spawn and delete the ones we don't need, but hey, that's bad programming for you.
-            if (i >= bloodAmount)
-            {
-                Destroy(child.gameObject);
-            }
-            i++;
+            //    // If we want less than 15, it deletes the rest! Probably not the best to spawn and delete the ones we don't need, but hey, that's bad programming for you.
+            //    if (i >= bloodAmount)
+            //    {
+            //        Destroy(child.gameObject);
+            //    }
+            //    i++;
 
             // Here we're accessing the projectile scripts to change the final splat's settings and the projectile direction and force.
-            child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
-            child.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
-            child.GetComponent<InitVelocity>().CalcDirLeft = bloodDir1;
-            child.GetComponent<InitVelocity>().CalcDirRight = bloodDir2;
-            child.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
-            child.GetComponent<InitVelocity>().BloodForceMax = bloodForceMax;
-            // Here we just check if it's supposed to be blue, and assign the correct materials
-            if (!IsBlue)
-            {
-                child.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
-            }
-            else if (IsBlue)
-            {
-                child.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
-            }
+            _bloodPrefab.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
+            _bloodPrefab.GetComponent<StickyBlood>().BloodSize = Random.Range(bloodSizeMin, bloodSizeMax);
+            _bloodPrefab.GetComponent<InitVelocity>().CalcDirLeft = bloodDir1;
+            _bloodPrefab.GetComponent<InitVelocity>().CalcDirRight = bloodDir2;
+            _bloodPrefab.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
+            _bloodPrefab.GetComponent<InitVelocity>().BloodForceMax = bloodForceMax;
+                // Here we just check if it's supposed to be blue, and assign the correct materials
+                if (!IsBlue)
+                {
+                    _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
+                }
+                else if (IsBlue)
+                {
+                    _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
+                }
 
+            // }
         }
     }
 
