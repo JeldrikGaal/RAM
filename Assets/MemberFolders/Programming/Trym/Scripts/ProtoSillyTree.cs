@@ -74,7 +74,7 @@ public class ProtoSillyTree : MonoBehaviour, IRammable
         }
         if (collision.gameObject.HasTag("enemy"))
         {
-            collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(_damage, transform.up);
+            collision.gameObject.GetComponent<EnemyController>().TakeDamage(_damage, transform.up);
         }
     }
 

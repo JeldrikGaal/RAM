@@ -36,7 +36,7 @@ public class Ability4 : Abilities
             if (collision.gameObject.HasTag("enemy") && !_hurt.Contains(collision.gameObject.GetInstanceID()) && _stage>0 )
             {
                 
-                var enemy = collision.gameObject.GetComponent<EnemyTesting>();
+                var enemy = collision.gameObject.GetComponent<EnemyController>();
                 var damage = this.Upgraded ? _upgradedDamage : _initialDamage;
 
                 enemy.TakeDamage(damage, transform.up);

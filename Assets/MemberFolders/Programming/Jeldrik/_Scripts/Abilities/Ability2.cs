@@ -40,9 +40,9 @@ public class Ability2 : Abilities
         //Looks at everything physics catched and does the ability to those who has the enemy script.
         foreach (var item in _hitColliders)
         {
-            if (item.transform != null && item.transform.gameObject.GetComponent<EnemyTesting>())
+            if (item.transform != null && item.transform.gameObject.GetComponent<EnemyController>())
             {
-                item.transform.gameObject.GetComponent<EnemyTesting>().TakeDamage(_damage, transform.up);
+                item.transform.gameObject.GetComponent<EnemyController>().TakeDamage(_damage, transform.up);
                 item.transform.rotation = Quaternion.LookRotation(transform.position - item.transform.position);
                 item.transform.gameObject.GetComponent<Rigidbody>().AddForce(-item.transform.forward * _pushBackForce, ForceMode.Impulse);
             }
