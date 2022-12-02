@@ -241,13 +241,13 @@ public class RammyVFX : MonoBehaviour
 
         if (enemy.GetComponent<EnemyTesting>()._health <= 0)
         {
-            SpawnGore(_goreValuesRam[0], _skullObject, enemy, _skullArray, dir);
-            SpawnGore(_goreValuesRam[1], _heartObject, enemy, _heartArray, dir);
-            SpawnGore(_goreValuesRam[2], _intestineObject, enemy, null, dir);
-            SpawnGore(_goreValuesRam[3], _spineObject, enemy, null, dir);
-            SpawnGore(_goreValuesRam[4], _brainObject, enemy, _brainArray, dir);
-            SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, _eyeballArray,dir);
-            SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, _meatArray, dir);
+            SpawnGore(_goreValuesAb1[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb1[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb1[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb1[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb1[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb1[5], _eyeballObject, enemy, _eyeballArray,dir);
+            SpawnGore(_goreValuesAb1[6], _meatPrefabs[0], enemy, _meatArray, dir);
         }
     }
 
@@ -256,6 +256,17 @@ public class RammyVFX : MonoBehaviour
         var dir = (point - enemy.transform.position).normalized;
 
         SpawnBlood(_bloodSizeMinAb3, _bloodSizeMaxAb3, _bloodSpreadAb3, _heightAngleAb3, _bloodAmountAb3, _bloodForceMinAb3, _bloodForceMaxAb3, enemy, dir);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            SpawnGore(_goreValuesAb3[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb3[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb3[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb3[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb3[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb3[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb3[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
     }
 
     public void Ab4Attack(GameObject enemy, Vector3 normal)
@@ -264,12 +275,37 @@ public class RammyVFX : MonoBehaviour
         var dir = -normal;
 
         SpawnBlood(_bloodSizeMinAb4, _bloodSizeMaxAb4, _bloodSpreadAb4, _heightAngleAb4, _bloodAmountAb4, _bloodForceMinAb4, _bloodForceMaxAb4, enemy, dir);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            SpawnGore(_goreValuesAb4[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb4[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb4[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb4[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb4[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb4[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb4[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
     }
 
     public void Ab5Attack(GameObject enemy, Vector3 rotation)
     {
 
         SpawnBlood(_bloodSizeMinAb5, _bloodSizeMaxAb5, _bloodSpreadAb5, _heightAngleAb5, _bloodAmountAb5, _bloodForceMinAb5, _bloodForceMaxAb5, enemy, rotation);
+
+        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        {
+            var dir = (enemy.transform.position - transform.position).normalized;
+
+            SpawnGore(_goreValuesAb5[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb5[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb5[2], _intestineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb5[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb5[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb5[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb5[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
+
     }
 
     #endregion
