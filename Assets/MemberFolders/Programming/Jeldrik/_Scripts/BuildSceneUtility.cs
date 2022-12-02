@@ -37,9 +37,9 @@ public class BuildSceneUtility : MonoBehaviour
         yield return new WaitForSeconds(3);
         Debug.Log("TEST");
         GameObject temp =  Instantiate(_enemy, pos, rot);
-        temp.GetComponent<EnemyTesting>()._health = 100;
-        temp.GetComponent<EnemyTesting>()._respawnAfterDeath = true;
-        temp.GetComponent<EnemyTesting>()._utilScript = this;
+        temp.GetComponent<EnemyController>().Health = 100;
+        temp.GetComponent<EnemyController>()._respawnAfterDeath = true;
+        temp.GetComponent<EnemyController>()._utilScript = this;
     }
 
 }

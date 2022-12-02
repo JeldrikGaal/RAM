@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProtoBlast : MonoBehaviour, IRammable
 {
-    private Dictionary<int,EnemyTesting> _enemiesInRange = new();
+    private Dictionary<int,EnemyController> _enemiesInRange = new();
     [SerializeField] private float _timeToRun;
     [SerializeField] private float _damage;
     [Tooltip(" Range is based on the collider radius")]
@@ -18,7 +18,7 @@ public class ProtoBlast : MonoBehaviour, IRammable
         // registers that an enemy is in range
         if (other.gameObject.HasTag("enemy"))
         {
-            _enemiesInRange.Add(other.GetInstanceID(), other.gameObject.GetComponent<EnemyTesting>());
+            _enemiesInRange.Add(other.GetInstanceID(), other.gameObject.GetComponent<EnemyController>());
         }
     }
 
