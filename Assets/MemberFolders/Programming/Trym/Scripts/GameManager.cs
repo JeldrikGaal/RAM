@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// For running coroutines despite the caller being destroid.
+    /// For continuing running coroutine despite the caller being destroid or disabeled.
     /// </summary>
     /// <param name="enumerator"></param>
     /// <returns></returns>

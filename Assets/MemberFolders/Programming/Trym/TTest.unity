@@ -137,9 +137,9 @@ GameObject:
   - component: {fileID: 519437973}
   - component: {fileID: 519437972}
   - component: {fileID: 519437971}
-  - component: {fileID: 519437970}
   - component: {fileID: 519437969}
   - component: {fileID: 519437977}
+  - component: {fileID: 519437978}
   m_Layer: 0
   m_Name: Capsule (1)
   m_TagString: Untagged
@@ -159,23 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b593e6c721d7ec4db426fe156c98eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &519437970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519437968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveInput: {x: 0, y: 0, z: 0}
-  MoveSpeed: 8
-  AttackDamage: 0
-  Health: 0
-  MaxHealth: 0
 --- !u!114 &519437971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +288,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &519437978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519437968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveInput: {x: 0, y: 0, z: 0}
+  MoveSpeed: 8
+  AttackDamage: 0
+  MaxHealth: 0
+  Health: 0
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  _bloodSmoke: {fileID: 2108200065783262711, guid: c55d2c8bd11052c479dbe2a02121e533, type: 3}
+  _bloodSize: 1
 --- !u!1 &525937307
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,9 +332,9 @@ GameObject:
   - component: {fileID: 525937308}
   - component: {fileID: 525937314}
   - component: {fileID: 525937312}
-  - component: {fileID: 525937315}
   - component: {fileID: 525937316}
   - component: {fileID: 525937317}
+  - component: {fileID: 525937318}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -438,23 +451,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &525937315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 525937307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveInput: {x: 0, y: 0, z: 0}
-  MoveSpeed: 8
-  AttackDamage: 0
-  Health: 0
-  MaxHealth: 0
 --- !u!114 &525937316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +483,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &525937318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525937307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveInput: {x: 0, y: 0, z: 0}
+  MoveSpeed: 8
+  AttackDamage: 0
+  MaxHealth: 0
+  Health: 0
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  _bloodSmoke: {fileID: 2108200065783262711, guid: c55d2c8bd11052c479dbe2a02121e533, type: 3}
+  _bloodSize: 1
 --- !u!1001 &585987982
 PrefabInstance:
   m_ObjectHideFlags: 0
