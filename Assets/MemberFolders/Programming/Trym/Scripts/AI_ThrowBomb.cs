@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(BearBombLouncher))]
+
 public class AI_ThrowBomb : StateBlock
 {
     [SerializeField] GenericBearBomb _bomb;
@@ -29,6 +29,7 @@ public class AI_ThrowBomb : StateBlock
         {
             _bombLouncher.Lounch(_bomb,_relativeTrajectory,_relativeSpeedOverDistance,_speed,user.transform.position,target.transform.position);
             _launched = true;
+          // Debug.Log( Instantiate(_bomb));
         }
 
         return (null, null);
