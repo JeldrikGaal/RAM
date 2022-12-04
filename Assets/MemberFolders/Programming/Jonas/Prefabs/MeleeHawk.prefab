@@ -44,15 +44,16 @@ GameObject:
   - component: {fileID: 3017985193138049560}
   - component: {fileID: 3017985193138049562}
   - component: {fileID: 3017985193138049558}
-  - component: {fileID: 3017985193138049556}
+  - component: {fileID: 8511825847854173011}
   - component: {fileID: 3017985193138049559}
+  - component: {fileID: 8528811354837494170}
   m_Layer: 0
   m_Name: MeleeHawk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3017985193138049561
 Transform:
   m_ObjectHideFlags: 0
@@ -69,7 +70,7 @@ Transform:
   - {fileID: 3017985192994542687}
   - {fileID: 3017985194866698939}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3017985193138049560
 MeshFilter:
@@ -109,7 +110,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &3017985193138049556
+--- !u!114 &8511825847854173011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,12 +119,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 3017985193138049565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
   MoveSpeed: 8
-  AttackDamage: 0
+  AttackDamage: 2
+  MaxHealth: 5
+  Health: 0
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  Stunned: 0
+  Pulled: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  _bloodSmoke: {fileID: 0}
+  _bloodSize: 1
 --- !u!114 &3017985193138049559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +156,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startState: {fileID: 11400000, guid: 9d5ee6f9f263c584ab32830540002e91, type: 2}
   _currentState: {fileID: 0}
+--- !u!95 &8528811354837494170
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017985193138049565}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3017985193806791810
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,8 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8224c7842caad4b8f5c03d6c578e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
-  _lingerTime: 1
+  _dmgWeight: 0
 --- !u!1 &3017985194561561142
 GameObject:
   m_ObjectHideFlags: 0

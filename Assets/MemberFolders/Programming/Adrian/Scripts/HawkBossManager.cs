@@ -6,9 +6,12 @@ using UnityEngine;
 public class HawkBossManager : MonoBehaviour
 {
     [SerializeField] private EnemyController _controller;
-    [SerializeField] private EnemyTesting _testingScript;
+    [SerializeField] private EnemyController _testingScript;
 
     [SerializeField] private GameObject _model;
+
+    private bool _canAttack;
+
 
     // [SerializeField] private HawkBossAttackPhaseOne _state;
 
@@ -64,8 +67,6 @@ public class HawkBossManager : MonoBehaviour
 
     private Vector3 _moveInput;
 
-    private bool _canAttack;
-
     // [SerializeField] private List<WeightedAttacks> _weightedAttacks;
 
     // [System.Serializable]
@@ -80,6 +81,7 @@ public class HawkBossManager : MonoBehaviour
     [SerializeField] private Vector3 _selectedFleePoint;
     public float DamageTakenRecently;
     [SerializeField] private bool _risingFlee;
+    [SerializeField] private bool _loweringFlee;
 
 
 
@@ -118,6 +120,10 @@ public class HawkBossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!_phaseThree && !_stageThree)
+        {
+            _controller.Health = Mathf.Clamp(_controller.Health, 1, _controller.MaxHealth);
+        }
         if (_phaseOne)
         {
             #region PhaseOne
@@ -209,22 +215,6 @@ public class HawkBossManager : MonoBehaviour
             transform.LookAt(_player.transform);
         }
 
-        Chase();
-        Flee();
-
-        if (_chase || _flee)
-        {
-            _canAttack = false;
-        }
-        else
-        {
-            _canAttack = true;
-        }
-
-        if (!_chase && !_flee)
-        {
-            _controller.MoveInput = Vector3.zero;
-        }
 
         #region UpdateAttacks
         Attack();
@@ -263,6 +253,7 @@ public class HawkBossManager : MonoBehaviour
 
         if (_crashing)
         {
+            print("THIS IS WRONG");
             float timeToReachTarget = 0.3f;
             if (_crashTimer < 1)
             {
@@ -296,7 +287,17 @@ public class HawkBossManager : MonoBehaviour
 
         if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time)
         {
-            if (!_flee)
+            if (_risingFlee)
+            {
+                print("PLSSS");
+                // Stop the animation
+                _risingFlee = false;
+
+                // Set flee to true
+                _flee = true;
+                _flightTimer = 0;
+            }
+            else
             {
                 _meleeAttack = false;
                 _flightTimer = 0;
@@ -308,16 +309,33 @@ public class HawkBossManager : MonoBehaviour
         }
 
         #endregion
+
+        Chase();
+        Flee();
+
+        if (_chase || _flee || _rising || _risingFlee)
+        {
+            _canAttack = false;
+        }
+        else
+        {
+            _canAttack = true;
+        }
+
+        if (!_chase && !_flee)
+        {
+            _controller.MoveInput = Vector3.zero;
+        }
     }
 
     #region StageChanges
     private void ChangeToStageOne()
     {
-        if (_testingScript._health < 10)
+        if (_testingScript.Health < 10)
         {
-            transform.GetChild(0).GetComponent<HealthBar>().UpdateHealthBar((_controller.MaxHealth - _testingScript._health) / 100);
-            print(_controller.MaxHealth - _testingScript._health);
-            _testingScript._health = _controller.MaxHealth;
+            transform.GetChild(0).GetComponent<HealthBar>().UpdateHealthBar((_controller.MaxHealth - _testingScript.Health) / 100);
+            print(_controller.MaxHealth - _testingScript.Health);
+            _testingScript.Health = _controller.MaxHealth;
             _stageThree = false;
             _stageOne = true;
 
@@ -336,7 +354,7 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageTwo()
     {
-        if (_testingScript._health < 90)
+        if (_testingScript.Health < 90)
         {
             _stageOne = false;
             _stageTwo = true;
@@ -345,7 +363,7 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageThree()
     {
-        if (_testingScript._health < 40)
+        if (_testingScript.Health < 40)
         {
             _stageTwo = false;
             _stageThree = true;
@@ -444,54 +462,83 @@ public class HawkBossManager : MonoBehaviour
 
     private void Chase()
     {
-        int distance;
-        if (_phaseOne)
+        if (!_flee && !_risingFlee && !_rising && !_crashing)
         {
-            distance = 15;
-        }
-        else
-        {
-            distance = 10;
-        }
+            int distance;
+            if (_phaseOne)
+            {
+                distance = 15;
+            }
+            else
+            {
+                distance = 10;
+            }
 
-        if (Vector3.Distance(transform.position, _player.transform.position) > distance && !_attacking && !_flee)
-        {
-            _controller.MoveInput = (_player.transform.position - transform.position).normalized;
-            // print(_rb.velocity);
-            _chase = true;
-        }
-        else
-        {
-            _chase = false;
+            if (Vector3.Distance(transform.position, _player.transform.position) > distance && !_attacking && !_flee)
+            {
+                _controller.MoveInput = (_player.transform.position - transform.position).normalized;
+
+                _chase = true;
+            }
+            else
+            {
+                _chase = false;
+            }
         }
     }
 
     private void Flee()
     {
-        if (DamageTakenRecently > 30 && !_flee && !_risingFlee)
+        // If not in the first stage of the first phase
+        if (!_phaseOne && !_stageOne)
         {
-            StartCoroutine(ToggleFlee());
-            DamageTakenRecently = 0;
-            _risingFlee = true;
-        }
-
-        if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time && _risingFlee)
-        {
-            _risingFlee = false;
-            _flee = true;
-        }
-
-        if (_flee)
-        {
-            float timeToDestination = 0.2f;
-            if (_fleeTimer < 1)
+            // If the boss has taken enough damage and is not currently fleeing or rising
+            if (DamageTakenRecently > 30 && !_flee && !_risingFlee)
             {
-                _fleeTimer += timeToDestination * Time.deltaTime;
+                // Choose a point out of all the flee points
+                _selectedFleePoint = _fleePoints[Random.Range(0, _fleePoints.Length)].transform.position;
 
-                transform.position = Vector3.Lerp(transform.position, new Vector3(_selectedFleePoint.x, transform.position.y, _selectedFleePoint.z), _fleeTimer);
-                _model.transform.position = Vector3.Lerp(_model.transform.position, new Vector3(_model.transform.position.x, _selectedFleePoint.y, _model.transform.position.z), _fleeTimer);
-                Instantiate(_crashPath, _model.transform.position, Quaternion.identity);
-                Instantiate(_crashPath, transform.position, Quaternion.identity);
+                // Save start position
+                _modelStartPos = _model.transform.position;
+
+                // Set the recently damage taken to 0
+                DamageTakenRecently = 0;
+
+                // Start the rising "animation"
+                _risingFlee = true;
+            }
+
+            // If the boss is fleeing
+            if (_flee)
+            {
+                // Set a speed variable kinda
+                float timeToDestination = 0.1f;
+
+                // If the boss has not reached the destination yet
+                if (_fleeTimer < 1 && !_loweringFlee)
+                {
+                    // Increase the timer
+                    _fleeTimer += timeToDestination * Time.deltaTime;
+
+                    // Lerp the transform towards the point based on the timer
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(_selectedFleePoint.x, transform.position.y, _selectedFleePoint.z), _fleeTimer);
+                    // Lerp the model towards the point based on the timer
+                    _model.transform.position = Vector3.Lerp(_model.transform.position, new Vector3(_model.transform.position.x, _selectedFleePoint.y, _model.transform.position.z), _fleeTimer);
+                }
+
+                if (_fleeTimer > 0.4f)
+                {
+                    _loweringFlee = true;
+                    _model.transform.localPosition = Vector3.Lerp(_model.transform.localPosition, Vector3.zero, 2 * Time.deltaTime);
+                }
+
+                print(Vector3.Distance(_model.transform.localPosition, Vector3.zero));
+
+                if (Vector3.Distance(_model.transform.localPosition, Vector3.zero) < 0.51f && _loweringFlee)
+                {
+                    _flee = false;
+                    _fleeTimer = 0;
+                }
             }
         }
     }
@@ -574,15 +621,6 @@ public class HawkBossManager : MonoBehaviour
     }
 
     #endregion
-    private IEnumerator ToggleFlee()
-    {
-        if (!_phaseOne && !_stageOne)
-        {
-            _selectedFleePoint = _fleePoints[Random.Range(0, _fleePoints.Length)].transform.position;
-            _modelStartPos = _model.transform.position;
-            yield return new WaitForSeconds(1);
-        }
-    }
 
     private void GenerateCurve()
     {

@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 6065993889637490170}
   - component: {fileID: 6065993889637490172}
   - component: {fileID: 6065993889637490175}
-  - component: {fileID: 2509861120202487729}
+  - component: {fileID: 2808333079665158224}
   - component: {fileID: 6065993889637490161}
   - component: {fileID: 6065993889120767209}
   m_Layer: 20
@@ -379,7 +379,7 @@ Transform:
   - {fileID: 5246944209736488700}
   - {fileID: 683881559}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6065993889637490170
 MeshFilter:
@@ -419,7 +419,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &2509861120202487729
+--- !u!114 &2808333079665158224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -428,14 +428,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 6065993889637490160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
-  MoveSpeed: 8
+  MoveSpeed: 5
   AttackDamage: 3
+  MaxHealth: 10
   Health: 0
-  MaxHealth: 0
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  _bloodSmoke: {fileID: 0}
+  _bloodSize: 1
 --- !u!114 &6065993889637490161
 MonoBehaviour:
   m_ObjectHideFlags: 0

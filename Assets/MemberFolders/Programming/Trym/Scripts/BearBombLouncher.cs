@@ -6,10 +6,18 @@ public class BearBombLouncher : MonoBehaviour
 {
 
 
-
+    /// <summary>
+    /// Instantiates the bomb and animates it so it follows the relativeTrajectory from the origin to the target, at speed times relativeSpeed over relative distance.
+    /// </summary>
+    /// <param name="bomb"></param>
+    /// <param name="relativeTrajectory">trajectory relative to the distance</param>
+    /// <param name="relativeSpeed"> animation curve modifying speed over relative distance </param>
+    /// <param name="speed"></param>
+    /// <param name="origin">Where it comes from</param>
+    /// <param name="target">Where it's going</param>
     public void Lounch(GenericBearBomb bomb, AnimationCurve relativeTrajectory,AnimationCurve relativeSpeed, float speed, Vector3 origin, Vector3 target) => GameManager.HandleCoroutine(ManageTrajectory(Instantiate(bomb, origin,Quaternion.identity,null), relativeTrajectory, speed,relativeSpeed, origin, target));
 
-
+    // does the actual work
     private static IEnumerator ManageTrajectory(GenericBearBomb bomb, AnimationCurve relativeTrajectory, float speed,AnimationCurve relativeSpeed, Vector3 origin, Vector3 target)
     {
         Vector2 target2D = new Vector2(target.x, target.z);
@@ -18,7 +26,6 @@ public class BearBombLouncher : MonoBehaviour
         float originHeight = origin.y;
         Vector2 dir = (target2D - origin2D).normalized;
         var rigid = bomb.Rb;
-
         float distance = Vector2.Distance(target2D, origin2D);
         float relativePositionInSequence;
 
@@ -32,16 +39,19 @@ public class BearBombLouncher : MonoBehaviour
 
             if (relativePositionInSequence <= 1)
             {
-                Vector2 newPos = currentPosition2D + dir * (relativeSpeed.Evaluate(relativePositionInSequence) * speed * Time.deltaTime);
+
+                // calculates the next position and moves the bomb to it
+                Vector2 newPos = currentPosition2D + dir * (relativeSpeed.Evaluate(relativePositionInSequence) * speed * Time.fixedDeltaTime );
                 float newHeight = originHeight + (relativeTrajectory.Evaluate(relativePositionInSequence) * distance);
                 rigid.MovePosition(new Vector3(newPos.x, newHeight, newPos.y)); 
             }
             else
             {
+                // for preventing it from crashing trough the ground.
                 rigid.isKinematic = false;
-                if (rigid.velocity.magnitude > 10)
+                if (rigid.velocity.magnitude > 20)
                 {
-                    rigid.velocity = rigid.velocity / 2;
+                    rigid.velocity /= 1.2f;
                 }
 
             }
@@ -53,9 +63,9 @@ public class BearBombLouncher : MonoBehaviour
                 Destroy(bomb.gameObject);
                 break;
             }
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
-        rigid.velocity = Vector3.zero;
+        //rigid.velocity = Vector3.zero;
         rigid.isKinematic = false;
         rigid.velocity = Vector3.zero;
     }
