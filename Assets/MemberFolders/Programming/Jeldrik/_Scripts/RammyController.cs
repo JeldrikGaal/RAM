@@ -146,7 +146,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float _freezeTimeHit;
 
     // Help variables for various purposes
-    private Plane _groundPlane = new Plane(Vector3.up, 0);
+    private Plane _groundPlane = new(Vector3.up, new Vector3(0, 20, 0));
     private Vector3 _mouseWorldPosition;
     private Vector3 _lookingAtMouseRotation;
     private Vector3 _directionIndicatorScaleSave;
@@ -206,6 +206,7 @@ public class RammyController : MonoBehaviour
                 _learnedAbilities.Add(false);
             }
         }
+
     }
 
     // Enabling PlayerControls when player gets enabled in the scene
@@ -955,7 +956,8 @@ public class RammyController : MonoBehaviour
     public void Heal(int healing)
     {
         Health = Math.Min(MaxHealth, Health + healing);
-        _healthBar.UpdateHealthBar(healing / MaxHealth);
+        if (Health != MaxHealth) _healthBar.UpdateHealthBar(healing / MaxHealth);
+
     }
 
     /// <summary>
