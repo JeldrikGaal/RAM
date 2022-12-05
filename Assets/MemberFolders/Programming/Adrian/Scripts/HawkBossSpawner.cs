@@ -17,9 +17,9 @@ public class HawkBossSpawner : MonoBehaviour
 
     }
 
-    public void SpawnEnemy()
+    public GameObject SpawnEnemy()
     {
-        Instantiate(_enemies[Random.Range(0, _enemies.Length)], transform.position + (new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.x) * 4f), Quaternion.identity);
+        return Instantiate(_enemies[Random.Range(0, _enemies.Length)], transform.position + (new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.x) * 4f), Quaternion.identity);
     }
 
 }

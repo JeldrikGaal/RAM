@@ -29,11 +29,13 @@ public class HawkBossManager : MonoBehaviour
 
     [FoldoutGroup("Minion Swarm")][SerializeField] private GameObject[] _spawnPoints;
     [FoldoutGroup("Minion Swarm")][SerializeField] private int _enemyWaveAmount;
+    [FoldoutGroup("Minion Swarm")][SerializeField] private int _maxEnemyCount;
+    private List<GameObject> _minionsSpawned = new List<GameObject>();
 
     [Header("Super Claw Melee")]
-    [FoldoutGroup("Super Claw Melee")][SerializeField] private bool _meleeAttack;
-    private bool _rising;
-    private bool _crashing;
+    [FoldoutGroup("Super Claw Melee")] public bool MeleeAttack;
+    [FoldoutGroup("Super Claw Melee")] public bool Rising;
+    [FoldoutGroup("Super Claw Melee")] public bool Crashing;
     private Vector3 _modelStartPos;
     [FoldoutGroup("Super Claw Melee")][SerializeField] private AnimationCurve _modelPosCurve;
     [FoldoutGroup("Super Claw Melee")][SerializeField] private float _flightTime;
@@ -74,8 +76,8 @@ public class HawkBossManager : MonoBehaviour
     [FoldoutGroup("Flee")][SerializeField] private GameObject[] _fleePoints;
     [FoldoutGroup("Flee")][SerializeField] private Vector3 _selectedFleePoint;
     [FoldoutGroup("Flee")] public float DamageTakenRecently;
-    [FoldoutGroup("Flee")][SerializeField] private bool _risingFlee;
-    [FoldoutGroup("Flee")][SerializeField] private bool _loweringFlee;
+    [FoldoutGroup("Flee")] public bool RisingFlee;
+    [FoldoutGroup("Flee")] public bool LoweringFlee;
     [FoldoutGroup("Flee")][SerializeField] private float _fleeTimer;
 
 
@@ -83,22 +85,22 @@ public class HawkBossManager : MonoBehaviour
 
     [FoldoutGroup("States")][SerializeField] private bool _phaseOne;
     [FoldoutGroup("States")][SerializeField] private bool _phaseTwo;
-    [FoldoutGroup("States")][SerializeField] private bool _phaseThree;
+    [FoldoutGroup("States")] public bool PhaseThree;
 
     [FoldoutGroup("States")][SerializeField] private bool _stageOne;
     [FoldoutGroup("States")][SerializeField] private bool _stageTwo;
     [FoldoutGroup("States")][SerializeField] private bool _stageThree;
 
     [FoldoutGroup("States")][SerializeField] private bool _attacking;
-    [FoldoutGroup("States")][SerializeField] private bool _flee;
+    [FoldoutGroup("States")] public bool Fleeing;
     [FoldoutGroup("States")][SerializeField] private bool _chase;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _phaseOne = true;
-        _stageOne = true;
+        _phaseTwo = true;
+        _stageThree = true;
 
         _player = GameObject.FindGameObjectWithTag("Player");
         _rb = GetComponent<Rigidbody>();
@@ -112,7 +114,7 @@ public class HawkBossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_phaseThree && !_stageThree)
+        if (!PhaseThree && !_stageThree)
         {
             _controller.Health = Mathf.Clamp(_controller.Health, 1, _controller.MaxHealth);
         }
@@ -171,7 +173,7 @@ public class HawkBossManager : MonoBehaviour
             }
             #endregion
         }
-        else if (_phaseThree)
+        else if (PhaseThree)
         {
             #region PhaseThree
             if (_stageOne)
@@ -202,14 +204,15 @@ public class HawkBossManager : MonoBehaviour
             #endregion
         }
 
-        if (!_flee && !_spraying)
+        if (!Fleeing && !_spraying)
         {
             transform.LookAt(_player.transform);
         }
 
         Flee();
+        Chase();
 
-        if (_chase || _flee || _rising || _risingFlee)
+        if (_chase || Fleeing || Rising || RisingFlee)
         {
             _canAttack = false;
         }
@@ -218,7 +221,7 @@ public class HawkBossManager : MonoBehaviour
             _canAttack = true;
         }
 
-        if (!_chase && !_flee)
+        if (!_chase && !Fleeing)
         {
             _controller.MoveInput = Vector3.zero;
         }
@@ -246,7 +249,7 @@ public class HawkBossManager : MonoBehaviour
             }
         }
 
-        if (_rising || _risingFlee)
+        if (Rising || RisingFlee)
         {
             // Increased the jump timer
             _flightTimer += Time.deltaTime;
@@ -258,10 +261,10 @@ public class HawkBossManager : MonoBehaviour
             gameObject.layer = 23;
         }
 
-        if (_crashing)
+        if (Crashing)
         {
             // print("THIS IS WRONG");
-            float timeToReachTarget = 0.3f;
+            float timeToReachTarget = 0.4f;
             if (_crashTimer < 1)
             {
                 _crashTimer += timeToReachTarget * Time.deltaTime;
@@ -269,7 +272,7 @@ public class HawkBossManager : MonoBehaviour
 
             if (_crashTimer > 0.13f)
             {
-                _crashing = false;
+                Crashing = false;
                 gameObject.layer = 0;
                 var damageArea = Instantiate(_damageArea, transform.position, Quaternion.identity);
                 Destroy(damageArea, 0.5f);
@@ -294,30 +297,26 @@ public class HawkBossManager : MonoBehaviour
 
         if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time)
         {
-            if (_risingFlee)
+            if (RisingFlee)
             {
-                // print("PLSSS");
                 // Stop the animation
-                _risingFlee = false;
+                RisingFlee = false;
 
                 // Set flee to true
-                _flee = true;
+                Fleeing = true;
                 _flightTimer = 0;
             }
             else
             {
-                _meleeAttack = false;
+                MeleeAttack = false;
                 _flightTimer = 0;
-                _crashing = true;
+                Crashing = true;
                 _crashPos = _player.transform.position;
-                _rising = false;
-                // print("This should not be happening");
+                Rising = false;
             }
         }
 
         #endregion
-
-        Chase();
     }
 
     #region StageChanges
@@ -339,7 +338,7 @@ public class HawkBossManager : MonoBehaviour
             else if (_phaseTwo)
             {
                 _phaseTwo = false;
-                _phaseThree = true;
+                PhaseThree = true;
             }
         }
     }
@@ -454,7 +453,7 @@ public class HawkBossManager : MonoBehaviour
 
     private void Chase()
     {
-        if (!_flee && !_risingFlee && !_rising && !_crashing)
+        if (!Fleeing && !RisingFlee && !Rising && !Crashing)
         {
             int distance;
             if (_phaseOne)
@@ -466,8 +465,9 @@ public class HawkBossManager : MonoBehaviour
                 distance = 10;
             }
 
-            if (Vector3.Distance(transform.position, _player.transform.position) > distance && !_attacking && !_flee)
+            if (Vector3.Distance(transform.position, _player.transform.position) > distance && !_attacking && !Fleeing)
             {
+                print("Im chasing");
                 _controller.MoveInput = (_player.transform.position - transform.position).normalized;
 
                 _chase = true;
@@ -482,7 +482,7 @@ public class HawkBossManager : MonoBehaviour
     private void Flee()
     {
         // If the boss has taken enough damage and is not currently fleeing or rising
-        if (DamageTakenRecently > 30 && !_flee && !_risingFlee && !_attacking)
+        if (DamageTakenRecently > 30 && !Fleeing && !RisingFlee && !_attacking)
         {
             // Choose a point out of all the flee points
             _selectedFleePoint = _fleePoints[Random.Range(0, _fleePoints.Length)].transform.position;
@@ -494,19 +494,19 @@ public class HawkBossManager : MonoBehaviour
             DamageTakenRecently = 0;
 
             // Start the rising "animation"
-            _risingFlee = true;
+            RisingFlee = true;
 
             StartCoroutine(MinionSwarm());
         }
 
         // If the boss is fleeing
-        if (_flee)
+        if (Fleeing)
         {
             // Set a speed variable kinda
             float timeToDestination = 0.1f;
 
             // If the boss has not reached the destination yet
-            if (_fleeTimer < 1 && !_loweringFlee)
+            if (_fleeTimer < 1 && !LoweringFlee)
             {
                 // Increase the timer
                 _fleeTimer += timeToDestination * Time.deltaTime;
@@ -521,17 +521,17 @@ public class HawkBossManager : MonoBehaviour
 
             if (_fleeTimer > 0.4f)
             {
-                _loweringFlee = true;
+                LoweringFlee = true;
                 _model.transform.localPosition = Vector3.Lerp(_model.transform.localPosition, Vector3.zero, 2 * Time.deltaTime);
             }
 
             // print(Vector3.Distance(_model.transform.localPosition, Vector3.zero));
 
-            if (Vector3.Distance(_model.transform.localPosition, Vector3.zero) < 0.51f && _loweringFlee)
+            if (Vector3.Distance(_model.transform.localPosition, Vector3.zero) < 0.51f && LoweringFlee)
             {
-                _flee = false;
+                Fleeing = false;
                 _fleeTimer = 0;
-                _loweringFlee = false;
+                LoweringFlee = false;
                 gameObject.layer = 0;
             }
         }
@@ -572,17 +572,26 @@ public class HawkBossManager : MonoBehaviour
 
     private IEnumerator MinionSwarm()
     {
-        // print("Minion Swarm");
+        yield return new WaitForSeconds(1);
+        _attacking = false;
+        for (int i = 0; i < _minionsSpawned.Count; i++)
+        {
+            if (_minionsSpawned[i] == null)
+            {
+                _minionsSpawned.RemoveAt(i);
+            }
+        }
         for (int i = 0; i < _enemyWaveAmount; i++)
         {
             for (int j = 0; j < _spawnPoints.Length; j++)
             {
-                _spawnPoints[j].GetComponent<HawkBossSpawner>().SpawnEnemy();
+                if (_minionsSpawned.Count < _maxEnemyCount)
+                {
+                    _minionsSpawned.Add(_spawnPoints[j].GetComponent<HawkBossSpawner>().SpawnEnemy());
+                }
             }
             yield return new WaitForSeconds(1);
         }
-        yield return new WaitForSeconds(1);
-        _attacking = false;
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -590,9 +599,9 @@ public class HawkBossManager : MonoBehaviour
     {
         _modelStartPos = _model.transform.position;
 
-        _meleeAttack = true;
+        MeleeAttack = true;
 
-        _rising = true;
+        Rising = true;
 
         _slowedDown = false;
 
@@ -605,7 +614,7 @@ public class HawkBossManager : MonoBehaviour
 
     private IEnumerator SlowDownWait()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
         _slowedDown = true;
         _insideSlowRange = false;
     }
