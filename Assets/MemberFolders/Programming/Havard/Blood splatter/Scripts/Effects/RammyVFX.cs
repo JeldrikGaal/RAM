@@ -20,42 +20,42 @@ public class RammyVFX : MonoBehaviour
     }
 
     // Some essential things for the script:
-    [FoldoutGroup("Essentials")] [SerializeField] private GameObject _bloodBomb;
-    [FoldoutGroup("Essentials")] [SerializeField] private GameObject _bloodSpreadCalculator;
-    [FoldoutGroup("Essentials")] [SerializeField] private BloodySteps _stepScript;
-    [FoldoutGroup("Essentials")] [SerializeField] private TimeStopper _timeEffectScript;
-    [FoldoutGroup("Essentials")] [SerializeField] private GameObject _gorePrefab;
-    [FoldoutGroup("Essentials")] [SerializeField] private GameObject _bloodParticle;
-    [FoldoutGroup("Essentials")] [SerializeField] private DoubleArrayPooling _goreSmudgeArrayPool;
-    [FoldoutGroup("Essentials")] [SerializeField] private DoubleArrayPooling _goreArrayPool;
-    [FoldoutGroup("Essentials")] [SerializeField] private float _spawnHeightOffset = 0.5f;
+    [FoldoutGroup("Essentials")][SerializeField] private GameObject _bloodBomb;
+    [FoldoutGroup("Essentials")][SerializeField] private GameObject _bloodSpreadCalculator;
+    [FoldoutGroup("Essentials")][SerializeField] private BloodySteps _stepScript;
+    [FoldoutGroup("Essentials")][SerializeField] private TimeStopper _timeEffectScript;
+    [FoldoutGroup("Essentials")][SerializeField] private GameObject _gorePrefab;
+    [FoldoutGroup("Essentials")][SerializeField] private GameObject _bloodParticle;
+    [FoldoutGroup("Essentials")][SerializeField] private DoubleArrayPooling _goreSmudgeArrayPool;
+    [FoldoutGroup("Essentials")][SerializeField] private DoubleArrayPooling _goreArrayPool;
+    [FoldoutGroup("Essentials")][SerializeField] private float _spawnHeightOffset = 0.5f;
 
     //[Header("Gore prefabs")]
-    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _skullObject;
-    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _heartObject;
-    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _intestineObject;
-    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _spineObject;
-    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _brainObject;
-    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject _eyeballObject;
-    [FoldoutGroup("Gore Prefabs")] [SerializeField] private GameObject[] _meatPrefabs;
+    [FoldoutGroup("Gore Prefabs")][SerializeField] private GameObject _skullObject;
+    [FoldoutGroup("Gore Prefabs")][SerializeField] private GameObject _heartObject;
+    [FoldoutGroup("Gore Prefabs")][SerializeField] private GameObject _intestineObject;
+    [FoldoutGroup("Gore Prefabs")][SerializeField] private GameObject _spineObject;
+    [FoldoutGroup("Gore Prefabs")][SerializeField] private GameObject _brainObject;
+    [FoldoutGroup("Gore Prefabs")][SerializeField] private GameObject _eyeballObject;
+    [FoldoutGroup("Gore Prefabs")][SerializeField] private GameObject[] _meatPrefabs;
 
     //[Header("Gore Array Pool Scripts")]
-    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _skullArray;
-    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _heartArray;
-    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _intestineArray;
-    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _spineArray;
-    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _brainArray;
-    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _eyeballArray;
-    [FoldoutGroup("Gore Array Pools")] [SerializeField] private DoubleArrayPooling _meatArray;
+    [FoldoutGroup("Gore Array Pools")][SerializeField] private DoubleArrayPooling _skullArray;
+    [FoldoutGroup("Gore Array Pools")][SerializeField] private DoubleArrayPooling _heartArray;
+    [FoldoutGroup("Gore Array Pools")][SerializeField] private DoubleArrayPooling _intestineArray;
+    [FoldoutGroup("Gore Array Pools")][SerializeField] private DoubleArrayPooling _spineArray;
+    [FoldoutGroup("Gore Array Pools")][SerializeField] private DoubleArrayPooling _brainArray;
+    [FoldoutGroup("Gore Array Pools")][SerializeField] private DoubleArrayPooling _eyeballArray;
+    [FoldoutGroup("Gore Array Pools")][SerializeField] private DoubleArrayPooling _meatArray;
 
     //[Header("Max Gore Items")]
-    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _skullArrayAmount;
-    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _heartArrayAmount;
-    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _intestineArrayAmount;
-    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _spineArrayAmount;
-    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _brainArrayAmount;
-    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _eyeballArrayAmount;
-    [FoldoutGroup("Max Gore Items")] [SerializeField] private Vector2 _meatArrayAmount;
+    [FoldoutGroup("Max Gore Items")][SerializeField] private Vector2 _skullArrayAmount;
+    [FoldoutGroup("Max Gore Items")][SerializeField] private Vector2 _heartArrayAmount;
+    [FoldoutGroup("Max Gore Items")][SerializeField] private Vector2 _intestineArrayAmount;
+    [FoldoutGroup("Max Gore Items")][SerializeField] private Vector2 _spineArrayAmount;
+    [FoldoutGroup("Max Gore Items")][SerializeField] private Vector2 _brainArrayAmount;
+    [FoldoutGroup("Max Gore Items")][SerializeField] private Vector2 _eyeballArrayAmount;
+    [FoldoutGroup("Max Gore Items")][SerializeField] private Vector2 _meatArrayAmount;
 
     // Graphics settings:
     [Header("Graphics settings")]
@@ -70,74 +70,74 @@ public class RammyVFX : MonoBehaviour
 
     // Here you can customize the values for every type of attack!
     //[Header("Ram attack")]
-    [TabGroup("Ram")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpread = 0.5f;
-    [TabGroup("Ram")] [Range(0f, 90f)] public float _heightAngle = 20;
-    [TabGroup("Ram")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMin;
-    [TabGroup("Ram")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMax;
-    [TabGroup("Ram")] [Range(0, 15)] public int _bloodAmount = 5;
-    [TabGroup("Ram")] [Range(0.1f, 2)] public float _bloodSizeMin = 1;
-    [TabGroup("Ram")] [Range(0.1f, 2)] public float _bloodSizeMax = 1;
+    [TabGroup("Ram")][Range(0.0f, 2.0f)][SerializeField] private float _bloodSpread = 0.5f;
+    [TabGroup("Ram")][Range(0f, 90f)] public float _heightAngle = 20;
+    [TabGroup("Ram")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMin;
+    [TabGroup("Ram")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMax;
+    [TabGroup("Ram")][Range(0, 15)] public int _bloodAmount = 5;
+    [TabGroup("Ram")][Range(0.1f, 2)] public float _bloodSizeMin = 1;
+    [TabGroup("Ram")][Range(0.1f, 2)] public float _bloodSizeMax = 1;
     // Death gore variables:
-    [TabGroup("Ram")] [SerializeField] private GoreValues[] _goreValuesRam;
+    [TabGroup("Ram")][SerializeField] private GoreValues[] _goreValuesRam;
 
     //[Header("Normal attack")]
-    [TabGroup("Normal")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadNormal = 0.5f;
-    [TabGroup("Normal")] [Range(0f, 90f)] public float _heightAngleNormal = 20;
-    [TabGroup("Normal")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinNormal;
-    [TabGroup("Normal")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxNormal;
-    [TabGroup("Normal")] [Range(0, 15)] public int _bloodAmountNormal = 5;
-    [TabGroup("Normal")] [Range(0.1f, 2)] public float _bloodSizeMinNormal = 1;
-    [TabGroup("Normal")] [Range(0.1f, 2)] public float _bloodSizeMaxNormal = 1;
+    [TabGroup("Normal")][Range(0.0f, 2.0f)][SerializeField] private float _bloodSpreadNormal = 0.5f;
+    [TabGroup("Normal")][Range(0f, 90f)] public float _heightAngleNormal = 20;
+    [TabGroup("Normal")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMinNormal;
+    [TabGroup("Normal")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMaxNormal;
+    [TabGroup("Normal")][Range(0, 15)] public int _bloodAmountNormal = 5;
+    [TabGroup("Normal")][Range(0.1f, 2)] public float _bloodSizeMinNormal = 1;
+    [TabGroup("Normal")][Range(0.1f, 2)] public float _bloodSizeMaxNormal = 1;
 
     //[Header("Stomp attack")]
-    [TabGroup("Stomp")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb1 = 0.5f;
-    [TabGroup("Stomp")] [Range(0f, 90f)] public float _heightAngleAb1 = 20;
-    [TabGroup("Stomp")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb1;
-    [TabGroup("Stomp")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb1;
-    [TabGroup("Stomp")] [Range(0, 15)] public int _bloodAmountAb1 = 5;
-    [TabGroup("Stomp")] [Range(0.1f, 2)] public float _bloodSizeMinAb1 = 1;
-    [TabGroup("Stomp")] [Range(0.1f, 2)] public float _bloodSizeMaxAb1 = 1;
-    [TabGroup("Stomp")] [SerializeField] private GoreValues[] _goreValuesAb1;
+    [TabGroup("Stomp")][Range(0.0f, 2.0f)][SerializeField] private float _bloodSpreadAb1 = 0.5f;
+    [TabGroup("Stomp")][Range(0f, 90f)] public float _heightAngleAb1 = 20;
+    [TabGroup("Stomp")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMinAb1;
+    [TabGroup("Stomp")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMaxAb1;
+    [TabGroup("Stomp")][Range(0, 15)] public int _bloodAmountAb1 = 5;
+    [TabGroup("Stomp")][Range(0.1f, 2)] public float _bloodSizeMinAb1 = 1;
+    [TabGroup("Stomp")][Range(0.1f, 2)] public float _bloodSizeMaxAb1 = 1;
+    [TabGroup("Stomp")][SerializeField] private GoreValues[] _goreValuesAb1;
 
     //[Header("Spin attack")]
-    [TabGroup("Spin")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb2 = 0.5f;
-    [TabGroup("Spin")] [Range(0f, 90f)] public float _heightAngleAb2 = 20;
-    [TabGroup("Spin")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb2;
-    [TabGroup("Spin")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb2;
-    [TabGroup("Spin")] [Range(0, 15)] public int _bloodAmountAb2 = 5;
-    [TabGroup("Spin")] [Range(0.1f, 2)] public float _bloodSizeMinAb2 = 1;
-    [TabGroup("Spin")] [Range(0.1f, 2)] public float _bloodSizeMaxAb2 = 1;
-    [TabGroup("Spin")] [SerializeField] private GoreValues[] _goreValuesAb2;
+    [TabGroup("Spin")][Range(0.0f, 2.0f)][SerializeField] private float _bloodSpreadAb2 = 0.5f;
+    [TabGroup("Spin")][Range(0f, 90f)] public float _heightAngleAb2 = 20;
+    [TabGroup("Spin")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMinAb2;
+    [TabGroup("Spin")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMaxAb2;
+    [TabGroup("Spin")][Range(0, 15)] public int _bloodAmountAb2 = 5;
+    [TabGroup("Spin")][Range(0.1f, 2)] public float _bloodSizeMinAb2 = 1;
+    [TabGroup("Spin")][Range(0.1f, 2)] public float _bloodSizeMaxAb2 = 1;
+    [TabGroup("Spin")][SerializeField] private GoreValues[] _goreValuesAb2;
 
     //[Header("Pull attack")]
-    [TabGroup("Pull")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb3 = 0.5f;
-    [TabGroup("Pull")] [Range(0f, 90f)] public float _heightAngleAb3 = 20;
-    [TabGroup("Pull")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb3;
-    [TabGroup("Pull")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb3;
-    [TabGroup("Pull")] [Range(0, 15)] public int _bloodAmountAb3 = 5;
-    [TabGroup("Pull")] [Range(0.1f, 2)] public float _bloodSizeMinAb3 = 1;
-    [TabGroup("Pull")] [Range(0.1f, 2)] public float _bloodSizeMaxAb3 = 1;
-    [TabGroup("Pull")] [SerializeField] private GoreValues[] _goreValuesAb3;
+    [TabGroup("Pull")][Range(0.0f, 2.0f)][SerializeField] private float _bloodSpreadAb3 = 0.5f;
+    [TabGroup("Pull")][Range(0f, 90f)] public float _heightAngleAb3 = 20;
+    [TabGroup("Pull")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMinAb3;
+    [TabGroup("Pull")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMaxAb3;
+    [TabGroup("Pull")][Range(0, 15)] public int _bloodAmountAb3 = 5;
+    [TabGroup("Pull")][Range(0.1f, 2)] public float _bloodSizeMinAb3 = 1;
+    [TabGroup("Pull")][Range(0.1f, 2)] public float _bloodSizeMaxAb3 = 1;
+    [TabGroup("Pull")][SerializeField] private GoreValues[] _goreValuesAb3;
 
     //[Header("Sweep attack")]
-    [TabGroup("Sweep")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb4 = 0.5f;
-    [TabGroup("Sweep")] [Range(0f, 90f)] public float _heightAngleAb4 = 20;
-    [TabGroup("Sweep")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb4;
-    [TabGroup("Sweep")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb4;
-    [TabGroup("Sweep")] [Range(0, 15)] public int _bloodAmountAb4 = 5;
-    [TabGroup("Sweep")] [Range(0.1f, 2)] public float _bloodSizeMinAb4 = 1;
-    [TabGroup("Sweep")] [Range(0.1f, 2)] public float _bloodSizeMaxAb4 = 1;
-    [TabGroup("Sweep")] [SerializeField] private GoreValues[] _goreValuesAb4;
+    [TabGroup("Sweep")][Range(0.0f, 2.0f)][SerializeField] private float _bloodSpreadAb4 = 0.5f;
+    [TabGroup("Sweep")][Range(0f, 90f)] public float _heightAngleAb4 = 20;
+    [TabGroup("Sweep")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMinAb4;
+    [TabGroup("Sweep")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMaxAb4;
+    [TabGroup("Sweep")][Range(0, 15)] public int _bloodAmountAb4 = 5;
+    [TabGroup("Sweep")][Range(0.1f, 2)] public float _bloodSizeMinAb4 = 1;
+    [TabGroup("Sweep")][Range(0.1f, 2)] public float _bloodSizeMaxAb4 = 1;
+    [TabGroup("Sweep")][SerializeField] private GoreValues[] _goreValuesAb4;
 
     //[Header("Bodyslam attack")]
-    [TabGroup("Bodyslam")] [Range(0.0f, 2.0f)] [SerializeField] private float _bloodSpreadAb5 = 0.5f;
-    [TabGroup("Bodyslam")] [Range(0f, 90f)] public float _heightAngleAb5 = 20;
-    [TabGroup("Bodyslam")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMinAb5;
-    [TabGroup("Bodyslam")] [Range(0f, 10.0f)] [SerializeField] private float _bloodForceMaxAb5;
-    [TabGroup("Bodyslam")] [Range(0, 15)] public int _bloodAmountAb5 = 5;
-    [TabGroup("Bodyslam")] [Range(0.1f, 2)] public float _bloodSizeMinAb5 = 1;
-    [TabGroup("Bodyslam")] [Range(0.1f, 2)] public float _bloodSizeMaxAb5 = 1;
-    [TabGroup("Bodyslam")] [SerializeField] private GoreValues[] _goreValuesAb5;
+    [TabGroup("Bodyslam")][Range(0.0f, 2.0f)][SerializeField] private float _bloodSpreadAb5 = 0.5f;
+    [TabGroup("Bodyslam")][Range(0f, 90f)] public float _heightAngleAb5 = 20;
+    [TabGroup("Bodyslam")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMinAb5;
+    [TabGroup("Bodyslam")][Range(0f, 10.0f)][SerializeField] private float _bloodForceMaxAb5;
+    [TabGroup("Bodyslam")][Range(0, 15)] public int _bloodAmountAb5 = 5;
+    [TabGroup("Bodyslam")][Range(0.1f, 2)] public float _bloodSizeMinAb5 = 1;
+    [TabGroup("Bodyslam")][Range(0.1f, 2)] public float _bloodSizeMaxAb5 = 1;
+    [TabGroup("Bodyslam")][SerializeField] private GoreValues[] _goreValuesAb5;
 
     #endregion
 
@@ -160,44 +160,44 @@ public class RammyVFX : MonoBehaviour
         _goreSmudgeArrayPool.CurrentArray1 = 0;
         _goreSmudgeArrayPool.CurrentArray2 = 0;
 
-        _skullArray.Array1 = new GameObject[(int) _skullArrayAmount.x];
-        _skullArray.Array2 = new GameObject[(int) _skullArrayAmount.y];
+        _skullArray.Array1 = new GameObject[(int)_skullArrayAmount.x];
+        _skullArray.Array2 = new GameObject[(int)_skullArrayAmount.y];
         _skullArray.FullArray1 = false;
         _skullArray.FullArray2 = false;
         _skullArray.CurrentArray1 = 0;
         _skullArray.CurrentArray2 = 0;
-        _heartArray.Array1 = new GameObject[(int) _heartArrayAmount.x];
-        _heartArray.Array2 = new GameObject[(int) _heartArrayAmount.y];
+        _heartArray.Array1 = new GameObject[(int)_heartArrayAmount.x];
+        _heartArray.Array2 = new GameObject[(int)_heartArrayAmount.y];
         _heartArray.FullArray1 = false;
         _heartArray.FullArray2 = false;
         _heartArray.CurrentArray1 = 0;
         _heartArray.CurrentArray2 = 0;
-        _intestineArray.Array1 = new GameObject[(int) _intestineArrayAmount.x];
-        _intestineArray.Array2 = new GameObject[(int) _intestineArrayAmount.y];
+        _intestineArray.Array1 = new GameObject[(int)_intestineArrayAmount.x];
+        _intestineArray.Array2 = new GameObject[(int)_intestineArrayAmount.y];
         _intestineArray.FullArray1 = false;
         _intestineArray.FullArray2 = false;
         _intestineArray.CurrentArray1 = 0;
         _intestineArray.CurrentArray2 = 0;
-        _spineArray.Array1 = new GameObject[(int) _spineArrayAmount.x];
-        _spineArray.Array2 = new GameObject[(int) _spineArrayAmount.y];
+        _spineArray.Array1 = new GameObject[(int)_spineArrayAmount.x];
+        _spineArray.Array2 = new GameObject[(int)_spineArrayAmount.y];
         _spineArray.FullArray1 = false;
         _spineArray.FullArray2 = false;
         _spineArray.CurrentArray1 = 0;
         _spineArray.CurrentArray2 = 0;
-        _brainArray.Array1 = new GameObject[(int) _brainArrayAmount.x];
-        _brainArray.Array2 = new GameObject[(int) _brainArrayAmount.y];
+        _brainArray.Array1 = new GameObject[(int)_brainArrayAmount.x];
+        _brainArray.Array2 = new GameObject[(int)_brainArrayAmount.y];
         _brainArray.FullArray1 = false;
         _brainArray.FullArray2 = false;
         _brainArray.CurrentArray1 = 0;
         _brainArray.CurrentArray2 = 0;
-        _eyeballArray.Array1 = new GameObject[(int) _eyeballArrayAmount.x];
-        _eyeballArray.Array2 = new GameObject[(int) _eyeballArrayAmount.y];
+        _eyeballArray.Array1 = new GameObject[(int)_eyeballArrayAmount.x];
+        _eyeballArray.Array2 = new GameObject[(int)_eyeballArrayAmount.y];
         _eyeballArray.FullArray1 = false;
         _eyeballArray.FullArray2 = false;
         _eyeballArray.CurrentArray1 = 0;
         _eyeballArray.CurrentArray2 = 0;
-        _meatArray.Array1 = new GameObject[(int) _meatArrayAmount.x];
-        _meatArray.Array2 = new GameObject[(int) _meatArrayAmount.y];
+        _meatArray.Array1 = new GameObject[(int)_meatArrayAmount.x];
+        _meatArray.Array2 = new GameObject[(int)_meatArrayAmount.y];
         _meatArray.FullArray1 = false;
         _meatArray.FullArray2 = false;
         _meatArray.CurrentArray1 = 0;
@@ -212,8 +212,8 @@ public class RammyVFX : MonoBehaviour
     public void RamAttack(GameObject enemy)
     {
         SpawnBlood(_bloodSizeMin, _bloodSizeMax, _bloodSpread, _heightAngle, _bloodAmount, _bloodForceMin, _bloodForceMax, enemy);
-        
-        if(enemy.GetComponent<EnemyController>().Health <= 0)
+
+        if (enemy.GetComponent<EnemyController>().Health <= 0)
         {
             SpawnGore(_goreValuesRam[0], _skullObject, enemy, _skullArray);
             SpawnGore(_goreValuesRam[1], _heartObject, enemy, _heartArray);
@@ -247,7 +247,7 @@ public class RammyVFX : MonoBehaviour
             SpawnGore(_goreValuesAb1[2], _intestineObject, enemy, null, dir);
             SpawnGore(_goreValuesAb1[3], _spineObject, enemy, null, dir);
             SpawnGore(_goreValuesAb1[4], _brainObject, enemy, _brainArray, dir);
-            SpawnGore(_goreValuesAb1[5], _eyeballObject, enemy, _eyeballArray,dir);
+            SpawnGore(_goreValuesAb1[5], _eyeballObject, enemy, _eyeballArray, dir);
             SpawnGore(_goreValuesAb1[6], _meatPrefabs[0], enemy, _meatArray, dir);
         }
     }
@@ -258,7 +258,7 @@ public class RammyVFX : MonoBehaviour
 
         SpawnBlood(_bloodSizeMinAb3, _bloodSizeMaxAb3, _bloodSpreadAb3, _heightAngleAb3, _bloodAmountAb3, _bloodForceMinAb3, _bloodForceMaxAb3, enemy, dir);
 
-        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        if (enemy.GetComponent<EnemyController>().Health <= 0)
         {
             SpawnGore(_goreValuesAb3[0], _skullObject, enemy, _skullArray, dir);
             SpawnGore(_goreValuesAb3[1], _heartObject, enemy, _heartArray, dir);
@@ -294,7 +294,7 @@ public class RammyVFX : MonoBehaviour
 
         SpawnBlood(_bloodSizeMinAb5, _bloodSizeMaxAb5, _bloodSpreadAb5, _heightAngleAb5, _bloodAmountAb5, _bloodForceMinAb5, _bloodForceMaxAb5, enemy, rotation);
 
-        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        if (enemy.GetComponent<EnemyController>().Health <= 0)
         {
             var dir = (enemy.transform.position - transform.position).normalized;
 
@@ -346,15 +346,15 @@ public class RammyVFX : MonoBehaviour
             _bloodPrefab.GetComponent<InitVelocity>().CalcDirRight = bloodDir2;
             _bloodPrefab.GetComponent<InitVelocity>().BloodForceMin = bloodForceMin;
             _bloodPrefab.GetComponent<InitVelocity>().BloodForceMax = bloodForceMax;
-                // Here we just check if it's supposed to be blue, and assign the correct materials
-                if (!IsBlue)
-                {
-                    _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
-                }
-                else if (IsBlue)
-                {
-                    _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
-                }
+            // Here we just check if it's supposed to be blue, and assign the correct materials
+            if (!IsBlue)
+            {
+                _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _bloodVariations[randomMaterialNum];
+            }
+            else if (IsBlue)
+            {
+                _bloodPrefab.GetComponent<StickyBlood>().BloodMaterial = _blueBloodVariations[randomMaterialNum];
+            }
 
             // }
         }
@@ -364,21 +364,22 @@ public class RammyVFX : MonoBehaviour
     private void SpawnGore(GoreValues goreSettings, GameObject spawnObject, GameObject enemy, DoubleArrayPooling arrayScript = default(DoubleArrayPooling), Vector3 direction = default(Vector3))
     {
         // Randomize the amount of gore piece we want
-        var amountOfGore = Random.Range(goreSettings.MinAmount, goreSettings.MaxAmount+1);
+        var amountOfGore = Random.Range(goreSettings.MinAmount, goreSettings.MaxAmount + 1);
         for (int i = 0; i < amountOfGore; i++)
         {
             // Here we set the gore piece as an empty so we can adjust it in seperate if statements
             GameObject gorePiece = null;
 
             // If the array script does exist, we can do array pooling
-            if(arrayScript != null)
+            if (arrayScript != null)
             {
                 // If the arrays have not filled up yet, we create new ones and add them
                 if (!arrayScript.FullArray2)
                 {
-                    gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
-                // If they have filled up, we reuse the ones that exist
-                } else if (arrayScript.FullArray2)
+                    gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0, 0, 0));
+                    // If they have filled up, we reuse the ones that exist
+                }
+                else if (arrayScript.FullArray2)
                 {
                     gorePiece = arrayScript.NextToTake;
                     gorePiece.transform.position = enemy.transform.position;
@@ -386,26 +387,30 @@ public class RammyVFX : MonoBehaviour
                     if (gorePiece.GetComponent<RagdollVelocity>())
                     {
                         // This will only affect the ragdolls
-                    } else
+                    }
+                    else
                     {
+                        print("rerun");
                         // This resets all the components
                         gorePiece.GetComponent<Rigidbody>().isKinematic = false;
                         gorePiece.GetComponent<Collider>().enabled = true;
                         var goreBlood = gorePiece.GetComponent<GoreBlood>();
+                        goreBlood.HitFloor = false;
                         goreBlood.HasSmudge = false;
                         goreBlood.Smudge = null;
                     }
                 }
                 arrayScript.AddPoint(gorePiece);
-            // If the array script does not exist, we do simple things with it
-            } else if(arrayScript == null)
+                // If the array script does not exist, we do simple things with it
+            }
+            else if (arrayScript == null)
             {
-                gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0,0,0));
+                gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0, 0, 0));
             }
 
 
             // Here we check if it has the ragdoll script. If it does, we add the settings to that instead of the rigidbody velocity script.
-            if(gorePiece.GetComponent<RagdollVelocity>())
+            if (gorePiece.GetComponent<RagdollVelocity>())
             {
                 var gorePieceVel = gorePiece.GetComponent<RagdollVelocity>();
 
@@ -416,7 +421,8 @@ public class RammyVFX : MonoBehaviour
                 gorePieceVel.BloodForceMax = goreSettings.MaxForce;
                 gorePieceVel.CalcDirLeft = bloodDir1;
                 gorePieceVel.CalcDirRight = bloodDir2;
-            } else
+            }
+            else
             {
                 // Adds the velocity script:
                 var gorePieceVel = gorePiece.GetComponent<InitVelocity>();
@@ -436,6 +442,8 @@ public class RammyVFX : MonoBehaviour
                 gorePieceVel.BloodForceMax = goreSettings.MaxForce;
                 gorePieceVel.CalcDirLeft = bloodDir1;
                 gorePieceVel.CalcDirRight = bloodDir2;
+
+                gorePieceVel.InitializeVelocity();
             }
         }
     }
@@ -444,11 +452,12 @@ public class RammyVFX : MonoBehaviour
     private void CalculateDirections(out Vector3 leftDirection, out Vector3 rightDirection, Vector3 inDirection, float angle, float spread)
     {
 
-        if(inDirection == new Vector3(0, 0, 0))
+        if (inDirection == new Vector3(0, 0, 0))
         {
             angle = -angle;
             _bloodSpreadCalculator.transform.localRotation = Quaternion.Euler(angle, 0, 0);
-        } else
+        }
+        else
         {
             var lookDir = inDirection;
             angle = -map(angle, 90, 0, 0, 90);

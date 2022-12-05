@@ -37,6 +37,21 @@ public class InitVelocity : MonoBehaviour
             ApplyVelocity(RandomVector3(CalcDirLeft, CalcDirRight), Random.Range(BloodForceMin, BloodForceMax));
         }
     }
+
+    public void InitializeVelocity()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.angularVelocity = new Vector3(Random.Range(angularVelocity.x, angularVelocity.y), Random.Range(angularVelocity.x, angularVelocity.y), Random.Range(angularVelocity.x, angularVelocity.y));
+
+        if (awayFromPlayer == false)
+        {
+            rb.velocity = new Vector3(Random.Range(velocity.x - randomOffsetValue, velocity.x + randomOffsetValue), Random.Range(velocity.y - randomOffsetValue, velocity.y + randomOffsetValue), Random.Range(velocity.x - randomOffsetValue, velocity.x + randomOffsetValue));
+        }
+        else if (awayFromPlayer == true)
+        {
+            ApplyVelocity(RandomVector3(CalcDirLeft, CalcDirRight), Random.Range(BloodForceMin, BloodForceMax));
+        }
+    }
     // Simple function that applies force with the direction. Can easily be modified.
     public void ApplyVelocity(Vector3 dir, float force)
     {

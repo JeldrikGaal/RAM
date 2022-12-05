@@ -17,7 +17,7 @@ public class Ability3 : Abilities
 
     private float _baseSpeed;
 
-    // [SerializeField] private GameObject _testObject;
+    [SerializeField] private GameObject _testObject;
 
     // public Dictionary<Vector3, bool> PointList = new Dictionary<Vector3, bool>();
 
@@ -54,6 +54,13 @@ public class Ability3 : Abilities
             if (col.tag == "enemy")
             {
                 enemyTransforms.Add(col.transform);
+                if (col.GetComponent<HawkBossManager>() != null)
+                {
+                    if (col.GetComponent<HawkBossManager>().Fleeing || col.GetComponent<HawkBossManager>().RisingFlee || col.GetComponent<HawkBossManager>().LoweringFlee || col.GetComponent<HawkBossManager>().Rising || col.GetComponent<HawkBossManager>().Crashing || col.GetComponent<HawkBossManager>().MeleeAttack)
+                    {
+                        enemyTransforms.Remove(col.transform);
+                    }
+                }
             }
         }
 
@@ -81,10 +88,10 @@ public class Ability3 : Abilities
             #endregion
 
             // Spawns in objects to show the different points (Only for testing purposes)
-            // var marker = Instantiate(_testObject, spawnPos, Quaternion.identity);
+            var marker = Instantiate(_testObject, spawnPos, Quaternion.identity);
 
             // Destroys the marker after one second
-            // Destroy(marker, 1);
+            Destroy(marker, 1);
 
             // Adds the point and a true value to the dictionary
             Points.Add(spawnPos, true);
@@ -118,24 +125,28 @@ public class Ability3 : Abilities
             Points[closestPoint] = false;
 
 
-            enemy.GetComponent<EnemyController>().PullPoint = closestPoint;
-            enemy.GetComponent<EnemyController>().Pull();
-
             if (enemy.GetComponent<EnemyController>() != null)
             {
                 // Makes the enemy take damage
                 enemy.GetComponent<EnemyController>().TakeDamage(_damage * _controller.AppliedDamageModifier, Vector3.up);
 
+                // enemy.GetComponent<EnemyController>().StunDuration = _stunDuration;
+                // enemy.GetComponent<EnemyController>().Stun();
+
+                enemy.GetComponent<EnemyController>().PullPoint = closestPoint;
+                enemy.GetComponent<EnemyController>().Pulled = true;
+                StartCoroutine(enemy.GetComponent<EnemyController>().Stun(2f));
+
                 // Tells the VFX script to do something
                 GetComponent<RammyVFX>().Ab3Attack(enemy, closestPoint);
-            }
 
-            // If the ability is upgraded
-            if (Upgraded)
-            {
-                // Pass the stun duration and the stun bool to the enemy
-                enemy.GetComponent<EnemyController>().StunDuration = _stunDuration;
-                enemy.GetComponent<EnemyController>().Stun();
+                // If the ability is upgraded
+                if (Upgraded)
+                {
+                    // Pass the stun duration and the stun bool to the enemy
+                    enemy.GetComponent<EnemyController>().StunDuration = _stunDuration;
+                    enemy.GetComponent<EnemyController>().Stun();
+                }
             }
         }
 
