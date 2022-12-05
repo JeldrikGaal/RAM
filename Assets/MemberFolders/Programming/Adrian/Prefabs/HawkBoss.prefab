@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 4862167422095219529}
   - component: {fileID: 4862167422095219528}
   - component: {fileID: 5218591000665524327}
-  - component: {fileID: 4862167422095219531}
+  - component: {fileID: 5450591515618555010}
   - component: {fileID: 4862167422095219509}
   - component: {fileID: 1804591234}
   - component: {fileID: 1804591235}
@@ -220,7 +220,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4862167422095219531
+--- !u!114 &5450591515618555010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,14 +229,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 4862167422095219533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
   MoveSpeed: 8
   AttackDamage: 0
-  Health: 100
   MaxHealth: 100
+  Health: 100
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  _bloodSmoke: {fileID: 0}
+  _bloodSize: 1
 --- !u!114 &4862167422095219509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,9 +262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e75d52d4a688454fa275830f8dea1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controller: {fileID: 4862167422095219531}
+  _controller: {fileID: 5450591515618555010}
   _testingScript: {fileID: 1804591234}
-  _model: {fileID: 0}
+  _model: {fileID: 7255134256080891616}
   _egg: {fileID: 444335988328818174, guid: f010148132d3af0428479a68eb63273d, type: 3}
   _shootPoint: {fileID: 4862167421449656783}
   _shootSpeed: 2000
@@ -274,6 +287,15 @@ MonoBehaviour:
   _flightTime: 0
   _riseTime: 0
   _flightHeight: 0
+  _crashPath: {fileID: 0}
+  _slowDownDistance: 0
+  _damageArea: {fileID: 0}
+  _fleePoints: []
+  _selectedFleePoint: {x: 0, y: 0, z: 0}
+  DamageTakenRecently: 0
+  _risingFlee: 0
+  _loweringFlee: 0
+  _fleeTimer: 0
   _phaseOne: 0
   _phaseTwo: 0
   _phaseThree: 0
@@ -283,7 +305,6 @@ MonoBehaviour:
   _attacking: 0
   _flee: 0
   _chase: 0
-  _fleeTimer: 0
 --- !u!114 &1804591234
 MonoBehaviour:
   m_ObjectHideFlags: 0

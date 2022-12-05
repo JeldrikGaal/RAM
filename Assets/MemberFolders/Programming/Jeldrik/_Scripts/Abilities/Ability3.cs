@@ -118,8 +118,8 @@ public class Ability3 : Abilities
             Points[closestPoint] = false;
 
 
-            enemy.GetComponent<EnemyController>().Pull();
             enemy.GetComponent<EnemyController>().PullPoint = closestPoint;
+            enemy.GetComponent<EnemyController>().Pull();
 
             if (enemy.GetComponent<EnemyController>() != null)
             {
