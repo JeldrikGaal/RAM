@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ability5 : Abilities
 {
+    public RammyAttack _stats;
+
     Rigidbody _rb;
     Vector3 _dashDestination;
     Vector3 _dashStart;

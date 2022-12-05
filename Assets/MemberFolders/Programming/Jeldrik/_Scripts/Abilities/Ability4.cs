@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ability4 : Abilities
 {
+    public RammyAttack _stats;
+
     public bool Upgraded = false;
     [SerializeField] ExternalCollider _eCollider;
     [SerializeField] float _effectRadius;

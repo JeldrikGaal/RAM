@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ability2 : Abilities
 {
+    public RammyAttack _stats;
+
     public int level = 0;
     Rigidbody _rb;
     Ray _ray;

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Ability3 : Abilities
 {
+    public RammyAttack _stats;
+
     [SerializeField] private float _stunDuration;
     [SerializeField] private float _pullForce;
     [SerializeField] private int _points;

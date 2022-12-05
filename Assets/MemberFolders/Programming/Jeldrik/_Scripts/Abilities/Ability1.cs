@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ability1 : Abilities
 {
-    [SerializeField] private RammyAttack _stats;
+    public RammyAttack _stats;
 
     [SerializeField] private bool _jumping;
 
@@ -20,7 +20,7 @@ public class Ability1 : Abilities
     [SerializeField] private GameObject _damageArea;
     [SerializeField] private GameObject _upgradedArea;
 
-    [HideInInspector] public RammyController PlayerController;
+    public RammyController PlayerController;
     public RammyVFX VFXScript;
 
     private Vector3 _startPos;
@@ -63,8 +63,10 @@ public class Ability1 : Abilities
                 foreach (Collider c in enemies)
                 {
                     // If the damage kills the enemy, do cool stuff
-                    if (c.gameObject.GetComponent<EnemyController>().TakeDamage((Upgraded ? _stats.UDmg : _stats.Dmg) * _controller.DamageModifier, transform.up))
+                    if (c.gameObject.GetComponent<EnemyController>().TakeDamage((Upgraded ? _stats.UDmg : _stats.Dmg) * _controller.Damage, transform.up))
+                    {
                         PlayerController.Kill(c.gameObject);
+                    }
 
                     // Stuns enemy
                     c.GetComponent<EnemyController>().StunDuration = _stunDuration;
