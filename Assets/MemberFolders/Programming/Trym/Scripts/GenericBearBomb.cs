@@ -13,6 +13,7 @@ public class GenericBearBomb : MonoBehaviour
     public bool HitCheck { get; private set; } = false;
     private void OnCollisionEnter(Collision collision)
     {
+#if false
         // activates the timer after hitting the ground.
         if (collision.collider.attachedRigidbody != null)
         {
@@ -25,7 +26,13 @@ public class GenericBearBomb : MonoBehaviour
         {
             LightFuse();
         }
-        
+#endif
+        if (collision.gameObject.layer == 10)
+        {
+            LightFuse();
+        } 
+
+
     }
 
     private void LightFuse()
@@ -40,9 +47,10 @@ public class GenericBearBomb : MonoBehaviour
     {
         yield return new WaitForSeconds(_fuse);
         _effect.SetActive(true);
-        _effect.transform.LookAt(transform.position + Vector3.forward, Vector3.up);
         _effect.transform.parent = null;
+        
         _effect.transform.position = transform.position + _effectPosMod;
+        _effect.transform.LookAt(_effect.transform.position + Vector3.forward, Vector3.up);
         Destroy(gameObject);
     }
 
