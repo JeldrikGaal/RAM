@@ -29,7 +29,7 @@ public class GoreBlood : MonoBehaviour
             // Spawn the splat:
             Smudge = Instantiate(SplatObject, position, splatRotation);
             StartPos = position;
-            StartPos = new Vector3(StartPos.x, 1.1f, StartPos.z);
+            StartPos = new Vector3(StartPos.x, position.y, StartPos.z);
             HasSmudge = true;
             DoubleArrayScript.AddPoint(Smudge);
         }
@@ -37,7 +37,7 @@ public class GoreBlood : MonoBehaviour
         {
             Smudge = DoubleArrayScript.NextToTake;
             StartPos = position;
-            StartPos = new Vector3(StartPos.x, 1.1f, StartPos.z);
+            StartPos = new Vector3(StartPos.x, position.y, StartPos.z);
             Smudge.transform.position = position;
             Smudge.transform.rotation = splatRotation;
             if (Smudge.GetComponent<FadeOnTrigger>())
@@ -65,7 +65,7 @@ public class GoreBlood : MonoBehaviour
             {
                 if(other.gameObject.layer != 10)
                 {
-                    SpawnSplat(new Vector3(transform.position.x,1.1f,transform.position.z));
+                    SpawnSplat(new Vector3(transform.position.x, item.point.y + item.normal.y * 0.6f, transform.position.z));
                 }
             }
         }
