@@ -10,8 +10,10 @@ public class PauseGame : MonoBehaviour
     [SerializeField] GameObject _pauseMenu;
     [SerializeField] GameObject _pauseMenuContent;
     [SerializeField] GameObject _settingsMenu;
+    [SerializeField] GameObject _ingameUi;
     [SerializeField] UnityEvent _onPause;
     [SerializeField] UnityEvent _onUnpause;
+    
     private static bool _paused = false;
 
     #region most of Input
@@ -51,11 +53,14 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void Pause()
     {
+
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
         _paused = true;
+        if (_ingameUi) _ingameUi.SetActive(false);
         OnPausedEventHandler(true);
         _onPause.Invoke();
+        
     }
     /// <summary>
     /// Resumes the game
@@ -67,8 +72,10 @@ public class PauseGame : MonoBehaviour
         _settingsMenu.SetActive(false);
         _pauseMenu.SetActive(false);
         _paused = false;
+        if (_ingameUi) _ingameUi.SetActive(true);
         OnPausedEventHandler(false);
         _onUnpause.Invoke();
+        
     }
 
     /// <summary>
