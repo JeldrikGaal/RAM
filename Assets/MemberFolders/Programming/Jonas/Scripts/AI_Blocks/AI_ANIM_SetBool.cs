@@ -20,6 +20,7 @@ public class AI_ANIM_SetBool : StateBlock
     {
         if (!_isDone[user])
         {
+            _isDone[user] = true;
             user.AnimSetBool(_name, _value);
         }
 
