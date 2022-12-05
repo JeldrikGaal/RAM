@@ -9,6 +9,7 @@ public class AI_ThrowBomb : StateBlock
     [SerializeField] GenericBearBomb _bomb;
     [SerializeField] float _speed;
     [SerializeField] AnimationCurve _relativeSpeedOverDistance, _relativeTrajectory;
+    [SerializeField] float _range = float.PositiveInfinity;
 
     private readonly Dictionary<int, bool> _launched = new();
     
@@ -40,8 +41,20 @@ public class AI_ThrowBomb : StateBlock
         {
             Debug.Log(name);
             var origin = user.transform.position;
+            var targetPos = target.transform.position;
+
+            Vector2 origin2D = new(origin.x, origin.z);
+
+            Vector2 target2D = new(target.transform.position.x, target.transform.position.z);
+
+            if (Vector2.Distance(origin2D,target2D) > _range)
+            {
+                Vector2 targetDir = (target2D - origin2D).normalized;
+                targetPos =  origin + (new Vector3(targetDir.x,0,targetDir.y) *_range);
+            }
+
             // Instantiates the bomb and starts sends it on it's journey.
-            GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_bomb, origin, Quaternion.identity, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, target.transform.position));
+            GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_bomb, origin, Quaternion.identity, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
             _launched[iD] = true;
         }
         return (null, null);
@@ -68,6 +81,7 @@ public class AI_ThrowBomb : StateBlock
         Vector2 dir = (target2D - origin2D).normalized;
         var rigid = bomb.Rb;
         float distance = Vector2.Distance(target2D, origin2D);
+       
         float relativePositionInSequence;
 
 
