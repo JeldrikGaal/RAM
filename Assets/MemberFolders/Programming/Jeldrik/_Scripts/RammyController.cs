@@ -319,7 +319,6 @@ public class RammyController : MonoBehaviour
         Vector3 vel = new Vector3(_moveDirection.x, 0, _moveDirection.y);
         vel = Quaternion.AngleAxis(-45, Vector3.up) * vel;
 
-        Debug.Log(_rB.velocity.magnitude);
         if (Math.Abs(_rB.velocity.magnitude) > 0.01f)
         {
             Walking = true;
