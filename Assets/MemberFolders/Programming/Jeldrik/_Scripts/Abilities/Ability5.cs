@@ -14,6 +14,8 @@ public class Ability5 : Abilities
     [SerializeField] float _pushDistance = 8f;
     [SerializeField] float _moveDuration = 1.5f;
     [SerializeField] GameObject _externalCollider;
+
+    [SerializeField] private SpawnRocks _rockSpawner;
     public override void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -55,6 +57,14 @@ public class Ability5 : Abilities
         _externalCollider.SetActive(true);
         _externalCollider.transform.localPosition = new Vector3(0f, 1.5f, 0f);
         _externalCollider.transform.SetParent(null);
+
+        // Spawns rocks!
+        if (_rockSpawner)
+        {
+            _rockSpawner.gameObject.transform.parent = null;
+            _rockSpawner.InitiateRocks();
+            _rockSpawner.gameObject.transform.parent = this.transform;
+        }
 
         // Checking if the force field would end up in an object while dashing and shortening dash if thats the case
         _dashDestination = _externalCollider.transform.position + transform.up * _pushDistance;
