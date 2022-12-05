@@ -63,7 +63,7 @@ public class StepsSpawner : MonoBehaviour
             } else if (_doubleArrayScript.FullArray2)
             {
                 _step = _doubleArrayScript.NextToTake;
-                _step.transform.position = new Vector3(point.x, 0.51f, point.z);
+                _step.transform.position = point;
                 _step.transform.rotation = this.transform.rotation;
                 if (_step.GetComponent<FadeOnTrigger>())
                 {
