@@ -49,12 +49,12 @@ public class RammyController : MonoBehaviour
     private float _ability3Key;
     private float _ability4Key;
     private float _ability5Key;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability1 _ability1Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability2 _ability2Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability3 _ability3Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability4 _ability4Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability5 _ability5Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private bool _startFullAbilities = true;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability1 _ability1Script;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability2 _ability2Script;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability3 _ability3Script;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability4 _ability4Script;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability5 _ability5Script;
+    [FoldoutGroup("Abilities")][SerializeField] private bool _startFullAbilities = true;
 
     private List<bool> _learnedAbilities = new List<bool>();
 
@@ -73,12 +73,12 @@ public class RammyController : MonoBehaviour
 
     //[Header("Character State")]
     // Bools describing playerstate
-    [FoldoutGroup("Character State")] [SerializeField] private bool Attacking;
-    [FoldoutGroup("Character State")] [SerializeField] private bool BasicAttacking;
-    [FoldoutGroup("Character State")] [SerializeField] private bool Dashing;
-    [FoldoutGroup("Character State")] [SerializeField] private bool Invincible;
-    [FoldoutGroup("Character State")] [SerializeField] private bool Walking;
-    [FoldoutGroup("Character State")] [SerializeField] private bool UsingAbility;
+    [FoldoutGroup("Character State")][SerializeField] private bool Attacking;
+    [FoldoutGroup("Character State")][SerializeField] private bool BasicAttacking;
+    [FoldoutGroup("Character State")][SerializeField] private bool Dashing;
+    [FoldoutGroup("Character State")][SerializeField] private bool Invincible;
+    [FoldoutGroup("Character State")][SerializeField] private bool Walking;
+    [FoldoutGroup("Character State")][SerializeField] private bool UsingAbility;
 
     [Header("Player Stats")]
     // Player Values
@@ -153,7 +153,7 @@ public class RammyController : MonoBehaviour
     private Vector3 _directionIndicatorPosSave;
 
     //[Header("Buff Values")]
-    [FoldoutGroup("Buff Values")] [SerializeField] private bool _hasDamageBuff;
+    [FoldoutGroup("Buff Values")][SerializeField] private bool _hasDamageBuff;
     [FoldoutGroup("Buff Values")] public float DamageModifier;
     [HideInInspector] public float AppliedDamageModifier; // Multiply this by the damage in each ability
     [FoldoutGroup("Buff Values")] public float DamageBuffDuration;
@@ -163,14 +163,14 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float SpeedBuffDuration;
     private float _speedBuffTimer;
     private bool _setSpeed = true;
-    [FoldoutGroup("Buff Values")] [SerializeField] private bool _hasDamageReductionBuff;
+    [FoldoutGroup("Buff Values")][SerializeField] private bool _hasDamageReductionBuff;
     [FoldoutGroup("Buff Values")] public float DamageReductionModifier;
     [FoldoutGroup("Buff Values")] public float DamageReductionBuffDuration;
-    [FoldoutGroup("Buff Values")] [SerializeField] private float _damageReductionBuffTimer;
+    [FoldoutGroup("Buff Values")][SerializeField] private float _damageReductionBuffTimer;
     [FoldoutGroup("Buff Values")] public bool HasStunBuff;
     [FoldoutGroup("Buff Values")] public float StunBuffModifier;
     [FoldoutGroup("Buff Values")] public float StunBuffDuration;
-    [FoldoutGroup("Buff Values")] [SerializeField] private float _stunBuffTimer;
+    [FoldoutGroup("Buff Values")][SerializeField] private float _stunBuffTimer;
 
 
     // Debugging
