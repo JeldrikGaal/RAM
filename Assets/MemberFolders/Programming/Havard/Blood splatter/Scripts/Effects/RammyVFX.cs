@@ -393,6 +393,7 @@ public class RammyVFX : MonoBehaviour
                         gorePiece.GetComponent<Rigidbody>().isKinematic = false;
                         gorePiece.GetComponent<Collider>().enabled = true;
                         var goreBlood = gorePiece.GetComponent<GoreBlood>();
+                        goreBlood.HitFloor = false;
                         goreBlood.HasSmudge = false;
                         goreBlood.Smudge = null;
                     }
@@ -437,6 +438,8 @@ public class RammyVFX : MonoBehaviour
                 gorePieceVel.BloodForceMax = goreSettings.MaxForce;
                 gorePieceVel.CalcDirLeft = bloodDir1;
                 gorePieceVel.CalcDirRight = bloodDir2;
+
+                gorePieceVel.InitializeVelocity();
             }
         }
     }
