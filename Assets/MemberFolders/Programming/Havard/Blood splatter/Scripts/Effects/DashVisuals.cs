@@ -10,6 +10,7 @@ public class DashVisuals : MonoBehaviour
     private GameObject _currentSmudge;
     private Quaternion _dashingDirection;
     [SerializeField] private Transform _directionObject;
+    [SerializeField] private float _groundHeight = 0;
 
     // Tracker:
     [SerializeField] private int _maxItems = 50;
@@ -36,7 +37,7 @@ public class DashVisuals : MonoBehaviour
         if (_currentSmudge)
         {
             // Calculates the middle point and sets the scale to fit between.
-            _currentSmudge.transform.position = Vector3.Lerp(new Vector3(_startSmudgeSpot.x, 0.51f, _startSmudgeSpot.z), new Vector3(this.transform.position.x, 0.51f, this.transform.position.z), 0.5f);
+            _currentSmudge.transform.position = Vector3.Lerp(new Vector3(_startSmudgeSpot.x, 0.51f + _groundHeight, _startSmudgeSpot.z), new Vector3(this.transform.position.x, 0.51f+ _groundHeight, this.transform.position.z), 0.5f);
             _currentSmudge.transform.localScale = new Vector3(Vector3.Distance(_startSmudgeSpot, _currentSmudge.transform.position), 1, 1);
         }
     }
