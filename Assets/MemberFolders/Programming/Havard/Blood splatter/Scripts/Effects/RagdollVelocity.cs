@@ -10,6 +10,7 @@ public class RagdollVelocity : MonoBehaviour
     public float BloodForceMax;
 
     private bool _static = false;
+    public bool Quiet = false;
 
     void Start()
     {
@@ -39,31 +40,42 @@ public class RagdollVelocity : MonoBehaviour
     {
         // Here we freeze everything when it stops.
 
-        Transform[] allChildren = GetComponentsInChildren<Transform>();
-        foreach (Transform child in allChildren)
+        if (!Quiet)
         {
-
-            if (child.GetComponent<CapsuleCollider>())
+            Transform[] allChildren = GetComponentsInChildren<Transform>();
+            foreach (Transform child in allChildren)
             {
-                if (_static)
-                {
-                    child.GetComponent<CapsuleCollider>().enabled = false;
-                }
 
-            }
-            if (child.GetComponent<Rigidbody>())
-            {
-                if (_static)
+
+                if (child.GetComponent<CapsuleCollider>())
                 {
-                    child.GetComponent<Rigidbody>().isKinematic = true;
+                    if (_static)
+                    {
+                        child.GetComponent<CapsuleCollider>().enabled = false;
+                    }
 
                 }
-
-                if (child.GetComponent<Rigidbody>().velocity.magnitude <= 0.1)
+                if (child.GetComponent<Rigidbody>())
                 {
-                    _static = true;
+                    if (_static)
+                    {
+                        child.GetComponent<Rigidbody>().isKinematic = true;
+                    }
+
+                    if (child.GetComponent<Rigidbody>().velocity.magnitude <= 0.1)
+                    {
+                        _static = true;
+                        Invoke("SetQuiet", 0.5f);
+                    }
                 }
+            
             }
         }
     }
+
+    private void SetQuiet()
+    {
+        Quiet = true;
+    }
+
 }
