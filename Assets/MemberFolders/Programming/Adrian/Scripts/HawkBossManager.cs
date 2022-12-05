@@ -99,8 +99,8 @@ public class HawkBossManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _phaseTwo = true;
-        _stageThree = true;
+        _phaseOne = true;
+        _stageOne = true;
 
         _player = GameObject.FindGameObjectWithTag("Player");
         _rb = GetComponent<Rigidbody>();
