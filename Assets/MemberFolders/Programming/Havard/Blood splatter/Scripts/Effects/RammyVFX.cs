@@ -294,7 +294,7 @@ public class RammyVFX : MonoBehaviour
 
         SpawnBlood(_bloodSizeMinAb5, _bloodSizeMaxAb5, _bloodSpreadAb5, _heightAngleAb5, _bloodAmountAb5, _bloodForceMinAb5, _bloodForceMaxAb5, enemy, rotation);
 
-        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        if (enemy.GetComponent<EnemyController>().Health <= 0)
         {
             var dir = (enemy.transform.position - transform.position).normalized;
 
@@ -388,10 +388,12 @@ public class RammyVFX : MonoBehaviour
                         // This will only affect the ragdolls
                     } else
                     {
+                        print("rerun");
                         // This resets all the components
                         gorePiece.GetComponent<Rigidbody>().isKinematic = false;
                         gorePiece.GetComponent<Collider>().enabled = true;
                         var goreBlood = gorePiece.GetComponent<GoreBlood>();
+                        goreBlood.HitFloor = false;
                         goreBlood.HasSmudge = false;
                         goreBlood.Smudge = null;
                     }
@@ -436,6 +438,8 @@ public class RammyVFX : MonoBehaviour
                 gorePieceVel.BloodForceMax = goreSettings.MaxForce;
                 gorePieceVel.CalcDirLeft = bloodDir1;
                 gorePieceVel.CalcDirRight = bloodDir2;
+
+                gorePieceVel.InitializeVelocity();
             }
         }
     }
