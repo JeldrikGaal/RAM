@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Sirenix.OdinInspector;
 //using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 //using UnityEngine.UIElements.Experimental;
 //using static UnityEngine.EventSystems.EventTrigger;
@@ -48,12 +49,12 @@ public class RammyController : MonoBehaviour
     private float _ability3Key;
     private float _ability4Key;
     private float _ability5Key;
-    [SerializeField] private Ability1 _ability1Script;
-    [SerializeField] private Ability2 _ability2Script;
-    [SerializeField] private Ability3 _ability3Script;
-    [SerializeField] private Ability4 _ability4Script;
-    [SerializeField] private Ability5 _ability5Script;
-    [SerializeField] private bool _startFullAbilities = true;
+    [FoldoutGroup("Abilities")] [SerializeField] private Ability1 _ability1Script;
+    [FoldoutGroup("Abilities")] [SerializeField] private Ability2 _ability2Script;
+    [FoldoutGroup("Abilities")] [SerializeField] private Ability3 _ability3Script;
+    [FoldoutGroup("Abilities")] [SerializeField] private Ability4 _ability4Script;
+    [FoldoutGroup("Abilities")] [SerializeField] private Ability5 _ability5Script;
+    [FoldoutGroup("Abilities")] [SerializeField] private bool _startFullAbilities = true;
 
     private List<bool> _learnedAbilities = new List<bool>();
 
@@ -70,14 +71,14 @@ public class RammyController : MonoBehaviour
     [SerializeField] private TimeStopper _timeStopper;
 
 
-    [Header("Character State")]
+    //[Header("Character State")]
     // Bools describing playerstate
-    [SerializeField] private bool Attacking;
-    [SerializeField] private bool BasicAttacking;
-    [SerializeField] private bool Dashing;
-    [SerializeField] private bool Invincible;
-    [SerializeField] private bool Walking;
-    [SerializeField] private bool UsingAbility;
+    [FoldoutGroup("Character State")] [SerializeField] private bool Attacking;
+    [FoldoutGroup("Character State")] [SerializeField] private bool BasicAttacking;
+    [FoldoutGroup("Character State")] [SerializeField] private bool Dashing;
+    [FoldoutGroup("Character State")] [SerializeField] private bool Invincible;
+    [FoldoutGroup("Character State")] [SerializeField] private bool Walking;
+    [FoldoutGroup("Character State")] [SerializeField] private bool UsingAbility;
 
     [Header("Player Stats")]
     // Player Values
@@ -145,31 +146,31 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float _freezeTimeHit;
 
     // Help variables for various purposes
-    private Plane _groundPlane = new Plane(Vector3.up, 0);
+    private Plane _groundPlane = new(Vector3.up, new Vector3(0, 20, 0));
     private Vector3 _mouseWorldPosition;
     private Vector3 _lookingAtMouseRotation;
     private Vector3 _directionIndicatorScaleSave;
     private Vector3 _directionIndicatorPosSave;
 
-    [Header("Buff Values")]
-    [SerializeField] private bool _hasDamageBuff;
-    public float DamageModifier;
+    //[Header("Buff Values")]
+    [FoldoutGroup("Buff Values")] [SerializeField] private bool _hasDamageBuff;
+    [FoldoutGroup("Buff Values")] public float DamageModifier;
     [HideInInspector] public float AppliedDamageModifier; // Multiply this by the damage in each ability
-    public float DamageBuffDuration;
+    [FoldoutGroup("Buff Values")] public float DamageBuffDuration;
     private float _damageBuffTimer;
-    public bool HasSpeedBuff;
-    public float SpeedModifier;
-    public float SpeedBuffDuration;
+    [FoldoutGroup("Buff Values")] public bool HasSpeedBuff;
+    [FoldoutGroup("Buff Values")] public float SpeedModifier;
+    [FoldoutGroup("Buff Values")] public float SpeedBuffDuration;
     private float _speedBuffTimer;
     private bool _setSpeed = true;
-    [SerializeField] private bool _hasDamageReductionBuff;
-    public float DamageReductionModifier;
-    public float DamageReductionBuffDuration;
-    [SerializeField] private float _damageReductionBuffTimer;
-    public bool HasStunBuff;
-    public float StunBuffModifier;
-    public float StunBuffDuration;
-    [SerializeField] private float _stunBuffTimer;
+    [FoldoutGroup("Buff Values")] [SerializeField] private bool _hasDamageReductionBuff;
+    [FoldoutGroup("Buff Values")] public float DamageReductionModifier;
+    [FoldoutGroup("Buff Values")] public float DamageReductionBuffDuration;
+    [FoldoutGroup("Buff Values")] [SerializeField] private float _damageReductionBuffTimer;
+    [FoldoutGroup("Buff Values")] public bool HasStunBuff;
+    [FoldoutGroup("Buff Values")] public float StunBuffModifier;
+    [FoldoutGroup("Buff Values")] public float StunBuffDuration;
+    [FoldoutGroup("Buff Values")] [SerializeField] private float _stunBuffTimer;
 
 
     // Debugging
@@ -205,6 +206,7 @@ public class RammyController : MonoBehaviour
                 _learnedAbilities.Add(false);
             }
         }
+
     }
 
     // Enabling PlayerControls when player gets enabled in the scene
@@ -638,7 +640,7 @@ public class RammyController : MonoBehaviour
                     if (TagManager.HasTag(g, "enemy"))
                     {
                         _rammyVFX.NormalAttack(g);
-                        if (g.GetComponent<EnemyTesting>().TakeDamage(BasicAttackDamage * AppliedDamageModifier, transform.up))
+                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier, transform.up))
                         {
                             Kill(g);
                         }
@@ -806,7 +808,7 @@ public class RammyController : MonoBehaviour
             }
 
             // Calling Damage on the enemy script
-            if (rammedObject.GetComponent<EnemyTesting>().TakeDamage(ChargeAttackDamage * AppliedDamageModifier, transform.up))
+            if (rammedObject.GetComponent<EnemyController>().TakeDamage(ChargeAttackDamage * AppliedDamageModifier, transform.up))
             {
                 Kill(rammedObject);
             }
@@ -889,7 +891,7 @@ public class RammyController : MonoBehaviour
         {
             if (TagManager.HasTag(collision.gameObject, "enemy"))
             {
-                if (collision.gameObject.GetComponent<EnemyTesting>().TakeDamage(DashAttackDamage * AppliedDamageModifier, transform.up))
+                if (collision.gameObject.GetComponent<EnemyController>().TakeDamage(DashAttackDamage * AppliedDamageModifier, transform.up))
                 {
                     Kill(collision.gameObject);
                 }
@@ -954,7 +956,8 @@ public class RammyController : MonoBehaviour
     public void Heal(int healing)
     {
         Health = Math.Min(MaxHealth, Health + healing);
-        _healthBar.UpdateHealthBar(healing / MaxHealth);
+        if (Health != MaxHealth) _healthBar.UpdateHealthBar(healing / MaxHealth);
+
     }
 
     /// <summary>

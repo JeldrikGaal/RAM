@@ -22,7 +22,7 @@ public class AI_AttackShoot : StateBlock
         if (!_isDone[user])
         {
             //atk.GetComponent<EnemyAttack>().Init(_damage != 0 ? _damage : (user.AttackDamage * _dmgWeight));
-            if (user.GetComponent<EnemyTesting>()._health < 10)
+            if (user.GetComponent<EnemyController>().Health < 10)
             {
                 user.GetComponent<HawkChargeAttack>().damage = 3f;
                 user.GetComponent<HawkChargeAttack>().HawkCharge();

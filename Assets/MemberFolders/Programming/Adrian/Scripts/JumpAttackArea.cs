@@ -19,16 +19,16 @@ public class JumpAttackArea : MonoBehaviour
         if (other.tag == "enemy")
         {
             // If the damage kills the enemy, do cool stuff
-            if (other.gameObject.GetComponent<EnemyTesting>().TakeDamage(Damage, transform.up))
+            if (other.gameObject.GetComponent<EnemyController>().TakeDamage(Damage, transform.up))
             {
                 PlayerController.Kill(other.gameObject);
             }
 
             // Sets the stun duration in the enemy script
-            other.GetComponent<EnemyTesting>().StunDuration = StunDuration;
+            other.GetComponent<EnemyController>().StunDuration = StunDuration;
 
             // Sets the stund variable to true so the enemy is stunned
-            other.GetComponent<EnemyTesting>().Stunned = true;
+            other.GetComponent<EnemyController>().Stun();
 
             // Tells the VFX script to do VFX things:
             VFXScript.Ab1Attack(other.gameObject);
