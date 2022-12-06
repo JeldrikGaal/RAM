@@ -6,11 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
-using System.Security.Cryptography.X509Certificates;
-//using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-//using UnityEngine.UIElements.Experimental;
-//using static UnityEngine.EventSystems.EventTrigger;
-//using static UnityEngine.Rendering.DebugUI.Table;
 
 public class RammyController : MonoBehaviour
 {
@@ -25,6 +20,8 @@ public class RammyController : MonoBehaviour
     private InputAction _ability3;
     private InputAction _ability4;
     private InputAction _ability5;
+
+    [HideInInspector] public float Damage = 10;
 
 
     // Vector in which the character is currently moving according to player input
@@ -190,6 +187,7 @@ public class RammyController : MonoBehaviour
     {
         _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
+        _animator = GetComponent<Animator>();
     }
     void Start()
     {
@@ -337,7 +335,7 @@ public class RammyController : MonoBehaviour
         {
             _animator.SetTrigger("stopWalking");
             _walkingAnim = false;
-            Debug.Log("STOP");
+            //Debug.Log("STOP");
         }
 
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
@@ -349,7 +347,7 @@ public class RammyController : MonoBehaviour
             {
                 _animator.SetTrigger("startWalking");
                 _walkingAnim = true;
-                Debug.Log("START");
+                //Debug.Log("START");
             }
            
            
@@ -387,44 +385,6 @@ public class RammyController : MonoBehaviour
             {
                 transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 7);
             }
-
-            #region saving
-            /*
-            if (_moveDirection.x < 0 && _moveDirection.y == 0) // looking left
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 90);
-            }
-            else if (_moveDirection.x < 0 && _moveDirection.y < 0) // looking down left
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 135);
-            }
-            else if (_moveDirection.x == 0 && _moveDirection.y < 0) // looking down
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 180);
-            }
-            else if (_moveDirection.x > 0 && _moveDirection.y < 0) // looking down right
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 225);
-            }
-            else if (_moveDirection.x > 0 && _moveDirection.y == 0) // looking right
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 270);
-            }
-            else if (_moveDirection.x > 0 && _moveDirection.y > 0) // looking up right
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 315);
-            }
-            else if (_moveDirection.x == 0 && _moveDirection.y > 0) // looking up 
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 0);
-            }
-            else if (_moveDirection.x < 0 && _moveDirection.y > 0) // looking up left 
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 45);
-            }
-            */
-            #endregion
-
         }
 
         #endregion
@@ -462,7 +422,6 @@ public class RammyController : MonoBehaviour
             {
                 EndChargeAttack();
             }
-
         }
         if (BasicAttacking)
         {
