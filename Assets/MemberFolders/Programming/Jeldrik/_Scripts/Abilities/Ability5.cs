@@ -61,9 +61,10 @@ public class Ability5 : Abilities
         // Spawns rocks!
         if (_rockSpawner)
         {
-            _rockSpawner.gameObject.transform.parent = null;
+            //_rockSpawner.gameObject.transform.parent = null;
+            // _rockSpawner.transform.rotation = Quaternion.LookRotation(this.transform.rotation.eulerAngles, Vector3.forward);
             _rockSpawner.InitiateRocks();
-            _rockSpawner.gameObject.transform.parent = this.transform;
+            //_rockSpawner.gameObject.transform.parent = this.transform;
         }
 
         // Checking if the force field would end up in an object while dashing and shortening dash if thats the case
