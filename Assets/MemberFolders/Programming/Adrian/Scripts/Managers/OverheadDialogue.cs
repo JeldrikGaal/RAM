@@ -17,7 +17,11 @@ public class OverheadDialogue : MonoBehaviour
     [SerializeField] private GameObject _character1Replacement;
     [SerializeField] private GameObject _character2Replacement;
 
-    [SerializeField] private Sprite[] _dialogueSprites;
+
+    [SerializeField] private List<Sprite> _universalSprites = new List<Sprite>();
+    [SerializeField] private List<Sprite> _specificSprites = new List<Sprite>();
+
+    [SerializeField] private int _amountOfDialogue;
 
     [SerializeField] private Transform _lerpPoint;
     [SerializeField] private float _lerpSpeed;
@@ -71,11 +75,32 @@ public class OverheadDialogue : MonoBehaviour
         _character2Canvas.gameObject.SetActive(true);
 
         // Loop for each dialoguebox sprite
-        for (int i = 0; i < _dialogueSprites.Length; i++)
+        for (int i = 0; i < _amountOfDialogue; i++)
         {
+            var dialogueSelection = Random.Range(0, 2);
+
+            var randomSpecific = Random.Range(0, _specificSprites.Count);
+            var randomUniversal = Random.Range(0, _universalSprites.Count);
+
+            switch (dialogueSelection)
+            {
+                case 0:
+                    _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _specificSprites.Count == 0 ? _universalSprites[randomUniversal] : _specificSprites[randomSpecific];
+                    _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _specificSprites.Count == 0 ? _universalSprites[randomUniversal] : _specificSprites[randomSpecific];
+                    _specificSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                    break;
+                case 1:
+                    _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _specificSprites[randomSpecific] : _universalSprites[randomUniversal];
+                    _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _specificSprites[randomSpecific] : _universalSprites[randomUniversal];
+                    _universalSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                    break;
+                default:
+                    break;
+            }
+
             // Sets the correct sprite in the canvases
-            _character1Canvas.GetComponentInChildren<Image>().sprite = _dialogueSprites[i];
-            _character2Canvas.GetComponentInChildren<Image>().sprite = _dialogueSprites[i];
+            // _character1Canvas.GetComponentInChildren<Image>().sprite = _specificSprites[i];
+            // _character2Canvas.GetComponentInChildren<Image>().sprite = _specificSprites[i];
 
             // Flips which canvas is active
             _character1Canvas.gameObject.SetActive(!_character1Canvas.gameObject.activeSelf);
