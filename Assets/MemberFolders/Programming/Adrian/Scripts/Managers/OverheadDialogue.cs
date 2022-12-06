@@ -82,8 +82,10 @@ public class OverheadDialogue : MonoBehaviour
         // Loop for each dialoguebox sprite
         for (int i = 0; i < _amountOfDialogue; i++)
         {
+            // Randomly chooses either universal or specific dialogue symbol
             var dialogueSelection = Random.Range(0, 2);
 
+            // Gets a random int between zero and the count of the lists
             var randomSpecificWolf = Random.Range(0, _wolfSprites.Count);
             var randomSpecificHawk = Random.Range(0, _hawkSprites.Count);
             var randomSpecificBear = Random.Range(0, _bearSprites.Count);
@@ -91,6 +93,7 @@ public class OverheadDialogue : MonoBehaviour
 
             switch (dialogueSelection)
             {
+                // If the sprite at the random location in the list is not null set the image to that sprite, then remove it from the list to avoid duplicates
                 case 0:
                     if (_wolf)
                     {
@@ -112,12 +115,12 @@ public class OverheadDialogue : MonoBehaviour
                     }
                     break;
                 case 1:
-
                     if (_wolf)
                     {
                         _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _wolfSprites[randomSpecificWolf] : _universalSprites[randomUniversal];
                         _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _wolfSprites[randomSpecificWolf] : _universalSprites[randomUniversal];
 
+                        // Checks if a universal symbols is used or not and removes the sprite from the appropriate list
                         if (_universalSprites.Contains(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite))
                         {
                             _universalSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
