@@ -379,8 +379,8 @@ public class RammyController : MonoBehaviour
                 _walkingAnim = true;
                 Debug.Log("START");
             }
-           
-           
+
+
             // Rotate player in the direction its walking
             if (_moveDirection.x < 0 && _moveDirection.y == 0) // looking left
             {
@@ -725,7 +725,7 @@ public class RammyController : MonoBehaviour
                 {
                     _chargeAttackDestination = hit.point;
                 }
-                if (! TagManager.HasTag(hit.transform.gameObject, "enemy"))
+                if (!TagManager.HasTag(hit.transform.gameObject, "enemy"))
                 {
                     _chargeAttackDestination = hit.point;
                 }
@@ -905,6 +905,10 @@ public class RammyController : MonoBehaviour
         else if (TagManager.HasTag(rammedObject, "objectfalltree"))
         {
             rammedObject.GetComponent<ObjectFallFromTree>().DropItem = true;
+        }
+        else if (TagManager.HasTag(rammedObject, "enemyplatform"))
+        {
+            rammedObject.transform.parent.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
 
     }
@@ -1137,7 +1141,7 @@ public class RammyController : MonoBehaviour
     private void StopWalking()
     {
         _rB.velocity = Vector3.zero;
-        
+
     }
 
     // Rammy fell below 0 health and has now died. Deal with it in this function
