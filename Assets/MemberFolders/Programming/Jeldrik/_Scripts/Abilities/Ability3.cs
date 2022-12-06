@@ -5,15 +5,11 @@ using UnityEngine;
 
 public class Ability3 : Abilities
 {
-    public RammyAttack _stats;
-
     [SerializeField] private float _stunDuration;
     [SerializeField] private float _pullForce;
     [SerializeField] private int _points;
     [SerializeField] private float _distanceToPoints;
-    [SerializeField] private float _pullRadius;
     [SerializeField] private float _restrictedTime;
-    [SerializeField] private float _damage;
 
     public bool Upgraded;
 
@@ -44,7 +40,7 @@ public class Ability3 : Abilities
         Points.Clear();
 
         // Gets an array of all the colliders within a radius around a point
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _pullRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _upgraded ? Stats.USplashRadius : Stats.SplashRadius);
 
         // Local transform list
         List<Transform> enemyTransforms = new List<Transform>();
@@ -126,7 +122,7 @@ public class Ability3 : Abilities
             if (enemy.GetComponent<EnemyController>() != null)
             {
                 // Makes the enemy take damage
-                enemy.GetComponent<EnemyController>().TakeDamage(_damage * _controller.AppliedDamageModifier, Vector3.up);
+                enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up);
 
                 // Tells the VFX script to do something
                 GetComponent<RammyVFX>().Ab3Attack(enemy, closestPoint);

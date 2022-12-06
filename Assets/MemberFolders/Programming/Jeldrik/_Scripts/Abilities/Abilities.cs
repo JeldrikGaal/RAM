@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class Abilities : MonoBehaviour
 {
-    public float Cooldown;
-    public float Duration;
+    public RammyAttack Stats;
+    protected bool _upgraded;
 
     private float _startingTime;
     private bool _started;
@@ -22,7 +22,7 @@ public abstract class Abilities : MonoBehaviour
         // Resetting variables when the duration of the ability has passed after activation
         if (_started)
         {
-            if (Time.time - _startingTime > Duration)
+            if (Time.time - _startingTime > (_upgraded ? Stats.UAttackTime : Stats.AttackTime))
             {
                 _started = false;
                 _controller.EndUsingAbility();
@@ -50,7 +50,7 @@ public abstract class Abilities : MonoBehaviour
     // Checking if the ability is ready to be used again after the cooldown period
     public bool IsReady()
     {
-        return Time.time - _startingTime > Cooldown;
+        return Time.time - _startingTime > Stats.Cooldown;
     }
 
     public bool IsRunning()

@@ -258,7 +258,7 @@ public class RammyVFX : MonoBehaviour
 
         SpawnBlood(_bloodSizeMinAb3, _bloodSizeMaxAb3, _bloodSpreadAb3, _heightAngleAb3, _bloodAmountAb3, _bloodForceMinAb3, _bloodForceMaxAb3, enemy, dir);
 
-        if (enemy.GetComponent<EnemyTesting>()._health <= 0)
+        if (enemy.GetComponent<EnemyController>().Health <= 0)
         {
             SpawnGore(_goreValuesAb3[0], _skullObject, enemy, _skullArray, dir);
             SpawnGore(_goreValuesAb3[1], _heartObject, enemy, _heartArray, dir);

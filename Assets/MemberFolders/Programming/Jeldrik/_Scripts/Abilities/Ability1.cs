@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class Ability1 : Abilities
 {
-    public RammyAttack _stats;
-
     [SerializeField] private bool _jumping;
 
     private LayerMask enemyMask;
-
-    /*[HideInInspector]*/
-    public bool Upgraded;
 
     [SerializeField] private float _stunDuration;
 
@@ -20,7 +15,7 @@ public class Ability1 : Abilities
     [SerializeField] private GameObject _damageArea;
     [SerializeField] private GameObject _upgradedArea;
 
-    public RammyController PlayerController;
+    [HideInInspector] public RammyController PlayerController;
     public RammyVFX VFXScript;
 
     private Vector3 _startPos;
@@ -58,15 +53,13 @@ public class Ability1 : Abilities
                 _jumping = false;
                 _controller.UnBlockPlayerMovement();
 
-                Collider[] enemies = Physics.OverlapSphere(transform.position, Upgraded ? _stats.URange : _stats.Range, enemyMask);
+                Collider[] enemies = Physics.OverlapSphere(transform.position, _upgraded ? Stats.USplashRadius : Stats.SplashRadius, enemyMask);
 
                 foreach (Collider c in enemies)
                 {
                     // If the damage kills the enemy, do cool stuff
-                    if (c.gameObject.GetComponent<EnemyController>().TakeDamage((Upgraded ? _stats.UDmg : _stats.Dmg) * _controller.Damage, transform.up))
-                    {
+                    if (c.gameObject.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, transform.up))
                         PlayerController.Kill(c.gameObject);
-                    }
 
                     // Stuns enemy
                     c.GetComponent<EnemyController>().StunDuration = _stunDuration;
@@ -87,8 +80,8 @@ public class Ability1 : Abilities
         #region Animation
         Keyframe[] keyframes = new Keyframe[3];
         keyframes[0] = new Keyframe(0, 0);
-        keyframes[1] = new Keyframe(_jumpDuration / 2, _jumpHeight);
-        keyframes[2] = new Keyframe(_jumpDuration, 0);
+        keyframes[1] = new Keyframe((_upgraded ? Stats.UAttackTime : Stats.AttackTime) / 2, _jumpHeight);
+        keyframes[2] = new Keyframe(_upgraded ? Stats.UAttackTime : Stats.AttackTime, 0);
         _yPosCurve = new AnimationCurve(keyframes);
         #endregion
     }

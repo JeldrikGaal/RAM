@@ -52,9 +52,9 @@ public class AbilityUIManager : MonoBehaviour
                 AbilityBeingUsed(i);
                 anyAbilityInUse = true;
             }
-            
-            float fillPercentage = Mathf.Min(1, ((Time.time - _abilityScripts[i].GetStartingTime()) / _abilityScripts[i].Cooldown));
-            if (Time.time < _abilityScripts[i].Cooldown) fillPercentage = 1;
+
+            float fillPercentage = Mathf.Min(1, ((Time.time - _abilityScripts[i].GetStartingTime()) / _abilityScripts[i].Stats.Cooldown));
+            if (Time.time < _abilityScripts[i].Stats.Cooldown) fillPercentage = 1;
             SetAbilityClockToPercent(i, fillPercentage);
         }
 
