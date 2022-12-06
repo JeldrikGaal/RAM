@@ -179,6 +179,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] RammyAttack _chargeValues;
     [SerializeField] RammyAttack _dashValues;
     [SerializeField] RammyAttack _basicAttackValues;
+    [SerializeField] bool _loadData = true;
 
 
     // Animation 
@@ -226,25 +227,29 @@ public class RammyController : MonoBehaviour
         }
 
         #region Loading Data from Sheet
-        // Load in Data for Attack Values
+        if (_loadData)
+        {
+            // Load in Data for Attack Values
 
-        // Basic Attack
-        BasicAttackCoolDown = _basicAttackValues.Cooldown;
-        BasicAttackDamage = _basicAttackValues.Dmg * Damage;
-        BasicAttackDuration = _basicAttackValues.AttackTime;
+            // Basic Attack
+            BasicAttackCoolDown = _basicAttackValues.Cooldown;
+            BasicAttackDamage = _basicAttackValues.Dmg * Damage;
+            BasicAttackDuration = _basicAttackValues.AttackTime;
 
-        // Dash
-        DashAttackDamage = _dashValues.Dmg * Damage;
-        DashCoolDown = _dashValues.Cooldown;
-        DashDistance = _dashValues.Range;
-        DashDuration = _dashValues.AttackTime;
+            // Dash
+            DashAttackDamage = _dashValues.Dmg * Damage;
+            DashCoolDown = _dashValues.Cooldown;
+            DashDistance = _dashValues.Range;
+            DashDuration = _dashValues.AttackTime;
 
-        // Charge Attack
-        ChargeAttackDamage = _chargeValues.Dmg * Damage;
-        ChargeAttackCoolDown = _chargeValues.Cooldown;
-        ChargeAttackDistance = _chargeValues.Range;
-        ChargeAttackDuration = _chargeValues.AttackTime;
-        MaxChargeTime = _chargeValues.FreeVariable;
+            // Charge Attack
+            ChargeAttackDamage = _chargeValues.Dmg * Damage;
+            ChargeAttackCoolDown = _chargeValues.Cooldown;
+            ChargeAttackDistance = _chargeValues.Range;
+            ChargeAttackDuration = _chargeValues.AttackTime;
+            MaxChargeTime = _chargeValues.FreeVariable;
+        }
+        
         #endregion
     }
 
