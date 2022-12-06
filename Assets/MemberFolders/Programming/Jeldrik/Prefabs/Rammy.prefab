@@ -3217,6 +3217,7 @@ GameObject:
   - component: {fileID: 1279146746}
   - component: {fileID: 1585275057}
   - component: {fileID: 1585275058}
+  - component: {fileID: 1479404243}
   m_Layer: 15
   m_Name: Rammy
   m_TagString: Player
@@ -3249,7 +3250,7 @@ Transform:
   - {fileID: 570634510}
   - {fileID: 1156683452}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -3313,6 +3314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ecb860ebcbc2e49a6101246dc3b31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 10
   _ability1Script: {fileID: 457729207004813281}
   _ability2Script: {fileID: 4294135203534987049}
   _ability3Script: {fileID: 2117861001280260777}
@@ -3388,17 +3390,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c7c85bf33fd63745ad59877d9fc5d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 2
-  Duration: 1
-  _controller: {fileID: 0}
+  Stats: {fileID: 11400000, guid: b2e1619d05c9be9449fc9e826628e3d8, type: 2}
+  _controller: {fileID: 4974556004237746292}
   _jumping: 0
-  Upgraded: 0
+  _stunDuration: 0
   _damageArea: {fileID: 2998695922160975798, guid: b423adb35796f2744ad0d679d97c99d5, type: 3}
   _upgradedArea: {fileID: 3923053621530184638, guid: bb334186cc31d3e47aa1690ea8abc345, type: 3}
-  _defaultStunDuration: 0.5
-  _upgradetStunDuration: 1
-  _defaultDamage: 20
-  _upgradedDamage: 40
+  PlayerController: {fileID: 4974556004237746292}
+  VFXScript: {fileID: 3586331904611896420}
   _jumpHeight: 1
   _jumpDuration: 1
 --- !u!114 &4294135203534987049
@@ -3413,9 +3412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5594504c3fd215b4c9a1e1298f86f21d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 3
-  Duration: 2
-  _controller: {fileID: 0}
+  Stats: {fileID: 11400000, guid: 7425eb9c88a89024ca323b200a93a063, type: 2}
+  _controller: {fileID: 4974556004237746292}
   level: 0
   _hitColliders:
   - {fileID: 0}
@@ -3468,8 +3466,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _range: 5
-  _damage: 15
   _pushBackForce: 7
   _groundSmokeVFX: {fileID: 3583590933180447386}
 --- !u!114 &2117861001280260777
@@ -3484,16 +3480,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b5c3216198eb341a21814a5964913b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 4
-  Duration: 1
-  _controller: {fileID: 0}
+  Stats: {fileID: 11400000, guid: 78703abe50ef237479e183fd1d302a5b, type: 2}
+  _controller: {fileID: 4974556004237746292}
   _stunDuration: 10
   _pullForce: 3
   _points: 8
   _distanceToPoints: 4
-  _pullRadius: 20
   _restrictedTime: 0.5
-  _damage: 2
   Upgraded: 0
   _testObject: {fileID: 0}
   EnemyList: []
@@ -3509,16 +3502,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd907c7dae010c4d802ca7c5862139a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 5
-  Duration: 4
-  _controller: {fileID: 0}
-  Upgraded: 0
+  Stats: {fileID: 11400000, guid: 5d95683fa41641d47a7e5dde6ce693e6, type: 2}
+  _controller: {fileID: 4974556004237746292}
   _eCollider: {fileID: 1563857641711686301}
-  _effectRadius: 2
-  _effectUpgradedRadius: 5
-  _moveRadius: 0.5
-  _initialDamage: 5
-  _upgradedDamage: 10
   _prepTime: 1
   _moveTime: 2
   _resetTime: 2
@@ -3559,9 +3545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e456668a99208746a5999568adf0763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 1
-  Duration: 2
-  _controller: {fileID: 0}
+  Stats: {fileID: 11400000, guid: 2b850dc01c94e0e42a4d260ca3a7415e, type: 2}
+  _controller: {fileID: 4974556004237746292}
   _damage: 30
   _pushDistance: 8
   _moveDuration: 0.5
@@ -3930,6 +3915,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a16daaa3bebaee4e9afa3d6fb6b7312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1479404243
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974556004237746303}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8544788445145993981
 GameObject:
   m_ObjectHideFlags: 0
