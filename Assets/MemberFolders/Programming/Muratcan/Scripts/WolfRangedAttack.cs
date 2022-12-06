@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WolfRangedAttack : MonoBehaviour
 {
+    GameObject _player;
     int _rnd;
     bool _onTheWay = false;
     bool _onTheWayBack = false;
@@ -29,6 +30,16 @@ public class WolfRangedAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Mathf.Approximately(GetComponent<Rigidbody>().velocity.x, 0f) && Mathf.Approximately(GetComponent<Rigidbody>().velocity.y, 0f))
+        {
+            _animator.SetBool("isIdle", true);
+            _animator.SetBool("isRunning", false);
+        }
+        else
+        {
+            _animator.SetBool("isIdle", false);
+            _animator.SetBool("isRunning", true);
+        }
         if (_onTheWay == true && ((Time.time - _startTimeThrow) / throwDuration) < 1f)
         {
             _boomerang.transform.position = Vector3.Lerp(_startPos, _targetPos, ((Time.time - _startTimeThrow) / throwDuration));
@@ -59,9 +70,8 @@ public class WolfRangedAttack : MonoBehaviour
         }
     }
     
-    public void ThrowBoomerang(GameObject player)
+    public void ThrowBoomerang()
     {
-        _animator.SetTrigger("Attack1");
         _ammo--;
         _boomerang.SetActive(true);
         _boomerang.transform.localPosition = new Vector3(0f, 1.5f, 0f);
@@ -73,12 +83,12 @@ public class WolfRangedAttack : MonoBehaviour
         _onTheWay = true;
     }
 
-    public void ThrowWolf(GameObject player)
+    public void ThrowWolf()
     {
         _animator.SetTrigger("Attack2");
         _rnd = Random.Range(0, _wolfMeleeColliders.Count);
         _startPos = _wolfMeleeColliders[_rnd].gameObject.transform.position;
-        _targetPos = player.transform.position;
+        _targetPos = _player.transform.position;
         _startTimeThrow = Time.time;
         _inProgress = true;
     }
@@ -106,5 +116,16 @@ public class WolfRangedAttack : MonoBehaviour
         {
             return true;
         }
+    }
+    public void ThrowBoomerangAnimEvent(GameObject player)
+    {
+        _player = player;
+        _animator.SetTrigger("Attack1");
+    }
+
+    public void ThrowWolfAnimEvent(GameObject player)
+    {
+        _player = player;
+        _animator.SetTrigger("Attack2");
     }
 }
