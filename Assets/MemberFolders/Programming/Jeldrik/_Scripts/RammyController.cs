@@ -244,7 +244,7 @@ public class RammyController : MonoBehaviour
         ChargeAttackCoolDown = _chargeValues.Cooldown;
         ChargeAttackDistance = _chargeValues.Range;
         ChargeAttackDuration = _chargeValues.AttackTime;
-        MaxChargeTime = _chargeValues.AnticipationTime;
+        MaxChargeTime = _chargeValues.FreeVariable;
         #endregion
     }
 
@@ -1156,7 +1156,7 @@ public class RammyController : MonoBehaviour
         ChargeAttackCoolDown = _chargeValues.UCooldown;
         ChargeAttackDistance = _chargeValues.URange;
         ChargeAttackDuration = _chargeValues.UAttackTime;
-        MaxChargeTime = _chargeValues.UAnticipationTime;
+        MaxChargeTime = _chargeValues.UFreeVariable;
     }
 
 }
