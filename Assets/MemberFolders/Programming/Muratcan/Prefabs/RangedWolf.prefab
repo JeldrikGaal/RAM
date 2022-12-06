@@ -273,8 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8224c7842caad4b8f5c03d6c578e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
-  _lingerTime: 2
+  _dmgWeight: 0
 --- !u!1 &3458861229937971046
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,8 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8224c7842caad4b8f5c03d6c578e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
-  _lingerTime: 0.2
+  _dmgWeight: 0
 --- !u!1 &7218965345051502835
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +405,8 @@ GameObject:
   - component: {fileID: 7218965345051502823}
   - component: {fileID: 7218965345051502820}
   - component: {fileID: 7218965345051502825}
+  - component: {fileID: 5847784487739173572}
+  - component: {fileID: 71450298}
   m_Layer: 20
   m_Name: RangedWolf
   m_TagString: enemy
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7218965345051502835}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
   m_Name: 
@@ -675,6 +675,57 @@ MonoBehaviour:
   _ammo: 1
   _shootSpeed: 50
   damage: 1.5
+--- !u!95 &5847784487739173572
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218965345051502835}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &71450298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218965345051502835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveInput: {x: 0, y: 0, z: 0}
+  MoveSpeed: 8
+  AttackDamage: 3
+  MaxHealth: 0
+  Health: 0
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  Pulled: 0
+  _bloodSmoke: {fileID: 0}
+  _bloodSize: 1
 --- !u!1 &7940232867191124159
 GameObject:
   m_ObjectHideFlags: 0

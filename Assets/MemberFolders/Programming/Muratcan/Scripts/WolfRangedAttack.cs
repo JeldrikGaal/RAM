@@ -69,6 +69,7 @@ public class WolfRangedAttack : MonoBehaviour
         _startPos = _boomerang.transform.position;
         //_targetPos = player.transform.position;
         _targetPos = (_boomerang.transform.position - player.transform.position).normalized;
+        //_targetPos.ro = Quaternion.LookRotation((_boomerang.transform.position - player.transform.position).normalized);
         print(_targetPos);
         _startTimeThrow = Time.time;
         _onTheWay = true;
