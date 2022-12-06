@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Linq;
 
 public class Importer_RammyAttacks : ScriptableObject
 {
@@ -22,6 +23,7 @@ public class Importer_RammyAttacks : ScriptableObject
     [Button]
     public void UpdateData()
     {
+        UnityEditor.Undo.RecordObjects(Attacks.ToArray(), "Update Rammy Stats");
         for (int i = 0; i < 8; i++)
         {
             Attacks[i].SetVariables(float.Parse(_data[i][0]), float.Parse(_data[i][1]), float.Parse(_data[i][3]), float.Parse(_data[i][4]), float.Parse(_data[i][5]), float.Parse(_data[i][7]), float.Parse(_data[i][8]));

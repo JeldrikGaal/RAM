@@ -123,6 +123,10 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float MinChargeTime;
     [SerializeField] private float MaxChargeTime;
 
+    // Upgrade Values
+    [SerializeField] private bool _upgradeDash;
+    [SerializeField] private bool _upgradeCharge;
+    [SerializeField] private bool _upgradeBasicAttack;
 
     // Variables for Charge Attack
     private float _startTimeChargeAttack;
@@ -171,6 +175,12 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float StunBuffDuration;
     [FoldoutGroup("Buff Values")][SerializeField] private float _stunBuffTimer;
 
+    // Importing Damage Values
+    [SerializeField] RammyAttack _chargeValues;
+    [SerializeField] RammyAttack _dashValues;
+    [SerializeField] RammyAttack _basicAttackValues;
+
+
     // Animation 
     private bool _walkingAnim;
 
@@ -187,7 +197,6 @@ public class RammyController : MonoBehaviour
     {
         _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
-        _animator = GetComponent<Animator>();
     }
     void Start()
     {
@@ -216,6 +225,27 @@ public class RammyController : MonoBehaviour
             }
         }
 
+        #region Loading Data from Sheet
+        // Load in Data for Attack Values
+
+        // Basic Attack
+        BasicAttackCoolDown = _basicAttackValues.Cooldown;
+        BasicAttackDamage = _basicAttackValues.Dmg * Damage;
+        BasicAttackDuration = _basicAttackValues.AttackTime;
+
+        // Dash
+        DashAttackDamage = _dashValues.Dmg * Damage;
+        DashCoolDown = _dashValues.Cooldown;
+        DashDistance = _dashValues.Range;
+        DashDuration = _dashValues.AttackTime;
+
+        // Charge Attack
+        ChargeAttackDamage = _chargeValues.Dmg * Damage;
+        ChargeAttackCoolDown = _chargeValues.Cooldown;
+        ChargeAttackDistance = _chargeValues.Range;
+        ChargeAttackDuration = _chargeValues.AttackTime;
+        MaxChargeTime = _chargeValues.FreeVariable;
+        #endregion
     }
 
     // Enabling PlayerControls when player gets enabled in the scene
@@ -347,7 +377,7 @@ public class RammyController : MonoBehaviour
             {
                 _animator.SetTrigger("startWalking");
                 _walkingAnim = true;
-                //Debug.Log("START");
+                Debug.Log("START");
             }
            
            
@@ -1116,6 +1146,17 @@ public class RammyController : MonoBehaviour
         Debug.Log("RAMMY HAS DIED!!!!!");
         Time.timeScale = 1;
         Destroy(gameObject);
+    }
+
+    public void UpgradeCharge()
+    {
+        _upgradeCharge = true;
+        // Charge Attack
+        ChargeAttackDamage = _chargeValues.UDmg * Damage;
+        ChargeAttackCoolDown = _chargeValues.UCooldown;
+        ChargeAttackDistance = _chargeValues.URange;
+        ChargeAttackDuration = _chargeValues.UAttackTime;
+        MaxChargeTime = _chargeValues.UFreeVariable;
     }
 
 }

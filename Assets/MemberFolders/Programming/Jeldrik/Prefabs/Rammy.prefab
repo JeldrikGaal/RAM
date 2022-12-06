@@ -3271,7 +3271,6 @@ GameObject:
   - component: {fileID: 1279146746}
   - component: {fileID: 1585275057}
   - component: {fileID: 1585275058}
-  - component: {fileID: 1479404243}
   m_Layer: 15
   m_Name: Rammy
   m_TagString: Player
@@ -3390,7 +3389,7 @@ MonoBehaviour:
   Health: 90
   <MaxHealth>k__BackingField: 0
   HealPercentage: 5
-  MovementSpeed: 20
+  MovementSpeed: 10
   BasicAttackCoolDown: 1
   BasicAttackDamage: 5
   BasicAttackDuration: 0.1
@@ -3406,6 +3405,9 @@ MonoBehaviour:
   ChargeAttackDamage: 20
   MinChargeTime: 0.2
   MaxChargeTime: 1.2
+  _upgradeDash: 0
+  _upgradeCharge: 0
+  _upgradeBasicAttack: 0
   _chargedEnemyOffset: {x: 0, y: 0, z: 0}
   _rammyVFX: {fileID: 3586331904611896420}
   _freezeScaleRam: 0
@@ -3427,6 +3429,9 @@ MonoBehaviour:
   StunBuffModifier: 0
   StunBuffDuration: 0
   _stunBuffTimer: 0
+  _chargeValues: {fileID: 11400000, guid: de8de59438e6253418648a391de9fb17, type: 2}
+  _dashValues: {fileID: 11400000, guid: a8b2c27da0b3d44438dd69d19e643024, type: 2}
+  _basicAttackValues: {fileID: 11400000, guid: f8936738d97cdc2448a842e5aaf0b92b, type: 2}
   _mats:
   - {fileID: 2100000, guid: 15e346450e7a74f4aaa401054336f701, type: 2}
   - {fileID: 2100000, guid: 7e68f114ba3c17947864a5aa3f7b260e, type: 2}
@@ -3970,26 +3975,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a16daaa3bebaee4e9afa3d6fb6b7312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &1479404243
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4974556004237746303}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8544788445145993981
 GameObject:
   m_ObjectHideFlags: 0
