@@ -62,7 +62,11 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         _rb.velocity = MoveInput * MoveSpeed;
-        _anim.SetFloat(_animMoveHash, _rb.velocity.magnitude);
+        if (_anim != null)
+        {
+            _anim.SetFloat(_animMoveHash, _rb.velocity.magnitude);
+        }
+        
 
         if (MoveInput != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.z));

@@ -8,7 +8,7 @@ public class StateMachine : MonoBehaviour
 {
     [SerializeField] private AI_State _startState;
 
-    [SerializeField] private AI_State _currentState;
+    public AI_State _currentState;
 
     private EnemyController _user;
     private GameObject _target;

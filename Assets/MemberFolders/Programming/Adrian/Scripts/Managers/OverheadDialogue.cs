@@ -14,12 +14,17 @@ public class OverheadDialogue : MonoBehaviour
     [SerializeField] private Canvas _character1Canvas;
     [SerializeField] private Canvas _character2Canvas;
 
-    [SerializeField] private GameObject _character1Replacement;
-    [SerializeField] private GameObject _character2Replacement;
+    // [SerializeField] private GameObject _character1Replacement;
+    // [SerializeField] private GameObject _character2Replacement;
 
+    [SerializeField] private bool _wolf;
+    [SerializeField] private bool _hawk;
+    [SerializeField] private bool _bear;
 
     [SerializeField] private List<Sprite> _universalSprites = new List<Sprite>();
-    [SerializeField] private List<Sprite> _specificSprites = new List<Sprite>();
+    [SerializeField] private List<Sprite> _wolfSprites = new List<Sprite>();
+    [SerializeField] private List<Sprite> _hawkSprites = new List<Sprite>();
+    [SerializeField] private List<Sprite> _bearSprites = new List<Sprite>();
 
     [SerializeField] private int _amountOfDialogue;
 
@@ -77,22 +82,82 @@ public class OverheadDialogue : MonoBehaviour
         // Loop for each dialoguebox sprite
         for (int i = 0; i < _amountOfDialogue; i++)
         {
+            // Randomly chooses either universal or specific dialogue symbol
             var dialogueSelection = Random.Range(0, 2);
 
-            var randomSpecific = Random.Range(0, _specificSprites.Count);
+            // Gets a random int between zero and the count of the lists
+            var randomSpecificWolf = Random.Range(0, _wolfSprites.Count);
+            var randomSpecificHawk = Random.Range(0, _hawkSprites.Count);
+            var randomSpecificBear = Random.Range(0, _bearSprites.Count);
             var randomUniversal = Random.Range(0, _universalSprites.Count);
 
             switch (dialogueSelection)
             {
+                // If the sprite at the random location in the list is not null set the image to that sprite, then remove it from the list to avoid duplicates
                 case 0:
-                    _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _specificSprites.Count == 0 ? _universalSprites[randomUniversal] : _specificSprites[randomSpecific];
-                    _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _specificSprites.Count == 0 ? _universalSprites[randomUniversal] : _specificSprites[randomSpecific];
-                    _specificSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                    if (_wolf)
+                    {
+                        _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _wolfSprites.Count == 0 ? _universalSprites[randomUniversal] : _wolfSprites[randomSpecificWolf];
+                        _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _wolfSprites.Count == 0 ? _universalSprites[randomUniversal] : _wolfSprites[randomSpecificWolf];
+                        _wolfSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                    }
+                    else if (_hawk)
+                    {
+                        _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _hawkSprites.Count == 0 ? _universalSprites[randomUniversal] : _hawkSprites[randomSpecificHawk];
+                        _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _hawkSprites.Count == 0 ? _universalSprites[randomUniversal] : _hawkSprites[randomSpecificHawk];
+                        _hawkSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                    }
+                    else if (_bear)
+                    {
+                        _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _bearSprites.Count == 0 ? _universalSprites[randomUniversal] : _bearSprites[randomSpecificBear];
+                        _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _bearSprites.Count == 0 ? _universalSprites[randomUniversal] : _bearSprites[randomSpecificBear];
+                        _bearSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                    }
                     break;
                 case 1:
-                    _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _specificSprites[randomSpecific] : _universalSprites[randomUniversal];
-                    _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _specificSprites[randomSpecific] : _universalSprites[randomUniversal];
-                    _universalSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                    if (_wolf)
+                    {
+                        _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _wolfSprites[randomSpecificWolf] : _universalSprites[randomUniversal];
+                        _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _wolfSprites[randomSpecificWolf] : _universalSprites[randomUniversal];
+
+                        // Checks if a universal symbols is used or not and removes the sprite from the appropriate list
+                        if (_universalSprites.Contains(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite))
+                        {
+                            _universalSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                        }
+                        else
+                        {
+                            _wolfSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                        }
+                    }
+                    else if (_hawk)
+                    {
+                        _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _hawkSprites[randomSpecificHawk] : _universalSprites[randomUniversal];
+                        _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _hawkSprites[randomSpecificHawk] : _universalSprites[randomUniversal];
+
+                        if (_universalSprites.Contains(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite))
+                        {
+                            _universalSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                        }
+                        else
+                        {
+                            _hawkSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                        }
+                    }
+                    else if (_bear)
+                    {
+                        _character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _bearSprites[randomSpecificBear] : _universalSprites[randomUniversal];
+                        _character2Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = _universalSprites.Count == 0 ? _bearSprites[randomSpecificBear] : _universalSprites[randomUniversal];
+
+                        if (_universalSprites.Contains(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite))
+                        {
+                            _universalSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                        }
+                        else
+                        {
+                            _bearSprites.Remove(_character1Canvas.transform.GetChild(1).gameObject.GetComponent<Image>().sprite);
+                        }
+                    }
                     break;
                 default:
                     break;
@@ -121,16 +186,16 @@ public class OverheadDialogue : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         // Instantiates a replacement enemy with all the enemy functionality for the first dialogue npc
-        var char1 = Instantiate(_character1Replacement, _character1Canvas.transform.parent.position, Quaternion.identity);
-        Destroy(_character1Canvas.transform.parent.gameObject);
+        // var char1 = Instantiate(_character1Replacement, _character1Canvas.transform.parent.position, Quaternion.identity);
+        // Destroy(_character1Canvas.transform.parent.gameObject);
 
-        // Does the same for the second npc
-        var char2 = Instantiate(_character2Replacement, _character2Canvas.transform.parent.position, Quaternion.identity);
-        Destroy(_character2Canvas.transform.parent.gameObject);
+        // // Does the same for the second npc
+        // var char2 = Instantiate(_character2Replacement, _character2Canvas.transform.parent.position, Quaternion.identity);
+        // Destroy(_character2Canvas.transform.parent.gameObject);
 
         // Makes the enemies look at eachother like the npcs did
-        char1.transform.LookAt(char2.transform);
-        char2.transform.LookAt(char1.transform);
+        // char1.transform.LookAt(char2.transform);
+        // char2.transform.LookAt(char1.transform);
 
         // Enables the cinemachine brain again so the camera can follow the player again
         _cameraTransform.GetComponent<CinemachineBrain>().enabled = true;
