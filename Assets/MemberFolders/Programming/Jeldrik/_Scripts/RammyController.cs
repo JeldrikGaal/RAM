@@ -311,6 +311,11 @@ public class RammyController : MonoBehaviour
         _lookingAtMouseRotation = _mouseWorldPosition - transform.position;
         _lookingAtMouseRotation = _lookingAtMouseRotation.normalized;
 
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            _animator.SetTrigger("AnimationTesting");
+        }
+
         #endregion
 
         #region Movement
@@ -728,6 +733,10 @@ public class RammyController : MonoBehaviour
             {
                 RaycastHit hit2;
                 if (Physics.Raycast(_chargeAttackDestination + Vector3.up * 100, Vector3.down, out hit2, 105) && hit.transform == hit2.transform)
+                {
+                    _chargeAttackDestination = hit.point;
+                }
+                if (! TagManager.HasTag(hit.transform.gameObject, "enemy"))
                 {
                     _chargeAttackDestination = hit.point;
                 }
