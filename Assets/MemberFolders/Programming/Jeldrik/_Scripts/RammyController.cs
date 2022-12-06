@@ -6,11 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
-using System.Security.Cryptography.X509Certificates;
-//using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-//using UnityEngine.UIElements.Experimental;
-//using static UnityEngine.EventSystems.EventTrigger;
-//using static UnityEngine.Rendering.DebugUI.Table;
 
 public class RammyController : MonoBehaviour
 {
@@ -25,6 +20,8 @@ public class RammyController : MonoBehaviour
     private InputAction _ability3;
     private InputAction _ability4;
     private InputAction _ability5;
+
+    [HideInInspector] public float Damage = 10;
 
 
     // Vector in which the character is currently moving according to player input
@@ -126,6 +123,10 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float MinChargeTime;
     [SerializeField] private float MaxChargeTime;
 
+    // Upgrade Values
+    [SerializeField] private bool _upgradeDash;
+    [SerializeField] private bool _upgradeCharge;
+    [SerializeField] private bool _upgradeBasicAttack;
 
     // Variables for Charge Attack
     private float _startTimeChargeAttack;
@@ -174,6 +175,12 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float StunBuffDuration;
     [FoldoutGroup("Buff Values")][SerializeField] private float _stunBuffTimer;
 
+    // Importing Damage Values
+    [SerializeField] RammyAttack _chargeValues;
+    [SerializeField] RammyAttack _dashValues;
+    [SerializeField] RammyAttack _basicAttackValues;
+
+
     // Animation 
     private bool _walkingAnim;
 
@@ -218,6 +225,27 @@ public class RammyController : MonoBehaviour
             }
         }
 
+        #region Loading Data from Sheet
+        // Load in Data for Attack Values
+
+        // Basic Attack
+        BasicAttackCoolDown = _basicAttackValues.Cooldown;
+        BasicAttackDamage = _basicAttackValues.Dmg * Damage;
+        BasicAttackDuration = _basicAttackValues.AttackTime;
+
+        // Dash
+        DashAttackDamage = _dashValues.Dmg * Damage;
+        DashCoolDown = _dashValues.Cooldown;
+        DashDistance = _dashValues.Range;
+        DashDuration = _dashValues.AttackTime;
+
+        // Charge Attack
+        ChargeAttackDamage = _chargeValues.Dmg * Damage;
+        ChargeAttackCoolDown = _chargeValues.Cooldown;
+        ChargeAttackDistance = _chargeValues.Range;
+        ChargeAttackDuration = _chargeValues.AttackTime;
+        MaxChargeTime = _chargeValues.AnticipationTime;
+        #endregion
     }
 
     // Enabling PlayerControls when player gets enabled in the scene
@@ -311,6 +339,11 @@ public class RammyController : MonoBehaviour
         _lookingAtMouseRotation = _mouseWorldPosition - transform.position;
         _lookingAtMouseRotation = _lookingAtMouseRotation.normalized;
 
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            _animator.SetTrigger("AnimationTesting");
+        }
+
         #endregion
 
         #region Movement
@@ -332,7 +365,7 @@ public class RammyController : MonoBehaviour
         {
             _animator.SetTrigger("stopWalking");
             _walkingAnim = false;
-            Debug.Log("STOP");
+            //Debug.Log("STOP");
         }
 
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
@@ -382,44 +415,6 @@ public class RammyController : MonoBehaviour
             {
                 transform.rotation = Quaternion.Euler(90, 0, baseRotation + 45 * 7);
             }
-
-            #region saving
-            /*
-            if (_moveDirection.x < 0 && _moveDirection.y == 0) // looking left
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 90);
-            }
-            else if (_moveDirection.x < 0 && _moveDirection.y < 0) // looking down left
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 135);
-            }
-            else if (_moveDirection.x == 0 && _moveDirection.y < 0) // looking down
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 180);
-            }
-            else if (_moveDirection.x > 0 && _moveDirection.y < 0) // looking down right
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 225);
-            }
-            else if (_moveDirection.x > 0 && _moveDirection.y == 0) // looking right
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 270);
-            }
-            else if (_moveDirection.x > 0 && _moveDirection.y > 0) // looking up right
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 315);
-            }
-            else if (_moveDirection.x == 0 && _moveDirection.y > 0) // looking up 
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 0);
-            }
-            else if (_moveDirection.x < 0 && _moveDirection.y > 0) // looking up left 
-            {
-                transform.rotation = Quaternion.Euler(90, 0, 45);
-            }
-            */
-            #endregion
-
         }
 
         #endregion
@@ -457,7 +452,6 @@ public class RammyController : MonoBehaviour
             {
                 EndChargeAttack();
             }
-
         }
         if (BasicAttacking)
         {
@@ -728,6 +722,10 @@ public class RammyController : MonoBehaviour
             {
                 RaycastHit hit2;
                 if (Physics.Raycast(_chargeAttackDestination + Vector3.up * 100, Vector3.down, out hit2, 105) && hit.transform == hit2.transform)
+                {
+                    _chargeAttackDestination = hit.point;
+                }
+                if (! TagManager.HasTag(hit.transform.gameObject, "enemy"))
                 {
                     _chargeAttackDestination = hit.point;
                 }
@@ -1148,6 +1146,17 @@ public class RammyController : MonoBehaviour
         Debug.Log("RAMMY HAS DIED!!!!!");
         Time.timeScale = 1;
         Destroy(gameObject);
+    }
+
+    public void UpgradeCharge()
+    {
+        _upgradeCharge = true;
+        // Charge Attack
+        ChargeAttackDamage = _chargeValues.UDmg * Damage;
+        ChargeAttackCoolDown = _chargeValues.UCooldown;
+        ChargeAttackDistance = _chargeValues.URange;
+        ChargeAttackDuration = _chargeValues.UAttackTime;
+        MaxChargeTime = _chargeValues.UAnticipationTime;
     }
 
 }
