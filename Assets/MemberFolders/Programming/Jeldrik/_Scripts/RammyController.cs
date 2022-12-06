@@ -382,7 +382,7 @@ public class RammyController : MonoBehaviour
             {
                 _animator.SetTrigger("startWalking");
                 _walkingAnim = true;
-                Debug.Log("START");
+                //Debug.Log("START");
             }
 
 
