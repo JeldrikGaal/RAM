@@ -13,9 +13,11 @@ public class CutsceneVideo : MonoBehaviour
     [SerializeField] private GameObject _instructions;
 
     [SerializeField] private GameObject _player;
-    [SerializeField] private float _defaultSpeed;
+    private float _defaultSpeed;
 
     private bool _hadSpeedBuffOnEntry;
+
+    [SerializeField] private bool _deleteWhenDone;
 
     // Start is called before the first frame update
     void Start()
@@ -28,26 +30,25 @@ public class CutsceneVideo : MonoBehaviour
     {
         _videoPlayer.loopPointReached += EndReached;
 
-        // Skips 100 frames in the video when the right arrow is pressed
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            _videoPlayer.frame += 100;
-        }
+        // // Skips 100 frames in the video when the right arrow is pressed
+        // if (Input.GetKeyDown(KeyCode.RightArrow))
+        // {
+        //     _videoPlayer.frame += 100;
+        // }
 
 
-        // Checks to see if the video can be played and the up arrow is pressed
-        if (Input.GetKeyDown(KeyCode.UpArrow) && _canPlayVideo)
-        {
-            // Play the cutscene
-            _videoPlayer.enabled = true;
-            _videoPlayer.Play();
+        // // Checks to see if the video can be played and the up arrow is pressed
+        // if (Input.GetKeyDown(KeyCode.UpArrow) && _canPlayVideo)
+        // {
+        //     _videoPlayer.enabled = true;
+        //     _videoPlayer.Play();
 
-            // Sets the players movement speed to 0 so they don't move to the right when trying to skip the video
-            _player.GetComponent<RammyController>().MovementSpeed = 0;
+        //     // Sets the players movement speed to 0 so they don't move to the right when trying to skip the video
+        //     _player.GetComponent<RammyController>().MovementSpeed = 0;
 
-            // Stores if the player had a speedbuff active when the cutscene started
-            _hadSpeedBuffOnEntry = _player.GetComponent<RammyController>().HasSpeedBuff;
-        }
+        //     // Stores if the player had a speedbuff active when the cutscene started
+        //     _hadSpeedBuffOnEntry = _player.GetComponent<RammyController>().HasSpeedBuff;
+        // }
     }
 
     // Destroy the game object when the cutscene is over
@@ -64,6 +65,11 @@ public class CutsceneVideo : MonoBehaviour
         if (_hadSpeedBuffOnEntry && !_player.GetComponent<RammyController>().HasSpeedBuff)
         {
             _player.GetComponent<RammyController>().MovementSpeed /= 2;
+        }
+
+        if (_deleteWhenDone)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -82,8 +88,18 @@ public class CutsceneVideo : MonoBehaviour
             // Makes the videoplayer be able to play the video
             _canPlayVideo = true;
 
+            // Play the cutscene
+            _videoPlayer.enabled = true;
+            _videoPlayer.Play();
+
+            // Sets the players movement speed back to what they had when they entered the trigger
+            _player.GetComponent<RammyController>().MovementSpeed = 0;
+
+            // Stores if the player had a speedbuff active when the cutscene started
+            _hadSpeedBuffOnEntry = _player.GetComponent<RammyController>().HasSpeedBuff;
+
             // Enables the canvas with the instructions to play the video
-            _instructions.SetActive(true);
+            // _instructions.SetActive(true);
         }
     }
 
@@ -95,7 +111,7 @@ public class CutsceneVideo : MonoBehaviour
             _canPlayVideo = false;
 
             // Disables the canvas with the instructions
-            _instructions.SetActive(false);
+            // _instructions.SetActive(false);
         }
     }
 }
