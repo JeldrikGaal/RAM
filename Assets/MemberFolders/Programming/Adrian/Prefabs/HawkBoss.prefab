@@ -125,7 +125,7 @@ BoxCollider:
   m_GameObject: {fileID: 4862167421461956727}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 4862167422095219529}
   - component: {fileID: 4862167422095219528}
   - component: {fileID: 5218591000665524327}
-  - component: {fileID: 4862167422095219531}
+  - component: {fileID: 5450591515618555010}
   - component: {fileID: 4862167422095219509}
   - component: {fileID: 1804591234}
   - component: {fileID: 1804591235}
@@ -168,7 +168,7 @@ Transform:
   - {fileID: 3797138856807104604}
   - {fileID: 4907727096253518850}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &4862167422095219529
 CapsuleCollider:
@@ -208,7 +208,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4862167422095219533}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -220,7 +220,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4862167422095219531
+--- !u!114 &5450591515618555010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,14 +229,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 4862167422095219533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
   MoveSpeed: 8
   AttackDamage: 0
-  Health: 100
   MaxHealth: 100
+  Health: 100
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  Pulled: 0
+  _bloodSmoke: {fileID: 2108200065783262711, guid: c55d2c8bd11052c479dbe2a02121e533, type: 3}
+  _bloodSize: 1
 --- !u!114 &4862167422095219509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,9 +263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e75d52d4a688454fa275830f8dea1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controller: {fileID: 4862167422095219531}
+  _controller: {fileID: 5450591515618555010}
   _testingScript: {fileID: 1804591234}
-  _model: {fileID: 0}
+  _model: {fileID: 7255134256080891616}
   _egg: {fileID: 444335988328818174, guid: f010148132d3af0428479a68eb63273d, type: 3}
   _shootPoint: {fileID: 4862167421449656783}
   _shootSpeed: 2000
@@ -264,26 +278,89 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _enemyWaveAmount: 4
-  _meleeAttack: 0
+  _maxEnemyCount: 30
+  MeleeAttack: 0
+  Rising: 0
+  Crashing: 0
   _modelPosCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.0000001
+      outSlope: 1.0000001
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.42083332
+      value: 1
+      inSlope: 1.0000005
+      outSlope: 1.0000005
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49922493
+      value: 0.49922502
+      inSlope: 1.0000002
+      outSlope: 1.0000002
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6265503
+      value: 0.6265504
+      inSlope: 0.99999976
+      outSlope: 0.99999976
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.9999998
+      outSlope: 0.9999998
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _flightTime: 0
-  _riseTime: 0
-  _flightHeight: 0
+  _flightTime: 3
+  _riseTime: 1
+  _flightHeight: 9
+  _crashPath: {fileID: 0}
+  _slowDownDistance: 4
+  _damageArea: {fileID: 5315132362973705497, guid: cc3d73c9be0be2e449f651934bbb4380, type: 3}
+  _fleePoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _selectedFleePoint: {x: 0, y: 0, z: 0}
+  DamageTakenRecently: 0
+  RisingFlee: 0
+  LoweringFlee: 0
+  _fleeTimer: 0
   _phaseOne: 0
   _phaseTwo: 0
-  _phaseThree: 0
+  PhaseThree: 0
   _stageOne: 0
   _stageTwo: 0
   _stageThree: 0
   _attacking: 0
-  _flee: 0
+  Fleeing: 0
   _chase: 0
-  _fleeTimer: 0
 --- !u!114 &1804591234
 MonoBehaviour:
   m_ObjectHideFlags: 0

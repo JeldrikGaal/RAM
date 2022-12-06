@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
+using System.Security.Cryptography.X509Certificates;
 //using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 //using UnityEngine.UIElements.Experimental;
 //using static UnityEngine.EventSystems.EventTrigger;
@@ -49,12 +50,12 @@ public class RammyController : MonoBehaviour
     private float _ability3Key;
     private float _ability4Key;
     private float _ability5Key;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability1 _ability1Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability2 _ability2Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability3 _ability3Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability4 _ability4Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private Ability5 _ability5Script;
-    [FoldoutGroup("Abilities")] [SerializeField] private bool _startFullAbilities = true;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability1 _ability1Script;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability2 _ability2Script;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability3 _ability3Script;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability4 _ability4Script;
+    [FoldoutGroup("Abilities")][SerializeField] private Ability5 _ability5Script;
+    [FoldoutGroup("Abilities")][SerializeField] private bool _startFullAbilities = true;
 
     private List<bool> _learnedAbilities = new List<bool>();
 
@@ -65,6 +66,7 @@ public class RammyController : MonoBehaviour
     private Rigidbody _rB;
     private MeshRenderer _mR;
     private HealthBar _healthBar;
+    [SerializeField] private Animator _animator;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
@@ -73,12 +75,12 @@ public class RammyController : MonoBehaviour
 
     //[Header("Character State")]
     // Bools describing playerstate
-    [FoldoutGroup("Character State")] [SerializeField] private bool Attacking;
-    [FoldoutGroup("Character State")] [SerializeField] private bool BasicAttacking;
-    [FoldoutGroup("Character State")] [SerializeField] private bool Dashing;
-    [FoldoutGroup("Character State")] [SerializeField] private bool Invincible;
-    [FoldoutGroup("Character State")] [SerializeField] private bool Walking;
-    [FoldoutGroup("Character State")] [SerializeField] private bool UsingAbility;
+    [FoldoutGroup("Character State")][SerializeField] private bool Attacking;
+    [FoldoutGroup("Character State")][SerializeField] private bool BasicAttacking;
+    [FoldoutGroup("Character State")][SerializeField] private bool Dashing;
+    [FoldoutGroup("Character State")][SerializeField] private bool Invincible;
+    [FoldoutGroup("Character State")][SerializeField] private bool Walking;
+    [FoldoutGroup("Character State")][SerializeField] private bool UsingAbility;
 
     [Header("Player Stats")]
     // Player Values
@@ -153,7 +155,7 @@ public class RammyController : MonoBehaviour
     private Vector3 _directionIndicatorPosSave;
 
     //[Header("Buff Values")]
-    [FoldoutGroup("Buff Values")] [SerializeField] private bool _hasDamageBuff;
+    [FoldoutGroup("Buff Values")][SerializeField] private bool _hasDamageBuff;
     [FoldoutGroup("Buff Values")] public float DamageModifier;
     [HideInInspector] public float AppliedDamageModifier; // Multiply this by the damage in each ability
     [FoldoutGroup("Buff Values")] public float DamageBuffDuration;
@@ -163,20 +165,23 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float SpeedBuffDuration;
     private float _speedBuffTimer;
     private bool _setSpeed = true;
-    [FoldoutGroup("Buff Values")] [SerializeField] private bool _hasDamageReductionBuff;
+    [FoldoutGroup("Buff Values")][SerializeField] private bool _hasDamageReductionBuff;
     [FoldoutGroup("Buff Values")] public float DamageReductionModifier;
     [FoldoutGroup("Buff Values")] public float DamageReductionBuffDuration;
-    [FoldoutGroup("Buff Values")] [SerializeField] private float _damageReductionBuffTimer;
+    [FoldoutGroup("Buff Values")][SerializeField] private float _damageReductionBuffTimer;
     [FoldoutGroup("Buff Values")] public bool HasStunBuff;
     [FoldoutGroup("Buff Values")] public float StunBuffModifier;
     [FoldoutGroup("Buff Values")] public float StunBuffDuration;
-    [FoldoutGroup("Buff Values")] [SerializeField] private float _stunBuffTimer;
+    [FoldoutGroup("Buff Values")][SerializeField] private float _stunBuffTimer;
 
+    // Animation 
+    private bool _walkingAnim;
 
     // Debugging
     [Header("DEBUGGING STUFF")]
     [SerializeField] private List<Material> _mats = new List<Material>();
     [SerializeField] private GameObject directionIndicator;
+    [SerializeField] private bool testingHeight = false;
     private GameObject _directionIndicatorTip;
 
     #region Startup and Disable
@@ -195,6 +200,12 @@ public class RammyController : MonoBehaviour
         _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
         _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
+
+        if (testingHeight)
+        {
+            _groundPlane = new Plane(Vector3.up, new Vector3(0, 1, 0));
+        }
+
         for (int i = 0; i < 5; i++)
         {
             if (_startFullAbilities)
@@ -305,16 +316,38 @@ public class RammyController : MonoBehaviour
         #region Movement
         // Applying input from the 'Move' Vector from the InputAction to the velocity of the rigidbody and multiplying by the Movement 
         _moveDirection = _move.ReadValue<Vector2>() * MovementSpeed;
-        //_moveDirection = _moveDirection * ( _cameraScript.transform.rotation.eulerAngles).normalized;
         Vector3 vel = new Vector3(_moveDirection.x, 0, _moveDirection.y);
         vel = Quaternion.AngleAxis(-45, Vector3.up) * vel;
-        //vel = Quaternion.Euler(0, 0, 45) * vel;
+
+        if (Math.Abs(_rB.velocity.magnitude) > 0.01f)
+        {
+            Walking = true;
+        }
+        else
+        {
+            Walking = false;
+        }
+
+        if (!Walking && _walkingAnim)
+        {
+            _animator.SetTrigger("stopWalking");
+            _walkingAnim = false;
+            Debug.Log("STOP");
+        }
 
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
             _rB.velocity = vel;
             int baseRotation = 135;
+            if (Walking && !_walkingAnim)
+            {
+                _animator.SetTrigger("startWalking");
+                _walkingAnim = true;
+                Debug.Log("START");
+            }
+           
+           
             // Rotate player in the direction its walking
             if (_moveDirection.x < 0 && _moveDirection.y == 0) // looking left
             {
@@ -629,7 +662,7 @@ public class RammyController : MonoBehaviour
             _startTimeBasicAttack = Time.time;
             _basicAttackAllowed = false;
             _blockMovement = true;
-            _rB.velocity = Vector3.zero;
+            StopWalking();
 
 
 
@@ -710,7 +743,7 @@ public class RammyController : MonoBehaviour
             // Setting various variables to display that player is dashing in script and visually
             _blockMovement = true;
             _mR.material = _mats[1];
-            _rB.velocity = Vector3.zero;
+            StopWalking();
             _chargeAttackAllowed = false;
             _dashVisuals.StartDash(transform.rotation);
         }
@@ -764,7 +797,7 @@ public class RammyController : MonoBehaviour
             transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
             _blockMovement = true;
             _mR.material = _mats[2];
-            _rB.velocity = Vector3.zero;
+            StopWalking();
             _chargeAttackAllowed = false;
             _dashingAllowed = false;
 
@@ -1100,6 +1133,13 @@ public class RammyController : MonoBehaviour
             Die();
         }
         // TODO: More VFX
+    }
+
+    // Stopp walking
+    private void StopWalking()
+    {
+        _rB.velocity = Vector3.zero;
+        
     }
 
     // Rammy fell below 0 health and has now died. Deal with it in this function

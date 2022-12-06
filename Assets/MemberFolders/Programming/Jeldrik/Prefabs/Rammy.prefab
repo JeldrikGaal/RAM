@@ -921,12 +921,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d9ea62691064245b06203d3e683448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxPoints: 25
-  _backupPoints: 50
-  _backupDeleting: 0
   _playerLayer:
     serializedVersion: 2
     m_Bits: 32768
+  _detectRadius: 0.675
   _stepScript: {fileID: 1279146746}
   _dashScript: {fileID: 1279146745}
   _array1: []
@@ -1569,7 +1567,7 @@ Transform:
   - {fileID: 448679933}
   - {fileID: 570634510}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -1895,7 +1893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bd35dffce223f45ba74375ef520906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bloodBomb: {fileID: 8268201989584909852, guid: 8a806b5a160e5884681e9adabf2c97b5, type: 3}
+  _bloodBomb: {fileID: 2539247738765939136, guid: d5dbdc6dd6aa5934ea0d41f6df3f9cda, type: 3}
   _bloodSpreadCalculator: {fileID: 1489133655}
   _stepScript: {fileID: 1489133657}
   _timeEffectScript: {fileID: 1973733744572080562}
@@ -1921,13 +1919,13 @@ MonoBehaviour:
   _brainArray: {fileID: 11400000, guid: 6d74f9904f2cc5d42be1b1f3548b1e85, type: 2}
   _eyeballArray: {fileID: 11400000, guid: 0884b7ebf06f6ab4f89398c2cea363d9, type: 2}
   _meatArray: {fileID: 11400000, guid: 010891eb9bc80e744abc6a9e0967fb98, type: 2}
-  _skullArrayAmount: {x: 10, y: 5}
-  _heartArrayAmount: {x: 10, y: 5}
-  _intestineArrayAmount: {x: 10, y: 5}
-  _spineArrayAmount: {x: 20, y: 10}
-  _brainArrayAmount: {x: 10, y: 5}
-  _eyeballArrayAmount: {x: 10, y: 5}
-  _meatArrayAmount: {x: 10, y: 5}
+  _skullArrayAmount: {x: 200, y: 5}
+  _heartArrayAmount: {x: 200, y: 5}
+  _intestineArrayAmount: {x: 200, y: 5}
+  _spineArrayAmount: {x: 200, y: 10}
+  _brainArrayAmount: {x: 200, y: 5}
+  _eyeballArrayAmount: {x: 200, y: 5}
+  _meatArrayAmount: {x: 200, y: 5}
   IsBlue: 0
   _bloodVariations:
   - {fileID: 2100000, guid: c9bb0ad3224b91f4f8f21474be7406e1, type: 2}
@@ -1938,61 +1936,61 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8739e941f6dfeaf43ac114b73a590327, type: 2}
   - {fileID: 2100000, guid: b72810edf5b98a445813c46c2a29e1b0, type: 2}
   _bloodSpread: 0.8
-  _heightAngle: 0
-  _bloodForceMin: 5
-  _bloodForceMax: 8
-  _bloodAmount: 9
-  _bloodSizeMin: 0.87
-  _bloodSizeMax: 1.24
+  _heightAngle: 30.5
+  _bloodForceMin: 1.51
+  _bloodForceMax: 2.61
+  _bloodAmount: 2
+  _bloodSizeMin: 1.5
+  _bloodSizeMax: 2
   _goreValuesRam:
   - GoreNames: Skull
     Spread: 0.64
-    Angle: 9.6
+    Angle: 30.5
     MinForce: 0.96
     MaxForce: 3.1
     MinAmount: 0
-    MaxAmount: 1
+    MaxAmount: 0
   - GoreNames: Heart
     Spread: 0.916
-    Angle: 6.6
+    Angle: 33.5
     MinForce: 1.56
     MaxForce: 3.49
     MinAmount: 0
-    MaxAmount: 1
+    MaxAmount: 0
   - GoreNames: Intestine
     Spread: 0.79
-    Angle: 12.6
+    Angle: 30.1
     MinForce: 1.62
     MaxForce: 3.1
     MinAmount: 0
-    MaxAmount: 2
+    MaxAmount: 0
   - GoreNames: Spine
     Spread: 1.07
-    Angle: 15.5
+    Angle: 34.7
     MinForce: 3.71
     MaxForce: 3.72
     MinAmount: 0
-    MaxAmount: 1
+    MaxAmount: 0
   - GoreNames: Brain
     Spread: 0.682
-    Angle: 9.6
+    Angle: 36.6
     MinForce: 2.5
     MaxForce: 7.49
     MinAmount: 0
-    MaxAmount: 1
+    MaxAmount: 0
   - GoreNames: Eyeball
     Spread: 1.973
-    Angle: 9.6
+    Angle: 27.8
     MinForce: 2.24
     MaxForce: 10
     MinAmount: 0
-    MaxAmount: 2
+    MaxAmount: 0
   - GoreNames: Meat
     Spread: 0.448
-    Angle: 9.1
+    Angle: 36.6
     MinForce: 1.67
     MaxForce: 5.66
-    MinAmount: 1
+    MinAmount: 2
     MaxAmount: 6
   _bloodSpreadNormal: 0.5
   _heightAngleNormal: 43.5
@@ -2033,8 +2031,8 @@ MonoBehaviour:
   - GoreNames: Spine
     Spread: 0.662
     Angle: 29.2
-    MinForce: 0
-    MaxForce: 0
+    MinForce: 5.65
+    MaxForce: 8.54
     MinAmount: 0
     MaxAmount: 1
   - GoreNames: Brain
@@ -2043,7 +2041,7 @@ MonoBehaviour:
     MinForce: 1.01
     MaxForce: 4.25
     MinAmount: 0
-    MaxAmount: 10
+    MaxAmount: 1
   - GoreNames: Eyeball
     Spread: 0.608
     Angle: 26.4
@@ -2054,8 +2052,8 @@ MonoBehaviour:
   - GoreNames: Meat
     Spread: 0.891
     Angle: 33.7
-    MinForce: 2.84
-    MaxForce: 5.54
+    MinForce: 4.59
+    MaxForce: 8.4
     MinAmount: 2
     MaxAmount: 5
   _bloodSpreadAb2: 0.5
@@ -2089,7 +2087,56 @@ MonoBehaviour:
   _bloodAmountAb5: 5
   _bloodSizeMinAb5: 1
   _bloodSizeMaxAb5: 1
-  _goreValuesAb5: []
+  _goreValuesAb5:
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
   _maxGoreSmudge: 500
   _maxGoreSmudgeBackup: 50
 --- !u!136 &4974556004237746302
@@ -2148,6 +2195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SmudgeEffect: {fileID: 5000289965411273244, guid: 71255e027c45540419e4fe40099d144d, type: 3}
   _directionObject: {fileID: 4974556003529526528}
+  _groundHeight: 20
   _maxItems: 100
   _maxItemsBackups: 5
   _items: []

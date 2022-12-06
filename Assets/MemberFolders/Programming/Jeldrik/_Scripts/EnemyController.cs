@@ -29,6 +29,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public float StunDuration;
 
     [HideInInspector] public Vector3 PullPoint;
+    public bool Pulled;
 
     // Visual Effects
     [SerializeField] private GameObject _bloodSmoke;
@@ -55,6 +56,7 @@ public class EnemyController : MonoBehaviour
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
         Health = MaxHealth;
+        _defaultSpeed = MoveSpeed;
     }
 
     void Update()
@@ -68,6 +70,11 @@ public class EnemyController : MonoBehaviour
         if (_doDie)
         {
             Die();
+        }
+
+        if (Pulled)
+        {
+            Pull();
         }
 
     }
@@ -86,6 +93,7 @@ public class EnemyController : MonoBehaviour
         if (Vector3.Distance(transform.position, PullPoint) < 0.5f)
         {
             gameObject.layer = 24;
+            Pulled = false;
         }
     }
 
@@ -99,6 +107,17 @@ public class EnemyController : MonoBehaviour
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
         Health -= damage;
         _healthBar.UpdateHealthBar(-(damage / MaxHealth));
+
+        if (GetComponent<HawkBossManager>() != null)
+        {
+            GetComponent<HawkBossManager>().DamageTakenRecently += damage;
+
+            if (!GetComponent<HawkBossManager>().PhaseThree)
+            {
+                Health = Mathf.Clamp(Health, 1, 100);
+            }
+        }
+
         _lastIncomingHit = hitDirection;
         if (_bloodSmoke != null)
         {
@@ -145,17 +164,13 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator Stun(float duration)
     {
-        if (GetComponent<EnemyController>())
-        {
-            // Sets the movespeed to 0 to fake the enemy being stunned
-            GetComponent<EnemyController>().MoveSpeed = 0;
+        // Sets the movespeed to 0 to fake the enemy being stunned
+        MoveSpeed = 0;
+        // Wait for stun duration
+        yield return new WaitForSeconds(duration);
 
-            // Wait for stun duration
-            yield return new WaitForSeconds(duration);
-
-            // Sets the movespeed to the default speed again
-            GetComponent<EnemyController>().MoveSpeed = _defaultSpeed;
-        }
+        // Sets the movespeed to the default speed again
+        MoveSpeed = _defaultSpeed;
     }
 
     public void MoveToPullPoint(Vector3 point)
