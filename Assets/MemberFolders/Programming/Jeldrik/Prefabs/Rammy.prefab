@@ -1784,6 +1784,60 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1099257557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1099257559}
+  - component: {fileID: 1099257558}
+  m_Layer: 15
+  m_Name: RockSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1099257559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099257557}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4974556004237746299}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
+--- !u!114 &1099257558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099257557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a1489b6f244fc42a47424668a9cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _length: 20
+  _currentPos: {x: 0, y: 0, z: 0}
+  _minWidth: 0
+  _maxWidth: 2
+  _minHeight: 0
+  _maxHeight: 3
+  _heightRandom: 0.1
+  _maxTime: 0.25
+  _timeBetweenSpawn: 0.05
+  _rockAnim: {fileID: 9100000, guid: 3b13df291a7af8d48ace65192156b3b4, type: 2}
 --- !u!1 &1156683451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,8 +1862,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156683451}
-  m_LocalRotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0, z: 0.676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1817,7 +1871,7 @@ Transform:
   - {fileID: 374600992}
   m_Father: {fileID: 4974556004237746299}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: -90, y: 90, z: -90}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!95 &1156683453
 Animator:
   serializedVersion: 4
@@ -3249,8 +3303,9 @@ Transform:
   - {fileID: 448679933}
   - {fileID: 570634510}
   - {fileID: 1156683452}
+  - {fileID: 1099257559}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -3551,7 +3606,7 @@ MonoBehaviour:
   _pushDistance: 8
   _moveDuration: 0.5
   _externalCollider: {fileID: 448679932}
-  _rockSpawner: {fileID: 0}
+  _rockSpawner: {fileID: 1099257558}
 --- !u!114 &3586331904611896420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3675,7 +3730,7 @@ MonoBehaviour:
   _bloodForceMinAb1: 4.9
   _bloodForceMaxAb1: 7.4
   _bloodAmountAb1: 3
-  _bloodSizeMinAb1: 1.123
+  _bloodSizeMinAb1: 1.68
   _bloodSizeMaxAb1: 2
   _goreValuesAb1:
   - GoreNames: Skull

@@ -41,19 +41,19 @@ public class SpawnRocks : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.L))
+        
+        if (Input.GetKeyDown(KeyCode.H))
         {
             _moving = true;
             InvokeRepeating("SpawnRock", _timeBetweenSpawn, _timeBetweenSpawn);
             _rockParent.transform.position = this.transform.position;
             _rockParent.transform.rotation = this.transform.rotation;
-        }*/
+        }
 
         if(_moving && _timer <= _maxTime)
         {
             _rockParent.transform.parent = this.transform;
-            _currentPos = Vector3.Lerp(_rockParent.transform.localPosition, new Vector3(_length + _rockParent.transform.localPosition.x, _rockParent.transform.position.y, _rockParent.transform.localPosition.z), _timer/ _maxTime);
+            _currentPos = Vector3.Lerp(_rockParent.transform.localPosition, new Vector3(_length + _rockParent.transform.localPosition.x, _rockParent.transform.localPosition.y, _rockParent.transform.localPosition.z), _timer/ _maxTime);
             _rockParent.transform.parent = null;
             _timer += Time.deltaTime;
         } else if(_moving && _timer > _maxTime)
@@ -91,6 +91,8 @@ public class SpawnRocks : MonoBehaviour
         // Add animation to cube
         var cubeAnim = newCube.AddComponent<Animator>();
         cubeAnim.runtimeAnimatorController = _rockAnim;
+        // Remove the cube collider
+        Destroy(newCube.GetComponent<BoxCollider>());
         // Delete cube after animation is done
         Destroy(cubeParent, _rockAnim.animationClips[0].length);
     }
