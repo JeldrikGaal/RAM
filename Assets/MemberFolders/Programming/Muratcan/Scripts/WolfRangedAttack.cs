@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WolfRangedAttack : MonoBehaviour
 {
+    int _rnd;
     bool _onTheWay = false;
     bool _onTheWayBack = false;
     bool _inProgress = false;
@@ -15,6 +16,7 @@ public class WolfRangedAttack : MonoBehaviour
     [SerializeField] List<Collider> _wolfMeleeColliders = new List<Collider>();
     [SerializeField] float _range = 3f;
     [SerializeField] GameObject _boomerang;
+    [SerializeField] GameObject _target;
     [SerializeField] int _ammo = 1;
     [SerializeField] float _shootSpeed = 50f;
     public float damage = 1.5f;
@@ -56,7 +58,8 @@ public class WolfRangedAttack : MonoBehaviour
 
         if (_inProgress && ((Time.time - _startTimeThrow) / throwDuration) > 0f)
         {
-            _wolfMeleeColliders[Random.Range(0, _wolfMeleeColliders.Count)].gameObject.transform.position = Vector3.Lerp(_startPos, _targetPos, ((Time.time - _startTimeThrow) / throwDuration));
+            
+            _wolfMeleeColliders[_rnd].gameObject.transform.position = Vector3.Lerp(_startPos, _targetPos, ((Time.time - _startTimeThrow) / throwDuration));
         }
     }
     
@@ -68,7 +71,7 @@ public class WolfRangedAttack : MonoBehaviour
         _boomerang.transform.SetParent(null);
         _startPos = _boomerang.transform.position;
         //_targetPos = player.transform.position;
-        _targetPos = (_boomerang.transform.position - player.transform.position).normalized;
+        _targetPos = _target.transform.position;
         //_targetPos.ro = Quaternion.LookRotation((_boomerang.transform.position - player.transform.position).normalized);
         print(_targetPos);
         _startTimeThrow = Time.time;
@@ -77,7 +80,8 @@ public class WolfRangedAttack : MonoBehaviour
 
     public void ThrowWolf(GameObject player)
     {
-        _startPos = _boomerang.transform.position;
+        _rnd = Random.Range(0, _wolfMeleeColliders.Count);
+        _startPos = _wolfMeleeColliders[_rnd].gameObject.transform.position;
         _targetPos = player.transform.position;
         _startTimeThrow = Time.time;
         _inProgress = true;
