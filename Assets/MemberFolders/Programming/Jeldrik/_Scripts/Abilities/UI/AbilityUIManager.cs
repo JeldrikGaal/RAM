@@ -54,7 +54,8 @@ public class AbilityUIManager : MonoBehaviour
             }
 
             float fillPercentage = Mathf.Min(1, ((Time.time - _abilityScripts[i].GetStartingTime()) / _abilityScripts[i].Stats.Cooldown));
-            if (Time.time < _abilityScripts[i].Stats.Cooldown) fillPercentage = 1;
+            //if (Time.time < _abilityScripts[i].Stats.Cooldown) fillPercentage = 1;
+            if (_abilityScripts[i].GetStartingTime() == 0) fillPercentage = 1;
             SetAbilityClockToPercent(i, fillPercentage);
         }
 

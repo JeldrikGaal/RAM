@@ -50,6 +50,7 @@ public abstract class Abilities : MonoBehaviour
     // Checking if the ability is ready to be used again after the cooldown period
     public bool IsReady()
     {
+        if (_startingTime == 0) return true;
         return Time.time - _startingTime > Stats.Cooldown;
     }
 
