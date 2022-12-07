@@ -440,12 +440,17 @@ public class RammyController : MonoBehaviour
         }
 
         // Visualize the charging progress
-        if (_frameCounterRightMouseButton > 0)
+        if (_frameCounterRightMouseButton > 0 && _chargeAttackAllowed)
         {
             _directionIndicatorTip.transform.localScale = new Vector3(_directionIndicatorScaleSave.x, _directionIndicatorScaleSave.y, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
             _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z + ((_frameCounterRightMouseButton / MaxChargeTime) * 0.5f));
         }
 
+        if (!_chargeAttackAllowed)
+        {
+            _frameCounterRightMouseButton = 0;
+            _frameCounterRightMouseButtonSave = 0;
+        }
 
         // Logic while player is attacking
         if (Attacking)
