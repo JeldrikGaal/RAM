@@ -110,6 +110,7 @@ public class EnemyController : MonoBehaviour
     {
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
         Health -= damage;
+        _anim.SetTrigger("TakeDamage");
         _healthBar.UpdateHealthBar(-(damage / MaxHealth));
 
         if (GetComponent<HawkBossManager>() != null)
