@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
         _animMoveHash = Animator.StringToHash("MoveSpeed");
         _player = FindObjectOfType<RammyController>().gameObject;
 

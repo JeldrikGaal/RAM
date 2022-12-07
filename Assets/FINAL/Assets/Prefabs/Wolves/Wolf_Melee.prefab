@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 314648767}
   - component: {fileID: 314648766}
   m_Layer: 0
-  m_Name: MeleeWolf
+  m_Name: Wolf_Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +39,7 @@ Transform:
   - {fileID: 97505324394239393}
   - {fileID: 3156755872318864682}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1718208062672609078
 MeshFilter:
@@ -102,6 +102,7 @@ MonoBehaviour:
   _forceMultipier: 0
   _pieceLiftime: 0
   _pieceCount: 0
+  _player: {fileID: 0}
   _defaultSpeed: 0
   _respawnAfterDeath: 0
   _utilScript: {fileID: 0}
