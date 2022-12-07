@@ -83,8 +83,8 @@ public class MeleeWolfScript : MonoBehaviour
         {
             if (_finishedLeaping)
             {
-                _stateMachine._currentState = _toStrikeState;
-                //_finishedLeaping = false;
+                //_stateMachine._currentState = _toStrikeState;
+                _finishedLeaping = false;
             }
 
         }

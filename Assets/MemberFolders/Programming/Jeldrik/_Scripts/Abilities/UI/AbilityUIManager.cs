@@ -30,8 +30,8 @@ public class AbilityUIManager : MonoBehaviour
         }
         foreach (Transform t in _abilityBlocks)
         {
-            _coolDownCircles.Add(t.GetChild(0).GetComponent<Image>());  
-            _abilityImages.Add(t.GetComponent<Image>());
+            _coolDownCircles.Add(t.GetComponent<Image>());  
+            _abilityImages.Add(t.GetChild(0).GetComponent<Image>());
         }
         _abilityScripts = _controller.GetAbilityScripts();
 
