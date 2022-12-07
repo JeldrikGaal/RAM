@@ -62,7 +62,7 @@ public class RammyController : MonoBehaviour
     private float _cameraDepth;
     private Rigidbody _rB;
     private MeshRenderer _mR;
-    private HealthBar _healthBar;
+    private HealthBarBig _healthBar;
     [SerializeField] private Animator _animator;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
@@ -81,7 +81,7 @@ public class RammyController : MonoBehaviour
 
     [Header("Player Stats")]
     // Player Values
-    [SerializeField] private float Health;
+    public float Health;
     [field: SerializeField] private float MaxHealth { get; set; }
     [SerializeField] private float HealPercentage;
 
@@ -203,7 +203,7 @@ public class RammyController : MonoBehaviour
     {
         _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
-        _healthBar = GetComponentInChildren<HealthBar>();
+        _healthBar = FindObjectOfType<HealthBarBig>();
         if (GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
         // _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
@@ -249,7 +249,7 @@ public class RammyController : MonoBehaviour
             ChargeAttackDuration = _chargeValues.AttackTime;
             MaxChargeTime = _chargeValues.FreeVariable;
         }
-        
+
         #endregion
     }
 
@@ -919,7 +919,7 @@ public class RammyController : MonoBehaviour
         }
         else if (TagManager.HasTag(rammedObject, "enemyplatform"))
         {
-            rammedObject.transform.parent.GetComponent<EnemyPlatform>().DestroyPlatform();
+            rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
 
     }
