@@ -11,11 +11,15 @@ public class MeleeWolfScript : MonoBehaviour
     AI_State _lastState;
 
     private bool _leaping;
+    private bool _finishedLeaping;
     [SerializeField] private bool _striking;
     private SphereCollider _damageCollider;
 
     [SerializeField] private bool _rammyInRange;
     [SerializeField] private RammyController _rammyController;
+
+    [SerializeField] private AI_State  _toChaseState;
+    [SerializeField] private AI_State _toStrikeState;
 
     private IEnumerator _strikeRoutine;
 
@@ -25,6 +29,7 @@ public class MeleeWolfScript : MonoBehaviour
     {
         _damageCollider = GetComponent<SphereCollider>();
         _damageCollider.enabled = false;
+        _lastState = null;
     }
 
     // Update is called once per frame
@@ -52,6 +57,7 @@ public class MeleeWolfScript : MonoBehaviour
             _animator.SetBool("running", false);
         }
 
+
         if (_lastState != _stateMachine._currentState && _stateMachine._currentState.name == "Strike_MeleeWolf")
         {
             _damageCollider.enabled = true;
@@ -70,9 +76,18 @@ public class MeleeWolfScript : MonoBehaviour
             _leaping = false;
             _damageCollider.enabled = false;
             _rammyInRange = false;
+            _finishedLeaping = true;
+            
         }
+        if (_lastState != null)
+        {
+            if (_finishedLeaping)
+            {
+                _stateMachine._currentState = _toStrikeState;
+                //_finishedLeaping = false;
+            }
 
-   
+        }
 
         _lastState = _stateMachine._currentState;
     }
@@ -128,6 +143,7 @@ public class MeleeWolfScript : MonoBehaviour
             {
                 _striking = false;
                 StopCoroutine(_strikeRoutine);
+                _stateMachine._currentState = _toChaseState;
             }
         }
     }

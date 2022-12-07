@@ -27,6 +27,7 @@ public class Ability1 : Abilities
 
     private Rigidbody _rb;
 
+    [SerializeField] private SpawnRocks _rockSpawner;
 
     public override void Start()
     {
@@ -48,6 +49,11 @@ public class Ability1 : Abilities
             // If the timer has passed the last keyframe in the animation
             if (_jumpTimer > _yPosCurve.keys[_yPosCurve.keys.Length - 1].time)
             {
+                if (_rockSpawner)
+                {
+                    _rockSpawner.InitiateRocks();
+                }
+
                 _controller.AddScreenShake(1.2f);
                 _landingPos = transform.position;
                 _jumping = false;
