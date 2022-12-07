@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 1718208062672609064}
   - component: {fileID: 8593564325294042548}
   - component: {fileID: 1796675017}
+  - component: {fileID: 5823505238481437819}
   m_Layer: 0
   m_Name: MeleeWolf
   m_TagString: Untagged
@@ -136,7 +137,7 @@ Transform:
   - {fileID: 1952885109}
   - {fileID: 97505324394239393}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1718208062672609078
 MeshFilter:
@@ -255,6 +256,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - wolfMelee
+--- !u!114 &5823505238481437819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718208062672609074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0854c0015dd3c4fa1f473295ea8c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 0
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  Stunned: 0
+  Pulled: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  _bloodSmoke: {fileID: 0}
+  _bloodSize: 1
 --- !u!1001 &3884439612404985411
 PrefabInstance:
   m_ObjectHideFlags: 0
