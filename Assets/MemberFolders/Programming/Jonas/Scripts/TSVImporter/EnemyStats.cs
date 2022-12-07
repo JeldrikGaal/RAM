@@ -14,11 +14,12 @@ public class EnemyStats : ScriptableObject
 
         foreach (List<string> l in variables)
         {
+            Debug.Log(l[0]);
+
             List<float> stats = new List<float>();
 
             for(int i = 2; i < l.Count; i++)
             {
-                Debug.Log(l[i]);
                 stats.Add(float.Parse(l[i]));
             }
 
@@ -32,10 +33,18 @@ public class EnemyStats : ScriptableObject
 
     }
 
-    [Button]
     public EnemyAttackStats GetStats(string name)
     {
         return Attacks[name];
+    }
+
+    [Button]
+    public void PrintStats(string name)
+    {
+        foreach (KeyValuePair<string, EnemyAttackStats> k in Attacks)
+        {
+            Debug.Log(k.Key);
+        }
     }
 
     public float GetHealth(int area)

@@ -35,7 +35,7 @@ public class Importer_EnemyStats : ScriptableObject
         {
             if (string.IsNullOrEmpty(l[0]))
             {
-                EnemyStats[enemyCounter].SetAttacks(statLists);
+                EnemyStats[enemyCounter++].SetAttacks(statLists);
                 statLists = new List<List<string>>();
             }
             else
