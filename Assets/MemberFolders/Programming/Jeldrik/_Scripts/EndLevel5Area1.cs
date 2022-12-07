@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndLevel5Area1 : MonoBehaviour
 {
@@ -18,7 +19,11 @@ public class EndLevel5Area1 : MonoBehaviour
     {
         if (bossHolder.transform.childCount == 0)
         {
-            Debug.Log("END LEVEL");
+            SceneManager.LoadScene(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }

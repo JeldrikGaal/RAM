@@ -27,6 +27,7 @@ public class Letter : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            other.GetComponent<RammyController>().lettersCollected += 1;
             _letterTextbox.text = _letterText;
             _letterCanvas.enabled = true;
             Time.timeScale = 0;
