@@ -14,8 +14,6 @@ public class EnemyStats : ScriptableObject
 
         foreach (List<string> l in variables)
         {
-            Debug.Log(l[0]);
-
             List<float> stats = new List<float>();
 
             for(int i = 2; i < l.Count; i++)
@@ -39,12 +37,18 @@ public class EnemyStats : ScriptableObject
     }
 
     [Button]
-    public void PrintStats(string name)
+    public void PrintStats()
     {
         foreach (KeyValuePair<string, EnemyAttackStats> k in Attacks)
         {
             Debug.Log(k.Key);
         }
+    }
+
+    [Button]
+    public void PrintStat(string name)
+    {
+        Debug.Log(Attacks[name].Damage1);
     }
 
     public float GetHealth(int area)
