@@ -1126,6 +1126,7 @@ public class RammyController : MonoBehaviour
         // Apply damage to health bar
         _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
 
+
         // Stopping combo 
         if (_comboSystem != null)
         {
