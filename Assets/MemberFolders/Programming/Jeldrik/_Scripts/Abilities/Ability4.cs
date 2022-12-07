@@ -8,7 +8,8 @@ public class Ability4 : Abilities
     [SerializeField] float _prepTime;
     [SerializeField] float _moveTime;
     [SerializeField] float _resetTime;
-    [SerializeField] Vector3 _aulerAngleArea = new(0, 30, 0);
+    private Vector3 _aulerAngleArea = new(0, 30, 0);
+    [SerializeField] float _moveRadius = 0.5f;
     [SerializeField] AnimationCurve movementCurve;
     float _startTime;
     int _stage = 0;
@@ -51,6 +52,8 @@ public class Ability4 : Abilities
     {
         base.Update();
 
+        _aulerAngleArea = new(0, _upgraded ? Stats.UAttackDegrees : Stats.AttackDegrees, 0);
+
         // Controlling the attack process
         switch (_stage)
         {
@@ -59,7 +62,7 @@ public class Ability4 : Abilities
                 {
                     var currentRot = CalculateEulerRotationOverTime(Vector3.zero, -(_aulerAngleArea / 2), _prepTime);
 
-                    UpdatePositionAndRotation(currentRot, _upgraded ? Stats.UAttackDegrees : Stats.AttackDegrees);
+                    UpdatePositionAndRotation(currentRot, _moveRadius);
 
                     if (Time.time > _startTime + _prepTime)
                     {
@@ -73,7 +76,7 @@ public class Ability4 : Abilities
             case 2:
                 {
                     var currentRot = CalculateEulerRotationOverTime(-(_aulerAngleArea / 2), _aulerAngleArea / 2, _moveTime);
-                    UpdatePositionAndRotation(currentRot, _upgraded ? Stats.UAttackDegrees : Stats.AttackDegrees);
+                    UpdatePositionAndRotation(currentRot, _moveRadius);
 
                     ExtendedAreaOfEffect(currentRot, _upgraded ? Stats.USplashRadius : Stats.SplashRadius);
 
@@ -91,7 +94,7 @@ public class Ability4 : Abilities
                 {
                     var currentRot = CalculateEulerRotationOverTime(_aulerAngleArea / 2, Vector3.zero, _resetTime);
 
-                    UpdatePositionAndRotation(currentRot, _upgraded ? Stats.UAttackDegrees : Stats.AttackDegrees);
+                    UpdatePositionAndRotation(currentRot, _moveRadius);
 
                     if (Time.time > _startTime + _resetTime)
                     {
