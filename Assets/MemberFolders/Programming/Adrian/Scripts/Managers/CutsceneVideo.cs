@@ -10,9 +10,8 @@ public class CutsceneVideo : MonoBehaviour
 
     private bool _canPlayVideo;
 
-    [SerializeField] private GameObject _instructions;
-
     [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _hud;
     private float _defaultSpeed;
 
     private bool _hadSpeedBuffOnEntry;
@@ -23,6 +22,8 @@ public class CutsceneVideo : MonoBehaviour
     void Start()
     {
         _videoPlayer = GetComponent<VideoPlayer>();
+
+        _videoPlayer.targetCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -67,6 +68,9 @@ public class CutsceneVideo : MonoBehaviour
             _player.GetComponent<RammyController>().MovementSpeed /= 2;
         }
 
+        // Enables the HUD
+        _hud.SetActive(true);
+
         if (_deleteWhenDone)
         {
             Destroy(gameObject);
@@ -78,6 +82,8 @@ public class CutsceneVideo : MonoBehaviour
         // Checks if it collided with the player
         if (other.tag == "Player")
         {
+            // Disables the HUD
+            _hud.SetActive(false);
             // Saves the player object
             _player = other.gameObject;
 
