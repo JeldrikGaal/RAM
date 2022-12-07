@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
+using UnityEngine.SceneManagement;
 
 public class RammyController : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class RammyController : MonoBehaviour
     private float _cameraDepth;
     private Rigidbody _rB;
     private MeshRenderer _mR;
-    private HealthBar _healthBar;
+    private HealthBarBig _healthBar;
     [SerializeField] private Animator _animator;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
@@ -81,9 +82,10 @@ public class RammyController : MonoBehaviour
 
     [Header("Player Stats")]
     // Player Values
-    [SerializeField] private float Health;
+    public float Health;
     [field: SerializeField] private float MaxHealth { get; set; }
     [SerializeField] private float HealPercentage;
+    public int lettersCollected;
 
     // Speed Modifier 
     [SerializeField] public float MovementSpeed;
@@ -203,7 +205,7 @@ public class RammyController : MonoBehaviour
     {
         _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
-        _healthBar = GetComponentInChildren<HealthBar>();
+        _healthBar = FindObjectOfType<HealthBarBig>();
         if (GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
         // _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
@@ -249,7 +251,7 @@ public class RammyController : MonoBehaviour
             ChargeAttackDuration = _chargeValues.AttackTime;
             MaxChargeTime = _chargeValues.FreeVariable;
         }
-        
+
         #endregion
     }
 
@@ -641,8 +643,13 @@ public class RammyController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            TakeDamageRammy(5);
+            //TakeDamageRammy(5);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            SceneManager.LoadScene(0);
+        }
+
 
         #endregion
         // Showing in engine where the player is gonna dash towards
@@ -731,6 +738,7 @@ public class RammyController : MonoBehaviour
             // Checking if player would end up in an object while charging and shortening charge if thats the case
             if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, (ChargeAttackDistance * (chargingTime / MaxChargeTime))))
             {
+                _chargeAttackDestination = hit.point;
                 RaycastHit hit2;
                 if (Physics.Raycast(_chargeAttackDestination + Vector3.up * 100, Vector3.down, out hit2, 105) && hit.transform == hit2.transform)
                 {
@@ -792,6 +800,7 @@ public class RammyController : MonoBehaviour
             // Checking if player would end up in an object while dashing and shortening dash if thats the case
             if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, DashDistance))
             {
+                _dashDestination = hit.point;
                 RaycastHit hit2;
                 if (Physics.Raycast(_dashDestination + Vector3.up * 100, Vector3.down, out hit2, 105) && hit.transform == hit2.transform)
                 {
@@ -919,7 +928,7 @@ public class RammyController : MonoBehaviour
         }
         else if (TagManager.HasTag(rammedObject, "enemyplatform"))
         {
-            rammedObject.transform.parent.GetComponent<EnemyPlatform>().DestroyPlatform();
+            rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
 
     }
@@ -1125,6 +1134,7 @@ public class RammyController : MonoBehaviour
 
         // Apply damage to health bar
         _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
+
 
         // Stopping combo 
         if (_comboSystem != null)

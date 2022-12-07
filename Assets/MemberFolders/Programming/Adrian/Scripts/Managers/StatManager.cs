@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class StatManager : MonoBehaviour
@@ -15,11 +16,14 @@ public class StatManager : MonoBehaviour
     [SerializeField] private float _scoreTimer;
 
     [SerializeField] private int _comboKills;
+    [SerializeField] private float _health;
+    [SerializeField] private Image _healthSprite;
     [SerializeField] private float _score;
 
     [SerializeField] private TMP_Text KillCountTextbox;
     [SerializeField] private TMP_Text KeyText;
     [SerializeField] private TMP_Text ScoreTextbox;
+    [SerializeField] private TMP_Text HealthTextbox;
 
     [SerializeField] private RammyController _playerController;
 
@@ -39,6 +43,10 @@ public class StatManager : MonoBehaviour
     {
         // Update the time played in the Stat Scriptable Object
         Stats.TimePlayed += Time.deltaTime;
+
+        //Keep track of rammy health
+        //_health = _playerController.Health;
+
 
         // Sets the text of the killcount textbox
         KillCountTextbox.text = Stats.Kills + "/50 Kills";

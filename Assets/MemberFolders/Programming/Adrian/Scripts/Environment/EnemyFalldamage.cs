@@ -23,6 +23,8 @@ public class EnemyFalldamage : MonoBehaviour
     {
         if (other.gameObject.tag == "Ground")
         {
+            GetComponent<EnemyController>().enabled = true;
+
             if (_die)
             {
                 // If the enemy is supposed to die, take maxhealth as damage
@@ -32,6 +34,7 @@ public class EnemyFalldamage : MonoBehaviour
             {
                 // Else it will take a set amount of damage
                 GetComponent<EnemyController>().TakeDamage(_fallDamage, Vector3.up);
+                GetComponent<StateMachine>().enabled = true;
             }
         }
     }

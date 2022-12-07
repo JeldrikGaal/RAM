@@ -104,6 +104,14 @@ public class WolfRangedAttack : MonoBehaviour
         _startTimeThrow = Time.time;
         _onTheWay = true;
     }
+    public void ThrowBoomerang2()
+    {
+        //There is probably a better way to fix this issue but putting this here works as well
+    }
+    public void ThrowBoomerang3()
+    {
+        //There is probably a better way to fix this issue but putting this here works as well
+    }
 
     public void ThrowWolf()
     {

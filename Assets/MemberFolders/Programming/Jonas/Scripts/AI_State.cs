@@ -16,7 +16,7 @@ public class AI_State : ScriptableObject
     {
         if (_timerCount == null) _timerCount = new Dictionary<EnemyController, int>();
         if (_timer == null) _timer = new Dictionary<EnemyController, float>();
-        Debug.Log(user);
+        // Debug.Log(user);
         _timerCount[user] = -1;
         _timer[user] = 0;
 
