@@ -8,7 +8,9 @@ public class Bees : MonoBehaviour
     private RammyController _rammy;
     [SerializeField] private float _damageTiming,_damage , _lifeTime;
     private float _startTime, _stungTime;
-
+    private bool _isActive = true;
+    [SerializeField] ParticleSystem _bees;
+    
 
     private void Start()
     {
@@ -18,7 +20,7 @@ public class Bees : MonoBehaviour
     private void Update()
     {
         // dameges rammy over time if in range
-        if (_inRange && Time.time - _stungTime >= _damageTiming)
+        if (_inRange && Time.time - _stungTime >= _damageTiming && _isActive)
         {
             _rammy.TakeDamageRammy(_damage);
             _stungTime = Time.time;
@@ -27,8 +29,14 @@ public class Bees : MonoBehaviour
         // destroys the bees after lifetime.
         if (Time.time - _startTime >= _lifeTime)
         {
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+            
+            _bees.Stop();
+            _isActive = false;
+            //print(_bees.particleCount);
+            if (_bees.particleCount == 1)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
