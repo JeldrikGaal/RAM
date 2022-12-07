@@ -34,6 +34,7 @@ public class WallStuffA1L4 : MonoBehaviour
                 {
                     wallPart1.SetActive(false);
                     wallPart2.SetActive(false);
+                    completed = true;
                 }
             }
             else
@@ -42,6 +43,7 @@ public class WallStuffA1L4 : MonoBehaviour
                 {
                     wallPart1.SetActive(false);
                     wallPart2.SetActive(false);
+                    completed = true;
                 }
             }
         }
