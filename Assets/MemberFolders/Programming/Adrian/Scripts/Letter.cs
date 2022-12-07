@@ -14,7 +14,7 @@ public class Letter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _letterTextbox.text = _letterText;
     }
 
     // Update is called once per frame
