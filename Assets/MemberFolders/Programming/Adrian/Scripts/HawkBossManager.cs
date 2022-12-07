@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Animations;
 
 public class HawkBossManager : MonoBehaviour
 {
     [SerializeField] private EnemyController _controller;
     [SerializeField] private EnemyTesting _testingScript;
+
+    [SerializeField] private Animator _animController;
 
     [SerializeField] private GameObject _model;
 
@@ -99,8 +102,8 @@ public class HawkBossManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _phaseOne = true;
-        _stageOne = true;
+        PhaseThree = true;
+        _stageThree = true;
 
         _player = GameObject.FindGameObjectWithTag("Player");
         _rb = GetComponent<Rigidbody>();
@@ -231,6 +234,7 @@ public class HawkBossManager : MonoBehaviour
 
         if (_spraying)
         {
+            _animController.SetBool("Spray", true);
             // Rotates the pivot point
             transform.Rotate(new Vector3(0, _sprayRotationSpeed * Time.deltaTime, 0));
 
@@ -267,11 +271,14 @@ public class HawkBossManager : MonoBehaviour
             float timeToReachTarget = 0.4f;
             if (_crashTimer < 1)
             {
+                _animController.SetBool("Idle", false);
+                _animController.SetBool("Flying", true);
                 _crashTimer += timeToReachTarget * Time.deltaTime;
             }
 
-            if (_crashTimer > 0.13f)
+            if (_crashTimer > 0.18f)
             {
+                _animController.SetBool("Claw Attack", false);
                 Crashing = false;
                 gameObject.layer = 0;
                 var damageArea = Instantiate(_damageArea, transform.position, Quaternion.identity);
@@ -297,8 +304,11 @@ public class HawkBossManager : MonoBehaviour
 
         if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time)
         {
+            _animController.SetBool("Take Off", false);
+            _animController.SetBool("Idle", true);
             if (RisingFlee)
             {
+
                 // Stop the animation
                 RisingFlee = false;
 
@@ -484,6 +494,7 @@ public class HawkBossManager : MonoBehaviour
         // If the boss has taken enough damage and is not currently fleeing or rising
         if (DamageTakenRecently > 30 && !Fleeing && !RisingFlee && !_attacking)
         {
+            _animController.SetBool("Take Off", true);
             // Choose a point out of all the flee points
             _selectedFleePoint = _fleePoints[Random.Range(0, _fleePoints.Length)].transform.position;
 
@@ -508,6 +519,8 @@ public class HawkBossManager : MonoBehaviour
             // If the boss has not reached the destination yet
             if (_fleeTimer < 1 && !LoweringFlee)
             {
+                _animController.SetBool("Idle", false);
+                _animController.SetBool("Flying", true);
                 // Increase the timer
                 _fleeTimer += timeToDestination * Time.deltaTime;
 
@@ -521,6 +534,9 @@ public class HawkBossManager : MonoBehaviour
 
             if (_fleeTimer > 0.4f)
             {
+                _animController.SetBool("Flying", false);
+                _animController.SetBool("Idle", true);
+                _animController.SetBool("Landing", true);
                 LoweringFlee = true;
                 _model.transform.localPosition = Vector3.Lerp(_model.transform.localPosition, Vector3.zero, 2 * Time.deltaTime);
             }
@@ -529,6 +545,8 @@ public class HawkBossManager : MonoBehaviour
 
             if (Vector3.Distance(_model.transform.localPosition, Vector3.zero) < 0.51f && LoweringFlee)
             {
+                _animController.SetBool("Idle", false);
+                _animController.SetBool("Landing", false);
                 Fleeing = false;
                 _fleeTimer = 0;
                 LoweringFlee = false;
@@ -564,6 +582,7 @@ public class HawkBossManager : MonoBehaviour
         // print("Horizontal Spray");
         yield return new WaitForSeconds(_realFinalRotation / _sprayRotationSpeed);
         _spraying = false;
+        _animController.SetBool("Spray", false);
 
         yield return new WaitForSeconds(2);
         _attacking = false;
@@ -572,7 +591,9 @@ public class HawkBossManager : MonoBehaviour
 
     private IEnumerator MinionSwarm()
     {
+        _animController.SetBool("Spawning Enemies", true);
         yield return new WaitForSeconds(1);
+        _animController.SetBool("Spawning Enemies", false);
         _attacking = false;
         for (int i = 0; i < _minionsSpawned.Count; i++)
         {
@@ -597,6 +618,7 @@ public class HawkBossManager : MonoBehaviour
 
     private IEnumerator SuperClawMelee()
     {
+        _animController.SetBool("Take Off", true);
         _modelStartPos = _model.transform.position;
 
         MeleeAttack = true;
@@ -615,6 +637,7 @@ public class HawkBossManager : MonoBehaviour
     private IEnumerator SlowDownWait()
     {
         yield return new WaitForSeconds(0.2f);
+        _animController.SetBool("Claw Attack", true);
         _slowedDown = true;
         _insideSlowRange = false;
     }
