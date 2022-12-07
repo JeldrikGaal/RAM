@@ -16,7 +16,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{_damage} dealt to {other.name}");
+        // Debug.Log($"{_damage} dealt to {other.name}");
         gameObject.SetActive(false);
     }
 
