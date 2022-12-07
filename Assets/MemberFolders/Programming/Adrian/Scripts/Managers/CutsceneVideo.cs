@@ -12,6 +12,12 @@ public class CutsceneVideo : MonoBehaviour
 
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _hud;
+
+    [SerializeField] private AudioSource _audioSource;
+
+    [SerializeField] private AudioClip _levelAudio;
+
+
     private float _defaultSpeed;
 
     private bool _hadSpeedBuffOnEntry;
@@ -67,6 +73,9 @@ public class CutsceneVideo : MonoBehaviour
         {
             _player.GetComponent<RammyController>().MovementSpeed /= 2;
         }
+
+        _audioSource.clip = _levelAudio;
+        _audioSource.Play();
 
         // Enables the HUD
         _hud.SetActive(true);
