@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-
     [HideInInspector]
     public Vector3 MoveInput;
 
@@ -105,7 +104,7 @@ public class EnemyController : MonoBehaviour
     }
 
     /// <summary>
-    /// Applies Damage to this enemie
+    /// Applies Damage to this enemy
     /// </summary>
     /// <param name="damage"></param>
     /// <returns></returns>
