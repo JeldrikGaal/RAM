@@ -14,7 +14,7 @@ public class Letter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _letterTextbox.text = _letterText;
+
     }
 
     // Update is called once per frame
@@ -27,6 +27,7 @@ public class Letter : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            _letterTextbox.text = _letterText;
             _letterCanvas.enabled = true;
             Time.timeScale = 0;
         }
@@ -35,5 +36,6 @@ public class Letter : MonoBehaviour
     public void LetterUiTimeReset()
     {
         Time.timeScale = 1;
+        _letterCanvas.enabled = false;
     }
 }
