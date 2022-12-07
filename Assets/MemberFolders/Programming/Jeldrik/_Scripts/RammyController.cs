@@ -190,7 +190,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private List<Material> _mats = new List<Material>();
     [SerializeField] private GameObject directionIndicator;
     [SerializeField] private bool testingHeight = false;
-    private GameObject _directionIndicatorTip;
+    [SerializeField] private GameObject _directionIndicatorTip;
 
     #region Startup and Disable
     // Setting Input Actions on Awake
@@ -205,7 +205,7 @@ public class RammyController : MonoBehaviour
         _mR = GetComponent<MeshRenderer>();
         _healthBar = GetComponentInChildren<HealthBar>();
         if (GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
-        _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
+        // _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
         _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
 
@@ -442,8 +442,9 @@ public class RammyController : MonoBehaviour
         // Visualize the charging progress
         if (_frameCounterRightMouseButton > 0 && _chargeAttackAllowed)
         {
-            _directionIndicatorTip.transform.localScale = new Vector3(_directionIndicatorScaleSave.x, _directionIndicatorScaleSave.y, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
-            _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z + ((_frameCounterRightMouseButton / MaxChargeTime) * 0.5f));
+            // _directionIndicatorTip.transform.localScale = new Vector3(_directionIndicatorScaleSave.x, _directionIndicatorScaleSave.y, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
+            // _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z + ((_frameCounterRightMouseButton / MaxChargeTime) * 0.5f));
+            _directionIndicatorTip.transform.localScale = new Vector3(1, 1, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
         }
 
         if (!_chargeAttackAllowed)
