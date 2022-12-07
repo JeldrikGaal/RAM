@@ -179,6 +179,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] RammyAttack _chargeValues;
     [SerializeField] RammyAttack _dashValues;
     [SerializeField] RammyAttack _basicAttackValues;
+    [SerializeField] bool _loadData = true;
 
 
     // Animation 
@@ -226,25 +227,29 @@ public class RammyController : MonoBehaviour
         }
 
         #region Loading Data from Sheet
-        // Load in Data for Attack Values
+        if (_loadData)
+        {
+            // Load in Data for Attack Values
 
-        // Basic Attack
-        BasicAttackCoolDown = _basicAttackValues.Cooldown;
-        BasicAttackDamage = _basicAttackValues.Dmg * Damage;
-        BasicAttackDuration = _basicAttackValues.AttackTime;
+            // Basic Attack
+            BasicAttackCoolDown = _basicAttackValues.Cooldown;
+            BasicAttackDamage = _basicAttackValues.Dmg * Damage;
+            BasicAttackDuration = _basicAttackValues.AttackTime;
 
-        // Dash
-        DashAttackDamage = _dashValues.Dmg * Damage;
-        DashCoolDown = _dashValues.Cooldown;
-        DashDistance = _dashValues.Range;
-        DashDuration = _dashValues.AttackTime;
+            // Dash
+            DashAttackDamage = _dashValues.Dmg * Damage;
+            DashCoolDown = _dashValues.Cooldown;
+            DashDistance = _dashValues.Range;
+            DashDuration = _dashValues.AttackTime;
 
-        // Charge Attack
-        ChargeAttackDamage = _chargeValues.Dmg * Damage;
-        ChargeAttackCoolDown = _chargeValues.Cooldown;
-        ChargeAttackDistance = _chargeValues.Range;
-        ChargeAttackDuration = _chargeValues.AttackTime;
-        MaxChargeTime = _chargeValues.FreeVariable;
+            // Charge Attack
+            ChargeAttackDamage = _chargeValues.Dmg * Damage;
+            ChargeAttackCoolDown = _chargeValues.Cooldown;
+            ChargeAttackDistance = _chargeValues.Range;
+            ChargeAttackDuration = _chargeValues.AttackTime;
+            MaxChargeTime = _chargeValues.FreeVariable;
+        }
+        
         #endregion
     }
 
@@ -377,10 +382,10 @@ public class RammyController : MonoBehaviour
             {
                 _animator.SetTrigger("startWalking");
                 _walkingAnim = true;
-                Debug.Log("START");
+                //Debug.Log("START");
             }
-           
-           
+
+
             // Rotate player in the direction its walking
             if (_moveDirection.x < 0 && _moveDirection.y == 0) // looking left
             {
@@ -725,7 +730,7 @@ public class RammyController : MonoBehaviour
                 {
                     _chargeAttackDestination = hit.point;
                 }
-                if (! TagManager.HasTag(hit.transform.gameObject, "enemy"))
+                if (!TagManager.HasTag(hit.transform.gameObject, "enemy"))
                 {
                     _chargeAttackDestination = hit.point;
                 }
@@ -905,6 +910,10 @@ public class RammyController : MonoBehaviour
         else if (TagManager.HasTag(rammedObject, "objectfalltree"))
         {
             rammedObject.GetComponent<ObjectFallFromTree>().DropItem = true;
+        }
+        else if (TagManager.HasTag(rammedObject, "enemyplatform"))
+        {
+            rammedObject.transform.parent.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
 
     }
@@ -1137,7 +1146,7 @@ public class RammyController : MonoBehaviour
     private void StopWalking()
     {
         _rB.velocity = Vector3.zero;
-        
+
     }
 
     // Rammy fell below 0 health and has now died. Deal with it in this function

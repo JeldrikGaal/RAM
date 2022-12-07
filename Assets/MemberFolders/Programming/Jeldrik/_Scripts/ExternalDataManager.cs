@@ -9,7 +9,6 @@ public class ExternalDataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ImportDataRange();
     }
 
     // Update is called once per frame
@@ -24,9 +23,6 @@ public class ExternalDataManager : MonoBehaviour
 
         for (var i = 0; i < data.Count; i++)
         {
-            //print(data[i]["Unit"]);
-            Debug.Log(data[i].ToString());
-            //print(data[i]["HP"]);
         }
     }
 }

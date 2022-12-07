@@ -21,6 +21,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _pieceLiftime;
     [SerializeField] private int _pieceCount;
 
+    [SerializeField] GameObject _player;
+
     [SerializeField] private float _defaultSpeed;
 
     [SerializeField] public bool _respawnAfterDeath;
@@ -46,12 +48,13 @@ public class EnemyController : MonoBehaviour
     private int _animMoveHash;
 
     private bool _doDie;
-
+    private bool _doMove;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
         _animMoveHash = Animator.StringToHash("MoveSpeed");
+        _player = FindObjectOfType<RammyController>().gameObject;
 
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
@@ -62,7 +65,11 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         _rb.velocity = MoveInput * MoveSpeed;
-        _anim.SetFloat(_animMoveHash, _rb.velocity.magnitude);
+        if (_anim != null)
+        {
+            _anim.SetFloat(_animMoveHash, _rb.velocity.magnitude);
+        }
+        
 
         if (MoveInput != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.z));
@@ -106,6 +113,8 @@ public class EnemyController : MonoBehaviour
     {
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
         Health -= damage;
+        _anim.SetTrigger("TakeDamage");
+        transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
         _healthBar.UpdateHealthBar(-(damage / MaxHealth));
 
         if (GetComponent<HawkBossManager>() != null)

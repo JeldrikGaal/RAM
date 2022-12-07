@@ -22,13 +22,14 @@ public class AI_AttackShootWolf : StateBlock
         if (!_isDone[user])
         {
             //atk.GetComponent<EnemyAttack>().Init(_damage != 0 ? _damage : (user.AttackDamage * _dmgWeight));
+            Debug.Log(user.GetComponent<WolfRangedAttack>().CheckNearbyWolfs());
             if (user.GetComponent<WolfRangedAttack>().CheckNearbyWolfs())
             {
-                user.GetComponent<WolfRangedAttack>().ThrowWolf(target);
+                user.GetComponent<WolfRangedAttack>().ThrowWolfAnimEvent(target);
             }
             else
             {
-                user.GetComponent<WolfRangedAttack>().ThrowBoomerang(target);
+                user.GetComponent<WolfRangedAttack>().ThrowBoomerangAnimEvent(target);
             }
 
             _isDone[user] = true;
