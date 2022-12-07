@@ -62,7 +62,7 @@ public class RammyController : MonoBehaviour
     private float _cameraDepth;
     private Rigidbody _rB;
     private MeshRenderer _mR;
-    private HealthBar _healthBar;
+    private HealthBarBig _healthBar;
     [SerializeField] private Animator _animator;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
@@ -81,7 +81,7 @@ public class RammyController : MonoBehaviour
 
     [Header("Player Stats")]
     // Player Values
-    [SerializeField] private float Health;
+    public float Health;
     [field: SerializeField] private float MaxHealth { get; set; }
     [SerializeField] private float HealPercentage;
 
@@ -190,7 +190,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private List<Material> _mats = new List<Material>();
     [SerializeField] private GameObject directionIndicator;
     [SerializeField] private bool testingHeight = false;
-    private GameObject _directionIndicatorTip;
+    [SerializeField] private GameObject _directionIndicatorTip;
 
     #region Startup and Disable
     // Setting Input Actions on Awake
@@ -203,9 +203,9 @@ public class RammyController : MonoBehaviour
     {
         _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
-        _healthBar = GetComponentInChildren<HealthBar>();
+        _healthBar = FindObjectOfType<HealthBarBig>();
         if (GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
-        _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
+        // _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
         _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
 
@@ -249,7 +249,7 @@ public class RammyController : MonoBehaviour
             ChargeAttackDuration = _chargeValues.AttackTime;
             MaxChargeTime = _chargeValues.FreeVariable;
         }
-        
+
         #endregion
     }
 
@@ -440,12 +440,18 @@ public class RammyController : MonoBehaviour
         }
 
         // Visualize the charging progress
-        if (_frameCounterRightMouseButton > 0)
+        if (_frameCounterRightMouseButton > 0 && _chargeAttackAllowed)
         {
-            _directionIndicatorTip.transform.localScale = new Vector3(_directionIndicatorScaleSave.x, _directionIndicatorScaleSave.y, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
-            _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z + ((_frameCounterRightMouseButton / MaxChargeTime) * 0.5f));
+            // _directionIndicatorTip.transform.localScale = new Vector3(_directionIndicatorScaleSave.x, _directionIndicatorScaleSave.y, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
+            // _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z + ((_frameCounterRightMouseButton / MaxChargeTime) * 0.5f));
+            _directionIndicatorTip.transform.localScale = new Vector3(1, 1, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
         }
 
+        if (!_chargeAttackAllowed)
+        {
+            _frameCounterRightMouseButton = 0;
+            _frameCounterRightMouseButtonSave = 0;
+        }
 
         // Logic while player is attacking
         if (Attacking)
@@ -913,7 +919,7 @@ public class RammyController : MonoBehaviour
         }
         else if (TagManager.HasTag(rammedObject, "enemyplatform"))
         {
-            rammedObject.transform.parent.GetComponent<EnemyPlatform>().DestroyPlatform();
+            rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
 
     }
@@ -1119,6 +1125,7 @@ public class RammyController : MonoBehaviour
 
         // Apply damage to health bar
         _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
+
 
         // Stopping combo 
         if (_comboSystem != null)

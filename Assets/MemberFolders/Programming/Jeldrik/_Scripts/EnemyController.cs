@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-
     [HideInInspector]
     public Vector3 MoveInput;
 
@@ -52,7 +51,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
         _animMoveHash = Animator.StringToHash("MoveSpeed");
         _player = FindObjectOfType<RammyController>().gameObject;
 
@@ -105,7 +104,7 @@ public class EnemyController : MonoBehaviour
     }
 
     /// <summary>
-    /// Applies Damage to this enemie
+    /// Applies Damage to this enemy
     /// </summary>
     /// <param name="damage"></param>
     /// <returns></returns>
