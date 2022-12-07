@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndAreaLvL3 : MonoBehaviour
 {
@@ -15,15 +16,20 @@ public class EndAreaLvL3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SceneManager.LoadScene(4);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.HasTag("player"))
         {
-            // Insert Letter collection here !! 
-            Debug.Log("You may have completed the level!");
+            if (other.GetComponent<RammyController>().lettersCollected >= 3)
+            {
+                SceneManager.LoadScene(4);
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
+using UnityEngine.SceneManagement;
 
 public class RammyController : MonoBehaviour
 {
@@ -84,6 +85,7 @@ public class RammyController : MonoBehaviour
     public float Health;
     [field: SerializeField] private float MaxHealth { get; set; }
     [SerializeField] private float HealPercentage;
+    public int lettersCollected;
 
     // Speed Modifier 
     [SerializeField] public float MovementSpeed;
@@ -641,8 +643,13 @@ public class RammyController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            TakeDamageRammy(5);
+            //TakeDamageRammy(5);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            SceneManager.LoadScene(0);
+        }
+
 
         #endregion
         // Showing in engine where the player is gonna dash towards
@@ -731,6 +738,7 @@ public class RammyController : MonoBehaviour
             // Checking if player would end up in an object while charging and shortening charge if thats the case
             if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, (ChargeAttackDistance * (chargingTime / MaxChargeTime))))
             {
+                _chargeAttackDestination = hit.point;
                 RaycastHit hit2;
                 if (Physics.Raycast(_chargeAttackDestination + Vector3.up * 100, Vector3.down, out hit2, 105) && hit.transform == hit2.transform)
                 {
@@ -792,6 +800,7 @@ public class RammyController : MonoBehaviour
             // Checking if player would end up in an object while dashing and shortening dash if thats the case
             if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, DashDistance))
             {
+                _dashDestination = hit.point;
                 RaycastHit hit2;
                 if (Physics.Raycast(_dashDestination + Vector3.up * 100, Vector3.down, out hit2, 105) && hit.transform == hit2.transform)
                 {

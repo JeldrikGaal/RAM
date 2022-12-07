@@ -29,7 +29,7 @@ public class HealthBarBig : MonoBehaviour
     /// <param name="changeAmount"></param>
     public void UpdateHealthBar(float changeAmount)
     {
-        print(changeAmount);
+        //print(changeAmount);
         _health += changeAmount;
         _healthBarImage.fillAmount = _health;
     }

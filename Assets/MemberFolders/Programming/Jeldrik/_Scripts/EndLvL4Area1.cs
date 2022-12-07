@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndLvL4Area1 : MonoBehaviour
 {
@@ -20,13 +21,17 @@ public class EndLvL4Area1 : MonoBehaviour
         {
             done = true;
         }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SceneManager.LoadScene(5);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.HasTag("player") && done)
         {
-            Debug.Log("LEVEL DOEN");
+            SceneManager.LoadScene(5);
         }
     }
 }
