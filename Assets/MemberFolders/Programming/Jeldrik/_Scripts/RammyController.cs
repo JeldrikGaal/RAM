@@ -249,7 +249,7 @@ public class RammyController : MonoBehaviour
             ChargeAttackDuration = _chargeValues.AttackTime;
             MaxChargeTime = _chargeValues.FreeVariable;
         }
-        
+
         #endregion
     }
 
@@ -919,7 +919,7 @@ public class RammyController : MonoBehaviour
         }
         else if (TagManager.HasTag(rammedObject, "enemyplatform"))
         {
-            rammedObject.transform.parent.GetComponent<EnemyPlatform>().DestroyPlatform();
+            rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
 
     }
