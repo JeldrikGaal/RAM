@@ -8,6 +8,8 @@ public class WolfRangedAttack : MonoBehaviour
     int _rnd;
     bool _onTheWay = false;
     bool _onTheWayBack = false;
+    bool _toWolf = false;
+    bool _toPlayer = false;
     bool _inProgress = false;
     Vector3 _startPos;
     Vector3 _targetPos;
@@ -30,7 +32,7 @@ public class WolfRangedAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mathf.Approximately(GetComponent<Rigidbody>().velocity.x, 0f) && Mathf.Approximately(GetComponent<Rigidbody>().velocity.y, 0f))
+        if (GetComponent<EnemyController>().MoveInput == Vector3.zero)
         {
             _animator.SetBool("isIdle", true);
             _animator.SetBool("isRunning", false);
@@ -40,6 +42,7 @@ public class WolfRangedAttack : MonoBehaviour
             _animator.SetBool("isIdle", false);
             _animator.SetBool("isRunning", true);
         }
+        //Boomerang
         if (_onTheWay == true && ((Time.time - _startTimeThrow) / throwDuration) < 1f)
         {
             _boomerang.transform.position = Vector3.Lerp(_startPos, _targetPos, ((Time.time - _startTimeThrow) / throwDuration));
@@ -62,12 +65,31 @@ public class WolfRangedAttack : MonoBehaviour
             _boomerang.SetActive(false);
             _ammo++;
         }
-
-        if (_inProgress && ((Time.time - _startTimeThrow) / throwDuration) > 0f)
+        //Wolf
+        if (_toWolf == true && ((Time.time - _startTimeThrow) / throwDuration) < 1f)
         {
-            
-            _wolfMeleeColliders[_rnd].gameObject.transform.position = Vector3.Lerp(_startPos, _targetPos, ((Time.time - _startTimeThrow) / throwDuration));
+            _wolfMeleeColliders[_rnd].gameObject.transform.position = Vector3.Lerp(_startPos, transform.position, ((Time.time - _startTimeThrow) / throwDuration));
         }
+        else if (_toWolf == true && ((Time.time - _startTimeThrow) / throwDuration) >= 1f)
+        {
+            _toWolf = false;
+            _toPlayer = true;
+            _startTimeThrow = Time.time;
+        }
+        else if (_toPlayer == true && ((Time.time - _startTimeThrow) / throwDuration) < 1f)
+        {
+            _wolfMeleeColliders[_rnd].gameObject.transform.position = Vector3.Lerp(transform.position, _targetPos, ((Time.time - _startTimeThrow) / throwDuration));
+        }
+        else if (_toPlayer == true && ((Time.time - _startTimeThrow) / throwDuration) >= 1f)
+        {
+            _toPlayer = false;
+            _ammo++;
+        }
+        //if (_inProgress && ((Time.time - _startTimeThrow) / throwDuration) > 0f)
+        //{
+            
+        //    _wolfMeleeColliders[_rnd].gameObject.transform.position = Vector3.Lerp(_startPos, _targetPos, ((Time.time - _startTimeThrow) / throwDuration));
+        //}
     }
     
     public void ThrowBoomerang()
@@ -85,12 +107,20 @@ public class WolfRangedAttack : MonoBehaviour
 
     public void ThrowWolf()
     {
-        _animator.SetTrigger("Attack2");
+        
         _rnd = Random.Range(0, _wolfMeleeColliders.Count);
-        _startPos = _wolfMeleeColliders[_rnd].gameObject.transform.position;
+        if (_wolfMeleeColliders[_rnd] != null)
+        {
+            _startPos = _wolfMeleeColliders[_rnd].gameObject.transform.position;
+        }
+        else
+        {
+            _rnd = Random.Range(0, _wolfMeleeColliders.Count);
+            _startPos = _wolfMeleeColliders[_rnd].gameObject.transform.position;
+        }
         _targetPos = _player.transform.position;
         _startTimeThrow = Time.time;
-        _inProgress = true;
+        _toWolf = true;
     }
 
     public bool CheckNearbyWolfs()
