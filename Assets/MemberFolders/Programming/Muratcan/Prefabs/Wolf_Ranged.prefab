@@ -350,7 +350,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187686287512374757}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 22.49, y: 0.71000004, z: 9.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -368,7 +368,7 @@ Transform:
   - {fileID: 2070226133272843649}
   - {fileID: 2070226133257158075}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2070226133362290878
 Rigidbody:
@@ -435,14 +435,15 @@ MonoBehaviour:
   MoveInput: {x: 0, y: 0, z: 0}
   MoveSpeed: 8
   AttackDamage: 3
-  MaxHealth: 0
-  Health: 0
+  MaxHealth: 20
+  Health: 50
   _deathPieces: []
   _deathPiecesOnce: []
   _deathPiecesSpreadingFactor: 0
   _forceMultipier: 0
   _pieceLiftime: 0
   _pieceCount: 0
+  _player: {fileID: 0}
   _defaultSpeed: 0
   _respawnAfterDeath: 0
   _utilScript: {fileID: 0}
@@ -561,7 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df0854c0015dd3c4fa1f473295ea8c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
+  _health: 20
   _deathPieces:
   - {fileID: 5291567064603710999, guid: 80cd9931f454fd4438ab05609fc2ed8b, type: 3}
   - {fileID: 3906882621796642699, guid: 3b594bcea8ecf0d4c9d1fbfc968c4579, type: 3}
@@ -932,6 +933,7 @@ GameObject:
   - component: {fileID: 2070226133272843660}
   - component: {fileID: 2070226133272843651}
   - component: {fileID: 2070226133272843650}
+  - component: {fileID: 2062338193}
   m_Layer: 20
   m_Name: Boomerang
   m_TagString: Untagged
@@ -1047,6 +1049,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - boomerang
+--- !u!114 &2062338193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070226133272843648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852fb5de528c63948b955c21cdb7a02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1.5
 --- !u!1 &2070226133401159231
 GameObject:
   m_ObjectHideFlags: 0
