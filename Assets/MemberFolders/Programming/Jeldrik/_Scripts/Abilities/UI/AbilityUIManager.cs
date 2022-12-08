@@ -30,8 +30,8 @@ public class AbilityUIManager : MonoBehaviour
         }
         foreach (Transform t in _abilityBlocks)
         {
-            _coolDownCircles.Add(t.GetChild(0).GetComponent<Image>());  
-            _abilityImages.Add(t.GetComponent<Image>());
+            _coolDownCircles.Add(t.GetComponent<Image>());  
+            _abilityImages.Add(t.GetChild(0).GetComponent<Image>());
         }
         _abilityScripts = _controller.GetAbilityScripts();
 
@@ -52,9 +52,10 @@ public class AbilityUIManager : MonoBehaviour
                 AbilityBeingUsed(i);
                 anyAbilityInUse = true;
             }
-            
-            float fillPercentage = Mathf.Min(1, ((Time.time - _abilityScripts[i].GetStartingTime()) / _abilityScripts[i].Cooldown));
-            if (Time.time < _abilityScripts[i].Cooldown) fillPercentage = 1;
+
+            float fillPercentage = Mathf.Min(1, ((Time.time - _abilityScripts[i].GetStartingTime()) / _abilityScripts[i].Stats.Cooldown));
+            //if (Time.time < _abilityScripts[i].Stats.Cooldown) fillPercentage = 1;
+            if (_abilityScripts[i].GetStartingTime() == 0) fillPercentage = 1;
             SetAbilityClockToPercent(i, fillPercentage);
         }
 
