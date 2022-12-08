@@ -47,6 +47,8 @@ public class Ability3 : Abilities
         // Local transform list
         List<Transform> enemyTransforms = new List<Transform>();
 
+        
+        _audio.Play();
 
         // Checks all the colliders and adds the ones with the enemy tag to the list
         foreach (Collider col in hitColliders)

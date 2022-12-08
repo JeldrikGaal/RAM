@@ -51,6 +51,7 @@ public class Ability1 : Abilities
             {
                 if (_rockSpawner)
                 {
+                    _audio.Play();
                     _rockSpawner.InitiateRocks();
                 }
 
