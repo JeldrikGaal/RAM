@@ -23,15 +23,17 @@ public class Importer_RammyAttacks : ScriptableObject
     [Button]
     public void UpdateData()
     {
-        UnityEditor.Undo.RecordObjects(Attacks.ToArray(), "Update Rammy Stats");
+        System.Globalization.CultureInfo culture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+
+        //UnityEditor.Undo.RecordObjects(Attacks.ToArray(), "Update Rammy Stats");
         for (int i = 0; i < 8; i++)
         {
-            Attacks[i].SetVariables(float.Parse(_data[i][0]), float.Parse(_data[i][1]), float.Parse(_data[i][3]), float.Parse(_data[i][4]), float.Parse(_data[i][5]), float.Parse(_data[i][7]), float.Parse(_data[i][8]));
+            Attacks[i].SetVariables(float.Parse(_data[i][0], culture), float.Parse(_data[i][1], culture), float.Parse(_data[i][3], culture), float.Parse(_data[i][4], culture), float.Parse(_data[i][5], culture), float.Parse(_data[i][7], culture), float.Parse(_data[i][8], culture));
         }
 
         for (int i = 0; i < 6; i++)
         {
-            Attacks[i+2].SetUVariables(float.Parse(_upgradeData[i][0]), float.Parse(_upgradeData[i][1]), float.Parse(_upgradeData[i][3]), float.Parse(_upgradeData[i][4]), float.Parse(_upgradeData[i][5]), float.Parse(_upgradeData[i][7]), float.Parse(_upgradeData[i][8]));
+            Attacks[i+2].SetUVariables(float.Parse(_upgradeData[i][0], culture), float.Parse(_upgradeData[i][1], culture), float.Parse(_upgradeData[i][3], culture), float.Parse(_upgradeData[i][4], culture), float.Parse(_upgradeData[i][5], culture), float.Parse(_upgradeData[i][7], culture), float.Parse(_upgradeData[i][8], culture));
         }
     }
 

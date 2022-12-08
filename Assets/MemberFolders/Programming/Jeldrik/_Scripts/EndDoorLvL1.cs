@@ -10,6 +10,8 @@ public class EndDoorLvL1 : MonoBehaviour
     public List<GameObject> AllEnemies = new List<GameObject>();
 
     public bool level2;
+
+    [SerializeField] private LoadingScreen _loadingScreen;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +22,17 @@ public class EndDoorLvL1 : MonoBehaviour
     {
         if (level2 && Input.GetKeyDown(KeyCode.Alpha0))
         {
-            SceneManager.LoadScene(3);
+            Scene scene = SceneManager.GetActiveScene();
+            StartCoroutine(_loadingScreen.NextLevel(scene.buildIndex + 1));
+
+            // SceneManager.LoadScene(3);
         }
         if (!level2 && Input.GetKeyDown(KeyCode.Alpha0))
         {
-            SceneManager.LoadScene(2);
+            Scene scene = SceneManager.GetActiveScene();
+            StartCoroutine(_loadingScreen.NextLevel(scene.buildIndex + 1));
+
+            // SceneManager.LoadScene(2);
         }
     }
 
@@ -32,21 +40,25 @@ public class EndDoorLvL1 : MonoBehaviour
     {
         if (other.gameObject.HasTag("player"))
         {
-            if (GameObject.FindGameObjectsWithTag("wolf").Length == 0  )
+            if (GameObject.FindGameObjectsWithTag("wolf").Length == 0)
             {
                 if (!level2)
                 {
-                    SceneManager.LoadScene(2);
+                    Scene scene = SceneManager.GetActiveScene();
+                    StartCoroutine(_loadingScreen.NextLevel(scene.buildIndex + 1));
+
+                    // SceneManager.LoadScene(2);
                     Debug.Log("level completed");
                 }
                 else
                 {
-                    SceneManager.LoadScene(3);
+                    Scene scene = SceneManager.GetActiveScene();
+                    StartCoroutine(_loadingScreen.NextLevel(scene.buildIndex + 1));
+
+                    // SceneManager.LoadScene(3);
                     Debug.Log("level completed");
                 }
-               
             }
-
         }
     }
 }
