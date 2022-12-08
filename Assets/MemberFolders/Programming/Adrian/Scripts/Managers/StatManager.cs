@@ -6,9 +6,13 @@ using TMPro;
 
 public class StatManager : MonoBehaviour
 {
-    [SerializeField] private Canvas _comboCanvas;
-
     [SerializeField] private TMP_Text _comboTimerText;
+
+    [SerializeField] private bool _letterLevel;
+
+    [SerializeField] private GameObject _journal;
+    [SerializeField] private TMP_Text _journalText;
+    [SerializeField] private GameObject _swords;
 
     public StatTracker Stats;
 
@@ -16,14 +20,11 @@ public class StatManager : MonoBehaviour
     [SerializeField] private float _scoreTimer;
 
     [SerializeField] private int _comboKills;
-    [SerializeField] private float _health;
-    [SerializeField] private Image _healthSprite;
     [SerializeField] private float _score;
 
     [SerializeField] private TMP_Text KillCountTextbox;
     [SerializeField] private TMP_Text KeyText;
     [SerializeField] private TMP_Text ScoreTextbox;
-    [SerializeField] private TMP_Text HealthTextbox;
 
     [SerializeField] private RammyController _playerController;
 
@@ -36,6 +37,12 @@ public class StatManager : MonoBehaviour
 
         // Sets the accumulated kills to 40 for testing purposes
         Stats.Kills = 0;
+
+        if (!_letterLevel)
+        {
+            _swords.transform.position = _journal.transform.position;
+            _journal.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -49,10 +56,12 @@ public class StatManager : MonoBehaviour
 
 
         // Sets the text of the killcount textbox
-        KillCountTextbox.text = Stats.Kills + "/50 Kills";
+        KillCountTextbox.text = Stats.Kills + "/" + GameObject.FindGameObjectsWithTag("wolf").Length + " Kills";
 
         // Updates the Score textbox with the current score
         ScoreTextbox.text = "Score: " + _score.ToString("F0");
+
+        _journalText.text = _playerController.lettersCollected + "/3";
 
         // Actibate key after you get 50 or more kills
         if (Stats.Kills >= 50)
@@ -153,6 +162,8 @@ public class StatManager : MonoBehaviour
 
         // Sets the score timer to 5 seconds
         _scoreTimer = 3;
+
+        print("Added score");
     }
 
     public void EndCombo()

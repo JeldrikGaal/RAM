@@ -21,6 +21,7 @@ public class RammyController : MonoBehaviour
     private InputAction _ability3;
     private InputAction _ability4;
     private InputAction _ability5;
+    private InputAction _dash;
 
     [HideInInspector] public float Damage = 10;
 
@@ -48,6 +49,7 @@ public class RammyController : MonoBehaviour
     private float _ability3Key;
     private float _ability4Key;
     private float _ability5Key;
+    private float _dashKey;
     [FoldoutGroup("Abilities")][SerializeField] private Ability1 _ability1Script;
     [FoldoutGroup("Abilities")][SerializeField] private Ability2 _ability2Script;
     [FoldoutGroup("Abilities")][SerializeField] private Ability3 _ability3Script;
@@ -179,6 +181,8 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float StunBuffDuration;
     [FoldoutGroup("Buff Values")][SerializeField] private float _stunBuffTimer;
 
+    [SerializeField] private Canvas _deathCanvas;
+
     // Importing Damage Values
     [SerializeField] RammyAttack _chargeValues;
     [SerializeField] RammyAttack _dashValues;
@@ -195,6 +199,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject directionIndicator;
     [SerializeField] private bool testingHeight = false;
     [SerializeField] private GameObject _directionIndicatorTip;
+    public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
     // Setting Input Actions on Awake
@@ -270,6 +275,7 @@ public class RammyController : MonoBehaviour
         _ability3 = _playerControls.Player.Ability3;
         _ability4 = _playerControls.Player.Ability4;
         _ability5 = _playerControls.Player.Ability5;
+        _dash = _playerControls.Player.Dash;
 
         _move.Enable();
         _look.Enable();
@@ -280,6 +286,7 @@ public class RammyController : MonoBehaviour
         _ability3.Enable();
         _ability4.Enable();
         _ability5.Enable();
+        _dash.Enable();
     }
 
     // Disabling PlayerControls when player gets disabled in the scene
@@ -294,11 +301,16 @@ public class RammyController : MonoBehaviour
         _ability3.Disable();
         _ability4.Disable();
         _ability5.Disable();
+        _dash.Disable();
     }
     #endregion
 
     void Update()
     {
+
+        // Used to prevent any actions from rammy
+        if (BLOCKEVERYTHINGRAMMY) return;
+
         #region Reading Input
         // Reading the mouse position on screen
         _mousePosition = _look.ReadValue<Vector2>();
@@ -341,6 +353,7 @@ public class RammyController : MonoBehaviour
         _ability3Key = _ability3.ReadValue<float>();
         _ability4Key = _ability4.ReadValue<float>();
         _ability5Key = _ability5.ReadValue<float>();
+        _dashKey = _dash.ReadValue<float>();
 
         // Calculating the world position where the mouse is currently pointing at and needed help vectors
         float distance;
@@ -385,6 +398,7 @@ public class RammyController : MonoBehaviour
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
+            vel.y = _rB.velocity.y;
             _rB.velocity = vel;
             int baseRotation = 135;
             if (Walking && !_walkingAnim)
@@ -509,6 +523,10 @@ public class RammyController : MonoBehaviour
         #region Dashing
         // Changing all needed variables to indiciate and calculate Dashing
 
+        if (_dashKey == 1 && !Dashing)
+        {
+            StartDash();
+        }
 
         if (Dashing)
         {
@@ -754,9 +772,9 @@ public class RammyController : MonoBehaviour
     {
         if (chargeTime < MinChargeTime)
         {
-            StartDash();
+            //StartDash();
         }
-        else if (chargeTime > MinChargeTime)
+        if (chargeTime > MinChargeTime)
         {
             if (!Attacking) StartChargeAttack(chargeTime);
         }
@@ -1079,6 +1097,27 @@ public class RammyController : MonoBehaviour
     }
 
     #region Setter / Getter functions
+
+    public float GetDashStartTime()
+    {
+        return _startTimeDash;
+    }
+
+    public float GetDashCoolDown()
+    {
+        return DashCoolDown;
+    }
+
+    public float GetChargeStartTime()
+    {
+        return _startTimeChargeAttack;
+    }
+
+    public float GetChargeCoolDown()
+    {
+        return ChargeAttackCoolDown;
+    }
+
     // Functions to start and end the usage of any ability
     public void StartUsingAbility()
     {
@@ -1226,6 +1265,10 @@ public class RammyController : MonoBehaviour
     {
         Debug.Log("RAMMY HAS DIED!!!!!");
         Time.timeScale = 1;
+
+        _deathCanvas.enabled = true;
+        _deathCanvas.GetComponent<DeathScript>().enabled = true;
+
         Destroy(gameObject);
     }
 

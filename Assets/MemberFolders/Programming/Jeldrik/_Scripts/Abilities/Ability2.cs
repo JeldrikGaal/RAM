@@ -42,7 +42,10 @@ public class Ability2 : Abilities
         {
             if (item.transform != null && item.transform.gameObject.GetComponent<EnemyController>())
             {
-                item.transform.gameObject.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, transform.up);
+                if (item.transform.gameObject.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, transform.up))
+                {
+                    _controller.Kill(item.transform.gameObject);
+                }
                 item.transform.rotation = Quaternion.LookRotation(transform.position - item.transform.position);
                 item.transform.gameObject.GetComponent<Rigidbody>().AddForce(-item.transform.forward * _pushBackForce, ForceMode.Impulse);
             }

@@ -11,6 +11,8 @@ public class Letter : MonoBehaviour
 
     [TextArea]
     [SerializeField] private string _letterText;
+
+    private bool _isCounted;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +29,15 @@ public class Letter : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<RammyController>().lettersCollected += 1;
+            if (!_isCounted)
+            {
+                other.GetComponent<RammyController>().lettersCollected++;
+                _isCounted = true;
+            }
             _letterTextbox.text = _letterText;
             _letterCanvas.enabled = true;
             Time.timeScale = 0;
+            _isCounted = true;
         }
     }
 
