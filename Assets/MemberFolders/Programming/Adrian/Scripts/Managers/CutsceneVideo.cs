@@ -40,7 +40,7 @@ public class CutsceneVideo : MonoBehaviour
         // Skips 100 frames in the video when the right arrow is pressed
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            _videoPlayer.frame += 100;
+            _videoPlayer.frame += 1000000;
         }
 
 
