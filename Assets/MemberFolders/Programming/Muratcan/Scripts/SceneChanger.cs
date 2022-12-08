@@ -57,4 +57,14 @@ public class SceneChanger : MonoBehaviour
         #endif
         Application.Quit();
     }
+
+    //Animation trigger methods
+    public void OpenOptionMenu(GameObject forAnimator)
+    {
+        forAnimator.GetComponent<Animator>().SetTrigger("OpenOptionsPanel");
+    }
+    public void CloseOptionMenu(GameObject forAnimator)
+    {
+        forAnimator.GetComponent<Animator>().SetTrigger("CloseOptionsPanel");
+    }
 }
