@@ -7,10 +7,14 @@ public class DestructibleWall : MonoBehaviour, IRammable
 
     public float Direction;
 
+    public GameObject Complete;
+    public GameObject Broken;
+    private BoxCollider _collider;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _collider = GetComponent<BoxCollider>();    
     }
 
     // Update is called once per frame
@@ -19,7 +23,7 @@ public class DestructibleWall : MonoBehaviour, IRammable
         
     }
 
-    public bool Hit(GameObject g)
+    /*public bool Hit(GameObject g)
     {
         Vector3 direction = transform.position - g.transform.position;
         direction = direction.normalized;
@@ -43,6 +47,14 @@ public class DestructibleWall : MonoBehaviour, IRammable
             
          
         }
+        return false;
+    }*/
+
+    public bool Hit(GameObject g)
+    {
+        _collider.enabled = false;
+        Broken.SetActive(true);
+        Complete.SetActive(false);
         return false;
     }
 }
