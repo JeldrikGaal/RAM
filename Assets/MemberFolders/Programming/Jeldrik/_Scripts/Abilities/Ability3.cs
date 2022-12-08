@@ -88,10 +88,10 @@ public class Ability3 : Abilities
             #endregion
 
             // Spawns in objects to show the different points (Only for testing purposes)
-            var marker = Instantiate(_testObject, spawnPos, Quaternion.identity);
+            // var marker = Instantiate(_testObject, spawnPos, Quaternion.identity);
 
             // Destroys the marker after one second
-            Destroy(marker, 1);
+            // Destroy(marker, 1);
 
             // Adds the point and a true value to the dictionary
             Points.Add(spawnPos, true);
