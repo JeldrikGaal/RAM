@@ -32,19 +32,19 @@ public class EnemyAttackStats
 
     public void SetVariables(List<float> values)
     {
-        Damage1 = values[1];
-        Damage2 = values[2];
-        Damage3 = values[3];
+        Damage1 = values[0];
+        Damage2 = values[1];
+        Damage3 = values[2];
         ProjectileSpeed = values[4];
         Range = values[5];
         ReloadTime = values[6];
         AnticipationTime = values[7];
         AttackTime = values[8];
         RecoveryTime = values[9];
-        SplashRadius = values[10];
-        ConeAttackDegree = values[11];
-        ProjectileRadius = values[12];
-        OnGroundEffectTime = values[13];
-        PlayerHitEffectTime = values[14];
+        SplashRadius = values[11];
+        ConeAttackDegree = values[12];
+        ProjectileRadius = values[13];
+        OnGroundEffectTime = values[14];
+        PlayerHitEffectTime = values[15];
     }
 }
