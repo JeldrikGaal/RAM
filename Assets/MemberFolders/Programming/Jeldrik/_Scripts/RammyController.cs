@@ -199,6 +199,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject directionIndicator;
     [SerializeField] private bool testingHeight = false;
     [SerializeField] private GameObject _directionIndicatorTip;
+    public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
     // Setting Input Actions on Awake
@@ -306,6 +307,10 @@ public class RammyController : MonoBehaviour
 
     void Update()
     {
+
+        // Used to prevent any actions from rammy
+        if (BLOCKEVERYTHINGRAMMY) return;
+
         #region Reading Input
         // Reading the mouse position on screen
         _mousePosition = _look.ReadValue<Vector2>();

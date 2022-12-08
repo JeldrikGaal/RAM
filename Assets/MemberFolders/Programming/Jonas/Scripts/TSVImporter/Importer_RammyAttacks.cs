@@ -25,7 +25,7 @@ public class Importer_RammyAttacks : ScriptableObject
     {
         System.Globalization.CultureInfo culture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
-        UnityEditor.Undo.RecordObjects(Attacks.ToArray(), "Update Rammy Stats");
+        //UnityEditor.Undo.RecordObjects(Attacks.ToArray(), "Update Rammy Stats");
         for (int i = 0; i < 8; i++)
         {
             Attacks[i].SetVariables(float.Parse(_data[i][0], culture), float.Parse(_data[i][1], culture), float.Parse(_data[i][3], culture), float.Parse(_data[i][4], culture), float.Parse(_data[i][5], culture), float.Parse(_data[i][7], culture), float.Parse(_data[i][8], culture));
