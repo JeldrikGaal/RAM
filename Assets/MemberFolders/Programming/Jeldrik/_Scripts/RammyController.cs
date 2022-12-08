@@ -211,6 +211,7 @@ public class RammyController : MonoBehaviour
         _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     void Start()
     {
@@ -320,7 +321,6 @@ public class RammyController : MonoBehaviour
         _mousePosition = _look.ReadValue<Vector2>();
 
         // Confines the mouse to the game window
-        Cursor.lockState = CursorLockMode.Confined;
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
@@ -554,6 +554,10 @@ public class RammyController : MonoBehaviour
 
         List<Abilities> l = new List<Abilities>();
         l.Add(_ability1Script);
+        l.Add(_ability2Script);
+        l.Add(_ability3Script);
+        l.Add(_ability4Script);
+        l.Add(_ability5Script);
 
         // Checking if the player is already using an ability and performing wanted ability if not
         if (!UsingAbility)
@@ -711,9 +715,30 @@ public class RammyController : MonoBehaviour
             }
         }
 
+        
         if (Input.GetKeyDown(KeyCode.X))
         {
-            _debuggingText.enabled = true;
+            if (_debuggingCanvas.activeInHierarchy)
+            {
+                _debuggingCanvas.SetActive(true);
+                string text = "BasicAttackCoolDown " + BasicAttackCoolDown + " BasicAttackDamage " + BasicAttackDamage + "\n" + " BasicAttackDuration " + BasicAttackDuration + "\n"
+                    + " DashAttackDamage " + DashAttackDamage + " DashCoolDown " + "\n" + DashCoolDown + " DashDistance " + DashDistance + " DashDuration " + DashDuration + "\n" +
+                    " ChargeAttackDamage " + ChargeAttackDamage + " ChargeAttackCoolDown " + "\n" + ChargeAttackCoolDown + " ChargeAttackDistance " + ChargeAttackDistance + "\n" + " ChargeAttackDuration " + ChargeAttackDuration + " MaxChargeTime " + MaxChargeTime;
+                _debuggingText.text = text;
+            }
+            else
+            {
+                _debuggingCanvas.SetActive(false);
+            }
+           
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            foreach (Abilities a in l)
+            {
+                a.SetStartingTime(Time.time - a.Stats.Cooldown);
+            }
         }
 
         #endregion
@@ -1139,6 +1164,7 @@ public class RammyController : MonoBehaviour
     // Blocking and unblocking player controlled movement
     public void BlockPlayerMovment()
     {
+        _rB.velocity = Vector3.zero;
         _moveDirection = Vector3.zero;
         _blockMovement = true;
     }

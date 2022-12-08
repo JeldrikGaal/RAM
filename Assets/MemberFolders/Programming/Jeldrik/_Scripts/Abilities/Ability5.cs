@@ -104,7 +104,7 @@ public class Ability5 : Abilities
         _startTimeDash = Time.time;
         _inProgress = true;
 
-        _controller.BlockPlayerMovment();
+        _controller.UnBlockPlayerMovement();
         yield return new WaitForSeconds(_moveDuration);
 
         //Stops the abiliy
