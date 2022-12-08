@@ -254,6 +254,24 @@ public class RammyVFX : MonoBehaviour
         }
     }
 
+    public void Ab2Attack(GameObject enemy)
+    {
+        var dir = (enemy.transform.position - transform.position).normalized;
+
+        SpawnBlood(_bloodSizeMinAb2, _bloodSizeMaxAb2, _bloodSpreadAb2, _heightAngleAb2, _bloodAmountAb2, _bloodForceMinAb2, _bloodForceMaxAb2, enemy, dir);
+
+        if (enemy.GetComponent<EnemyController>().Health <= 0)
+        {
+            SpawnGore(_goreValuesAb2[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb2[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb2[2], _intestineObject, enemy, _intestineArray, dir);
+            SpawnGore(_goreValuesAb2[3], _spineObject, enemy, _spineArray, dir);
+            SpawnGore(_goreValuesAb2[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb2[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb2[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
+    }
+
     public void Ab3Attack(GameObject enemy, Vector3 point)
     {
         var dir = (point - enemy.transform.position).normalized;

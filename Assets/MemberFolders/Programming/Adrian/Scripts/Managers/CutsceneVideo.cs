@@ -80,6 +80,9 @@ public class CutsceneVideo : MonoBehaviour
         // Enables the HUD
         _hud.SetActive(true);
 
+        // Unblocks rammy
+        _player.GetComponent<RammyController>().BLOCKEVERYTHINGRAMMY = false;
+
         if (_deleteWhenDone)
         {
             Destroy(gameObject);
@@ -99,6 +102,8 @@ public class CutsceneVideo : MonoBehaviour
             // Saves the movement speed of the player
             _defaultSpeed = _player.GetComponent<RammyController>().MovementSpeed;
 
+            // Block Rammy
+            _player.GetComponent<RammyController>().BLOCKEVERYTHINGRAMMY = true;
 
             // Makes the videoplayer be able to play the video
             _canPlayVideo = true;

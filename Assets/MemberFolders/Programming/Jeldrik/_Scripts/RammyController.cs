@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class RammyController : MonoBehaviour
 {
@@ -199,6 +200,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject directionIndicator;
     [SerializeField] private bool testingHeight = false;
     [SerializeField] private GameObject _directionIndicatorTip;
+    [SerializeField] private GameObject _debuggingCanvas;
+    [SerializeField] private TMP_Text _debuggingText;
+    public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
     // Setting Input Actions on Awake
@@ -206,6 +210,8 @@ public class RammyController : MonoBehaviour
     {
         _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     void Start()
     {
@@ -306,13 +312,15 @@ public class RammyController : MonoBehaviour
 
     void Update()
     {
+
+        // Used to prevent any actions from rammy
+        if (BLOCKEVERYTHINGRAMMY) return;
+
         #region Reading Input
         // Reading the mouse position on screen
         _mousePosition = _look.ReadValue<Vector2>();
 
         // Confines the mouse to the game window
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
@@ -546,6 +554,10 @@ public class RammyController : MonoBehaviour
 
         List<Abilities> l = new List<Abilities>();
         l.Add(_ability1Script);
+        l.Add(_ability2Script);
+        l.Add(_ability3Script);
+        l.Add(_ability4Script);
+        l.Add(_ability5Script);
 
         // Checking if the player is already using an ability and performing wanted ability if not
         if (!UsingAbility)
@@ -703,6 +715,31 @@ public class RammyController : MonoBehaviour
             }
         }
 
+        
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (_debuggingCanvas.activeInHierarchy)
+            {
+                _debuggingCanvas.SetActive(true);
+                string text = "BasicAttackCoolDown " + BasicAttackCoolDown + " BasicAttackDamage " + BasicAttackDamage + "\n" + " BasicAttackDuration " + BasicAttackDuration + "\n"
+                    + " DashAttackDamage " + DashAttackDamage + " DashCoolDown " + "\n" + DashCoolDown + " DashDistance " + DashDistance + " DashDuration " + DashDuration + "\n" +
+                    " ChargeAttackDamage " + ChargeAttackDamage + " ChargeAttackCoolDown " + "\n" + ChargeAttackCoolDown + " ChargeAttackDistance " + ChargeAttackDistance + "\n" + " ChargeAttackDuration " + ChargeAttackDuration + " MaxChargeTime " + MaxChargeTime;
+                _debuggingText.text = text;
+            }
+            else
+            {
+                _debuggingCanvas.SetActive(false);
+            }
+           
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            foreach (Abilities a in l)
+            {
+                a.SetStartingTime(Time.time - a.Stats.Cooldown);
+            }
+        }
 
         #endregion
         // Showing in engine where the player is gonna dash towards
@@ -1092,6 +1129,27 @@ public class RammyController : MonoBehaviour
     }
 
     #region Setter / Getter functions
+
+    public float GetDashStartTime()
+    {
+        return _startTimeDash;
+    }
+
+    public float GetDashCoolDown()
+    {
+        return DashCoolDown;
+    }
+
+    public float GetChargeStartTime()
+    {
+        return _startTimeChargeAttack;
+    }
+
+    public float GetChargeCoolDown()
+    {
+        return ChargeAttackCoolDown;
+    }
+
     // Functions to start and end the usage of any ability
     public void StartUsingAbility()
     {
@@ -1106,6 +1164,8 @@ public class RammyController : MonoBehaviour
     // Blocking and unblocking player controlled movement
     public void BlockPlayerMovment()
     {
+        _rB.velocity = Vector3.zero;
+        _moveDirection = Vector3.zero;
         _blockMovement = true;
     }
     public void UnBlockPlayerMovement()
