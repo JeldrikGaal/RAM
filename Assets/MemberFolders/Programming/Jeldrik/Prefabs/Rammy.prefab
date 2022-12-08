@@ -405,6 +405,7 @@ GameObject:
   - component: {fileID: 1080273353}
   - component: {fileID: 1080273352}
   - component: {fileID: 891308544}
+  - component: {fileID: 891308545}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -531,6 +532,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: Untagged
+  EventReference:
+    Guid:
+      Data1: 2073608463
+      Data2: 1109189285
+      Data3: 61681598
+      Data4: 2079060776
+    Path: event:/SFX/Character/Player/Player Footsteps
+  Event: 
+  PlayEvent: 3
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  Params:
+  - Name: Surface
+    Value: 1
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &891308545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080273350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
   EventReference:
     Guid:
       Data1: 2073608463
@@ -923,6 +956,7 @@ GameObject:
   - component: {fileID: 1825799283}
   - component: {fileID: 1825799282}
   - component: {fileID: 277900098}
+  - component: {fileID: 277900099}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1049,6 +1083,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: Untagged
+  EventReference:
+    Guid:
+      Data1: 2073608463
+      Data2: 1109189285
+      Data3: 61681598
+      Data4: 2079060776
+    Path: event:/SFX/Character/Player/Player Footsteps
+  Event: 
+  PlayEvent: 3
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  Params:
+  - Name: Surface
+    Value: 1
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &277900099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825799280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
   EventReference:
     Guid:
       Data1: 2073608463
@@ -2320,7 +2386,7 @@ Transform:
   - {fileID: 934381652}
   - {fileID: 1782996662654093899}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -2451,6 +2517,25 @@ MonoBehaviour:
   _dashValues: {fileID: 11400000, guid: a8b2c27da0b3d44438dd69d19e643024, type: 2}
   _basicAttackValues: {fileID: 11400000, guid: f8936738d97cdc2448a842e5aaf0b92b, type: 2}
   _loadData: 1
+  _audio:
+  - _audio:
+      Guid:
+        Data1: -1505369599
+        Data2: 1113817819
+        Data3: -1213136710
+        Data4: 1305525970
+      Path: event:/SFX/Character/Player/Voice/Rammy Voice
+    _attach: 0
+    _attachTo: {fileID: 0}
+  - _audio:
+      Guid:
+        Data1: 1373893227
+        Data2: 1214682209
+        Data3: -1449635447
+        Data4: -617285514
+      Path: event:/SFX/Character/Player/Abilities/Basic Attack
+    _attach: 0
+    _attachTo: {fileID: 0}
   _mats:
   - {fileID: 2100000, guid: 15e346450e7a74f4aaa401054336f701, type: 2}
   - {fileID: 2100000, guid: 7e68f114ba3c17947864a5aa3f7b260e, type: 2}
@@ -2476,6 +2561,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats: {fileID: 11400000, guid: b2e1619d05c9be9449fc9e826628e3d8, type: 2}
   _controller: {fileID: 4974556004237746292}
+  _audio:
+    _audio:
+      Guid:
+        Data1: 1622215415
+        Data2: 1238495578
+        Data3: 239635845
+        Data4: -1477948712
+      Path: event:/SFX/Character/Player/Abilities/Ability 01_Stomp
+    _attach: 0
+    _attachTo: {fileID: 0}
   _jumping: 0
   _stunDuration: 0.5
   _damageArea: {fileID: 2998695922160975798, guid: b423adb35796f2744ad0d679d97c99d5, type: 3}
@@ -2499,6 +2594,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats: {fileID: 11400000, guid: 7425eb9c88a89024ca323b200a93a063, type: 2}
   _controller: {fileID: 4974556004237746292}
+  _audio:
+    _audio:
+      Guid:
+        Data1: 887440007
+        Data2: 1128864635
+        Data3: -1320397428
+        Data4: -1060001675
+      Path: event:/SFX/Character/Player/Abilities/Ability 02_HornSpin
+    _attach: 0
+    _attachTo: {fileID: 0}
   level: 0
   _hitColliders:
   - {fileID: 0}
@@ -2567,6 +2672,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats: {fileID: 11400000, guid: 78703abe50ef237479e183fd1d302a5b, type: 2}
   _controller: {fileID: 4974556004237746292}
+  _audio:
+    _audio:
+      Guid:
+        Data1: 901837665
+        Data2: 1151679945
+        Data3: 2067203748
+        Data4: -2091357351
+      Path: event:/SFX/Character/Player/Abilities/Ability 03_HornPull
+    _attach: 0
+    _attachTo: {fileID: 0}
   _stunDuration: 0.25
   _pullForce: 3
   _points: 8
@@ -2589,6 +2704,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats: {fileID: 11400000, guid: 5d95683fa41641d47a7e5dde6ce693e6, type: 2}
   _controller: {fileID: 4974556004237746292}
+  _audio:
+    _audio:
+      Guid:
+        Data1: 365937643
+        Data2: 1313625046
+        Data3: 2103343011
+        Data4: -2111572544
+      Path: event:/SFX/Character/Player/Abilities/Ability 04_HornSweep
+    _attach: 1
+    _attachTo: {fileID: 5027866717449145051}
   _eCollider: {fileID: 1563857641711686301}
   _prepTime: 0
   _moveTime: 0.3
@@ -2632,6 +2757,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats: {fileID: 11400000, guid: 2b850dc01c94e0e42a4d260ca3a7415e, type: 2}
   _controller: {fileID: 4974556004237746292}
+  _audio:
+    _audio:
+      Guid:
+        Data1: 1511083572
+        Data2: 1136101813
+        Data3: -460084557
+        Data4: -1015364583
+      Path: event:/SFX/Character/Player/Abilities/Ability 05_BodySlam
+    _attach: 1
+    _attachTo: {fileID: 448679933}
   _damage: 30
   _pushDistance: 8
   _moveDuration: 0.5
