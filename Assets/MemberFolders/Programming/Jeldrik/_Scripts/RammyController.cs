@@ -386,10 +386,12 @@ public class RammyController : MonoBehaviour
         if (Math.Abs(_rB.velocity.magnitude) > 0.01f)
         {
             Walking = true;
+            _animator.SetFloat("Speed", 1);
         }
         else
         {
             Walking = false;
+            _animator.SetFloat("Speed", 0);
         }
 
         if (!Walking && _walkingAnim)
@@ -398,7 +400,7 @@ public class RammyController : MonoBehaviour
             _walkingAnim = false;
             //Debug.Log("STOP");
         }
-
+        
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
@@ -680,6 +682,7 @@ public class RammyController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
@@ -716,7 +719,7 @@ public class RammyController : MonoBehaviour
             }
         }
 
-        
+
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (_debuggingCanvas.activeInHierarchy)
@@ -731,7 +734,7 @@ public class RammyController : MonoBehaviour
             {
                 _debuggingCanvas.SetActive(false);
             }
-           
+
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -902,7 +905,7 @@ public class RammyController : MonoBehaviour
             if (dashInWalkDireciton) directionToUse = transform.up;
 
             _dashDestination = transform.position + directionToUse * DashDistance;
-            
+
 
             int layer = 1 << LayerMask.NameToLayer("Default");
             // Checking if player would end up in an object while dashing and shortening dash if thats the case
