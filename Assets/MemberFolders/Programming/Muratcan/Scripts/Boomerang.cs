@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class Boomerang : MonoBehaviour
 {
+    [HideInInspector] public GameObject Wolf;
     public float damage = 1.5f;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Wolf == null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -25,7 +29,7 @@ public class Boomerang : MonoBehaviour
         }
         else
         {
-            
+
         }
     }
 }
