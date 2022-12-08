@@ -64,11 +64,13 @@ public class RammyController : MonoBehaviour
     private Rigidbody _rB;
     private MeshRenderer _mR;
     private HealthBarBig _healthBar;
+    private CapsuleCollider _capsuleCollider;
     [SerializeField] private Animator _animator;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
     [SerializeField] private TimeStopper _timeStopper;
+
 
 
     //[Header("Character State")]
@@ -206,6 +208,7 @@ public class RammyController : MonoBehaviour
         _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
         _healthBar = FindObjectOfType<HealthBarBig>();
+        _capsuleCollider = GetComponent<CapsuleCollider>();
         if (GetComponent<DashVisuals>()) _dashVisuals = GetComponent<DashVisuals>();
         // _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
@@ -302,6 +305,7 @@ public class RammyController : MonoBehaviour
 
         // Confines the mouse to the game window
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
@@ -651,6 +655,39 @@ public class RammyController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             SceneManager.LoadScene(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (Invincible)
+            {
+                Invincible = false;
+            }
+            else
+            {
+                Invincible = true;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            Health = MaxHealth;
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (_capsuleCollider.enabled)
+            {
+                _capsuleCollider.enabled = false;
+            }
+            else
+            {
+                _capsuleCollider.enabled = true;
+            }
         }
 
 
