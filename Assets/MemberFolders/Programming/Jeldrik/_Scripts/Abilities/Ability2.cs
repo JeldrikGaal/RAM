@@ -10,10 +10,12 @@ public class Ability2 : Abilities
     [SerializeField] Collider[] _hitColliders = new Collider[50];
     [SerializeField] float _pushBackForce = 7f;
     [SerializeField] GameObject _groundSmokeVFX;
+    private RammyVFX _vfxScript;
     public override void Start()
     {
         base.Start();
         _rb = GetComponent<Rigidbody>();
+        _vfxScript = GetComponent<RammyVFX>();
     }
     override public void Update()
     {
@@ -48,6 +50,7 @@ public class Ability2 : Abilities
                 }
                 item.transform.rotation = Quaternion.LookRotation(transform.position - item.transform.position);
                 item.transform.gameObject.GetComponent<Rigidbody>().AddForce(-item.transform.forward * _pushBackForce, ForceMode.Impulse);
+                _vfxScript.Ab2Attack(item.gameObject);
             }
         }
     }
