@@ -119,6 +119,24 @@ public class Ability4 : Abilities
         {
             _startTime = Time.time;
             _originalPosition = transform.position;
+
+            Vector3 worldPosition = Vector3.zero;
+            Plane plane = new Plane(Vector3.up, 0);
+
+            float distance;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (plane.Raycast(ray, out distance))
+            {
+                worldPosition = ray.GetPoint(distance);
+            }
+
+            print(worldPosition);
+
+            var cyub = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+            cyub.transform.position = worldPosition;
+            transform.LookAt(worldPosition);
+
             _originalRotation = transform.rotation;
             _stage = 1;
         }

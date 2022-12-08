@@ -207,6 +207,7 @@ public class RammyController : MonoBehaviour
     {
         _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
+        Cursor.visible = false;
     }
     void Start()
     {
