@@ -63,5 +63,10 @@ public abstract class Abilities : MonoBehaviour
     {
         return _startingTime;
     }
+
+    public void SetStartingTime(float newTime)
+    {
+        _startingTime = newTime;
+    }
     
 }
