@@ -42,6 +42,8 @@ public class Ability3 : Abilities
         // Gets an array of all the colliders within a radius around a point
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, _upgraded ? Stats.USplashRadius : Stats.SplashRadius);
 
+        print(Stats.SplashRadius);
+
         // Local transform list
         List<Transform> enemyTransforms = new List<Transform>();
 
@@ -49,7 +51,7 @@ public class Ability3 : Abilities
         // Checks all the colliders and adds the ones with the enemy tag to the list
         foreach (Collider col in hitColliders)
         {
-            if (col.tag == "enemy")
+            if (col.tag == "enemy" || col.tag == "wolf")
             {
                 enemyTransforms.Add(col.transform);
                 if (col.GetComponent<HawkBossManager>() != null)
