@@ -33,7 +33,7 @@ public class SandboxEnemySpawner : MonoBehaviour
     void SpawnEnemy(GameObject enemy)
     {
         Vector3 worldPosition = Vector3.zero;
-        Plane plane = new Plane(Vector3.up, 0);
+        Plane plane = new Plane(Vector3.up, -20);
 
         float distance;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

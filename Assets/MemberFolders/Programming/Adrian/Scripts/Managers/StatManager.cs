@@ -22,6 +22,8 @@ public class StatManager : MonoBehaviour
     [SerializeField] private int _comboKills;
     [SerializeField] private float _score;
 
+    private int _maxKills;
+
     [SerializeField] private TMP_Text KillCountTextbox;
     [SerializeField] private TMP_Text KeyText;
     [SerializeField] private TMP_Text ScoreTextbox;
@@ -43,6 +45,8 @@ public class StatManager : MonoBehaviour
             _swords.transform.position = _journal.transform.position;
             _journal.SetActive(false);
         }
+
+        _maxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
     }
 
     // Update is called once per frame
@@ -56,7 +60,7 @@ public class StatManager : MonoBehaviour
 
 
         // Sets the text of the killcount textbox
-        KillCountTextbox.text = Stats.Kills + "/" + GameObject.FindGameObjectsWithTag("wolf").Length + " Kills";
+        KillCountTextbox.text = Stats.Kills + "/" + _maxKills + " Kills";
 
         // Updates the Score textbox with the current score
         ScoreTextbox.text = "Score: " + _score.ToString("F0");

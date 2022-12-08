@@ -119,6 +119,21 @@ public class Ability4 : Abilities
         {
             _startTime = Time.time;
             _originalPosition = transform.position;
+
+            Vector3 worldPosition = Vector3.zero;
+            Plane plane = new Plane(Vector3.up, -20);
+
+            float distance;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (plane.Raycast(ray, out distance))
+            {
+                worldPosition = ray.GetPoint(distance);
+            }
+
+            transform.LookAt(worldPosition);
+
+            transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
             _originalRotation = transform.rotation;
             _stage = 1;
         }

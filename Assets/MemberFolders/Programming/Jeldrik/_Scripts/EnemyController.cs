@@ -73,7 +73,7 @@ public class EnemyController : MonoBehaviour
         {
             _anim.SetFloat(_animMoveHash, _rb.velocity.magnitude);
         }
-        
+
 
         if (MoveInput != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.z));
@@ -99,11 +99,19 @@ public class EnemyController : MonoBehaviour
     {
         MoveToPullPoint(PullPoint);
 
-        gameObject.layer = 23;
+        // gameObject.layer = 23;
+
+        GetComponent<Collider>().enabled = false;
+        GetComponent<Rigidbody>().useGravity = false;
 
         if (Vector3.Distance(transform.position, PullPoint) < 0.5f)
         {
-            gameObject.layer = 24;
+            // gameObject.layer = 24;
+
+            GetComponent<Collider>().enabled = true;
+            GetComponent<Rigidbody>().useGravity = true;
+
+
             Pulled = false;
         }
     }

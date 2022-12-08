@@ -22,13 +22,17 @@ public class SceneChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown && _titleScreenPassed == false)
+        if (_backgroundTitle != null)
         {
-            OpenClosePanel(_backgroundTitle);
-            OpenClosePanel(_background);
-            OpenClosePanel(_buttons);
-            _titleScreenPassed = true;
+            if (Input.anyKeyDown && _titleScreenPassed == false)
+            {
+                OpenClosePanel(_backgroundTitle);
+                OpenClosePanel(_background);
+                OpenClosePanel(_buttons);
+                _titleScreenPassed = true;
+            }
         }
+        
     }
     public void UpdateTabs(int tabId)
     {
@@ -86,10 +90,18 @@ public class SceneChanger : MonoBehaviour
     //Animation trigger methods
     public void OpenOptionMenu(GameObject forAnimator)
     {
-        forAnimator.GetComponent<Animator>().SetTrigger("OpenOptionsPanel");
+        if (_backgroundTitle != null)
+        {
+            forAnimator.GetComponent<Animator>().SetTrigger("OpenOptionsPanel");
+        }
+        
     }
     public void CloseOptionMenu(GameObject forAnimator)
     {
-        forAnimator.GetComponent<Animator>().SetTrigger("CloseOptionsPanel");
+        if (_backgroundTitle != null)
+        {
+            forAnimator.GetComponent<Animator>().SetTrigger("CloseOptionsPanel");
+        }
+        
     }
 }
