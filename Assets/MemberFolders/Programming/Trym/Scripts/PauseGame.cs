@@ -54,12 +54,11 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void Pause()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        print("pausecur");
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
         _settingsMenu.SetActive(true);
-        
+        //_settingsMenu.GetComponent<Animator>().SetTrigger("CloseOptionsPanel");
         _paused = true;
         if (_ingameUi) _ingameUi.SetActive(false);
         OnPausedEventHandler(true);
@@ -71,9 +70,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void UnPause()
     {
-        _settingsMenu.GetComponent<Animator>().SetTrigger("CloseOptionsPanel");
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        _settingsMenu.SetActive(false);
         Time.timeScale = 1;
         _pauseMenu.SetActive(false);
         _paused = false;
