@@ -8,11 +8,14 @@ public class WallStuffA1L4 : MonoBehaviour
     [SerializeField] private GameObject wallPart1;
     [SerializeField] private GameObject wallPart2;
 
+    [SerializeField] private WallStuffA1L4 oppositeWall;
+
     public bool secondDoor;
     public List<GameObject> enemiesToKill;
     public bool completed;
 
     public bool left;
+
 
     public GameObject leftHolder;
     public GameObject rightHolder;
@@ -28,6 +31,11 @@ public class WallStuffA1L4 : MonoBehaviour
     {
         if (secondDoor)
         {
+            if (oppositeWall.completed)
+            {
+                wallPart1.SetActive(false);
+                wallPart2.SetActive(false);
+            }
             if (left)
             {
                 if (leftHolder.transform.childCount == 0)
@@ -52,6 +60,12 @@ public class WallStuffA1L4 : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.HasTag("Player") && !secondDoor)
+        {
+            wallPart1.SetActive(true);
+            wallPart2.SetActive(true);
+        }
+
+        if (other.gameObject.HasTag("Player") && secondDoor && oppositeWall.completed)
         {
             wallPart1.SetActive(true);
             wallPart2.SetActive(true);

@@ -712,9 +712,11 @@ public class RammyController : MonoBehaviour
             if (_capsuleCollider.enabled)
             {
                 _capsuleCollider.enabled = false;
+                _rB.useGravity = false;
             }
             else
             {
+                _rB.useGravity = true;
                 _capsuleCollider.enabled = true;
             }
         }
@@ -722,7 +724,7 @@ public class RammyController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (_debuggingCanvas.activeInHierarchy)
+            if (!_debuggingCanvas.activeInHierarchy)
             {
                 _debuggingCanvas.SetActive(true);
                 string text = "BasicAttackCoolDown " + BasicAttackCoolDown + " BasicAttackDamage " + BasicAttackDamage + "\n" + " BasicAttackDuration " + BasicAttackDuration + "\n"
