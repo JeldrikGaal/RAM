@@ -76,7 +76,7 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Character State")][SerializeField] private bool Attacking;
     [FoldoutGroup("Character State")][SerializeField] private bool BasicAttacking;
     [FoldoutGroup("Character State")][SerializeField] private bool Dashing;
-    [FoldoutGroup("Character State")][SerializeField] private bool Invincible;
+    [FoldoutGroup("Character State")][SerializeField] public bool Invincible;
     [FoldoutGroup("Character State")][SerializeField] private bool Walking;
     [FoldoutGroup("Character State")][SerializeField] private bool UsingAbility;
 
@@ -299,6 +299,9 @@ public class RammyController : MonoBehaviour
         #region Reading Input
         // Reading the mouse position on screen
         _mousePosition = _look.ReadValue<Vector2>();
+
+        // Confines the mouse to the game window
+        Cursor.lockState = CursorLockMode.Confined;
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
@@ -738,9 +741,9 @@ public class RammyController : MonoBehaviour
             int layer = 1 << LayerMask.NameToLayer("Default");
 
             // Checking if player would end up in an object while charging and shortening charge if thats the case
-            if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, (ChargeAttackDistance * (chargingTime / MaxChargeTime)), layer ,QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, (ChargeAttackDistance * (chargingTime / MaxChargeTime)), layer, QueryTriggerInteraction.Ignore))
             {
-                Debug.DrawLine(transform.position, transform.position + _lookingAtMouseRotation.normalized * ( ChargeAttackDistance * (chargingTime / MaxChargeTime) ) );
+                Debug.DrawLine(transform.position, transform.position + _lookingAtMouseRotation.normalized * (ChargeAttackDistance * (chargingTime / MaxChargeTime)));
                 if (!TagManager.HasTag(hit.transform.gameObject, "enemy"))
                 {
                     _chargeAttackDestination = hit.point;
@@ -1145,7 +1148,7 @@ public class RammyController : MonoBehaviour
         // Actually apply damage
         Health -= appliedDamage;
 
-        
+
 
 
         // Stopping combo 
