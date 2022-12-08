@@ -63,7 +63,7 @@ public class StatManager : MonoBehaviour
 
 
         // Sets the text of the killcount textbox
-        KillCountTextbox.text = Stats.Kills + "/50 Kills";
+        KillCountTextbox.text = Stats.Kills + "/" + GameObject.FindGameObjectsWithTag("wolf").Length + " Kills";
 
         // Updates the Score textbox with the current score
         ScoreTextbox.text = "Score: " + _score.ToString("F0");
