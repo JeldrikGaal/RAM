@@ -202,6 +202,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject _directionIndicatorTip;
     [SerializeField] private GameObject _debuggingCanvas;
     [SerializeField] private TMP_Text _debuggingText;
+    [SerializeField] private bool dashInWalkDireciton = false;
     public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
@@ -896,11 +897,16 @@ public class RammyController : MonoBehaviour
             Dashing = true;
             _startTimeDash = Time.time;
             RaycastHit hit;
-            _dashDestination = transform.position + _lookingAtMouseRotation * DashDistance;
+
+            Vector3 directionToUse = _lookingAtMouseRotation;
+            if (dashInWalkDireciton) directionToUse = transform.up;
+
+            _dashDestination = transform.position + directionToUse * DashDistance;
+            
 
             int layer = 1 << LayerMask.NameToLayer("Default");
             // Checking if player would end up in an object while dashing and shortening dash if thats the case
-            if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, DashDistance, layer, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(transform.position, directionToUse, out hit, DashDistance, layer, QueryTriggerInteraction.Ignore))
             {
                 _dashDestination = hit.point;
                 /*RaycastHit hit2;
@@ -913,7 +919,7 @@ public class RammyController : MonoBehaviour
 
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
-            transform.up = _lookingAtMouseRotation;
+            transform.up = directionToUse;
             transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
             _blockMovement = true;
             _mR.material = _mats[2];
