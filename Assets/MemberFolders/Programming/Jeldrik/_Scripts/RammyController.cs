@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class RammyController : MonoBehaviour
 {
@@ -199,6 +200,8 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject directionIndicator;
     [SerializeField] private bool testingHeight = false;
     [SerializeField] private GameObject _directionIndicatorTip;
+    [SerializeField] private GameObject _debuggingCanvas;
+    [SerializeField] private TMP_Text _debuggingText;
     public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
@@ -709,6 +712,10 @@ public class RammyController : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            _debuggingText.enabled = true;
+        }
 
         #endregion
         // Showing in engine where the player is gonna dash towards
@@ -1133,6 +1140,7 @@ public class RammyController : MonoBehaviour
     // Blocking and unblocking player controlled movement
     public void BlockPlayerMovment()
     {
+        _moveDirection = Vector3.zero;
         _blockMovement = true;
     }
     public void UnBlockPlayerMovement()
