@@ -43,7 +43,7 @@ public class Ability1 : Abilities
         if (_jumping)
         {
             _jumpTimer += Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, _startPos.y + _yPosCurve.Evaluate(_jumpTimer), transform.position.z);
+            //transform.position = new Vector3(transform.position.x, _startPos.y + _yPosCurve.Evaluate(_jumpTimer), transform.position.z);
             _controller.BlockPlayerMovment();
 
             // If the timer has passed the last keyframe in the animation
@@ -82,6 +82,8 @@ public class Ability1 : Abilities
         _jumping = true;
         _jumpTimer = 0f;
         _startPos = transform.position;
+
+        _controller.SetAnimationTrigger("Ability1");
 
         #region Animation
         Keyframe[] keyframes = new Keyframe[3];

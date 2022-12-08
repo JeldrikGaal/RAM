@@ -23,6 +23,11 @@ public class MeleeWolfScript : MonoBehaviour
 
     private IEnumerator _strikeRoutine;
 
+    [SerializeField] private float _strike1Damage;
+    [SerializeField] private float _strike2Damage;
+    [SerializeField] private float _strike3Damage;
+
+    [SerializeField] private float _leapDamage;
 
     // Start is called before the first frame update
     void Start()
@@ -103,15 +108,15 @@ public class MeleeWolfScript : MonoBehaviour
         _striking = true;
         _animator.SetTrigger("Attack1");
         yield return new WaitForSeconds(0.5f);
-        if (_rammyInRange) _rammyController.TakeDamageRammy(5);
+        if (_rammyInRange) _rammyController.TakeDamageRammy(_strike1Damage);
         yield return new WaitForSeconds(0.5f);
         _animator.SetTrigger("Attack1");
         yield return new WaitForSeconds(0.5f);
-        if (_rammyInRange) _rammyController.TakeDamageRammy(5);
+        if (_rammyInRange) _rammyController.TakeDamageRammy(_strike2Damage);
         yield return new WaitForSeconds(0.5f);
         _animator.SetTrigger("Attack1");
         yield return new WaitForSeconds(0.5f);
-        if (_rammyInRange) _rammyController.TakeDamageRammy(5);
+        if (_rammyInRange) _rammyController.TakeDamageRammy(_strike3Damage);
         yield return new WaitForSeconds(0.5f);
         _damageCollider.enabled = false;
         _striking = false;
@@ -126,7 +131,7 @@ public class MeleeWolfScript : MonoBehaviour
             _rammyController = other.GetComponent<RammyController>();
             if (_leaping)
             {
-                _rammyController.TakeDamageRammy(5);
+                _rammyController.TakeDamageRammy(_leapDamage);
                 _damageCollider.enabled = false;
             }
             
