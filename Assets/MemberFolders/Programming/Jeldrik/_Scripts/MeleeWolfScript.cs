@@ -42,7 +42,6 @@ public class MeleeWolfScript : MonoBehaviour
     {
         if (_striking && _rammyInRange)
         {
-            Debug.Log("LOOK AT ME");
             transform.LookAt(_rammyController.transform, Vector3.up);
         }
 
