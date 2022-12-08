@@ -63,6 +63,7 @@ public class OverheadDialogue : MonoBehaviour
         }
         else
         {
+            _playerTransform.GetComponent<RammyController>().Invincible = false;
             // Lerp back to the position the cinemachine follows
             _cameraTransform.position = Vector3.Lerp(_cameraTransform.position, new Vector3(_playerTransform.position.x + 7.13f, _cameraTransform.position.y, _playerTransform.position.z - 6.26f), _lerpSpeed * Time.deltaTime * 2f);
         }
@@ -70,6 +71,7 @@ public class OverheadDialogue : MonoBehaviour
 
     private IEnumerator ShowDialogue(float duration)
     {
+        _playerTransform.GetComponent<RammyController>().Invincible = true;
         // Stops the cinemachine from controlling the camera
         _cameraTransform.GetComponent<CinemachineBrain>().enabled = false;
 

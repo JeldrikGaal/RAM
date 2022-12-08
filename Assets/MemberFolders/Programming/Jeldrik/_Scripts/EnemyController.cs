@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public Vector3 MoveInput;
 
+    public EnemyStats Stats;
+
     public float MoveSpeed;
     public float AttackDamage;
     public float MaxHealth;
