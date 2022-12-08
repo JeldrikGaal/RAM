@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-
+[System.Obsolete("It didn't work, use simplified version")]
 public class AI_StateIndependantWaitTimer : StateBlock
 {
     [SerializeField] string _tag;

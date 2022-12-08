@@ -3382,7 +3382,7 @@ Transform:
   - {fileID: 1099257559}
   - {fileID: 934381652}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -3464,9 +3464,10 @@ MonoBehaviour:
   Invincible: 0
   Walking: 0
   UsingAbility: 0
-  Health: 90
-  <MaxHealth>k__BackingField: 0
+  Health: 100
+  <MaxHealth>k__BackingField: 100
   HealPercentage: 5
+  lettersCollected: 0
   MovementSpeed: 10
   BasicAttackCoolDown: 1
   BasicAttackDamage: 5
@@ -3493,19 +3494,19 @@ MonoBehaviour:
   _freezeScaleHit: 0
   _freezeTimeHit: 0
   _hasDamageBuff: 0
-  DamageModifier: 0
+  DamageModifier: 2
   AppliedDamageModifier: 0
-  DamageBuffDuration: 0
+  DamageBuffDuration: 20
   HasSpeedBuff: 0
-  SpeedModifier: 0
-  SpeedBuffDuration: 0
+  SpeedModifier: 2
+  SpeedBuffDuration: 20
   _hasDamageReductionBuff: 0
-  DamageReductionModifier: 0
-  DamageReductionBuffDuration: 0
+  DamageReductionModifier: 2
+  DamageReductionBuffDuration: 20
   _damageReductionBuffTimer: 0
   HasStunBuff: 0
-  StunBuffModifier: 0
-  StunBuffDuration: 0
+  StunBuffModifier: 1
+  StunBuffDuration: 20
   _stunBuffTimer: 0
   _chargeValues: {fileID: 11400000, guid: de8de59438e6253418648a391de9fb17, type: 2}
   _dashValues: {fileID: 11400000, guid: a8b2c27da0b3d44438dd69d19e643024, type: 2}

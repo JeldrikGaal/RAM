@@ -10,6 +10,7 @@ public class AI_ThrowBomb : StateBlock
     [SerializeField] float _speed;
     [SerializeField] AnimationCurve _relativeSpeedOverDistance, _relativeTrajectory;
     [SerializeField] float _range = float.PositiveInfinity;
+    [SerializeField] Vector3 _ralativePosMod;
 
     private readonly Dictionary<int, bool> _launched = new();
     
@@ -36,11 +37,11 @@ public class AI_ThrowBomb : StateBlock
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
         int iD = user.GetInstanceID();
-
+        
         if (!_launched[iD])
         {
             Debug.Log(name);
-            var origin = user.transform.position;
+            var origin = user.transform.position + ( user.transform.rotation * _ralativePosMod);
             var targetPos = target.transform.position;
 
             Vector2 origin2D = new(origin.x, origin.z);
