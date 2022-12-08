@@ -190,7 +190,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] RammyAttack _basicAttackValues;
     [SerializeField] bool _loadData = true;
 
-
+    // Audio
+    [BoxGroup]
+    [SerializeField] AudioAddIn[] _audio;
     // Animation 
     private bool _walkingAnim;
 
