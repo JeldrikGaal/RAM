@@ -300,6 +300,9 @@ public class RammyController : MonoBehaviour
         // Reading the mouse position on screen
         _mousePosition = _look.ReadValue<Vector2>();
 
+        // Confines the mouse to the game window
+        Cursor.lockState = CursorLockMode.Confined;
+
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
         _rightMouseButton = _charge.ReadValue<float>();
