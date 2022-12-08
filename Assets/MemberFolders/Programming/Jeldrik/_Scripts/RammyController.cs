@@ -211,6 +211,7 @@ public class RammyController : MonoBehaviour
         _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     void Start()
     {
@@ -320,7 +321,6 @@ public class RammyController : MonoBehaviour
         _mousePosition = _look.ReadValue<Vector2>();
 
         // Confines the mouse to the game window
-        Cursor.lockState = CursorLockMode.Confined;
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
