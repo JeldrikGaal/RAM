@@ -34,7 +34,10 @@ public class Ability4 : Abilities
                 var enemy = collision.gameObject.GetComponent<EnemyController>();
                 var damage = _upgraded ? Stats.UDmg : Stats.Dmg;
 
-                enemy.TakeDamage(damage, transform.up);
+                if (enemy.TakeDamage(damage, transform.up))
+                {
+                    _controller.Kill(enemy.gameObject);
+                }
                 //FloatingDamageManager.DisplayDamage(damage, collision.transform.position);
                 _hurt.Add(collision.gameObject.GetInstanceID());
                 _controller.AddScreenShake(1.2f);

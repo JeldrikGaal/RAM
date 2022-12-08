@@ -26,7 +26,10 @@ public class Ability5 : Abilities
         {
             if (collision.gameObject.GetComponent<EnemyController>() && _inProgress)
             {
-                collision.gameObject.GetComponent<EnemyController>().TakeDamage(_damage, transform.up);
+                if (collision.gameObject.GetComponent<EnemyController>().TakeDamage(_damage, transform.up))
+                {
+                    _controller.Kill(collision.gameObject);
+                }
                 GetComponent<RammyVFX>().Ab5Attack(collision.gameObject, (_dashDestination - _dashStart).normalized);
                 _controller.AddScreenShake(1f);
             }

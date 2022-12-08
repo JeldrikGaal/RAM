@@ -128,7 +128,10 @@ public class Ability3 : Abilities
             if (enemy.GetComponent<EnemyController>() != null)
             {
                 // Makes the enemy take damage
-                enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up);
+                if (enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up))
+                {
+                    _controller.Kill(enemy);
+                }
 
                 // enemy.GetComponent<EnemyController>().StunDuration = _stunDuration;
                 // enemy.GetComponent<EnemyController>().Stun();

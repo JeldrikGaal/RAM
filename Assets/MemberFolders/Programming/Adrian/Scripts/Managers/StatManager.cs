@@ -169,6 +169,8 @@ public class StatManager : MonoBehaviour
 
         // Sets the score timer to 5 seconds
         _scoreTimer = 3;
+
+        print("Added score");
     }
 
     public void EndCombo()
