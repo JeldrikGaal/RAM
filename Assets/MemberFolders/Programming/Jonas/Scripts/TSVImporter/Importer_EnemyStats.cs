@@ -12,21 +12,21 @@ public class Importer_EnemyStats : ScriptableObject
     public List<EnemyStats> EnemyStats;
 
     private List<List<string>> _dataAttacks;
-    private List<List<string>> _dataAttacksBosses;
     private List<List<string>> _dataHealth;
 
     [Button]
     public void ImportData()
     {
-        _dataAttacks = TSVImporter.ReadTSV(rawDataAttacks, 20, 23, 2, 2);
-        _dataAttacksBosses = TSVImporter.ReadTSV(rawDataAttacks, 20, 37, 0, 25);
-        _dataHealth = TSVImporter.ReadTSV(rawDataHealth, 1, 20, 1, 1);
+        _dataAttacks = TSVImporter.ReadTSV(rawDataAttacks, 20, 52, 2, 2);
+        _dataHealth = TSVImporter.ReadTSV(rawDataHealth, 3, 10, 1, 2);
     }
 
     [Button]
     public void UpdateData()
     {
-        UnityEditor.Undo.RecordObjects(EnemyStats.ToArray(), "Update Enemy Stats");
+        //UnityEditor.Undo.RecordObjects(EnemyStats.ToArray(), "Update Enemy Stats");
+
+        #region Enemy Attacks
 
         List<List<string>> statLists = new List<List<string>>(); ;
         int enemyCounter = 0;
@@ -43,5 +43,20 @@ public class Importer_EnemyStats : ScriptableObject
                 statLists.Add(l);
             }
         }
+
+        EnemyStats[enemyCounter++].SetAttacks(statLists);
+
+        #endregion
+
+        #region Health
+
+        enemyCounter = 0;
+
+        foreach (List<string> l in _dataHealth)
+        {
+            EnemyStats[enemyCounter++].SetHealth(l);
+        }
+
+        #endregion
     }
 }

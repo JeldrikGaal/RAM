@@ -37,11 +37,11 @@ public class CutsceneVideo : MonoBehaviour
     {
         _videoPlayer.loopPointReached += EndReached;
 
-        // // Skips 100 frames in the video when the right arrow is pressed
-        // if (Input.GetKeyDown(KeyCode.RightArrow))
-        // {
-        //     _videoPlayer.frame += 100;
-        // }
+        // Skips 100 frames in the video when the right arrow is pressed
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            _videoPlayer.frame += 1000000;
+        }
 
 
         // // Checks to see if the video can be played and the up arrow is pressed

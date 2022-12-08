@@ -25,6 +25,8 @@ public class Ability2 : Abilities
     }
     IEnumerator Attack()
     {
+        _controller.SetAnimationTrigger("Ability2");
+
         //Waiting time for the initial phase
         yield return new WaitForSeconds(0.25f);
 
