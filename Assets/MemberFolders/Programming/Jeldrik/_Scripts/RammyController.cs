@@ -1184,4 +1184,9 @@ public class RammyController : MonoBehaviour
         MaxChargeTime = _chargeValues.UFreeVariable;
     }
 
+
+    public void SetAnimationTrigger(string name)
+    {
+        _animator.SetTrigger(name);
+    }
 }
