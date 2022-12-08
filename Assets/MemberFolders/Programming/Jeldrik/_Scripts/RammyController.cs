@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class RammyController : MonoBehaviour
 {
@@ -199,6 +200,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject directionIndicator;
     [SerializeField] private bool testingHeight = false;
     [SerializeField] private GameObject _directionIndicatorTip;
+    [SerializeField] private GameObject _debuggingCanvas;
+    [SerializeField] private TMP_Text _debuggingText;
+    public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
     // Setting Input Actions on Awake
@@ -206,6 +210,8 @@ public class RammyController : MonoBehaviour
     {
         _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     void Start()
     {
@@ -306,13 +312,15 @@ public class RammyController : MonoBehaviour
 
     void Update()
     {
+
+        // Used to prevent any actions from rammy
+        if (BLOCKEVERYTHINGRAMMY) return;
+
         #region Reading Input
         // Reading the mouse position on screen
         _mousePosition = _look.ReadValue<Vector2>();
 
         // Confines the mouse to the game window
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
@@ -703,6 +711,10 @@ public class RammyController : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            _debuggingText.enabled = true;
+        }
 
         #endregion
         // Showing in engine where the player is gonna dash towards
@@ -1092,6 +1104,27 @@ public class RammyController : MonoBehaviour
     }
 
     #region Setter / Getter functions
+
+    public float GetDashStartTime()
+    {
+        return _startTimeDash;
+    }
+
+    public float GetDashCoolDown()
+    {
+        return DashCoolDown;
+    }
+
+    public float GetChargeStartTime()
+    {
+        return _startTimeChargeAttack;
+    }
+
+    public float GetChargeCoolDown()
+    {
+        return ChargeAttackCoolDown;
+    }
+
     // Functions to start and end the usage of any ability
     public void StartUsingAbility()
     {
@@ -1106,6 +1139,7 @@ public class RammyController : MonoBehaviour
     // Blocking and unblocking player controlled movement
     public void BlockPlayerMovment()
     {
+        _moveDirection = Vector3.zero;
         _blockMovement = true;
     }
     public void UnBlockPlayerMovement()
