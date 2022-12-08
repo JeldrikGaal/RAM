@@ -22,41 +22,33 @@ Enemy_BearBrute_Ranged_OnGround							9
 Enemy_BearBrute_Ranged_InTower							9															
 		Honey Spill	Slow	0	0	20	0	15	10	4	1	0,5	0,5	2	3	0	0	6	0	0,0	6	1
 		Bee Swarm	-	0	0	50	0	15	6	5	1	1	0,5	2,5	3,5	0	0	4	0	0	7,5	1
-Bosses																						
 Enemy_WolfBoss																						
-	Phase 1																					
-		Attack 1	-	12,5	0	0	0	0	2	0	1	0,5	0,5	2	0	90	0	0	0	6,3	2	1
+	Phase 1	Attack 1	-	12,5	0	0	0	0	2	0	1	0,5	0,5	2	0	90	0	0	0	6,3	2	1
 		Attack 2	-	12,5	0	0	0	0	2	0	0,5	0,5	0,5	1,5	0	90	0	0	0	8,3	1,5	1
 		Attack 3	-	25	0	0	0	0	2,5	0	0,5	1	0,5	2	0	180	0	0	0	12,5	2	1
 		Attack 4	-	25	0	0	0	0	2,5	0	0,5	1,5	2	4	0	180	0	0	0	6,3	4	1
-		Full Attack combo	-	75	0	0	0	0	-	0	1	5	2	8	0	-	0	0	0	9,4	8	4
+		Full Attack combo	-	75	0	0	0	0	0	0	1	5	2	8	0	0	0	0	0	9,4	8	4
 		Leap	-	40	0	0	20	0	8	5	2	0,5	2	4,5	3	360	0	0	0	8,9	9,5	1
 		Triple Boomerang Throw	-	25	0	0	0	15	30	5	1	4	2	7	0	0	1	0	0	3,6	12	1
 		Special	Stun	34	0	0	0	0	15	0	4	0,5	2	6,5	0	0	0	0	0	5,2	6,5	1
 Enemy_HawkBoss																						
-	Phase 1																					
-		Basic	Stun	10	0	0	0	15	20	0,5	0,5	0,5	0,5	1,5	0	0	1	0	0	6,67	2	1
-		Horizontal spray(single)	-	1	0	0		15	20	3	1,5	2	1	4,5	0	60	0,5	0	0	1,00	7,5	1
+	Phase 1	Basic	Stun	10	0	0	0	15	20	0,5	0,5	0,5	0,5	1,5	0	0	1	0	0	6,67	2	1
+		Horizontal spray(single)	-	1	0	0	0	15	20	3	1,5	2	1	4,5	0	60	0,5	0	0	1,00	7,5	1
 		Horizontal spray	-	10	0	0	0	15	20	3	1,5	2	1	4,5	0	60	0,5	0	0	0,00	7,5	10
-	Phase 2																					
-		Minion swarm	-	15	0	0	0	15	20	3	2	2	1,5	5,5	0	0	1	0	0	0,00	8,5	15
-	Phase 3																					
-		Super Claw Attack	Stun	40	0	0	0	0	20	3	1,5	1,5	2	5	0	0	0	0	0	8	8	1
+	Phase 2	Minion swarm	-	15	0	0	0	15	20	3	2	2	1,5	5,5	0	0	1	0	0	0,00	8,5	15
+	Phase 3	Super Claw Attack	Stun	40	0	0	0	0	20	3	1,5	1,5	2	5	0	0	0	0	0	8	8	1
 Enemy_BearBoss							9															
-	Phase 1																					
-		Shield Bash	Stun	35	0	0	30	15	13	0	2	-	3,5	5,5	0	0	0	0	0	6,4	5,5	1
+	Phase 1	Shield Bash	Stun	35	0	0	30	15	13	0	2	0	3,5	5,5	0	0	0	0	0	6,4	5,5	1
 		Hammer Slam	-	60	0	0	0	15	3	0	1,75	1	2,5	5,25	3,5	0	0	0	0	11,4	5,25	1
 		Body Slam	-	45	0	0	0	15	15	0	2,25	2,5	3	7,75	3,5	0	0	0	0	5,8	7,75	1
-	Phase 2																					
-		Split Shot (Honey Spill)	Slow	35	0	0	0	15	13	4	2	2	1	5	6	0	0	8	0	7,0	9	5
+	Phase 2	Split Shot (Honey Spill)	Slow	35	0	0	0	15	13	4	2	2	1	5	6	0	0	8	0	7,0	9	5
 		Split Shot (Bee Swarm)	-	75	0	0	0	15	13	4	2	2	1	5	5	0	0	5	0	0	9	5
 		Rapid Fire (One Honey Spill)	Slow	35	0	0	0	15	13	0	0,3	0,2	0	0,5	6	0	0	8	0	4,4	0,5	1
 		Rapid Fire (One Bee Swarm)	-	75	0	0	0	15	13	0	0,3	0,2	0	0,5	5	0	0	5	0	0	0,5	1
 		Rapid Fire (All Honey Spill)	-	175	0	0	0	15	13	4	2,5	5	1	8,5	6	0	0	8	0	22	12,5	5
 		Rapid Fire (All Bee Swarm)	-	375	0	0	0	15	13	4	2,5	5	1	8,5	5	0	0	5	0	0	12,5	5
-		Rapid Fire (Both bombs)	-	375	0	0	0	15	13	4	2,5	5	1	8,5	-	0	0	-	0	44,1	12,5	10
+		Rapid Fire (Both bombs)	-	375	0	0	0	15	13	4	2,5	5	1	8,5	0	0	0	0	0	44,1	12,5	10
 		Body Slam	-	45	0	0	0	15	15	0	2,25	2,5	2,5	7,25	3,5	0	0	0	0	6,2	7,25	1
-	Phase 3																					
-		Shield Bash	Stun	40	0	0	35	15	15	0	1,75	-	3	4,75	0	0	0	0	0	8,4	4,75	1
-		Hammer Slam	-	65	0	0	0	15	3	0	1,5	1	2	4,5	3,5	0	0	0	0	14,4	4,5	1
-		Body Slam	-	50	0	0	0	15	18	0	2	2,5	2,5	7	3,5	0	0	0	0	7,1	7	1
+	Phase 3	Shield Bash 2	Stun	40	0	0	35	15	15	0	1,75	0	3	4,75	0	0	0	0	0	8,4	4,75	1
+		Hammer Slam 2	-	65	0	0	0	15	3	0	1,5	1	2	4,5	3,5	0	0	0	0	14,4	4,5	1
+		Body Slam 2	-	50	0	0	0	15	18	0	2	2,5	2,5	7	3,5	0	0	0	0	7,1	7	1

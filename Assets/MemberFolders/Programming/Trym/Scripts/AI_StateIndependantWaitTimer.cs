@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 public class AI_StateIndependantWaitTimer : StateBlock
 {
     [SerializeField] string _tag;
-    enum BlockAction {Set,Reset,Check}
+    [EnumToggleButtons] enum BlockAction {Set,Reset,Check}
     [SerializeField] BlockAction _action;
     
     [ShowIf(nameof(_action),BlockAction.Set)]
@@ -25,8 +25,8 @@ public class AI_StateIndependantWaitTimer : StateBlock
 
     private static readonly Dictionary<(int id, string tag), (float current, float target)> _Timers = new();
 
-    private Dictionary<int,List<float>> _argLists;
-
+    private readonly Dictionary<int,List<float>> _argLists =new();
+    private readonly Dictionary<int, bool> _setRan = new();
     public override void OnEnd(EnemyController user, GameObject target)
     {
         _argLists[user.GetInstanceID()] = null;
@@ -34,12 +34,34 @@ public class AI_StateIndependantWaitTimer : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
-        
+        var id = user.GetInstanceID();
+        if (!_setRan.ContainsKey(id))
+        {
+            _setRan.Add(id, false);
+        }
+        else
+        {
+            _setRan[id] = false;
+        }
+        _argLists[id] = null;
     }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        
+        switch (_action)
+        {
+            case BlockAction.Set:
+                return Set(user, _time);
+                
+            case BlockAction.Reset:
+                return Reset(user);
+                
+            case BlockAction.Check:
+                return Check(user);
+                
+            default:
+                return (null, null);
+        }
 
 
         return (null, null);
@@ -48,13 +70,27 @@ public class AI_StateIndependantWaitTimer : StateBlock
     private (AI_State state, List<float> val) Set(EnemyController user, float time)
     {
         
-        if (_Timers.ContainsKey((user.GetInstanceID(), _tag)) && _overrideExistingTimer)
+        var id = user.GetInstanceID();
+        
+
+
+        if (!_setRan[id])
         {
-            _Timers[(user.GetInstanceID(), _tag)] = (0, time);
-        }
-        else
-        {
-            _Timers.Add((user.GetInstanceID(), _tag), (0 ,time));
+            if (_Timers.ContainsKey((id, _tag)))
+            {
+                if (_overrideExistingTimer || _Timers[(id, _tag)].target - _Timers[(id, _tag)].current <= 0)
+                {
+                    _Timers[(id, _tag)] = (0, time);
+                    user.StartCoroutine(Timer(id, _tag, time));
+                }
+
+            }
+            else
+            {
+                _Timers.Add((id, _tag), (0, time));
+                user.StartCoroutine(Timer(id, _tag, time));
+            }
+            _setRan[id] = true;
         }
 
         return (null, null);
@@ -73,49 +109,52 @@ public class AI_StateIndependantWaitTimer : StateBlock
 
                 if (returnTime > 0)
                 {
-                    _argLists[id] = new List<float>();
-                    _argLists[id].Add((int)StateReturn.Timer);
+                    _argLists[id] = new();
+                    _argLists[id].Add((float)StateReturn.Timer);
                     _argLists[id].Add(returnTime);
                 }
-                
+                if (_resetTimer && returnTimer.current >= returnTimer.target)
+                {
+                    _overrideExistingTimer = false;
+                    Reset(user);
+
+                }
             }
 
-            if (_resetTimer && returnTimer.current> returnTimer.target)
-            {
-                Set(user, returnTimer.target);
-            }
+            Debug.Log(_argLists);
 
             return (null, _argLists[id]);
         }
 
 
-        return (null, null);
+        return (null, _argLists[id]);
     }
 
-    private (AI_State state, List<float> val) Reset(EnemyController user, int id, float time)
+    private (AI_State state, List<float> val) Reset(EnemyController user)
     {
+        int id = user.GetInstanceID();
         if (_Timers.ContainsKey((id,_tag)))
         {
             user.StopCoroutine(Timer(id, _tag, _Timers[(id, _tag)].target));
-            _Timers.Remove((id, _tag));
+            _Timers[(id, _tag)] = (0, _overrideTime ? _timeOverride : _Timers[(id, _tag)].target);
+            user.StartCoroutine(Timer(id, _tag, _Timers[(id, _tag)].target));
         }
-        
-
         return (null, null);
     }
 
-
+    
     IEnumerator Timer(int id,string tag,float time)
     {
         float startTime = Time.time;
+        float curTime;
         while (_Timers.ContainsKey((id,tag)))
         {
-            
-            _Timers[(id, tag)] = (Time.time - startTime, time);
+           Debug.Log( curTime = Time.time - startTime);
+            _Timers[(id, tag)] = (current: curTime,target: time);
 
-            if (_Timers[(id, tag)].current >= time)
+            if (curTime >= time)
             {
-                _Timers.Remove((id, tag));
+                break;
             }
             yield return new WaitForEndOfFrame();
         }
