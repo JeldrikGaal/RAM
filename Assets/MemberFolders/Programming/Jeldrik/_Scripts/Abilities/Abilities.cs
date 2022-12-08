@@ -16,6 +16,7 @@ public abstract class Abilities : MonoBehaviour
 
     public virtual void Start()
     {
+        _audio.SetTransform(transform);
         _controller = GetComponent<RammyController>();
     }
 

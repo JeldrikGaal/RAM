@@ -12,6 +12,12 @@ public class AudioAddIn
     [SerializeField] private bool _attach;
     [ShowIf(nameof(_attach))]
     [SerializeField] private Transform _attachTo;
+    private Transform _transform;
+
+    public void SetTransform(Transform transform)
+    {
+        _transform = transform;
+    }
 
     /// <summary>
     /// Plays The audio in accordance with settings
@@ -24,7 +30,7 @@ public class AudioAddIn
         }
         else
         {
-            RuntimeManager.PlayOneShot(_audio);
+            RuntimeManager.PlayOneShot(_audio,_transform.position);
         }
     }
 
@@ -39,6 +45,11 @@ public class AudioAddIn
         {
             RuntimeManager.AttachInstanceToGameObject(instance, _attachTo);
         }
+        else
+        {
+            instance.set3DAttributes(RuntimeUtils.To3DAttributes(_transform));
+        }
+
 
         foreach (var paramRef in paramRefs)
         {
