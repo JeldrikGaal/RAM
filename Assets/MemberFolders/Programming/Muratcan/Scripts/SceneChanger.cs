@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
+    bool _titleScreenPassed = false;
+    [SerializeField] GameObject _backgroundTitle;
+    [SerializeField] GameObject _background;
+    [SerializeField] GameObject _buttons;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +18,13 @@ public class SceneChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.anyKeyDown && _titleScreenPassed == false)
+        {
+            OpenClosePanel(_backgroundTitle);
+            OpenClosePanel(_background);
+            OpenClosePanel(_buttons);
+            _titleScreenPassed = true;
+        }
     }
     public void LoadNextScene()
     {
