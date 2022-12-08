@@ -385,6 +385,7 @@ public class RammyController : MonoBehaviour
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
+            vel.y = _rB.velocity.y;
             _rB.velocity = vel;
             int baseRotation = 135;
             if (Walking && !_walkingAnim)
