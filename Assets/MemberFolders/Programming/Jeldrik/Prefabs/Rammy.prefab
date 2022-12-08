@@ -859,7 +859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1744025166
 Transform:
   m_ObjectHideFlags: 0
@@ -2074,7 +2074,7 @@ Transform:
   - {fileID: 1099257559}
   - {fileID: 934381652}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -2164,7 +2164,7 @@ MonoBehaviour:
   BasicAttackCoolDown: 1
   BasicAttackDamage: 5
   BasicAttackDuration: 0.1
-  DashDuration: 0.3
+  DashDuration: 8
   DashDistance: 7
   DashCoolDown: 1
   DashAttackDamage: 2
@@ -2203,7 +2203,7 @@ MonoBehaviour:
   _chargeValues: {fileID: 11400000, guid: de8de59438e6253418648a391de9fb17, type: 2}
   _dashValues: {fileID: 11400000, guid: a8b2c27da0b3d44438dd69d19e643024, type: 2}
   _basicAttackValues: {fileID: 11400000, guid: f8936738d97cdc2448a842e5aaf0b92b, type: 2}
-  _loadData: 0
+  _loadData: 1
   _mats:
   - {fileID: 2100000, guid: 15e346450e7a74f4aaa401054336f701, type: 2}
   - {fileID: 2100000, guid: 7e68f114ba3c17947864a5aa3f7b260e, type: 2}
@@ -2226,7 +2226,7 @@ MonoBehaviour:
   Stats: {fileID: 11400000, guid: b2e1619d05c9be9449fc9e826628e3d8, type: 2}
   _controller: {fileID: 4974556004237746292}
   _jumping: 0
-  _stunDuration: 0
+  _stunDuration: 0.5
   _damageArea: {fileID: 2998695922160975798, guid: b423adb35796f2744ad0d679d97c99d5, type: 3}
   _upgradedArea: {fileID: 3923053621530184638, guid: bb334186cc31d3e47aa1690ea8abc345, type: 3}
   PlayerController: {fileID: 4974556004237746292}
@@ -2316,7 +2316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats: {fileID: 11400000, guid: 78703abe50ef237479e183fd1d302a5b, type: 2}
   _controller: {fileID: 4974556004237746292}
-  _stunDuration: 10
+  _stunDuration: 0.25
   _pullForce: 3
   _points: 8
   _distanceToPoints: 4
@@ -2339,9 +2339,9 @@ MonoBehaviour:
   Stats: {fileID: 11400000, guid: 5d95683fa41641d47a7e5dde6ce693e6, type: 2}
   _controller: {fileID: 4974556004237746292}
   _eCollider: {fileID: 1563857641711686301}
-  _prepTime: 1
-  _moveTime: 2
-  _resetTime: 2
+  _prepTime: 0
+  _moveTime: 0.3
+  _resetTime: 0.3
   _moveRadius: 0.5
   movementCurve:
     serializedVersion: 2
