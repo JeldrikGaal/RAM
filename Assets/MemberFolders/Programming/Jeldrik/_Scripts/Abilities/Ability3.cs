@@ -128,7 +128,10 @@ public class Ability3 : Abilities
             if (enemy.GetComponent<EnemyController>() != null)
             {
                 // Makes the enemy take damage
-                enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up);
+                if (enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up))
+                {
+                    _controller.Kill(enemy);
+                }
 
                 // enemy.GetComponent<EnemyController>().StunDuration = _stunDuration;
                 // enemy.GetComponent<EnemyController>().Stun();
@@ -207,16 +210,12 @@ public class Ability3 : Abilities
 
     private IEnumerator RestrictPlayerMovement(float duration)
     {
-        // Records the current speed
-        _baseSpeed = _controller.MovementSpeed;
-
-        // Stop the player from moving by setting movespeed to 0
-        _controller.MovementSpeed = 0;
+        _controller.BlockPlayerMovment();
 
         // Wait a bit
         yield return new WaitForSeconds(duration);
 
         // Sets the movespeed to the default
-        _controller.MovementSpeed = _baseSpeed;
+        _controller.UnBlockPlayerMovement();
     }
 }

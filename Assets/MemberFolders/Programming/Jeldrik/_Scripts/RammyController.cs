@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class RammyController : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class RammyController : MonoBehaviour
     private InputAction _ability3;
     private InputAction _ability4;
     private InputAction _ability5;
+    private InputAction _dash;
 
     [HideInInspector] public float Damage = 10;
 
@@ -48,6 +50,7 @@ public class RammyController : MonoBehaviour
     private float _ability3Key;
     private float _ability4Key;
     private float _ability5Key;
+    private float _dashKey;
     [FoldoutGroup("Abilities")][SerializeField] private Ability1 _ability1Script;
     [FoldoutGroup("Abilities")][SerializeField] private Ability2 _ability2Script;
     [FoldoutGroup("Abilities")][SerializeField] private Ability3 _ability3Script;
@@ -179,6 +182,8 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float StunBuffDuration;
     [FoldoutGroup("Buff Values")][SerializeField] private float _stunBuffTimer;
 
+    [SerializeField] private Canvas _deathCanvas;
+
     // Importing Damage Values
     [SerializeField] RammyAttack _chargeValues;
     [SerializeField] RammyAttack _dashValues;
@@ -195,6 +200,10 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject directionIndicator;
     [SerializeField] private bool testingHeight = false;
     [SerializeField] private GameObject _directionIndicatorTip;
+    [SerializeField] private GameObject _debuggingCanvas;
+    [SerializeField] private TMP_Text _debuggingText;
+    [SerializeField] private bool dashInWalkDireciton = false;
+    public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
     // Setting Input Actions on Awake
@@ -202,6 +211,8 @@ public class RammyController : MonoBehaviour
     {
         _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     void Start()
     {
@@ -270,6 +281,7 @@ public class RammyController : MonoBehaviour
         _ability3 = _playerControls.Player.Ability3;
         _ability4 = _playerControls.Player.Ability4;
         _ability5 = _playerControls.Player.Ability5;
+        _dash = _playerControls.Player.Dash;
 
         _move.Enable();
         _look.Enable();
@@ -280,6 +292,7 @@ public class RammyController : MonoBehaviour
         _ability3.Enable();
         _ability4.Enable();
         _ability5.Enable();
+        _dash.Enable();
     }
 
     // Disabling PlayerControls when player gets disabled in the scene
@@ -294,18 +307,21 @@ public class RammyController : MonoBehaviour
         _ability3.Disable();
         _ability4.Disable();
         _ability5.Disable();
+        _dash.Disable();
     }
     #endregion
 
     void Update()
     {
+
+        // Used to prevent any actions from rammy
+        if (BLOCKEVERYTHINGRAMMY) return;
+
         #region Reading Input
         // Reading the mouse position on screen
         _mousePosition = _look.ReadValue<Vector2>();
 
         // Confines the mouse to the game window
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
@@ -341,6 +357,7 @@ public class RammyController : MonoBehaviour
         _ability3Key = _ability3.ReadValue<float>();
         _ability4Key = _ability4.ReadValue<float>();
         _ability5Key = _ability5.ReadValue<float>();
+        _dashKey = _dash.ReadValue<float>();
 
         // Calculating the world position where the mouse is currently pointing at and needed help vectors
         float distance;
@@ -369,10 +386,12 @@ public class RammyController : MonoBehaviour
         if (Math.Abs(_rB.velocity.magnitude) > 0.01f)
         {
             Walking = true;
+            _animator.SetFloat("Speed", 1);
         }
         else
         {
             Walking = false;
+            _animator.SetFloat("Speed", 0);
         }
 
         if (!Walking && _walkingAnim)
@@ -381,10 +400,11 @@ public class RammyController : MonoBehaviour
             _walkingAnim = false;
             //Debug.Log("STOP");
         }
-
+        
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
+            vel.y = _rB.velocity.y;
             _rB.velocity = vel;
             int baseRotation = 135;
             if (Walking && !_walkingAnim)
@@ -509,6 +529,10 @@ public class RammyController : MonoBehaviour
         #region Dashing
         // Changing all needed variables to indiciate and calculate Dashing
 
+        if (_dashKey == 1 && !Dashing)
+        {
+            StartDash();
+        }
 
         if (Dashing)
         {
@@ -533,6 +557,10 @@ public class RammyController : MonoBehaviour
 
         List<Abilities> l = new List<Abilities>();
         l.Add(_ability1Script);
+        l.Add(_ability2Script);
+        l.Add(_ability3Script);
+        l.Add(_ability4Script);
+        l.Add(_ability5Script);
 
         // Checking if the player is already using an ability and performing wanted ability if not
         if (!UsingAbility)
@@ -654,6 +682,7 @@ public class RammyController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
@@ -683,13 +712,40 @@ public class RammyController : MonoBehaviour
             if (_capsuleCollider.enabled)
             {
                 _capsuleCollider.enabled = false;
+                _rB.useGravity = false;
             }
             else
             {
+                _rB.useGravity = true;
                 _capsuleCollider.enabled = true;
             }
         }
 
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (!_debuggingCanvas.activeInHierarchy)
+            {
+                _debuggingCanvas.SetActive(true);
+                string text = "BasicAttackCoolDown " + BasicAttackCoolDown + " BasicAttackDamage " + BasicAttackDamage + "\n" + " BasicAttackDuration " + BasicAttackDuration + "\n"
+                    + " DashAttackDamage " + DashAttackDamage + " DashCoolDown " + "\n" + DashCoolDown + " DashDistance " + DashDistance + " DashDuration " + DashDuration + "\n" +
+                    " ChargeAttackDamage " + ChargeAttackDamage + " ChargeAttackCoolDown " + "\n" + ChargeAttackCoolDown + " ChargeAttackDistance " + ChargeAttackDistance + "\n" + " ChargeAttackDuration " + ChargeAttackDuration + " MaxChargeTime " + MaxChargeTime;
+                _debuggingText.text = text;
+            }
+            else
+            {
+                _debuggingCanvas.SetActive(false);
+            }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            foreach (Abilities a in l)
+            {
+                a.SetStartingTime(Time.time - a.Stats.Cooldown);
+            }
+        }
 
         #endregion
         // Showing in engine where the player is gonna dash towards
@@ -725,7 +781,7 @@ public class RammyController : MonoBehaviour
                     if (TagManager.HasTag(g, "enemy"))
                     {
                         _rammyVFX.NormalAttack(g);
-                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier, transform.up))
+                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier,transform.forward))
                         {
                             Kill(g);
                         }
@@ -754,9 +810,9 @@ public class RammyController : MonoBehaviour
     {
         if (chargeTime < MinChargeTime)
         {
-            StartDash();
+            //StartDash();
         }
-        else if (chargeTime > MinChargeTime)
+        if (chargeTime > MinChargeTime)
         {
             if (!Attacking) StartChargeAttack(chargeTime);
         }
@@ -846,11 +902,16 @@ public class RammyController : MonoBehaviour
             Dashing = true;
             _startTimeDash = Time.time;
             RaycastHit hit;
-            _dashDestination = transform.position + _lookingAtMouseRotation * DashDistance;
+
+            Vector3 directionToUse = _lookingAtMouseRotation;
+            if (dashInWalkDireciton) directionToUse = transform.up;
+
+            _dashDestination = transform.position + directionToUse * DashDistance;
+
 
             int layer = 1 << LayerMask.NameToLayer("Default");
             // Checking if player would end up in an object while dashing and shortening dash if thats the case
-            if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, DashDistance, layer, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(transform.position, directionToUse, out hit, DashDistance, layer, QueryTriggerInteraction.Ignore))
             {
                 _dashDestination = hit.point;
                 /*RaycastHit hit2;
@@ -863,7 +924,7 @@ public class RammyController : MonoBehaviour
 
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
-            transform.up = _lookingAtMouseRotation;
+            transform.up = directionToUse;
             transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
             _blockMovement = true;
             _mR.material = _mats[2];
@@ -908,6 +969,7 @@ public class RammyController : MonoBehaviour
             {
                 _chargedEnemy = rammedObject;
                 _chargedEnemyOffset = _chargedEnemy.transform.position - transform.position;
+                _chargeAttackDestination = _chargeAttackDestination - (_lookingAtMouseRotation * 0.2f);
             }
 
             // Calling Damage on the enemy script
@@ -1079,6 +1141,27 @@ public class RammyController : MonoBehaviour
     }
 
     #region Setter / Getter functions
+
+    public float GetDashStartTime()
+    {
+        return _startTimeDash;
+    }
+
+    public float GetDashCoolDown()
+    {
+        return DashCoolDown;
+    }
+
+    public float GetChargeStartTime()
+    {
+        return _startTimeChargeAttack;
+    }
+
+    public float GetChargeCoolDown()
+    {
+        return ChargeAttackCoolDown;
+    }
+
     // Functions to start and end the usage of any ability
     public void StartUsingAbility()
     {
@@ -1093,6 +1176,8 @@ public class RammyController : MonoBehaviour
     // Blocking and unblocking player controlled movement
     public void BlockPlayerMovment()
     {
+        _rB.velocity = Vector3.zero;
+        _moveDirection = Vector3.zero;
         _blockMovement = true;
     }
     public void UnBlockPlayerMovement()
@@ -1226,6 +1311,10 @@ public class RammyController : MonoBehaviour
     {
         Debug.Log("RAMMY HAS DIED!!!!!");
         Time.timeScale = 1;
+
+        _deathCanvas.enabled = true;
+        _deathCanvas.GetComponent<DeathScript>().enabled = true;
+
         Destroy(gameObject);
     }
 

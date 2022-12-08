@@ -27,6 +27,7 @@ public class WolfRangedAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _boomerang.GetComponent<Boomerang>().Wolf = gameObject;
     }
 
     // Update is called once per frame
@@ -87,11 +88,11 @@ public class WolfRangedAttack : MonoBehaviour
         }
         //if (_inProgress && ((Time.time - _startTimeThrow) / throwDuration) > 0f)
         //{
-            
+
         //    _wolfMeleeColliders[_rnd].gameObject.transform.position = Vector3.Lerp(_startPos, _targetPos, ((Time.time - _startTimeThrow) / throwDuration));
         //}
     }
-    
+
     public void ThrowBoomerang()
     {
         _ammo--;
@@ -100,7 +101,7 @@ public class WolfRangedAttack : MonoBehaviour
         _boomerang.transform.SetParent(null);
         _startPos = _boomerang.transform.position;
         _targetPos = _target.transform.position;
-        print(_targetPos);
+        // print(_targetPos);
         _startTimeThrow = Time.time;
         _onTheWay = true;
     }
@@ -115,7 +116,7 @@ public class WolfRangedAttack : MonoBehaviour
 
     public void ThrowWolf()
     {
-        
+
         _rnd = Random.Range(0, _wolfMeleeColliders.Count);
         if (_wolfMeleeColliders[_rnd] != null)
         {

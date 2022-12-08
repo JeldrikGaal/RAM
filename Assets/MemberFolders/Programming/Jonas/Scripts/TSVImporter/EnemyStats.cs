@@ -10,6 +10,8 @@ public class EnemyStats : ScriptableObject
 
     public void SetAttacks(List<List<string>> variables)
     {
+        System.Globalization.CultureInfo culture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+
         Attacks = new Dictionary<string, EnemyAttackStats>();
 
         foreach (List<string> l in variables)
@@ -18,7 +20,7 @@ public class EnemyStats : ScriptableObject
 
             for(int i = 2; i < l.Count; i++)
             {
-                stats.Add(float.Parse(l[i]));
+                stats.Add(float.Parse(l[i], culture));
             }
 
             Attacks[l[0]] = new EnemyAttackStats();
@@ -28,11 +30,13 @@ public class EnemyStats : ScriptableObject
 
     public void SetHealth(List<string> health)
     {
+        System.Globalization.CultureInfo culture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+
         Health = new List<float>();
 
         foreach (string s in health)
         {
-            Health.Add(float.Parse(s));
+            Health.Add(float.Parse(s, culture));
         }
     }
 

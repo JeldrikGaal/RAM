@@ -39,6 +39,7 @@ public class PauseGame : MonoBehaviour
         else
         {
             Pause();
+            
         }
     }
 
@@ -53,9 +54,11 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void Pause()
     {
-
+        print("pausecur");
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
+        _settingsMenu.SetActive(true);
+        //_settingsMenu.GetComponent<Animator>().SetTrigger("CloseOptionsPanel");
         _paused = true;
         if (_ingameUi) _ingameUi.SetActive(false);
         OnPausedEventHandler(true);
@@ -67,9 +70,8 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void UnPause()
     {
-
-        Time.timeScale = 1;
         _settingsMenu.SetActive(false);
+        Time.timeScale = 1;
         _pauseMenu.SetActive(false);
         _paused = false;
         if (_ingameUi) _ingameUi.SetActive(true);
@@ -88,18 +90,19 @@ public class PauseGame : MonoBehaviour
     /// <summary>
     /// Opens the settings in the pause menu.
     /// </summary>
-    public void Settings()
+    public void OpenSettings(GameObject forAnimator)
     {
-        _settingsMenu.SetActive(true);
-        _pauseMenuContent.SetActive(false);
+        forAnimator.GetComponent<Animator>().SetTrigger("OpenOptionsPanel");
+        _pauseMenu.SetActive(false);
     }
+
     /// <summary>
     /// Closes the settings on thee pause menu.
     /// </summary>
-    public void CloseSettings()
+    public void CloseSettings(GameObject forAnimator)
     {
-        _settingsMenu.SetActive(false);
-        _pauseMenuContent.SetActive(true);
+        forAnimator.GetComponent<Animator>().SetTrigger("CloseOptionsPanel");
+        _pauseMenu.SetActive(true);
     }
     #endregion
 

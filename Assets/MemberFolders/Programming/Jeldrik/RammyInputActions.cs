@@ -107,6 +107,15 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""23fa397b-98b5-4aae-8b9b-3d8250e70eb3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -327,6 +336,17 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Ability5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28a01047-9ffa-4189-9f1e-cadd3e2ea0c8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -943,6 +963,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
         m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
         m_Player_Ability4 = m_Player.FindAction("Ability4", throwIfNotFound: true);
         m_Player_Ability5 = m_Player.FindAction("Ability5", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1024,6 +1045,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Ability3;
     private readonly InputAction m_Player_Ability4;
     private readonly InputAction m_Player_Ability5;
+    private readonly InputAction m_Player_Dash;
     public struct PlayerActions
     {
         private @RammyInputActions m_Wrapper;
@@ -1037,6 +1059,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
         public InputAction @Ability3 => m_Wrapper.m_Player_Ability3;
         public InputAction @Ability4 => m_Wrapper.m_Player_Ability4;
         public InputAction @Ability5 => m_Wrapper.m_Player_Ability5;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1073,6 +1096,9 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 @Ability5.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility5;
                 @Ability5.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility5;
                 @Ability5.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbility5;
+                @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1104,6 +1130,9 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 @Ability5.started += instance.OnAbility5;
                 @Ability5.performed += instance.OnAbility5;
                 @Ability5.canceled += instance.OnAbility5;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -1277,6 +1306,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
         void OnAbility3(InputAction.CallbackContext context);
         void OnAbility4(InputAction.CallbackContext context);
         void OnAbility5(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

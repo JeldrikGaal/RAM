@@ -368,7 +368,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2ed82576d896e514d85be132fac43828, type: 2}
+  - {fileID: 2100000, guid: 316831e06cb23dd4ba994a8641077dc9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -778,7 +778,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2f16f661d9d398547a4feb74fc88b52d, type: 2}
+  - {fileID: 2100000, guid: 316831e06cb23dd4ba994a8641077dc9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1931,7 +1931,7 @@ Transform:
   - {fileID: 7028102775560305371}
   - {fileID: 6141488845053197282}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6141488845463843899
 Rigidbody:
@@ -2009,6 +2009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
+  Stats: {fileID: 0}
   MoveSpeed: 8
   AttackDamage: 3
   MaxHealth: 100
