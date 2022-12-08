@@ -101,7 +101,7 @@ public class WolfRangedAttack : MonoBehaviour
         _boomerang.transform.SetParent(null);
         _startPos = _boomerang.transform.position;
         _targetPos = _target.transform.position;
-        print(_targetPos);
+        // print(_targetPos);
         _startTimeThrow = Time.time;
         _onTheWay = true;
     }
