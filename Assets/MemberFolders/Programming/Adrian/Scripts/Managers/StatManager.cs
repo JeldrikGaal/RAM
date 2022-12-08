@@ -10,6 +10,14 @@ public class StatManager : MonoBehaviour
 
     [SerializeField] private TMP_Text _comboTimerText;
 
+    [SerializeField] private bool _letterLevel;
+
+    [SerializeField] private GameObject _journal;
+    [SerializeField] private TMP_Text _journalText;
+    [SerializeField] private GameObject _swords;
+    [SerializeField] private TMP_Text _swordsText;
+
+
     public StatTracker Stats;
 
     [SerializeField] private float _comboTimer;
@@ -36,6 +44,12 @@ public class StatManager : MonoBehaviour
 
         // Sets the accumulated kills to 40 for testing purposes
         Stats.Kills = 0;
+
+        if (!_letterLevel)
+        {
+            _swords.transform.position = _journal.transform.position;
+            _journal.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +67,8 @@ public class StatManager : MonoBehaviour
 
         // Updates the Score textbox with the current score
         ScoreTextbox.text = "Score: " + _score.ToString("F0");
+
+        _journalText.text = _playerController.lettersCollected + "/3";
 
         // Actibate key after you get 50 or more kills
         if (Stats.Kills >= 50)
