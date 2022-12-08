@@ -181,6 +181,8 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float StunBuffDuration;
     [FoldoutGroup("Buff Values")][SerializeField] private float _stunBuffTimer;
 
+    [SerializeField] private Canvas _deathCanvas;
+
     // Importing Damage Values
     [SerializeField] RammyAttack _chargeValues;
     [SerializeField] RammyAttack _dashValues;
@@ -1237,6 +1239,10 @@ public class RammyController : MonoBehaviour
     {
         Debug.Log("RAMMY HAS DIED!!!!!");
         Time.timeScale = 1;
+
+        _deathCanvas.enabled = true;
+        _deathCanvas.GetComponent<DeathScript>().enabled = true;
+
         Destroy(gameObject);
     }
 
