@@ -8,12 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Fire UI
-  m_Shader: {fileID: 4800000, guid: c132bd48352557940bc0ac943e33679b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 054d4abd6d11fc34ab8e4de398e20c52, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - UNITY_UI_ALPHACLIP
   m_InvalidKeywords: []
-  m_LightmapFlags: 0
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -24,7 +25,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Fire:
-        m_Texture: {fileID: 2800000, guid: b87a494512f79824a9f18a9581644e2e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7cb90f33f0fe626499384f6a36a5527e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -47,25 +52,34 @@ Material:
     m_Floats:
     - _AlphaCutoff: 0.5
     - _AlphaThreshold: 0
+    - _ColorMask: 15
     - _Cutoff: 0.5
     - _Float1: 1.49
     - _Float2: 0.4
+    - _Power: 4
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: -0.15
     - _Spherehardness: 0.3
     - _Sphereradius: 1.2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 1
     - __dirty: 0
-    - _fireDetail: 10
+    - _fireDetail: 7.5
     - _firePower: 0.52
-    - _fireTreshold: -0.441
+    - _fireTreshold: -0.54
     - _firepower: 10
-    - _noiseTiling: 0.25
+    - _noiseTiling: 0.38
     - _speedUp: -0.165
     m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Colour: {r: 3.1, g: 1.1, b: 0, a: 0}
-    - _Colourbottom: {r: 5.288106, g: 3.6177888, b: 1.5298921, a: 0}
-    - _Colourtop: {r: 4.3376827, g: 0.86891, b: 0, a: 0}
+    - _Colourbottom: {r: 7.0600367, g: 1.501802, b: 0.5772353, a: 1}
+    - _Colourtop: {r: 1.4106314, g: 0.29018703, b: 0, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Offset: {r: -0.375, g: -0.62, b: 0, a: 0}
     - _Spherelocation: {r: 0, g: -0.2, b: 0, a: 0}
