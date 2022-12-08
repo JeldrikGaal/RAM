@@ -386,10 +386,12 @@ public class RammyController : MonoBehaviour
         if (Math.Abs(_rB.velocity.magnitude) > 0.01f)
         {
             Walking = true;
+            _animator.SetFloat("Speed", 1);
         }
         else
         {
             Walking = false;
+            _animator.SetFloat("Speed", 0);
         }
 
         if (!Walking && _walkingAnim)
@@ -398,7 +400,7 @@ public class RammyController : MonoBehaviour
             _walkingAnim = false;
             //Debug.Log("STOP");
         }
-
+        
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
