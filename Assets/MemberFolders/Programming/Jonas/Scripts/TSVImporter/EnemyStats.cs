@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 public class EnemyStats : ScriptableObject
 {
     public Dictionary<string, EnemyAttackStats> Attacks;
-    public Dictionary<int, float> Health;
+    public List<float> Health;
 
     public void SetAttacks(List<List<string>> variables)
     {
@@ -26,14 +26,24 @@ public class EnemyStats : ScriptableObject
         }
     }
 
-    public void SetHealth()
+    public void SetHealth(List<string> health)
     {
+        Health = new List<float>();
 
+        foreach (string s in health)
+        {
+            Health.Add(float.Parse(s));
+        }
     }
 
     public EnemyAttackStats GetStats(string name)
     {
         return Attacks[name];
+    }
+
+    public float GetHealth(int area)
+    {
+        return Health[area-1];
     }
 
     [Button]
@@ -51,8 +61,12 @@ public class EnemyStats : ScriptableObject
         Debug.Log(Attacks[name].Damage1);
     }
 
-    public float GetHealth(int area)
+    [Button]
+    public void PrintHealth()
     {
-        return Health[area];
+        foreach (float f in Health)
+        {
+            Debug.Log(f);
+        }
     }
 }

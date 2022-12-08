@@ -10,6 +10,7 @@ public class DestructibleWall : MonoBehaviour, IRammable
     public GameObject Complete;
     public GameObject Broken;
     private BoxCollider _collider;
+    [SerializeField] private GameObject _destroyParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,10 @@ public class DestructibleWall : MonoBehaviour, IRammable
 
     public bool Hit(GameObject g)
     {
+        if (_destroyParticle)
+        {
+            Instantiate(_destroyParticle, transform.position, transform.rotation);
+        }
         _collider.enabled = false;
         Broken.SetActive(true);
         Complete.SetActive(false);
