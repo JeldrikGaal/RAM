@@ -390,7 +390,6 @@ public class RammyVFX : MonoBehaviour
                     }
                     else
                     {
-                        print("rerun");
                         // This resets all the components
                         gorePiece.GetComponent<Rigidbody>().isKinematic = false;
                         gorePiece.GetComponent<Collider>().enabled = true;

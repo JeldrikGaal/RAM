@@ -1100,7 +1100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &522460801
 Transform:
   m_ObjectHideFlags: 0
@@ -1587,13 +1587,13 @@ MonoBehaviour:
   _length: 5
   _currentPos: {x: 0, y: 0, z: 0}
   _minWidth: 0
-  _maxWidth: 3
+  _maxWidth: 1
   _minHeight: 0
   _maxHeight: 0.5
   _heightRandom: 0.1
-  _maxTime: 0.5
-  _timeBetweenSpawn: 0.05
-  _amountPerSpawn: 2
+  _maxTime: 0.1
+  _timeBetweenSpawn: 0.01
+  _amountPerSpawn: 5
   _rockAnim: {fileID: 9100000, guid: 3b13df291a7af8d48ace65192156b3b4, type: 2}
   _testCube: 0
   _rock: {fileID: 740597557493208963, guid: c09bbf736ae91c24d870a52fdb8e8bca, type: 3}
@@ -3382,7 +3382,7 @@ Transform:
   - {fileID: 1099257559}
   - {fileID: 934381652}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -3741,20 +3741,20 @@ MonoBehaviour:
   _meatArrayAmount: {x: 200, y: 5}
   IsBlue: 0
   _bloodVariations:
-  - {fileID: 2100000, guid: 7e42da0d1c34fd1468edd29a11273ede, type: 2}
-  - {fileID: 2100000, guid: 7e42da0d1c34fd1468edd29a11273ede, type: 2}
-  - {fileID: 2100000, guid: 7e42da0d1c34fd1468edd29a11273ede, type: 2}
+  - {fileID: 2100000, guid: 42c1293214be4e34997c7811e9e1642d, type: 2}
+  - {fileID: 2100000, guid: 1c38d4d52c3d5ed4ebd2c371896f427b, type: 2}
+  - {fileID: 2100000, guid: 7dcc092c702273c48a8431bae6f84ccc, type: 2}
   _blueBloodVariations:
   - {fileID: 2100000, guid: b2c1c129794acdc428782169fe4e1dc7, type: 2}
   - {fileID: 2100000, guid: 8739e941f6dfeaf43ac114b73a590327, type: 2}
   - {fileID: 2100000, guid: b72810edf5b98a445813c46c2a29e1b0, type: 2}
   _bloodSpread: 0.8
-  _heightAngle: 30.5
-  _bloodForceMin: 1.51
-  _bloodForceMax: 2.61
+  _heightAngle: 0
+  _bloodForceMin: 5
+  _bloodForceMax: 8
   _bloodAmount: 2
-  _bloodSizeMin: 1.5
-  _bloodSizeMax: 2
+  _bloodSizeMin: 1
+  _bloodSizeMax: 1.39
   _goreValuesRam:
   - GoreNames: Skull
     Spread: 0.64
@@ -3805,17 +3805,17 @@ MonoBehaviour:
     MaxForce: 5.66
     MinAmount: 2
     MaxAmount: 6
-  _bloodSpreadNormal: 0.5
-  _heightAngleNormal: 43.5
-  _bloodForceMinNormal: 2.03
-  _bloodForceMaxNormal: 2.78
+  _bloodSpreadNormal: 0.3
+  _heightAngleNormal: 0
+  _bloodForceMinNormal: 0.5
+  _bloodForceMaxNormal: 1
   _bloodAmountNormal: 3
-  _bloodSizeMinNormal: 0.823
-  _bloodSizeMaxNormal: 0.881
-  _bloodSpreadAb1: 0.93
-  _heightAngleAb1: 29.9
-  _bloodForceMinAb1: 4.9
-  _bloodForceMaxAb1: 7.4
+  _bloodSizeMinNormal: 1
+  _bloodSizeMaxNormal: 1.2
+  _bloodSpreadAb1: 1
+  _heightAngleAb1: 80
+  _bloodForceMinAb1: 1
+  _bloodForceMaxAb1: 1.5
   _bloodAmountAb1: 3
   _bloodSizeMinAb1: 1.68
   _bloodSizeMaxAb1: 2
@@ -3870,36 +3870,183 @@ MonoBehaviour:
     MinAmount: 2
     MaxAmount: 5
   _bloodSpreadAb2: 0.5
-  _heightAngleAb2: 20
-  _bloodForceMinAb2: 0
-  _bloodForceMaxAb2: 0
+  _heightAngleAb2: 0
+  _bloodForceMinAb2: 1
+  _bloodForceMaxAb2: 3
   _bloodAmountAb2: 5
   _bloodSizeMinAb2: 1
   _bloodSizeMaxAb2: 1
-  _goreValuesAb2: []
-  _bloodSpreadAb3: 0.269
-  _heightAngleAb3: 11.2
-  _bloodForceMinAb3: 0
-  _bloodForceMaxAb3: 0
+  _goreValuesAb2:
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  _bloodSpreadAb3: 0.1
+  _heightAngleAb3: 0
+  _bloodForceMinAb3: 1
+  _bloodForceMaxAb3: 1.5
   _bloodAmountAb3: 2
-  _bloodSizeMinAb3: 0.411
-  _bloodSizeMaxAb3: 0.729
-  _goreValuesAb3: []
-  _bloodSpreadAb4: 0.5
-  _heightAngleAb4: 32
-  _bloodForceMinAb4: 0.72
-  _bloodForceMaxAb4: 5.77
-  _bloodAmountAb4: 13
-  _bloodSizeMinAb4: 0.71
-  _bloodSizeMaxAb4: 1.1
-  _goreValuesAb4: []
-  _bloodSpreadAb5: 0.5
-  _heightAngleAb5: 20
-  _bloodForceMinAb5: 2.3
-  _bloodForceMaxAb5: 3.7
-  _bloodAmountAb5: 5
+  _bloodSizeMinAb3: 0.2
+  _bloodSizeMaxAb3: 0.5
+  _goreValuesAb3:
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  _bloodSpreadAb4: 0.8
+  _heightAngleAb4: 0
+  _bloodForceMinAb4: 1
+  _bloodForceMaxAb4: 4
+  _bloodAmountAb4: 5
+  _bloodSizeMinAb4: 1
+  _bloodSizeMaxAb4: 1.5
+  _goreValuesAb4:
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  - GoreNames: 
+    Spread: 0
+    Angle: 0
+    MinForce: 0
+    MaxForce: 0
+    MinAmount: 0
+    MaxAmount: 0
+  _bloodSpreadAb5: 0.2
+  _heightAngleAb5: 10
+  _bloodForceMinAb5: 1.5
+  _bloodForceMaxAb5: 3
+  _bloodAmountAb5: 8
   _bloodSizeMinAb5: 1
-  _bloodSizeMaxAb5: 1
+  _bloodSizeMaxAb5: 1.5
   _goreValuesAb5:
   - GoreNames: 
     Spread: 0
