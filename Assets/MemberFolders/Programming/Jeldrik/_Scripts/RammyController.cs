@@ -1092,6 +1092,27 @@ public class RammyController : MonoBehaviour
     }
 
     #region Setter / Getter functions
+
+    public float GetDashStartTime()
+    {
+        return _startTimeDash;
+    }
+
+    public float GetDashCoolDown()
+    {
+        return DashCoolDown;
+    }
+
+    public float GetChargeStartTime()
+    {
+        return _startTimeChargeAttack;
+    }
+
+    public float GetChargeCoolDown()
+    {
+        return ChargeAttackCoolDown;
+    }
+
     // Functions to start and end the usage of any ability
     public void StartUsingAbility()
     {
