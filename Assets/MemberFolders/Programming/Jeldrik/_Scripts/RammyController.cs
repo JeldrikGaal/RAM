@@ -781,7 +781,7 @@ public class RammyController : MonoBehaviour
                     if (TagManager.HasTag(g, "enemy"))
                     {
                         _rammyVFX.NormalAttack(g);
-                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier, transform.up))
+                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier,transform.forward))
                         {
                             Kill(g);
                         }
@@ -969,6 +969,7 @@ public class RammyController : MonoBehaviour
             {
                 _chargedEnemy = rammedObject;
                 _chargedEnemyOffset = _chargedEnemy.transform.position - transform.position;
+                _chargeAttackDestination = _chargeAttackDestination - (_lookingAtMouseRotation * 0.2f);
             }
 
             // Calling Damage on the enemy script
