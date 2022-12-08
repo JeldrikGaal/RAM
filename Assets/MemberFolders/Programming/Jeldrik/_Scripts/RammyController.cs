@@ -302,6 +302,7 @@ public class RammyController : MonoBehaviour
 
         // Confines the mouse to the game window
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
 
         // Reading mouse click input 
         _leftMouseButton = _attack.ReadValue<float>();
