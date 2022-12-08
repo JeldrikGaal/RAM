@@ -43,7 +43,7 @@ Transform:
   - {fileID: 8924253088095124880}
   - {fileID: 5770901519552346904}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5174092237922246540
 MeshFilter:
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
+  Stats: {fileID: 0}
   MoveSpeed: 8
   AttackDamage: 3
   MaxHealth: 100
@@ -106,6 +107,7 @@ MonoBehaviour:
   _forceMultipier: 0
   _pieceLiftime: 0
   _pieceCount: 0
+  _player: {fileID: 0}
   _defaultSpeed: 0
   _respawnAfterDeath: 0
   _utilScript: {fileID: 0}
@@ -170,6 +172,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 3997342865294454957}
   _stateMachine: {fileID: 5174092237922246546}
+  _striking: 0
+  _rammyInRange: 0
+  _rammyController: {fileID: 0}
+  _toChaseState: {fileID: 0}
+  _toStrikeState: {fileID: 0}
+  _strike1Damage: 0
+  _strike2Damage: 0
+  _strike3Damage: 0
+  _leapDamage: 0
 --- !u!95 &5770901519127444425
 Animator:
   serializedVersion: 4
@@ -205,8 +216,9 @@ MonoBehaviour:
   _animator: {fileID: 5770901519127444425}
   throwDuration: 5
   _boomerang: {fileID: 5770901520292304275}
+  _boomerang2: {fileID: 0}
+  _boomerang3: {fileID: 0}
   _target: {fileID: 0}
-  _ammo: 1
   _shootSpeed: 50
   damage: 1.5
 --- !u!1 &5770901518740395851
@@ -673,11 +685,11 @@ PrefabInstance:
     - target: {fileID: -2802555496547580043, guid: 4af9cf90aca20224ba4e82268227354b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d9f02f85c588da248a06ec12db98e42c, type: 2}
+      objectReference: {fileID: 2100000, guid: 316831e06cb23dd4ba994a8641077dc9, type: 2}
     - target: {fileID: -887588958231056441, guid: 4af9cf90aca20224ba4e82268227354b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d9f02f85c588da248a06ec12db98e42c, type: 2}
+      objectReference: {fileID: 2100000, guid: 316831e06cb23dd4ba994a8641077dc9, type: 2}
     - target: {fileID: 919132149155446097, guid: 4af9cf90aca20224ba4e82268227354b, type: 3}
       propertyPath: m_Name
       value: Scuffed_Wolf_Melee_Attack01
@@ -685,7 +697,7 @@ PrefabInstance:
     - target: {fileID: 7795927409520947558, guid: 4af9cf90aca20224ba4e82268227354b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d9f02f85c588da248a06ec12db98e42c, type: 2}
+      objectReference: {fileID: 2100000, guid: 316831e06cb23dd4ba994a8641077dc9, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 4af9cf90aca20224ba4e82268227354b, type: 3}
