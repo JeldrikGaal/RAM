@@ -65,7 +65,10 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        _rb.velocity = MoveInput * MoveSpeed;
+        Vector3 moveVelocity = MoveInput * MoveSpeed;
+        moveVelocity.y = _rb.velocity.y;
+        _rb.velocity = moveVelocity;
+
         if (_anim != null)
         {
             _anim.SetFloat(_animMoveHash, _rb.velocity.magnitude);
