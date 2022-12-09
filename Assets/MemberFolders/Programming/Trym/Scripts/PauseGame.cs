@@ -54,7 +54,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void Pause()
     {
-        print("pausecur");
+        Cursor.visible = true;
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
         _settingsMenu.SetActive(true);
@@ -70,6 +70,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void UnPause()
     {
+        Cursor.visible = false;
         _settingsMenu.SetActive(false);
         Time.timeScale = 1;
         _pauseMenu.SetActive(false);
