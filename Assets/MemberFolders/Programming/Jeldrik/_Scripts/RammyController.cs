@@ -352,6 +352,12 @@ public class RammyController : MonoBehaviour
         }
         else
         {
+            if (_frameCounterRightMouseButton == 0 && _chargeAttackAllowed)
+            {
+                _audio[0].Clear();
+                _audio[0].Play(new[] { (name: "Charge", value: 0f) });
+            }
+            
             _frameCounterRightMouseButtonSave = 0;
             _frameCounterRightMouseButton += Time.deltaTime;
             _lastFrameRightMouseButton = true;
@@ -849,6 +855,7 @@ public class RammyController : MonoBehaviour
     {
         if (!Attacking && _chargeAttackAllowed)
         {
+            _audio[0].ModifyParams(new[] { (name: "Charge", value: 51f) },true);
             Attacking = true;
             _startTimeChargeAttack = Time.time;
 
