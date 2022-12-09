@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FootstepsEmitter : MonoBehaviour
 {
-    enum Surface {Dirt, Grass, Wood}
+    public enum Surface {Dirt, Grass, Wood}
     [SerializeField] AudioAddIn _audio;
     [SerializeField] Surface _defaultSurface;
     [SerializeField] float _stepMinTimeGlobal;
@@ -13,7 +13,8 @@ public class FootstepsEmitter : MonoBehaviour
 
     private static float _StepMinTimeGlobal;
     private static bool _SteppedGlobal;
-
+    private int _inSurfaceArea;
+    private Surface _areaSurface;
     private void Awake()
     {
         _audio.SetTransform(transform);
@@ -34,10 +35,16 @@ public class FootstepsEmitter : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
+        if (other.gameObject.HasTag("ground_mat"))
+        {
+            _areaSurface =  other.GetComponent<FootstepAreaControll>().GetSurface();
+            _inSurfaceArea++;
+        }
+
         if (!_stepped && !_SteppedGlobal)
         {
             (string name, float value)[] ps = new (string name, float value)[1];
-            ps[0] = ("Surface", (int)_defaultSurface);
+            ps[0] = ("Surface", (int)(_inSurfaceArea>0 ? _areaSurface: _defaultSurface));
             _audio.Play(ps);
 
             _stepped = true;
@@ -54,6 +61,15 @@ public class FootstepsEmitter : MonoBehaviour
         
 
 
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.HasTag("ground_mat"))
+        {
+            _inSurfaceArea--;
+        }
     }
     private void SetGlobal()
     {
