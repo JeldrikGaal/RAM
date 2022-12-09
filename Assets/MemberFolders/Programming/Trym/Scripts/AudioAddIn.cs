@@ -9,9 +9,12 @@ using Sirenix.OdinInspector;
 public class AudioAddIn 
 {
     [SerializeField] private EventReference _audio;
+    [SerializeField][Range(0,1)] float _volume = 1;
     [SerializeField] private bool _attach;
     [ShowIf(nameof(_attach))]
     [SerializeField] private Transform _attachTo;
+
+
     private Transform _transform;
 
     public void SetTransform(Transform transform)
@@ -49,7 +52,7 @@ public class AudioAddIn
         {
             instance.set3DAttributes(RuntimeUtils.To3DAttributes(_transform));
         }
-
+        
 
         foreach (var paramRef in paramRefs)
         {

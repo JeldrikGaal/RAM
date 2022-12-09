@@ -2254,7 +2254,7 @@ Transform:
   - {fileID: 934381652}
   - {fileID: 1782996662654093899}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -2388,11 +2388,32 @@ MonoBehaviour:
   _audio:
   - _audio:
       Guid:
+        Data1: 1192393645
+        Data2: 1210576673
+        Data3: -298574658
+        Data4: -714813307
+      Path: event:/SFX/Character/Player/Abilities/Ram
+    _volume: 1
+    _attach: 0
+    _attachTo: {fileID: 0}
+  - _audio:
+      Guid:
+        Data1: 706694414
+        Data2: 1274935892
+        Data3: 1697514909
+        Data4: 1176386126
+      Path: event:/SFX/Character/Player/Abilities/Ram impact
+    _volume: 1
+    _attach: 0
+    _attachTo: {fileID: 0}
+  - _audio:
+      Guid:
         Data1: -1505369599
         Data2: 1113817819
         Data3: -1213136710
         Data4: 1305525970
       Path: event:/SFX/Character/Player/Voice/Rammy Voice
+    _volume: 1
     _attach: 0
     _attachTo: {fileID: 0}
   - _audio:
@@ -2402,6 +2423,7 @@ MonoBehaviour:
         Data3: -1449635447
         Data4: -617285514
       Path: event:/SFX/Character/Player/Abilities/Basic Attack
+    _volume: 1
     _attach: 0
     _attachTo: {fileID: 0}
   _mats:
@@ -2437,8 +2459,9 @@ MonoBehaviour:
         Data3: 239635845
         Data4: -1477948712
       Path: event:/SFX/Character/Player/Abilities/Ability 01_Stomp
-    _attach: 0
-    _attachTo: {fileID: 0}
+    _volume: 1
+    _attach: 1
+    _attachTo: {fileID: 4974556004237746299}
   _jumping: 0
   _stunDuration: 0.5
   _damageArea: {fileID: 2998695922160975798, guid: b423adb35796f2744ad0d679d97c99d5, type: 3}
@@ -2470,6 +2493,7 @@ MonoBehaviour:
         Data3: -1320397428
         Data4: -1060001675
       Path: event:/SFX/Character/Player/Abilities/Ability 02_HornSpin
+    _volume: 1
     _attach: 0
     _attachTo: {fileID: 0}
   level: 0
@@ -2548,6 +2572,7 @@ MonoBehaviour:
         Data3: 2067203748
         Data4: -2091357351
       Path: event:/SFX/Character/Player/Abilities/Ability 03_HornPull
+    _volume: 1
     _attach: 0
     _attachTo: {fileID: 0}
   _stunDuration: 0.25
@@ -2580,10 +2605,11 @@ MonoBehaviour:
         Data3: 2103343011
         Data4: -2111572544
       Path: event:/SFX/Character/Player/Abilities/Ability 04_HornSweep
+    _volume: 1
     _attach: 1
     _attachTo: {fileID: 5027866717449145051}
   _eCollider: {fileID: 1563857641711686301}
-  _prepTime: 0
+  _prepTime: 0.2
   _moveTime: 0.3
   _resetTime: 0.3
   _moveRadius: 0.5
@@ -2633,6 +2659,7 @@ MonoBehaviour:
         Data3: -460084557
         Data4: -1015364583
       Path: event:/SFX/Character/Player/Abilities/Ability 05_BodySlam
+    _volume: 1
     _attach: 1
     _attachTo: {fileID: 448679933}
   _damage: 30
