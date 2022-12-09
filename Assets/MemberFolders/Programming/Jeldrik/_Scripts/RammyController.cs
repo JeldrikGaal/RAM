@@ -708,7 +708,7 @@ public class RammyController : MonoBehaviour
             Health = MaxHealth;
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             if (_capsuleCollider.enabled)
             {
