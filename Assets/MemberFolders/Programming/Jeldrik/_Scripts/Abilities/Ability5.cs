@@ -77,6 +77,10 @@ public class Ability5 : Abilities
         _externalCollider.transform.localPosition = new Vector3(0f, 1.5f, 0f);
         _externalCollider.transform.SetParent(null);
 
+
+        _audio.Play();
+
+
         // Spawns rocks!
         if (_rockSpawner)
         {

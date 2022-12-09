@@ -190,7 +190,8 @@ public class RammyController : MonoBehaviour
     [SerializeField] RammyAttack _basicAttackValues;
     [SerializeField] bool _loadData = true;
 
-
+    // Audio
+    [SerializeField] AudioAddIn[] _audio;
     // Animation 
     private bool _walkingAnim;
 
@@ -386,10 +387,12 @@ public class RammyController : MonoBehaviour
         if (Math.Abs(_rB.velocity.magnitude) > 0.01f)
         {
             Walking = true;
+            _animator.SetFloat("Speed", 1);
         }
         else
         {
             Walking = false;
+            _animator.SetFloat("Speed", 0);
         }
 
         if (!Walking && _walkingAnim)
@@ -398,7 +401,7 @@ public class RammyController : MonoBehaviour
             _walkingAnim = false;
             //Debug.Log("STOP");
         }
-
+        
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
@@ -680,6 +683,7 @@ public class RammyController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
@@ -704,22 +708,24 @@ public class RammyController : MonoBehaviour
             Health = MaxHealth;
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             if (_capsuleCollider.enabled)
             {
                 _capsuleCollider.enabled = false;
+                _rB.useGravity = false;
             }
             else
             {
+                _rB.useGravity = true;
                 _capsuleCollider.enabled = true;
             }
         }
 
-        
+
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (_debuggingCanvas.activeInHierarchy)
+            if (!_debuggingCanvas.activeInHierarchy)
             {
                 _debuggingCanvas.SetActive(true);
                 string text = "BasicAttackCoolDown " + BasicAttackCoolDown + " BasicAttackDamage " + BasicAttackDamage + "\n" + " BasicAttackDuration " + BasicAttackDuration + "\n"
@@ -731,7 +737,7 @@ public class RammyController : MonoBehaviour
             {
                 _debuggingCanvas.SetActive(false);
             }
-           
+
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -767,7 +773,13 @@ public class RammyController : MonoBehaviour
             _blockMovement = true;
             StopWalking();
 
-            //SetAnimationTrigger("BasicAttack");
+            _savedRotation = transform.rotation;
+
+            // Making rammy attack in mouse direction
+            transform.up = _lookingAtMouseRotation;
+            transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
+            SetAnimationTrigger("BasicAttack");
 
             foreach (GameObject g in _frontCheck._objectsInCollider)
             {
@@ -776,7 +788,7 @@ public class RammyController : MonoBehaviour
                     if (TagManager.HasTag(g, "enemy"))
                     {
                         _rammyVFX.NormalAttack(g);
-                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier, transform.up))
+                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier,transform.up))
                         {
                             Kill(g);
                         }
@@ -794,6 +806,13 @@ public class RammyController : MonoBehaviour
     {
         BasicAttacking = false;
         _blockMovement = false;
+        StartCoroutine(BasicAttackAnimLogic());
+    }
+
+    IEnumerator BasicAttackAnimLogic()
+    {
+        yield return new WaitForSeconds(0.2f);
+        transform.rotation = _savedRotation;
     }
     #endregion
 
@@ -902,7 +921,7 @@ public class RammyController : MonoBehaviour
             if (dashInWalkDireciton) directionToUse = transform.up;
 
             _dashDestination = transform.position + directionToUse * DashDistance;
-            
+
 
             int layer = 1 << LayerMask.NameToLayer("Default");
             // Checking if player would end up in an object while dashing and shortening dash if thats the case
@@ -964,6 +983,7 @@ public class RammyController : MonoBehaviour
             {
                 _chargedEnemy = rammedObject;
                 _chargedEnemyOffset = _chargedEnemy.transform.position - transform.position;
+                _chargeAttackDestination = _chargeAttackDestination - (_lookingAtMouseRotation * 0.2f);
             }
 
             // Calling Damage on the enemy script

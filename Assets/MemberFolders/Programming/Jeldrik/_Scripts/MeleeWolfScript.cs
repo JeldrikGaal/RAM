@@ -72,8 +72,11 @@ public class MeleeWolfScript : MonoBehaviour
 
         if (_lastState != _stateMachine._currentState && _stateMachine._currentState.name == "Leap_MeleeWolf")
         {
+            //_animator.SetTrigger("Leap");
+            //StartCoroutine(LeapAnim());
             _animator.SetTrigger("Attack2");
             Leap();
+            
         }
         if (_leaping && _stateMachine._currentState.name != "Leap_MeleeWolf")
         {
@@ -81,7 +84,9 @@ public class MeleeWolfScript : MonoBehaviour
             _damageCollider.enabled = false;
             _rammyInRange = false;
             _finishedLeaping = true;
-            
+
+            //_animator.SetBool("Leaping", false);
+
         }
         if (_lastState != null)
         {
@@ -120,6 +125,14 @@ public class MeleeWolfScript : MonoBehaviour
         _damageCollider.enabled = false;
         _striking = false;
 
+    }
+
+    private IEnumerator LeapAnim()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _animator.SetBool("Leaping", true);
+        yield return new WaitForSeconds(0.5f);
+        _animator.SetTrigger("Leap2");
     }
 
     private void OnTriggerEnter(Collider other)

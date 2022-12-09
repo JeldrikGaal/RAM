@@ -149,6 +149,7 @@ public class WolfBossRangedAttack : MonoBehaviour
 
     public void ThrowBoomerang()
     {
+        _boomerang.GetComponent<Boomerang>().Wolf = gameObject;
         _startPos = _boomerang.transform.position;
         _boomerang.SetActive(true);
         _boomerang.transform.localPosition = new Vector3(0f, 1.5f, 0f);
@@ -160,6 +161,7 @@ public class WolfBossRangedAttack : MonoBehaviour
 
     public void ThrowBoomerang2()
     {
+        _boomerang2.GetComponent<Boomerang>().Wolf = gameObject;
         _startPos2 = _boomerang2.transform.position;
         _boomerang2.SetActive(true);
         _boomerang2.transform.localPosition = new Vector3(0f, 1.5f, 0f);
@@ -172,6 +174,7 @@ public class WolfBossRangedAttack : MonoBehaviour
 
     public void ThrowBoomerang3()
     {
+        _boomerang3.GetComponent<Boomerang>().Wolf = gameObject;
         _targetPos = _target.transform.position;
         _startPos3 = _boomerang3.transform.position;
         _boomerang3.SetActive(true);
