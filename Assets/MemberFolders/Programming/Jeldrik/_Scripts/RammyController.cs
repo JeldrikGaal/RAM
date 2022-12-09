@@ -214,6 +214,10 @@ public class RammyController : MonoBehaviour
         _cameraDepth = Camera.main.transform.position.z;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
+        for (int i = 0; i < _audio.Length; i++)
+        {
+            _audio[i].SetTransform(transform);
+        }
     }
     void Start()
     {
@@ -806,6 +810,7 @@ public class RammyController : MonoBehaviour
     {
         BasicAttacking = false;
         _blockMovement = false;
+        _audio[3].Play();
         StartCoroutine(BasicAttackAnimLogic());
     }
 
@@ -1058,7 +1063,7 @@ public class RammyController : MonoBehaviour
         {
             rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
-
+        
     }
 
     // Checking for any collisions Rammy encouters and reacting accordingly
@@ -1067,6 +1072,7 @@ public class RammyController : MonoBehaviour
         // Handle colliding with objects while attacking
         if (Attacking)
         {
+            _audio[1].Play();
             RamIntoObject(collision.gameObject);
         }
         // Handle colliding with objects while dashing
@@ -1283,7 +1289,7 @@ public class RammyController : MonoBehaviour
 
         // Actually apply damage
         Health -= appliedDamage;
-
+        _audio[2].Play();
 
 
 
@@ -1304,6 +1310,7 @@ public class RammyController : MonoBehaviour
         // Die if falls below 0 health
         if (Health <= 0)
         {
+            _audio[2].Play();
             Die();
         }
 

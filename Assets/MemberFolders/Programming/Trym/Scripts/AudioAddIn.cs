@@ -27,21 +27,15 @@ public class AudioAddIn
     /// </summary>
     public void Play()
     {
-        if (_attach)
-        {
-            RuntimeManager.PlayOneShotAttached(_audio, _attachTo.gameObject);
-        }
-        else
-        {
-            RuntimeManager.PlayOneShot(_audio,_transform.position);
-        }
+        Play(null);
+        
     }
 
     /// <summary>
     /// Plays The audio in accordance with settings and params
     /// </summary>
     /// <param name="paramRefs">Params</param>
-    public void Play(ParamRef[] paramRefs)
+    public void Play((string name, float value)[] paramRefs)
     {
         EventInstance instance = RuntimeManager.CreateInstance(_audio);
         if (_attach)
@@ -52,12 +46,17 @@ public class AudioAddIn
         {
             instance.set3DAttributes(RuntimeUtils.To3DAttributes(_transform));
         }
-        
 
-        foreach (var paramRef in paramRefs)
+        instance.setVolume(_volume);
+
+        if (paramRefs != null)
         {
-            instance.setParameterByName(paramRef.Name, paramRef.Value);
+            foreach (var paramRef in paramRefs)
+            {
+                instance.setParameterByName(paramRef.name, paramRef.value);
+            }
         }
+        
         instance.start();
         instance.release();
         
