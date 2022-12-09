@@ -115,6 +115,7 @@ public class Ability4 : Abilities
     }
     override public void Activate()
     {
+        _audio.Play();
         if (_stage < 1)
         {
             _startTime = Time.time;

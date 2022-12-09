@@ -17,6 +17,7 @@ public class CutsceneVideo : MonoBehaviour
 
     [SerializeField] private AudioClip _levelAudio;
 
+    [SerializeField] private PauseGame _pauseGame;
 
     private float _defaultSpeed;
 
@@ -80,6 +81,9 @@ public class CutsceneVideo : MonoBehaviour
         // Enables the HUD
         _hud.SetActive(true);
 
+        // Enable pausing after cutscene
+        if(_pauseGame != null) _pauseGame.AllowPause = true;
+
         // Unblocks rammy
         _player.GetComponent<RammyController>().BLOCKEVERYTHINGRAMMY = false;
 
@@ -94,6 +98,8 @@ public class CutsceneVideo : MonoBehaviour
         // Checks if it collided with the player
         if (other.tag == "Player")
         {
+            // Disallows pausing during cutscene
+            if(_pauseGame != null) _pauseGame.AllowPause = false;
             // Disables the HUD
             _hud.SetActive(false);
             // Saves the player object
