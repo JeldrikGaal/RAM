@@ -773,6 +773,12 @@ public class RammyController : MonoBehaviour
             _blockMovement = true;
             StopWalking();
 
+            _savedRotation = transform.rotation;
+
+            // Making rammy attack in mouse direction
+            transform.up = _lookingAtMouseRotation;
+            transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
             //SetAnimationTrigger("BasicAttack");
 
             foreach (GameObject g in _frontCheck._objectsInCollider)
@@ -782,7 +788,7 @@ public class RammyController : MonoBehaviour
                     if (TagManager.HasTag(g, "enemy"))
                     {
                         _rammyVFX.NormalAttack(g);
-                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier,transform.forward))
+                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier,transform.up))
                         {
                             Kill(g);
                         }
@@ -800,6 +806,7 @@ public class RammyController : MonoBehaviour
     {
         BasicAttacking = false;
         _blockMovement = false;
+        transform.rotation = _savedRotation;
     }
     #endregion
 
