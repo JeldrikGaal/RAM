@@ -16,6 +16,7 @@ public class Ability3 : Abilities
     private float _baseSpeed;
 
     [SerializeField] private GameObject _testObject;
+    [SerializeField] private GameObject _smokeParticle;
 
     // public Dictionary<Vector3, bool> PointList = new Dictionary<Vector3, bool>();
 
@@ -33,6 +34,9 @@ public class Ability3 : Abilities
     }
     override public void Activate()
     {
+        // Sets particle to happen
+        _smokeParticle.SetActive(true);
+
         // Clear the list of enemies
         EnemyList.Clear();
 
