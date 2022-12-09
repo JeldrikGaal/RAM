@@ -16,10 +16,13 @@ public class PauseGame : MonoBehaviour
     
     private static bool _paused = false;
 
+    [HideInInspector] public bool AllowPause;
+
     #region most of Input
     RammyInputActions _inputs;
     private void Start()
     {
+        AllowPause = true;
         _inputs = new RammyInputActions();
         _inputs.UI.Pause.Enable();
         _inputs.UI.Pause.performed += Toggle;
@@ -32,6 +35,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     private void Toggle(CallbackContext context)
     {
+        if (!AllowPause) return;
         if (_paused)
         {
             UnPause();
