@@ -11,9 +11,12 @@ public abstract class Abilities : MonoBehaviour
     private bool _started;
 
     public RammyController _controller;
+    [Sirenix.OdinInspector.BoxGroup]
+    [SerializeField] protected AudioAddIn _audio;
 
     public virtual void Start()
     {
+        _audio.SetTransform(transform);
         _controller = GetComponent<RammyController>();
     }
 
