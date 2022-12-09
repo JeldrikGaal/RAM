@@ -155,6 +155,8 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float _freezeScaleHit;
     [SerializeField] private float _freezeTimeHit;
 
+    [SerializeField] private ParticleSystem _trailVFX;
+
     // Help variables for various purposes
     private Plane _groundPlane = new(Vector3.up, new Vector3(0, 20, 0));
     private Vector3 _mouseWorldPosition;
@@ -190,7 +192,8 @@ public class RammyController : MonoBehaviour
     [SerializeField] RammyAttack _basicAttackValues;
     [SerializeField] bool _loadData = true;
 
-
+    // Audio
+    [SerializeField] AudioAddIn[] _audio;
     // Animation 
     private bool _walkingAnim;
 
@@ -203,6 +206,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject _debuggingCanvas;
     [SerializeField] private TMP_Text _debuggingText;
     [SerializeField] private bool dashInWalkDireciton = false;
+    [SerializeField] private bool basicAttackInWalkDireciton = false;
     public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
@@ -213,6 +217,10 @@ public class RammyController : MonoBehaviour
         _cameraDepth = Camera.main.transform.position.z;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
+        for (int i = 0; i < _audio.Length; i++)
+        {
+            _audio[i].SetTransform(transform);
+        }
     }
     void Start()
     {
@@ -346,6 +354,12 @@ public class RammyController : MonoBehaviour
         }
         else
         {
+            if (_frameCounterRightMouseButton == 0 && _chargeAttackAllowed)
+            {
+                _audio[0].Clear();
+                _audio[0].Play(new[] { (name: "Charge", value: 0f) });
+            }
+            
             _frameCounterRightMouseButtonSave = 0;
             _frameCounterRightMouseButton += Time.deltaTime;
             _lastFrameRightMouseButton = true;
@@ -398,9 +412,10 @@ public class RammyController : MonoBehaviour
         {
             _animator.SetTrigger("stopWalking");
             _walkingAnim = false;
+            _trailVFX.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             //Debug.Log("STOP");
         }
-        
+
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
@@ -409,6 +424,7 @@ public class RammyController : MonoBehaviour
             int baseRotation = 135;
             if (Walking && !_walkingAnim)
             {
+                _trailVFX.Play();
                 _animator.SetTrigger("startWalking");
                 _walkingAnim = true;
                 //Debug.Log("START");
@@ -707,7 +723,7 @@ public class RammyController : MonoBehaviour
             Health = MaxHealth;
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             if (_capsuleCollider.enabled)
             {
@@ -772,7 +788,17 @@ public class RammyController : MonoBehaviour
             _blockMovement = true;
             StopWalking();
 
-            //SetAnimationTrigger("BasicAttack");
+            _savedRotation = transform.rotation;
+
+            if (!basicAttackInWalkDireciton)
+            {
+                // Making rammy attack in mouse direction
+                transform.up = _lookingAtMouseRotation;
+                transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            }
+
+
+            SetAnimationTrigger("BasicAttack");
 
             foreach (GameObject g in _frontCheck._objectsInCollider)
             {
@@ -781,7 +807,7 @@ public class RammyController : MonoBehaviour
                     if (TagManager.HasTag(g, "enemy"))
                     {
                         _rammyVFX.NormalAttack(g);
-                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier,transform.forward))
+                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier,transform.up))
                         {
                             Kill(g);
                         }
@@ -799,6 +825,15 @@ public class RammyController : MonoBehaviour
     {
         BasicAttacking = false;
         _blockMovement = false;
+        _audio[3].Play();
+        StartCoroutine(BasicAttackAnimLogic());
+        if (!basicAttackInWalkDireciton) StartCoroutine(BasicAttackAnimLogic());
+    }
+
+    IEnumerator BasicAttackAnimLogic()
+    {
+        yield return new WaitForSeconds(0.2f);
+        transform.rotation = _savedRotation;
     }
     #endregion
 
@@ -824,6 +859,7 @@ public class RammyController : MonoBehaviour
     {
         if (!Attacking && _chargeAttackAllowed)
         {
+            _audio[0].ModifyParams(new[] { (name: "Charge", value: 51f) },true);
             Attacking = true;
             _startTimeChargeAttack = Time.time;
 
@@ -1044,7 +1080,7 @@ public class RammyController : MonoBehaviour
         {
             rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
-
+        
     }
 
     // Checking for any collisions Rammy encouters and reacting accordingly
@@ -1053,6 +1089,7 @@ public class RammyController : MonoBehaviour
         // Handle colliding with objects while attacking
         if (Attacking)
         {
+            _audio[1].Play();
             RamIntoObject(collision.gameObject);
         }
         // Handle colliding with objects while dashing
@@ -1269,7 +1306,7 @@ public class RammyController : MonoBehaviour
 
         // Actually apply damage
         Health -= appliedDamage;
-
+        _audio[2].Play();
 
 
 
@@ -1290,6 +1327,7 @@ public class RammyController : MonoBehaviour
         // Die if falls below 0 health
         if (Health <= 0)
         {
+            _audio[2].Play();
             Die();
         }
 

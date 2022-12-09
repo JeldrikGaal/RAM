@@ -75,8 +75,8 @@ public class SpawnRocks : MonoBehaviour
             _currentPos = Vector3.Lerp(_rockParent.transform.localPosition, new Vector3(_length + _rockParent.transform.localPosition.x, _rockParent.transform.localPosition.y, _rockParent.transform.localPosition.z), _timer / _maxTime);
             _rockParent.transform.parent = null;
             _timer += Time.deltaTime;
-            // After the rock effect:
         }
+        // After the rock effect:
         else if (_moving && _timer > _maxTime)
         {
             _moving = false;

@@ -16,6 +16,7 @@ public class Ability3 : Abilities
     private float _baseSpeed;
 
     [SerializeField] private GameObject _testObject;
+    [SerializeField] private GameObject _smokeParticle;
 
     // public Dictionary<Vector3, bool> PointList = new Dictionary<Vector3, bool>();
 
@@ -33,6 +34,9 @@ public class Ability3 : Abilities
     }
     override public void Activate()
     {
+        // Sets particle to happen
+        _smokeParticle.SetActive(true);
+
         // Clear the list of enemies
         EnemyList.Clear();
 
@@ -47,6 +51,8 @@ public class Ability3 : Abilities
         // Local transform list
         List<Transform> enemyTransforms = new List<Transform>();
 
+        
+        _audio.Play();
 
         // Checks all the colliders and adds the ones with the enemy tag to the list
         foreach (Collider col in hitColliders)

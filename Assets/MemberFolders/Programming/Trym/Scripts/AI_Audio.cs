@@ -10,7 +10,13 @@ public class AI_Audio : StateBlock
 {
     enum StartIn {Update, End, ExecuteManually}
     [SerializeField] EventReference _audioEvent;
+    //[ParamRef]
+    [SerializeField] ParamRef param;
+    
+    
     [SerializeField] Vector3 _positionMod;
+    [Tooltip("follows the AI")]
+    [SerializeField] bool _attached;
     [SerializeField] StartIn _startIn;
     [HideIf(nameof(_startIn),StartIn.End)]
     [SerializeField] bool _repeat;
@@ -20,23 +26,29 @@ public class AI_Audio : StateBlock
     enum RepeatMode {Movement,Time}
     [ShowIf(nameof(_repeat), true)]
     [SerializeField] RepeatMode _repeatMode;
-    [ShowIf(nameof(_repeat), true)]
-    [ShowIf(nameof(_repeatMode), RepeatMode.Time)]
+    
+    [ShowIf("@this._repeatMode == RepeatMode.Time && this._repeat")]
     [SerializeField] float _intervalInSeconds;
-    [ShowIf(nameof(_repeat), true)]
-    [ShowIf(nameof(_repeatMode), RepeatMode.Movement)]
+    
+    [ShowIf("@this._repeat && this._repeatMode == RepeatMode.Movement")]
     [SerializeField] float _movementInterval;
+
+    FMOD.Studio.EventDescription eventDescription;
 
     private readonly Dictionary<(int id, int instance),bool> _usersWithInstances = new();
     private readonly Dictionary<int, List<int>> _instancesByUsers = new();
     public override void OnEnd(EnemyController user, GameObject target)
     {
-        
         var id = user.GetInstanceID();
-        var instance = _instancesByUsers[id][0];
-        _usersWithInstances[(id,instance)] = false;
-        _usersWithInstances.Remove((id, instance));
-        _instancesByUsers[id].RemoveAt(0);
+        if (_instancesByUsers[id].Count>0)
+        {
+            var instance = _instancesByUsers[id][0];
+            _usersWithInstances[(id, instance)] = false;
+            _usersWithInstances.Remove((id, instance));
+            _instancesByUsers[id].RemoveAt(0); 
+        }
+
+
         if (_startIn == StartIn.End)
         {
             Play(user);
@@ -51,14 +63,16 @@ public class AI_Audio : StateBlock
         {
             _repeat = false;
         }
-        if (_repeat && _instancesByUsers[user.GetInstanceID()] == null)
+        if (!_instancesByUsers.ContainsKey(user.GetInstanceID()))
         {
-            _instancesByUsers[user.GetInstanceID()] = new();
+            _instancesByUsers.Add(user.GetInstanceID(), new List<int>());
         }
 
-       
+        Debug.Log(user.GetInstanceID());
+        Debug.Log("also: " + GetInstanceID());
         
-        
+
+
     }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
@@ -66,19 +80,31 @@ public class AI_Audio : StateBlock
         
         if (_startIn == StartIn.Update)
         {
+            Debug.Log("Update Running");
             int id = user.GetInstanceID();
-            if (!_runOnlyOnce || _instancesByUsers[id].Count > 0)
+            if (!_runOnlyOnce || _instancesByUsers[id].Count < 1)
             {
+                Debug.Log("One Instance");
                 Run(user);
             }
+            Debug.Log("Instances: " + _instancesByUsers[id].Count);
         }
        
         return (null, null);
     }
     private void Play(EnemyController user)
     {
+        if (_attached)
+        {
+            RuntimeManager.PlayOneShotAttached(_audioEvent, user.gameObject);
+        }
+        else
+        {
+            RuntimeManager.PlayOneShot(_audioEvent, user.transform.position + (user.transform.rotation * _positionMod));
+        }
         
-        RuntimeManager.PlayOneShot(_audioEvent, user.transform.position + _positionMod);
+        
+        Debug.Log("Played");
     }
 
     public void PlayAudio(EnemyController user)
@@ -100,6 +126,7 @@ public class AI_Audio : StateBlock
 
         _usersWithInstances.Add((id, count), true);
         _instancesByUsers[id].Add(count);
+        Debug.Log("Run Ran");
     }
 
     private IEnumerator RunRepeatingTime(EnemyController user,int instance)
@@ -130,7 +157,7 @@ public class AI_Audio : StateBlock
             yield return new WaitForEndOfFrame();
         }
         
-
+        
     }
 
 
@@ -156,7 +183,7 @@ public class AI_Audio : StateBlock
 
 
 
-
+    
 
 
 }

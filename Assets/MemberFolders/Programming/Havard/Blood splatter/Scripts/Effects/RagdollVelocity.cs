@@ -28,6 +28,8 @@ public class RagdollVelocity : MonoBehaviour
                 child.GetComponent<Rigidbody>().velocity = finalVelocity;
             }
         }
+
+        Invoke("StopThis", 10);
     }
 
     // Simple function that randomizes Vector3's.
@@ -36,6 +38,11 @@ public class RagdollVelocity : MonoBehaviour
         return new Vector3(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
     }
 
+    public void StopThis()
+    {
+        _static = true;
+        Invoke("SetQuiet", 0.5f);
+    }
     private void Update()
     {
         // Here we freeze everything when it stops.
