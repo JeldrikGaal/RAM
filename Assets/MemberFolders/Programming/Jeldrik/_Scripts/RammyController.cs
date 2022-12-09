@@ -779,7 +779,7 @@ public class RammyController : MonoBehaviour
             transform.up = _lookingAtMouseRotation;
             transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
 
-            //SetAnimationTrigger("BasicAttack");
+            SetAnimationTrigger("BasicAttack");
 
             foreach (GameObject g in _frontCheck._objectsInCollider)
             {
@@ -806,6 +806,12 @@ public class RammyController : MonoBehaviour
     {
         BasicAttacking = false;
         _blockMovement = false;
+        StartCoroutine(BasicAttackAnimLogic());
+    }
+
+    IEnumerator BasicAttackAnimLogic()
+    {
+        yield return new WaitForSeconds(0.2f);
         transform.rotation = _savedRotation;
     }
     #endregion
