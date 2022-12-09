@@ -61,6 +61,7 @@ public class PauseGame : MonoBehaviour
         Cursor.visible = true;
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
+        _pauseMenuContent.GetComponent<Animator>().SetTrigger("OpenMenu");
         _settingsMenu.SetActive(true);
         //_settingsMenu.GetComponent<Animator>().SetTrigger("CloseOptionsPanel");
         _paused = true;
@@ -77,7 +78,7 @@ public class PauseGame : MonoBehaviour
         Cursor.visible = false;
         _settingsMenu.SetActive(false);
         Time.timeScale = 1;
-        _pauseMenu.SetActive(false);
+        _pauseMenuContent.GetComponent<Animator>().SetTrigger("CloseMenu");
         _paused = false;
         if (_ingameUi) _ingameUi.SetActive(true);
         OnPausedEventHandler(false);

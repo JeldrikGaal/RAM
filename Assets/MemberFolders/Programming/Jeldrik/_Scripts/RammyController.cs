@@ -204,6 +204,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private GameObject _debuggingCanvas;
     [SerializeField] private TMP_Text _debuggingText;
     [SerializeField] private bool dashInWalkDireciton = false;
+    [SerializeField] private bool basicAttackInWalkDireciton = false;
     public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
@@ -779,9 +780,13 @@ public class RammyController : MonoBehaviour
 
             _savedRotation = transform.rotation;
 
-            // Making rammy attack in mouse direction
-            transform.up = _lookingAtMouseRotation;
-            transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            if (!basicAttackInWalkDireciton)
+            {
+                // Making rammy attack in mouse direction
+                transform.up = _lookingAtMouseRotation;
+                transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            }
+
 
             SetAnimationTrigger("BasicAttack");
 
@@ -812,6 +817,7 @@ public class RammyController : MonoBehaviour
         _blockMovement = false;
         _audio[3].Play();
         StartCoroutine(BasicAttackAnimLogic());
+        if (!basicAttackInWalkDireciton) StartCoroutine(BasicAttackAnimLogic());
     }
 
     IEnumerator BasicAttackAnimLogic()

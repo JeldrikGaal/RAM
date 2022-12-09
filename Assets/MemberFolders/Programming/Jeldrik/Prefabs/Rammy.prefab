@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 1080273354}
   - component: {fileID: 1080273353}
   - component: {fileID: 1080273352}
+  - component: {fileID: 1267185705631489389}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -517,6 +518,32 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _hitLayer: 10
+--- !u!114 &1267185705631489389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080273350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7998b8e106b8c499a9fb237a788de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audio:
+    _audio:
+      Guid:
+        Data1: 2073608463
+        Data2: 1109189285
+        Data3: 61681598
+        Data4: 2079060776
+      Path: event:/SFX/Character/Player/Player Footsteps
+    _volume: 0.2
+    _attach: 0
+    _attachTo: {fileID: 0}
+  _defaultSurface: 1
+  _stepMinTimeGlobal: 0.3
+  _stepMinTime: 0.6
 --- !u!1 &1099257557
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,6 +916,7 @@ GameObject:
   - component: {fileID: 1825799284}
   - component: {fileID: 1825799283}
   - component: {fileID: 1825799282}
+  - component: {fileID: 4931328767234971843}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1002,6 +1030,32 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _hitLayer: 10
+--- !u!114 &4931328767234971843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825799280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7998b8e106b8c499a9fb237a788de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audio:
+    _audio:
+      Guid:
+        Data1: 2073608463
+        Data2: 1109189285
+        Data3: 61681598
+        Data4: 2079060776
+      Path: event:/SFX/Character/Player/Player Footsteps
+    _volume: 0.2
+    _attach: 0
+    _attachTo: {fileID: 0}
+  _defaultSurface: 1
+  _stepMinTimeGlobal: 0.3
+  _stepMinTime: 0.6
 --- !u!1 &2128703293
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,7 +2131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4974556003414828854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4399987, z: -0}
+  m_LocalPosition: {x: 0, y: 1.22, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2095,8 +2149,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.0813935, z: 1}
-  m_Center: {x: 0, y: 0.4677383, z: 0.00000015166262}
+  m_Size: {x: 1.2205505, y: 1.518911, z: 1.9008387}
+  m_Center: {x: 0.011428833, y: 0.21875882, z: -0.4504195}
 --- !u!114 &1024294334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,7 +2309,7 @@ Transform:
   - {fileID: 1782996662654093899}
   - {fileID: 7958342579762527557}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -2437,6 +2491,7 @@ MonoBehaviour:
   _debuggingCanvas: {fileID: 2625187385646930936}
   _debuggingText: {fileID: 3338213435766649371}
   dashInWalkDireciton: 1
+  basicAttackInWalkDireciton: 0
   BLOCKEVERYTHINGRAMMY: 0
 --- !u!114 &457729207004813281
 MonoBehaviour:
@@ -4210,6 +4265,14 @@ PrefabInstance:
     - target: {fileID: 6327669202030677497, guid: e03642001cc31ed4f88e1fb4da4cc792, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327669202602099178, guid: e03642001cc31ed4f88e1fb4da4cc792, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327669203560740378, guid: e03642001cc31ed4f88e1fb4da4cc792, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6327669202602099179, guid: e03642001cc31ed4f88e1fb4da4cc792, type: 3}
