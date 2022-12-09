@@ -155,6 +155,8 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float _freezeScaleHit;
     [SerializeField] private float _freezeTimeHit;
 
+    [SerializeField] private ParticleSystem _trailVFX;
+
     // Help variables for various purposes
     private Plane _groundPlane = new(Vector3.up, new Vector3(0, 20, 0));
     private Vector3 _mouseWorldPosition;
@@ -410,9 +412,10 @@ public class RammyController : MonoBehaviour
         {
             _animator.SetTrigger("stopWalking");
             _walkingAnim = false;
+            _trailVFX.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             //Debug.Log("STOP");
         }
-        
+
         // Checking if player is allowed to move and if so adjust Rigidbody velocity according to input. Additionally turn the player in the direction its walking
         if (!_blockMovement)
         {
@@ -421,6 +424,7 @@ public class RammyController : MonoBehaviour
             int baseRotation = 135;
             if (Walking && !_walkingAnim)
             {
+                _trailVFX.Play();
                 _animator.SetTrigger("startWalking");
                 _walkingAnim = true;
                 //Debug.Log("START");
