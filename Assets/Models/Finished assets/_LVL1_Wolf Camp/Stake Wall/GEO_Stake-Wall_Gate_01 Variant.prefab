@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: db487b64e6728764aa54ed0ab72129cf, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db487b64e6728764aa54ed0ab72129cf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,8 +58,39 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: fd35f451c0a9fda4f88fddc28d163870, type: 2}
     - target: {fileID: 919132149155446097, guid: db487b64e6728764aa54ed0ab72129cf, type: 3}
       propertyPath: m_Name
-      value: GEO_Stake-Wall_Gate_01
+      value: GEO_Stake-Wall_Gate_01 Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: db487b64e6728764aa54ed0ab72129cf, type: 3}
+--- !u!1 &864741312803473563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: db487b64e6728764aa54ed0ab72129cf, type: 3}
+  m_PrefabInstance: {fileID: 54399942227965386}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &173251816930678512
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864741312803473563}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0014033, y: 1.5975641, z: 4.260172}
+  m_Center: {x: 1.9180543, y: -0.32322752, z: 2.1157985}
+--- !u!65 &1669602304094322892
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864741312803473563}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9698839, y: 1.5975641, z: 4.260172}
+  m_Center: {x: -2.0004325, y: -0.32322752, z: 2.1157985}
