@@ -27,11 +27,12 @@ public class Ability2 : Abilities
     }
     IEnumerator Attack()
     {
+
         _controller.SetAnimationTrigger("Ability2");
 
         //Waiting time for the initial phase
         yield return new WaitForSeconds(0.25f);
-
+        _audio.Play();
         //Plays the ground smoke and screen shake
         _groundSmokeVFX.SetActive(true);
         GetComponent<RammyController>().AddScreenShake(1.2f);

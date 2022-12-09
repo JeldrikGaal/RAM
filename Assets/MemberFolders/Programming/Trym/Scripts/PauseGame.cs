@@ -16,10 +16,13 @@ public class PauseGame : MonoBehaviour
     
     private static bool _paused = false;
 
+    [HideInInspector] public bool AllowPause;
+
     #region most of Input
     RammyInputActions _inputs;
     private void Start()
     {
+        AllowPause = true;
         _inputs = new RammyInputActions();
         _inputs.UI.Pause.Enable();
         _inputs.UI.Pause.performed += Toggle;
@@ -32,6 +35,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     private void Toggle(CallbackContext context)
     {
+        if (!AllowPause) return;
         if (_paused)
         {
             UnPause();
@@ -54,9 +58,10 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void Pause()
     {
-        print("pausecur");
+        Cursor.visible = true;
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
+        _pauseMenuContent.GetComponent<Animator>().SetTrigger("OpenMenu");
         _settingsMenu.SetActive(true);
         //_settingsMenu.GetComponent<Animator>().SetTrigger("CloseOptionsPanel");
         _paused = true;
@@ -70,9 +75,10 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void UnPause()
     {
+        Cursor.visible = false;
         _settingsMenu.SetActive(false);
         Time.timeScale = 1;
-        _pauseMenu.SetActive(false);
+        _pauseMenuContent.GetComponent<Animator>().SetTrigger("CloseMenu");
         _paused = false;
         if (_ingameUi) _ingameUi.SetActive(true);
         OnPausedEventHandler(false);
