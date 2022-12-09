@@ -65,6 +65,8 @@ public class RammyVFX : MonoBehaviour
     [Header("Blood variations")]
     [SerializeField] private Material[] _bloodVariations;
     [SerializeField] private Material[] _blueBloodVariations;
+    [SerializeField] private Material[] _bloodProjectileVariations;
+    [SerializeField] private Material[] _blueBloodProjectileVariations;
 
     #region blood and gore settings for each ability
 
@@ -217,8 +219,8 @@ public class RammyVFX : MonoBehaviour
         {
             SpawnGore(_goreValuesRam[0], _skullObject, enemy, _skullArray);
             SpawnGore(_goreValuesRam[1], _heartObject, enemy, _heartArray);
-            SpawnGore(_goreValuesRam[2], _intestineObject, enemy);
-            SpawnGore(_goreValuesRam[3], _spineObject, enemy);
+            SpawnGore(_goreValuesRam[2], _intestineObject, enemy, _intestineArray);
+            SpawnGore(_goreValuesRam[3], _spineObject, enemy, _spineArray);
             SpawnGore(_goreValuesRam[4], _brainObject, enemy, _brainArray);
             SpawnGore(_goreValuesRam[5], _eyeballObject, enemy, _eyeballArray);
             SpawnGore(_goreValuesRam[6], _meatPrefabs[0], enemy, _meatArray);
@@ -244,11 +246,29 @@ public class RammyVFX : MonoBehaviour
         {
             SpawnGore(_goreValuesAb1[0], _skullObject, enemy, _skullArray, dir);
             SpawnGore(_goreValuesAb1[1], _heartObject, enemy, _heartArray, dir);
-            SpawnGore(_goreValuesAb1[2], _intestineObject, enemy, null, dir);
-            SpawnGore(_goreValuesAb1[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb1[2], _intestineObject, enemy, _intestineArray, dir);
+            SpawnGore(_goreValuesAb1[3], _spineObject, enemy, _spineArray, dir);
             SpawnGore(_goreValuesAb1[4], _brainObject, enemy, _brainArray, dir);
             SpawnGore(_goreValuesAb1[5], _eyeballObject, enemy, _eyeballArray, dir);
             SpawnGore(_goreValuesAb1[6], _meatPrefabs[0], enemy, _meatArray, dir);
+        }
+    }
+
+    public void Ab2Attack(GameObject enemy)
+    {
+        var dir = (enemy.transform.position - transform.position).normalized;
+
+        SpawnBlood(_bloodSizeMinAb2, _bloodSizeMaxAb2, _bloodSpreadAb2, _heightAngleAb2, _bloodAmountAb2, _bloodForceMinAb2, _bloodForceMaxAb2, enemy, dir);
+
+        if (enemy.GetComponent<EnemyController>().Health <= 0)
+        {
+            SpawnGore(_goreValuesAb2[0], _skullObject, enemy, _skullArray, dir);
+            SpawnGore(_goreValuesAb2[1], _heartObject, enemy, _heartArray, dir);
+            SpawnGore(_goreValuesAb2[2], _intestineObject, enemy, _intestineArray, dir);
+            SpawnGore(_goreValuesAb2[3], _spineObject, enemy, _spineArray, dir);
+            SpawnGore(_goreValuesAb2[4], _brainObject, enemy, _brainArray, dir);
+            SpawnGore(_goreValuesAb2[5], _eyeballObject, enemy, _eyeballArray, dir);
+            SpawnGore(_goreValuesAb2[6], _meatPrefabs[0], enemy, _meatArray, dir);
         }
     }
 
@@ -262,8 +282,8 @@ public class RammyVFX : MonoBehaviour
         {
             SpawnGore(_goreValuesAb3[0], _skullObject, enemy, _skullArray, dir);
             SpawnGore(_goreValuesAb3[1], _heartObject, enemy, _heartArray, dir);
-            SpawnGore(_goreValuesAb3[2], _intestineObject, enemy, null, dir);
-            SpawnGore(_goreValuesAb3[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb3[2], _intestineObject, enemy, _intestineArray, dir);
+            SpawnGore(_goreValuesAb3[3], _spineObject, enemy, _spineArray, dir);
             SpawnGore(_goreValuesAb3[4], _brainObject, enemy, _brainArray, dir);
             SpawnGore(_goreValuesAb3[5], _eyeballObject, enemy, _eyeballArray, dir);
             SpawnGore(_goreValuesAb3[6], _meatPrefabs[0], enemy, _meatArray, dir);
@@ -281,8 +301,8 @@ public class RammyVFX : MonoBehaviour
         {
             SpawnGore(_goreValuesAb4[0], _skullObject, enemy, _skullArray, dir);
             SpawnGore(_goreValuesAb4[1], _heartObject, enemy, _heartArray, dir);
-            SpawnGore(_goreValuesAb4[2], _intestineObject, enemy, null, dir);
-            SpawnGore(_goreValuesAb4[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb4[2], _intestineObject, enemy, _intestineArray, dir);
+            SpawnGore(_goreValuesAb4[3], _spineObject, enemy, _spineArray, dir);
             SpawnGore(_goreValuesAb4[4], _brainObject, enemy, _brainArray, dir);
             SpawnGore(_goreValuesAb4[5], _eyeballObject, enemy, _eyeballArray, dir);
             SpawnGore(_goreValuesAb4[6], _meatPrefabs[0], enemy, _meatArray, dir);
@@ -300,8 +320,8 @@ public class RammyVFX : MonoBehaviour
 
             SpawnGore(_goreValuesAb5[0], _skullObject, enemy, _skullArray, dir);
             SpawnGore(_goreValuesAb5[1], _heartObject, enemy, _heartArray, dir);
-            SpawnGore(_goreValuesAb5[2], _intestineObject, enemy, null, dir);
-            SpawnGore(_goreValuesAb5[3], _spineObject, enemy, null, dir);
+            SpawnGore(_goreValuesAb5[2], _intestineObject, enemy, _intestineArray, dir);
+            SpawnGore(_goreValuesAb5[3], _spineObject, enemy, _spineArray, dir);
             SpawnGore(_goreValuesAb5[4], _brainObject, enemy, _brainArray, dir);
             SpawnGore(_goreValuesAb5[5], _eyeballObject, enemy, _eyeballArray, dir);
             SpawnGore(_goreValuesAb5[6], _meatPrefabs[0], enemy, _meatArray, dir);
@@ -319,6 +339,13 @@ public class RammyVFX : MonoBehaviour
         {
             var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position += _spawnHeightOffset * Vector3.up, Quaternion.Euler(new Vector3(0, 0, 0)));
             _bloodPrefab.transform.localScale *= Random.Range(bloodSizeMin, bloodSizeMax);
+            if (!IsBlue)
+            {
+                _bloodPrefab.transform.GetChild(0).GetComponent<Renderer>().material = _bloodProjectileVariations[Random.Range(0, _bloodProjectileVariations.Length)];
+            } else if (IsBlue)
+            {
+                _bloodPrefab.transform.GetChild(0).GetComponent<Renderer>().material = _blueBloodProjectileVariations[Random.Range(0, _blueBloodProjectileVariations.Length)];
+            }
 
 
             // Here we're inserting some settings to change and calculate the direction the blood should move in.
@@ -387,10 +414,28 @@ public class RammyVFX : MonoBehaviour
                     if (gorePiece.GetComponent<RagdollVelocity>())
                     {
                         // This will only affect the ragdolls
+
+                        /*
+                        Transform[] allChildren = gorePiece.GetComponentsInChildren<Transform>();
+                        foreach (Transform child in allChildren)
+                        {
+                            if (child.GetComponent<CapsuleCollider>())
+                            {
+                                child.GetComponent<CapsuleCollider>().enabled = true;
+                            }
+                            if (child.GetComponent<Rigidbody>())
+                            {
+                                child.GetComponent<Rigidbody>().isKinematic = false;
+                            }
+
+                        }
+                        gorePiece.GetComponent<RagdollVelocity>().Quiet = false;*/
+
+                        Destroy(gorePiece);
+                        gorePiece = Instantiate(spawnObject, enemy.transform.position, Quaternion.Euler(0, 0, 0));
                     }
                     else
                     {
-                        print("rerun");
                         // This resets all the components
                         gorePiece.GetComponent<Rigidbody>().isKinematic = false;
                         gorePiece.GetComponent<Collider>().enabled = true;
@@ -412,6 +457,7 @@ public class RammyVFX : MonoBehaviour
             // Here we check if it has the ragdoll script. If it does, we add the settings to that instead of the rigidbody velocity script.
             if (gorePiece.GetComponent<RagdollVelocity>())
             {
+                gorePiece.transform.rotation = Quaternion.Euler(Random.Range(0,360), Random.Range(0, 360), Random.Range(0, 360));
                 var gorePieceVel = gorePiece.GetComponent<RagdollVelocity>();
 
                 Vector3 bloodDir1;

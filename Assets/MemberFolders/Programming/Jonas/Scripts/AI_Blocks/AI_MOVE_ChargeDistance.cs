@@ -12,6 +12,7 @@ public class AI_MOVE_ChargeDistance : StateBlock
 
     private Dictionary<EnemyController, Vector3> _moveDir;
     private Dictionary<EnemyController, Vector3> _startPos;
+    private Dictionary<EnemyController, float> _backupTimer;
 
     private List<float> _returnList;
 
@@ -22,10 +23,12 @@ public class AI_MOVE_ChargeDistance : StateBlock
 
         if (_moveDir == null) _moveDir = new Dictionary<EnemyController, Vector3>();
         if (_startPos == null) _startPos = new Dictionary<EnemyController, Vector3>();
+        if (_backupTimer == null) _backupTimer = new Dictionary<EnemyController, float>();
 
         Vector3 moveDir = (target.transform.position - user.transform.position).normalized;
         _moveDir[user] = new Vector3(moveDir.x, 0, moveDir.z);
         _startPos[user] = user.transform.position;
+        _backupTimer[user] = 2f;
     }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
@@ -34,7 +37,8 @@ public class AI_MOVE_ChargeDistance : StateBlock
 
         user.MoveInput += _moveDir[user] * _weight;
 
-        if (_asTimer)
+        _backupTimer[user] -= Time.deltaTime;
+        if (_asTimer && _backupTimer[user] > 0)
             return (null, _returnList);
 
         return (null, null);
@@ -44,5 +48,6 @@ public class AI_MOVE_ChargeDistance : StateBlock
     {
         _moveDir.Remove(user);
         _startPos.Remove(user);
+        _backupTimer.Remove(user);
     }
 }

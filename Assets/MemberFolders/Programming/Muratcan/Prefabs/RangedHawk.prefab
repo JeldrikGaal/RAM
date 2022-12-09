@@ -96,19 +96,20 @@ GameObject:
   - component: {fileID: 4215642861261797201}
   - component: {fileID: 4215642861261797200}
   - component: {fileID: 4215642861261797203}
-  - component: {fileID: 5510880858692148509}
   - component: {fileID: 4215642861261797213}
   - component: {fileID: 4215642861261797193}
   - component: {fileID: 4215642861261797192}
   - component: {fileID: 4215642861261797195}
   - component: {fileID: 4215642861261797194}
+  - component: {fileID: 1404079501302246785}
+  - component: {fileID: 4809088216915577992}
   m_Layer: 20
   m_Name: RangedHawk
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4215642861261797207
 Transform:
   m_ObjectHideFlags: 0
@@ -210,21 +211,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &5510880858692148509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4215642861261797212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveInput: {x: 0, y: 0, z: 0}
-  MoveSpeed: 8
-  AttackDamage: 3
 --- !u!114 &4215642861261797213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +304,58 @@ MonoBehaviour:
   - {fileID: 5771622513606528860}
   _ammo: 3
   _shootSpeed: 1500
+  damage: 1.5
+--- !u!95 &1404079501302246785
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4215642861261797212}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4809088216915577992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4215642861261797212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveInput: {x: 0, y: 0, z: 0}
+  MoveSpeed: 8
+  AttackDamage: 3
+  MaxHealth: 0
+  Health: 0
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  Pulled: 0
+  _bloodSmoke: {fileID: 0}
+  _bloodSize: 1
 --- !u!1 &5771622512889912815
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,8 +887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8224c7842caad4b8f5c03d6c578e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
-  _lingerTime: 2
+  _dmgWeight: 0
 --- !u!1 &7975388498404249801
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,8 +999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8224c7842caad4b8f5c03d6c578e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
-  _lingerTime: 0.2
+  _dmgWeight: 0
 --- !u!1001 &1354602502907070386
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,9 +16,12 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{_damage} dealt to {other.name}");
-        gameObject.SetActive(false);
+        print(other.gameObject.name);
+        if (other.gameObject.HasTag("Player"))
+        {
+            other.GetComponent<RammyController>().TakeDamageRammy(_damage);
+            gameObject.SetActive(false);
+        }
+        // Debug.Log($"{_damage} dealt to {other.name}");
     }
-
-
 }

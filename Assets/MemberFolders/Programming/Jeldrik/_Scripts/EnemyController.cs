@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-
     [HideInInspector]
     public Vector3 MoveInput;
+
+    public EnemyStats Stats;
 
     public float MoveSpeed;
     public float AttackDamage;
@@ -20,6 +21,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _forceMultipier;
     [SerializeField] private float _pieceLiftime;
     [SerializeField] private int _pieceCount;
+
+    [SerializeField] GameObject _player;
 
     [SerializeField] private float _defaultSpeed;
 
@@ -46,12 +49,13 @@ public class EnemyController : MonoBehaviour
     private int _animMoveHash;
 
     private bool _doDie;
-
+    private bool _doMove;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
         _animMoveHash = Animator.StringToHash("MoveSpeed");
+        _player = FindObjectOfType<RammyController>().gameObject;
 
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
@@ -61,8 +65,15 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        _rb.velocity = MoveInput * MoveSpeed;
-        _anim.SetFloat(_animMoveHash, _rb.velocity.magnitude);
+        Vector3 moveVelocity = MoveInput * MoveSpeed;
+        moveVelocity.y = _rb.velocity.y;
+        _rb.velocity = moveVelocity;
+
+        if (_anim != null)
+        {
+            _anim.SetFloat(_animMoveHash, _rb.velocity.magnitude);
+        }
+
 
         if (MoveInput != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.z));
@@ -88,17 +99,25 @@ public class EnemyController : MonoBehaviour
     {
         MoveToPullPoint(PullPoint);
 
-        gameObject.layer = 23;
+        // gameObject.layer = 23;
+
+        GetComponent<Collider>().enabled = false;
+        GetComponent<Rigidbody>().useGravity = false;
 
         if (Vector3.Distance(transform.position, PullPoint) < 0.5f)
         {
-            gameObject.layer = 24;
+            // gameObject.layer = 24;
+
+            GetComponent<Collider>().enabled = true;
+            GetComponent<Rigidbody>().useGravity = true;
+
+
             Pulled = false;
         }
     }
 
     /// <summary>
-    /// Applies Damage to this enemie
+    /// Applies Damage to this enemy
     /// </summary>
     /// <param name="damage"></param>
     /// <returns></returns>
@@ -106,6 +125,8 @@ public class EnemyController : MonoBehaviour
     {
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
         Health -= damage;
+        _anim.SetTrigger("TakeDamage");
+        transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
         _healthBar.UpdateHealthBar(-(damage / MaxHealth));
 
         if (GetComponent<HawkBossManager>() != null)

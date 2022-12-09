@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -16,6 +17,8 @@ public class AbilityUIManager : MonoBehaviour
     private Image _basicAbilityImage;
     private Image _basicAbilityCoolDownCircle;
 
+    [SerializeField] private Image _dashCoolDownCircle;
+
     private List<float> _chargeInfo;
 
     private List<Abilities> _abilityScripts;
@@ -30,20 +33,23 @@ public class AbilityUIManager : MonoBehaviour
         }
         foreach (Transform t in _abilityBlocks)
         {
-            _coolDownCircles.Add(t.GetChild(0).GetComponent<Image>());  
-            _abilityImages.Add(t.GetComponent<Image>());
+            _coolDownCircles.Add(t.GetComponent<Image>());  
+            _abilityImages.Add(t.GetChild(0).GetComponent<Image>());
         }
         _abilityScripts = _controller.GetAbilityScripts();
 
         _basicAbilityBlock = transform.GetChild(5);
         _basicAbilityImage = _basicAbilityBlock.GetComponent<Image>();
         _basicAbilityCoolDownCircle = _basicAbilityBlock.GetChild(0).GetComponent<Image>();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
         bool anyAbilityInUse = false;
+        float fillPercentage;
         // Loops through all abilities and updates the UI according to the status in the respective scripts
         for (int i = 0; i < _abilityScripts.Count; i++)
         {
@@ -52,13 +58,26 @@ public class AbilityUIManager : MonoBehaviour
                 AbilityBeingUsed(i);
                 anyAbilityInUse = true;
             }
-            
-            float fillPercentage = Mathf.Min(1, ((Time.time - _abilityScripts[i].GetStartingTime()) / _abilityScripts[i].Cooldown));
-            if (Time.time < _abilityScripts[i].Cooldown) fillPercentage = 1;
+
+            fillPercentage = Mathf.Min(1, ((Time.time - _abilityScripts[i].GetStartingTime()) / _abilityScripts[i].Stats.Cooldown));
+            //if (Time.time < _abilityScripts[i].Stats.Cooldown) fillPercentage = 1;
+            if (_abilityScripts[i].GetStartingTime() == 0) fillPercentage = 1;
             SetAbilityClockToPercent(i, fillPercentage);
         }
 
-        // Read Input about charging from RammyController Script
+        
+      
+        // Visualize Charge Cooldown
+        fillPercentage = Mathf.Min(1, (Time.time - _controller.GetChargeStartTime()) / _controller.GetChargeCoolDown());
+        if (_controller.GetChargeStartTime() == 0) fillPercentage = 1;
+        _basicAbilityImage.fillAmount = fillPercentage;
+
+        // Visualize Dash Cooldown
+        fillPercentage = Mathf.Min(1, (Time.time - _controller.GetDashStartTime()) / _controller.GetDashCoolDown());
+        if (_controller.GetDashStartTime() == 0) fillPercentage = 1;
+        _dashCoolDownCircle.fillAmount = fillPercentage;
+
+        /* // Read Input about charging from RammyController Script
         _chargeInfo = _controller.GetChargeInfo();
         if (_chargeInfo[0] > 0)
         {
@@ -68,13 +87,13 @@ public class AbilityUIManager : MonoBehaviour
         else if (!_controller.GetDashing())
         {
             ResetDisplayCharging();
-        }
+        } 
         
         // Display Dashing
         if (_controller.GetDashing())
         {
             _basicAbilityImage.color = Color.green;
-        }
+        } */
 
         // Resets all abilities if none is being used
         if (!anyAbilityInUse)
