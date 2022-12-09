@@ -48,7 +48,7 @@ public class FootstepsEmitter : MonoBehaviour
 #if UNITY_EDITOR
             SetGlobal();
 #endif
-
+            
         }
 
         
