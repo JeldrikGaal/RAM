@@ -11,9 +11,10 @@ public class AI_ThrowBomb : StateBlock
     [SerializeField] AnimationCurve _relativeSpeedOverDistance, _relativeTrajectory;
     [SerializeField] float _range = float.PositiveInfinity;
     [SerializeField] Vector3 _ralativePosMod;
+    [SerializeField] bool _manualCall;
 
     private readonly Dictionary<int, bool> _launched = new();
-    
+    private GameObject _target;
     public override void OnEnd(EnemyController user, GameObject target)
     {
         
@@ -32,33 +33,54 @@ public class AI_ThrowBomb : StateBlock
         {
             _launched.Add(iD, false);
         }
+
+        _target = target;
     }
+
+    public void ManualThrow(EnemyController user)
+    {
+        if (_manualCall)
+        {
+            Throw(user, _target);
+        }
+        
+    }
+
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        int iD = user.GetInstanceID();
+        if (!_manualCall)
+        {
+            Throw(user, target);
+        }
         
+        return (null, null);
+    }
+
+    private void Throw(EnemyController user, GameObject target)
+    {
+        int iD = user.GetInstanceID();
+
         if (!_launched[iD])
         {
             Debug.Log(name);
-            var origin = user.transform.position + ( user.transform.rotation * _ralativePosMod);
+            var origin = user.transform.position + (user.transform.rotation * _ralativePosMod);
             var targetPos = target.transform.position;
 
             Vector2 origin2D = new(origin.x, origin.z);
 
             Vector2 target2D = new(target.transform.position.x, target.transform.position.z);
 
-            if (Vector2.Distance(origin2D,target2D) > _range)
+            if (Vector2.Distance(origin2D, target2D) > _range)
             {
                 Vector2 targetDir = (target2D - origin2D).normalized;
-                targetPos =  origin + (new Vector3(targetDir.x,0,targetDir.y) *_range);
+                targetPos = origin + (new Vector3(targetDir.x, 0, targetDir.y) * _range);
             }
 
             // Instantiates the bomb and starts sends it on it's journey.
             GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_bomb, origin, Quaternion.identity, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
             _launched[iD] = true;
         }
-        return (null, null);
     }
 
     #region Moving tha bomb

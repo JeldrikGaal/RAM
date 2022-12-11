@@ -75,7 +75,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void UnPause()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         _settingsMenu.SetActive(false);
         Time.timeScale = 1;
         _pauseMenuContent.GetComponent<Animator>().SetTrigger("CloseMenu");
