@@ -11,8 +11,9 @@ public class EnemyController : MonoBehaviour
 
     public float MoveSpeed;
     public float AttackDamage;
-    public float MaxHealth;
     public float Health;
+
+    public int _area = 1;
 
     [Header("Death Explosion Values")]
     [SerializeField] private GameObject[] _deathPieces;
@@ -59,7 +60,7 @@ public class EnemyController : MonoBehaviour
 
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
-        Health = MaxHealth;
+        Health = Stats.GetHealth(_area);
         _defaultSpeed = MoveSpeed;
     }
 
@@ -127,7 +128,7 @@ public class EnemyController : MonoBehaviour
         Health -= damage;
         _anim.SetTrigger("TakeDamage");
         transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
-        _healthBar.UpdateHealthBar(-(damage / MaxHealth));
+        _healthBar.UpdateHealthBar(-(damage / Stats.GetHealth(_area)));
 
         if (GetComponent<HawkBossManager>() != null)
         {
