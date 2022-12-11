@@ -41,28 +41,32 @@ public class AI_Audio : StateBlock
     [SerializeField] float _movementInterval;
     [ShowIf("@this._repeat && this._repeatMode == RepeatMode.Movement && this._randomize")]
     [SerializeField] float _maxDistance, _minDistance;
-    FMOD.Studio.EventDescription eventDescription;
+    //FMOD.Studio.EventDescription eventDescription;
 
     private readonly Dictionary<(int id, int instance),bool> _usersWithInstances = new();
     private readonly Dictionary<int, List<int>> _instancesByUsers = new();
     public override void OnEnd(EnemyController user, GameObject target)
     {
-        var id = user.GetInstanceID();
-        if (_instancesByUsers[id].Count>0)
-        {
-            var instance = _instancesByUsers[id][0];
-            _usersWithInstances[(id, instance)] = false;
-            _usersWithInstances.Remove((id, instance));
-            _instancesByUsers[id].RemoveAt(0); 
-        }
-
+        Cleanup(user);
 
         if (_startIn == StartIn.End)
         {
             Play(user);
         }
-        
 
+
+    }
+
+    private void Cleanup(EnemyController user)
+    {
+        var id = user.GetInstanceID();
+        if (_instancesByUsers[id].Count > 0)
+        {
+            var instance = _instancesByUsers[id][0];
+            _usersWithInstances[(id, instance)] = false;
+            _usersWithInstances.Remove((id, instance));
+            _instancesByUsers[id].RemoveAt(0);
+        }
     }
 
     public override void OnStart(EnemyController user, GameObject target)
@@ -141,19 +145,21 @@ public class AI_Audio : StateBlock
     private IEnumerator RunRepeatingTime(EnemyController user,int instance)
     {
 
-        while (_usersWithInstances[(user.GetInstanceID(),instance)])
+        while (IsRunning(user, instance))
         {
             Play(user);
-            yield return new WaitForSeconds(_randomize?Random.Range(_minTime,_maxTime):_intervalInSeconds);
+            yield return new WaitForSeconds(_randomize ? Random.Range(_minTime, _maxTime) : _intervalInSeconds);
         }
-        
+
 
     }
-    
+
+    private bool IsRunning(EnemyController user, int instance) => _usersWithInstances.ContainsKey((user.GetInstanceID(), instance))?  _usersWithInstances[(user.GetInstanceID(), instance)]:false;
+
     private IEnumerator RunRepeatingMovement(EnemyController user,int instance)
     {
         float lastEntry = 0;
-        while (_usersWithInstances[(user.GetInstanceID(), instance)])
+        while (IsRunning(user,instance))
         {
 
             lastEntry += user.MoveInput.magnitude * user.MoveSpeed;
@@ -191,8 +197,8 @@ public class AI_Audio : StateBlock
     }
 
 
-
     
+
 
 
 }

@@ -38,6 +38,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject _bloodSmoke;
     [SerializeField] private float _bloodSize = 1;
 
+    // Sound Effects
+    [SerializeField] private AudioAddIn _hurtSound, _deathSound;
 
     private HealthBar _healthBar;
     private PiecesManager _piecesManager;
@@ -129,6 +131,8 @@ public class EnemyController : MonoBehaviour
         transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
         _healthBar.UpdateHealthBar(-(damage / MaxHealth));
 
+        _hurtSound.Play();
+
         if (GetComponent<HawkBossManager>() != null)
         {
             GetComponent<HawkBossManager>().DamageTakenRecently += damage;
@@ -171,6 +175,7 @@ public class EnemyController : MonoBehaviour
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
                                    _forceMultipier, _pieceCount, _pieceLiftime); // force multiplier, amount, lifespan
         */
+        _deathSound.Play();
         if (!_respawnAfterDeath)
         {
             Destroy(gameObject);
