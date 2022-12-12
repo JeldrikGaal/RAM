@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_SimplifiedStateIndependentWaitTimer : StateBlock
+public class AI_StateIndependentWaitTimer : StateBlock
 {
     [SerializeField] string _tag;
     [SerializeField] float _time;

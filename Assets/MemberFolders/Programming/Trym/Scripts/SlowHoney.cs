@@ -6,6 +6,7 @@ using UnityEngine;
 public class SlowHoney : MonoBehaviour
 {
     [SerializeField] private float _speedMod;
+    [SerializeField] private float _minSpeed;
     [SerializeField] private float _lingerTime;
     [SerializeField] Animator _animator;
     private bool _entered = false;
@@ -15,6 +16,7 @@ public class SlowHoney : MonoBehaviour
 
     private void Start()
     {
+        _animator.enabled = true;
         _startTime = Time.time;
     }
 
@@ -41,13 +43,16 @@ public class SlowHoney : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
             if (_rammy == null)
             {
                 _rammy = other.GetComponent<RammyController>();
             }
-            _rammy.MovementSpeed *= _speedMod;
-            _entered = true;
+            if (_rammy.MovementSpeed * _speedMod > _minSpeed)
+            {
+                
+                _rammy.MovementSpeed *= _speedMod;
+                _entered = true; 
+            }
         }
 
 

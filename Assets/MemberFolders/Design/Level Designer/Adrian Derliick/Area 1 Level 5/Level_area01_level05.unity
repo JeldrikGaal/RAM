@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.5294118, g: 0.5803922, b: 0.6784314, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -943,6 +943,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 987435205, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 987435205, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 18af52a348c963944a4acfd55cfdd032, type: 3}
+    - target: {fileID: 2095720052809417405, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
+      propertyPath: attenuationObject
+      value: 
+      objectReference: {fileID: 1186620603}
     - target: {fileID: 3673875269315458323, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
       propertyPath: m_Name
       value: Camera System
@@ -3005,6 +3017,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+--- !u!114 &356966618 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5468393190415173951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+  m_PrefabInstance: {fileID: 356966617}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba2a971e5a6dd24fabc92aa6531550b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &363210248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6202,7 +6225,7 @@ PrefabInstance:
     - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _comboSystem
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 356966618}
     - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _deathCanvas
       value: 
@@ -15145,7 +15168,7 @@ GameObject:
   - component: {fileID: 2082243192}
   m_Layer: 10
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

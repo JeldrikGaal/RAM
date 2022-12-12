@@ -14,6 +14,7 @@ public class MeleeWolfScript : MonoBehaviour
     private bool _finishedLeaping;
     [SerializeField] private bool _striking;
     private SphereCollider _damageCollider;
+    private EnemyController _controller;
 
     [SerializeField] private bool _rammyInRange;
     [SerializeField] private RammyController _rammyController;
@@ -23,15 +24,10 @@ public class MeleeWolfScript : MonoBehaviour
 
     private IEnumerator _strikeRoutine;
 
-    [SerializeField] private float _strike1Damage;
-    [SerializeField] private float _strike2Damage;
-    [SerializeField] private float _strike3Damage;
-
-    [SerializeField] private float _leapDamage;
-
     // Start is called before the first frame update
     void Start()
     {
+        _controller = GetComponent<EnemyController>();
         _damageCollider = GetComponent<SphereCollider>();
         _damageCollider.enabled = false;
         _lastState = null;
@@ -111,17 +107,17 @@ public class MeleeWolfScript : MonoBehaviour
     {
         _striking = true;
         _animator.SetTrigger("Attack1");
-        yield return new WaitForSeconds(0.5f);
-        if (_rammyInRange) _rammyController.TakeDamageRammy(_strike1Damage);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(_controller.Stats.GetStats("Axe Strike 1").AnticipationTime);
+        if (_rammyInRange) _rammyController.TakeDamageRammy(_controller.Stats.GetStats("Axe Strike 1").Damage(1));
+        yield return new WaitForSeconds(_controller.Stats.GetStats("Axe Strike 1").RecoveryTime);
         _animator.SetTrigger("Attack1");
-        yield return new WaitForSeconds(0.5f);
-        if (_rammyInRange) _rammyController.TakeDamageRammy(_strike2Damage);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(_controller.Stats.GetStats("Axe Strike 2").AnticipationTime);
+        if (_rammyInRange) _rammyController.TakeDamageRammy(_controller.Stats.GetStats("Axe Strike 2").Damage(1));
+        yield return new WaitForSeconds(_controller.Stats.GetStats("Axe Strike 2").RecoveryTime);
         _animator.SetTrigger("Attack1");
-        yield return new WaitForSeconds(0.5f);
-        if (_rammyInRange) _rammyController.TakeDamageRammy(_strike3Damage);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(_controller.Stats.GetStats("Axe Strike 3").AnticipationTime);
+        if (_rammyInRange) _rammyController.TakeDamageRammy(_controller.Stats.GetStats("Axe Strike 3").Damage(1));
+        yield return new WaitForSeconds(_controller.Stats.GetStats("Axe Strike 3").RecoveryTime);
         _damageCollider.enabled = false;
         _striking = false;
 
@@ -143,7 +139,7 @@ public class MeleeWolfScript : MonoBehaviour
             _rammyController = other.GetComponent<RammyController>();
             if (_leaping)
             {
-                _rammyController.TakeDamageRammy(_leapDamage);
+                _rammyController.TakeDamageRammy(_controller.Stats.GetStats("Leap").Damage(1));
                 _damageCollider.enabled = false;
             }
             
