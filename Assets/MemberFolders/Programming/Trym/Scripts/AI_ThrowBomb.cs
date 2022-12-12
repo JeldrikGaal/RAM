@@ -78,7 +78,7 @@ public class AI_ThrowBomb : StateBlock
             }
 
             // Instantiates the bomb and starts sends it on it's journey.
-            GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_bomb, origin, Quaternion.identity, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
+            GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_bomb, origin, user.transform.rotation, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
             _launched[iD] = true;
         }
     }

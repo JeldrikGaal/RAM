@@ -20,7 +20,7 @@ public class SandboxEnemySpawner : MonoBehaviour
         {
             SpawnEnemy(_bearPrefab);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        else if (Input.GetKeyDown(KeyCode.Delete))
         {
             SpawnEnemy(_wolfPrefab);
         }
