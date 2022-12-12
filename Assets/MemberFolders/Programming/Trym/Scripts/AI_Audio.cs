@@ -60,12 +60,16 @@ public class AI_Audio : StateBlock
     private void Cleanup(EnemyController user)
     {
         var id = user.GetInstanceID();
-        if (_instancesByUsers[id].Count > 0)
+        if (_instancesByUsers.ContainsKey(id))
         {
-            var instance = _instancesByUsers[id][0];
-            _usersWithInstances[(id, instance)] = false;
-            _usersWithInstances.Remove((id, instance));
-            _instancesByUsers[id].RemoveAt(0);
+            if (_instancesByUsers[id].Count > 0)
+            {
+                var instance = _instancesByUsers[id][0];
+                _usersWithInstances[(id, instance)] = false;
+                _usersWithInstances.Remove((id, instance));
+                _instancesByUsers[id].RemoveAt(0);
+                _instancesByUsers.Remove(id);
+            } 
         }
     }
 
@@ -89,7 +93,12 @@ public class AI_Audio : StateBlock
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        
+        if (user.DoDie)
+        {
+            Debug.Log("Did indeed die");
+            return (new(), null);
+        }
+
         if (_startIn == StartIn.Update)
         {
             Debug.Log("Update Running");

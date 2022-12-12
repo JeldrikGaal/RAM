@@ -11,6 +11,11 @@ public class AI_StateIndependentWaitTimer : StateBlock
 
     public override void OnEnd(EnemyController user, GameObject target)
     {
+        if (user.DoDie)
+        {
+            return;
+        }
+
         int id = user.GetInstanceID();
         
         (_, float start) = _times[id];
@@ -18,7 +23,7 @@ public class AI_StateIndependentWaitTimer : StateBlock
 
         _times[id] = (_time - (Time.time - start),start);
 
-        Debug.Log("OnEnd: " + _times[id].time.ToString());
+        //Debug.Log("OnEnd: " + _times[id].time.ToString());
     }
 
     private readonly Dictionary<int,List<float>> _returnLists = new();
@@ -27,7 +32,9 @@ public class AI_StateIndependentWaitTimer : StateBlock
     {
         
         int id = user.GetInstanceID();
+
         
+
         if (!_returnLists.ContainsKey(id))
         {
             _returnLists.Add(id, new());
@@ -38,7 +45,7 @@ public class AI_StateIndependentWaitTimer : StateBlock
             {
                 _times[id] = ( time: _time,start: Time.time);
             }
-            Debug.Log("OnStart: "+ _times[id].time.ToString());
+            //Debug.Log("OnStart: "+ _times[id].time.ToString());
             _returnLists[id] = new();
             _returnLists[id].Add((float)StateReturn.Timer);
             _returnLists[id].Add(_times[id].time);
@@ -56,7 +63,12 @@ public class AI_StateIndependentWaitTimer : StateBlock
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        Debug.Log(user.GetInstanceID());
+        if (user.DoDie)
+        {
+            Debug.Log("Did die");
+            _returnLists.Remove(user.GetInstanceID());
+            return (new(), null);
+        }
         return (null, _returnLists[user.GetInstanceID()]);
     }
 
