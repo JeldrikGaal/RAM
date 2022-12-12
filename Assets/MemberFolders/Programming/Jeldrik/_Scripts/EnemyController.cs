@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     public float AttackDamage;
     public float Health;
 
+    public bool AlwaysFace = false;
+
     public int _area = 1;
 
     [Header("Death Explosion Values")]
@@ -88,6 +90,9 @@ public class EnemyController : MonoBehaviour
 
         if (MoveInput != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.z));
+
+        if (AlwaysFace)
+            transform.LookAt(_player.transform);
 
         if (Pulled)
         {

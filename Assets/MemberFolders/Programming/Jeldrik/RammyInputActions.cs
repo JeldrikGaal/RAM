@@ -265,7 +265,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -276,7 +276,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3dcbd9b9-6a51-4d3c-b8ff-cff80eec2887"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -287,7 +287,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""442d1b8c-fda6-4cdc-9639-3e092cf5a0dc"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -309,7 +309,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0a2d675d-23cb-4ba0-8709-f41b15f41720"",
-                    ""path"": ""<Keyboard>/3"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -342,7 +342,7 @@ public partial class @RammyInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""28a01047-9ffa-4189-9f1e-cadd3e2ea0c8"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
