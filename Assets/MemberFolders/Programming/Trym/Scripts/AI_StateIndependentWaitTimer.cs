@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class AI_StateIndependentWaitTimer : StateBlock
 {
     [SerializeField] string _tag;
+    [SerializeField] bool _fromStats;
+    [HideIf(nameof(_fromStats))]
     [SerializeField] float _time;
+    [ShowIf(nameof(_fromStats))]
+    [SerializeField] private string _attackName;
+    [ShowIf(nameof(_fromStats))]
+    [SerializeField] private AI_TIMER_Stat.TimeType _timeType;
 
     private readonly Dictionary<int, (float time, float start)> _times = new();
 
@@ -30,11 +37,26 @@ public class AI_StateIndependentWaitTimer : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
+        if (_fromStats)
+        {
+            switch (_timeType)
+            {
+                case AI_TIMER_Stat.TimeType.Anticipation:
+                    _time = user.Stats.GetStats(_attackName).AnticipationTime;
+                    break;
+                case AI_TIMER_Stat.TimeType.Attack:
+                    _time = user.Stats.GetStats(_attackName).AttackTime;
+                    break;
+                case AI_TIMER_Stat.TimeType.Recovery:
+                    _time = user.Stats.GetStats(_attackName).RecoveryTime;
+                    break;
+                default:
+                    break;
+            }
+        }
         
+
         int id = user.GetInstanceID();
-
-        
-
         if (!_returnLists.ContainsKey(id))
         {
             _returnLists.Add(id, new());
