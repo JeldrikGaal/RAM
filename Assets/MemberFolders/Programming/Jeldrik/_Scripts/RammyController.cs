@@ -731,7 +731,20 @@ public class RammyController : MonoBehaviour
                 _rB.useGravity = true;
                 _capsuleCollider.enabled = true;
             }
+
         }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+			if (Time.timeScale == 1)
+			{
+                Time.timeScale = 2;
+			}
+			else if (Time.timeScale == 2)
+			{
+                Time.timeScale = 1;
+            }
+            
+		}
 
 
         if (Input.GetKeyDown(KeyCode.X))
