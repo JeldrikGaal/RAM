@@ -51,7 +51,7 @@ public class EnemyController : MonoBehaviour
     private Animator _anim;
     private int _animMoveHash;
 
-    private bool _doDie;
+    public bool DoDie { get; private set; }
     private bool _doMove;
     void Start()
     {
@@ -90,7 +90,7 @@ public class EnemyController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_doDie)
+        if (DoDie)
         {
             Die();
         }
@@ -155,7 +155,7 @@ public class EnemyController : MonoBehaviour
         }
         if (Health <= 0)
         {
-            _doDie = true;
+            DoDie = true;
             GetComponent<StateMachine>().EndStates();
             return true;
         }
