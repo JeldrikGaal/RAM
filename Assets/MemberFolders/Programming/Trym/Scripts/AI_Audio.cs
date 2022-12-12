@@ -105,7 +105,7 @@ public class AI_Audio : StateBlock
             int id = user.GetInstanceID();
             if (!_startOnlyOnce || _instancesByUsers[id].Count < 1)
             {
-                Debug.Log("One Instance");
+                //Debug.Log("One Instance");
                 Run(user);
             }
             Debug.Log("Instances: " + _instancesByUsers[id].Count);

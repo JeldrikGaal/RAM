@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour
     public bool DoDie { get; private set; }
     private bool _doMove;
 
-    private float _temp_maxHealth;
+    
 
     
 
@@ -67,10 +67,10 @@ public class EnemyController : MonoBehaviour
 
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
-        Health = /*Stats.GetHealth(_area);*/ 40;
+        Health = Stats.GetHealth(_area);
         _defaultSpeed = MoveSpeed;
 
-        _temp_maxHealth = 40;
+        
 
     }
 
@@ -141,7 +141,7 @@ public class EnemyController : MonoBehaviour
         Health -= damage;
         _anim.SetTrigger("TakeDamage");
         transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
-        _healthBar.UpdateHealthBar(-(damage / /*Stats.GetHealth(_area)*/ _temp_maxHealth));
+        _healthBar.UpdateHealthBar(-(damage / Stats.GetHealth(_area)));
 
         _hurtSound.Play();
 
