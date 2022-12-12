@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using System.Linq;
+using System;
 
+[Serializable]
 public class Importer_RammyAttacks : ScriptableObject
 {
     public TextAsset rawData;
@@ -25,7 +26,10 @@ public class Importer_RammyAttacks : ScriptableObject
     {
         System.Globalization.CultureInfo culture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
-        //UnityEditor.Undo.RecordObjects(Attacks.ToArray(), "Update Rammy Stats");
+#if (UNITY_EDITOR)
+        UnityEditor.Undo.RecordObjects(Attacks.ToArray(), "Update Rammy Stats");
+#endif
+
         for (int i = 0; i < 8; i++)
         {
             Attacks[i].SetVariables(float.Parse(_data[i][0], culture), float.Parse(_data[i][1], culture), float.Parse(_data[i][3], culture), float.Parse(_data[i][4], culture), float.Parse(_data[i][5], culture), float.Parse(_data[i][7], culture), float.Parse(_data[i][8], culture));
@@ -33,8 +37,12 @@ public class Importer_RammyAttacks : ScriptableObject
 
         for (int i = 0; i < 6; i++)
         {
-            Attacks[i+2].SetUVariables(float.Parse(_upgradeData[i][0], culture), float.Parse(_upgradeData[i][1], culture), float.Parse(_upgradeData[i][3], culture), float.Parse(_upgradeData[i][4], culture), float.Parse(_upgradeData[i][5], culture), float.Parse(_upgradeData[i][7], culture), float.Parse(_upgradeData[i][8], culture));
+            Attacks[i + 2].SetUVariables(float.Parse(_upgradeData[i][0], culture), float.Parse(_upgradeData[i][1], culture), float.Parse(_upgradeData[i][3], culture), float.Parse(_upgradeData[i][4], culture), float.Parse(_upgradeData[i][5], culture), float.Parse(_upgradeData[i][7], culture), float.Parse(_upgradeData[i][8], culture));
         }
+
+#if (UNITY_EDITOR)
+        UnityEditor.EditorUtility.SetDirty(this);
+#endif
     }
 
     [Button]
@@ -46,7 +54,7 @@ public class Importer_RammyAttacks : ScriptableObject
             return;
         }
 
-        if(_data.Count == 0)
+        if (_data.Count == 0)
         {
             Debug.Log("No entries in data");
             return;
