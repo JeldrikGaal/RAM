@@ -39,7 +39,7 @@ Transform:
   - {fileID: 97505324394239393}
   - {fileID: 3156755872318864682}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1718208062672609078
 MeshFilter:
@@ -112,6 +112,34 @@ MonoBehaviour:
   Pulled: 0
   _bloodSmoke: {fileID: 0}
   _bloodSize: 1
+  _hurtSound:
+    _audio:
+      Guid:
+        Data1: 815278905
+        Data2: 1215894216
+        Data3: -195480696
+        Data4: -650125758
+      Path: event:/SFX/Character/Enemies/Wolf/Wolf Taking Damage
+    _volume: 1
+    _attach: 1
+    _attachTo: {fileID: 1718208062672609065}
+    _stopBeforePlay: 0
+    _allowFadeout: 1
+    _autoRelease: 1
+  _deathSound:
+    _audio:
+      Guid:
+        Data1: 195451740
+        Data2: 1087535178
+        Data3: -2086274677
+        Data4: -1537492117
+      Path: event:/SFX/Character/Enemies/Wolf/Wolf Dying
+    _volume: 1
+    _attach: 1
+    _attachTo: {fileID: 1718208062672609065}
+    _stopBeforePlay: 0
+    _allowFadeout: 1
+    _autoRelease: 1
 --- !u!114 &1718208062672609064
 MonoBehaviour:
   m_ObjectHideFlags: 0

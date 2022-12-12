@@ -19,6 +19,26 @@ public class EnemyAttackStats
     public float OnGroundEffectTime;
     public float PlayerHitEffectTime;
 
+    public EnemyAttackStats(bool temp = false)
+    {
+        if (!temp) return;
+
+        Damage1 = 1;
+        Damage2 = 1;
+        Damage3 = 1;
+        ProjectileSpeed = 1;
+        Range = 1;
+        ReloadTime = 1;
+        AnticipationTime = 1;
+        AttackTime = 1;
+        RecoveryTime = 1;
+        SplashRadius = 1;
+        ConeAttackDegree = 1;
+        ProjectileRadius = 1;
+        OnGroundEffectTime = 1;
+        PlayerHitEffectTime = 1;
+    }
+
     public float Damage(int area)
     {
         switch (area)

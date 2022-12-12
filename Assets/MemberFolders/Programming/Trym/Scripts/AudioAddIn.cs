@@ -43,6 +43,10 @@ public class AudioAddIn
     /// <param name="paramRefs">Params</param>
     public void Play((string name, float value)[] paramRefs)
     {
+        if (_audio.IsNull)
+        {
+            return;
+        }
         if (_stopBeforePlay)
         {
             Stop(_allowFadeout);
@@ -92,6 +96,7 @@ public class AudioAddIn
                 item.setParameterByName(name, value);
                 if (restart)
                 {
+                    
                     item.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                     item.start();
                 }
@@ -136,7 +141,7 @@ public class AudioAddIn
     }
 
     
-
+    public static implicit operator bool(AudioAddIn audioAddIn)=> audioAddIn._audio.IsNull;
 
 
 }
