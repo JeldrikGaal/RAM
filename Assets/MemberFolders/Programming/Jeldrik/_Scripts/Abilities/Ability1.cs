@@ -64,9 +64,11 @@ public class Ability1 : Abilities
 
                 foreach (Collider c in enemies)
                 {
-                    // If the damage kills the enemy, do cool stuff
-                    if (c.gameObject.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, transform.up))
-                        PlayerController.Kill(c.gameObject);
+                    if (c.gameObject.GetComponent<EnemyController>().Health > 0)
+                    {// If the damage kills the enemy, do cool stuff
+                        if (c.gameObject.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, transform.up))
+                            PlayerController.Kill(c.gameObject);
+                    }
 
                     // Stuns enemy
                     c.GetComponent<EnemyController>().StunDuration = _stunDuration;

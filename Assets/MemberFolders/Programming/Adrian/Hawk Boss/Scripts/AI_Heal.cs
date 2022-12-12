@@ -15,7 +15,7 @@ public class AI_Heal : StateBlock
     {
         if (_fullHeal)
         {
-            user.Health = user.MaxHealth;
+            user.Health = user.Stats.GetHealth(1); ;
         }
         else
         {
