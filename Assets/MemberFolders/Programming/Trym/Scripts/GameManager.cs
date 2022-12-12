@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         while (enabled)
         {
             yield return new WaitForSecondsRealtime(_timeForAICleanup);
+            List<int> clear = new();
             foreach (var item in _ToClean)
             {
                 (EnemyController source, System.Action<EnemyController> cleaner) = item.Value;
@@ -71,11 +72,18 @@ public class GameManager : MonoBehaviour
                 if (source == null)
                 {
                     cleaner?.Invoke(source);
+                    clear.Add(item.Key);
                 }
                 else if (source.DoDie)
                 {
                     cleaner?.Invoke(source);
+                    clear.Add(item.Key);
                 }
+                yield return new WaitForEndOfFrame();
+            }
+            foreach (var item in clear)
+            {
+                _ToClean.Remove(item);
                 yield return new WaitForEndOfFrame();
             }
             
