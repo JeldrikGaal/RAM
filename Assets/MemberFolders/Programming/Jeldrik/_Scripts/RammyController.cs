@@ -357,7 +357,7 @@ public class RammyController : MonoBehaviour
                 _audio[0].Clear();
                 _audio[0].Play(new[] { (name: "Charge", value: 0f) });
             }
-            
+
             _frameCounterRightMouseButtonSave = 0;
             _frameCounterRightMouseButton += Time.deltaTime;
             _lastFrameRightMouseButton = true;
@@ -735,16 +735,16 @@ public class RammyController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-			if (Time.timeScale == 1)
-			{
+            if (Time.timeScale == 1)
+            {
                 Time.timeScale = 2;
-			}
-			else if (Time.timeScale == 2)
-			{
+            }
+            else if (Time.timeScale == 2)
+            {
                 Time.timeScale = 1;
             }
-            
-		}
+
+        }
 
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -816,7 +816,7 @@ public class RammyController : MonoBehaviour
                     if (TagManager.HasTag(g, "enemy"))
                     {
                         _rammyVFX.NormalAttack(g);
-                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier,transform.up))
+                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier, transform.up))
                         {
                             Kill(g);
                         }
@@ -868,7 +868,7 @@ public class RammyController : MonoBehaviour
     {
         if (!Attacking && _chargeAttackAllowed)
         {
-            _audio[0].ModifyParams(new[] { (name: "Charge", value: 51f) },true);
+            _audio[0].ModifyParams(new[] { (name: "Charge", value: 51f) }, true);
             Attacking = true;
             _startTimeChargeAttack = Time.time;
 
@@ -1061,7 +1061,7 @@ public class RammyController : MonoBehaviour
         {
             rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
-        
+
     }
 
     // Checking for any collisions Rammy encouters and reacting accordingly
@@ -1288,14 +1288,6 @@ public class RammyController : MonoBehaviour
         // Actually apply damage
         Health -= appliedDamage;
         _audio[2].Play();
-
-
-
-        // Stopping combo 
-        if (_comboSystem != null)
-        {
-            _comboSystem.EndCombo();
-        }
 
 
         // Cancel Charging Ram Attack 
