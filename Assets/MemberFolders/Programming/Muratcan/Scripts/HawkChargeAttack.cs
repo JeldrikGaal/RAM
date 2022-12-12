@@ -29,7 +29,7 @@ public class HawkChargeAttack : MonoBehaviour
             {
                 item.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 item.transform.parent = transform;
-                item.transform.localPosition = new Vector3(0f, 0f, 1.07f);
+                item.transform.localPosition = new Vector3(0f, 0.742f, 0.686f);
                 item.SetActive(false);
             }
         }
