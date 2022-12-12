@@ -8,25 +8,25 @@ public class Egg : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<RammyController>())
+        if (collision.gameObject.GetComponent<RammyController>() != null)
         {
             collision.gameObject.GetComponent<RammyController>().TakeDamageRammy(damage);
             gameObject.SetActive(false);
         }
         else
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject, 5);
         }
     }
 }
