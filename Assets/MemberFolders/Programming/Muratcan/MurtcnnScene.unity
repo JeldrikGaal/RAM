@@ -3291,9 +3291,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
   Stats: {fileID: 0}
-  MoveSpeed: 8
+  MoveSpeed: 3
   AttackDamage: 3
-  Health: 0
+  Health: 10
   _area: 1
   _deathPieces: []
   _deathPiecesOnce: []
@@ -3350,6 +3350,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c77eeb9cc7f6f4aa56ba65e40953c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doItOnceChase: 0
+  _doItOnceEscape: 0
+  _escape: {fileID: 11400000, guid: 3d63a66487d3a4e4fbc6e6a61d1e7738, type: 2}
+  _chase: {fileID: 11400000, guid: 0447daa1106d57048b11a6980ec110da, type: 2}
   _egg:
   - {fileID: 1986826074}
   - {fileID: 524700383}
@@ -3357,6 +3361,7 @@ MonoBehaviour:
   _ammo: 3
   _shootSpeed: 1500
   damage: 1.5
+  _animator: {fileID: 0}
 --- !u!114 &919132149154720404
 MonoBehaviour:
   m_ObjectHideFlags: 0

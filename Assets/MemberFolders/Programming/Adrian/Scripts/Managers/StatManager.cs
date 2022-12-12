@@ -15,7 +15,7 @@ public class StatManager : MonoBehaviour
 
     public StatTracker Stats;
 
-    private int _maxKills;
+    public int MaxKills;
 
 
     [SerializeField] private RammyController _playerController;
@@ -36,7 +36,7 @@ public class StatManager : MonoBehaviour
             _journal.SetActive(false);
         }
 
-        _maxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
+        MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
     }
 
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class StatManager : MonoBehaviour
 
 
         // Sets the text of the killcount textbox
-        _swordTextbox.text = Stats.Kills + "/" + _maxKills + " Kills";
+        _swordTextbox.text = Stats.Kills + "/" + MaxKills + " Kills";
 
         _journalText.text = _playerController.lettersCollected + "/3";
 
