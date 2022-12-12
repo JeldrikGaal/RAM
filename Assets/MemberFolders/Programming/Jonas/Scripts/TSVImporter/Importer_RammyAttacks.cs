@@ -39,10 +39,6 @@ public class Importer_RammyAttacks : ScriptableObject
         {
             Attacks[i + 2].SetUVariables(float.Parse(_upgradeData[i][0], culture), float.Parse(_upgradeData[i][1], culture), float.Parse(_upgradeData[i][3], culture), float.Parse(_upgradeData[i][4], culture), float.Parse(_upgradeData[i][5], culture), float.Parse(_upgradeData[i][7], culture), float.Parse(_upgradeData[i][8], culture));
         }
-
-#if (UNITY_EDITOR)
-        UnityEditor.EditorUtility.SetDirty(this);
-#endif
     }
 
     [Button]

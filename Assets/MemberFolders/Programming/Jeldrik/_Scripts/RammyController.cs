@@ -73,6 +73,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
     [SerializeField] private TimeStopper _timeStopper;
+    [SerializeField] private GameObject _chargeVFX;
 
 
 
@@ -885,6 +886,7 @@ public class RammyController : MonoBehaviour
             Attacking = true;
             // Start charging animation
             _animator.SetBool("Charging", true);
+            _chargeVFX.SetActive(true);
 
             _startTimeChargeAttack = Time.time;
 
@@ -948,6 +950,7 @@ public class RammyController : MonoBehaviour
 
         // End charging animation
         _animator.SetBool("Charging", false);
+        _chargeVFX.SetActive(false);
 
         if (_chargedEnemy != null)
         {

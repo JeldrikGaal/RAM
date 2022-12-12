@@ -42,6 +42,7 @@ public class HawkChargeAttack : MonoBehaviour
 
         if (GetComponent<StateMachine>()._currentState == _escape)
         {
+            GetComponent<EnemyController>().MoveSpeed = 6f;
             GetComponent<Animator>().SetBool("PickUp", false);
             _animator.SetTrigger("RunAway");
             if (_ammo <= 0)
@@ -60,7 +61,7 @@ public class HawkChargeAttack : MonoBehaviour
         }
         else if (GetComponent<StateMachine>()._currentState == _chase && _doItOnceChase == false)
         {
-            
+            GetComponent<EnemyController>().MoveSpeed = 3f;
             _animator.SetTrigger("RunToPlayer");
             _doItOnceChase = true;
             _doItOnceEscape = false;
