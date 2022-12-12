@@ -9,15 +9,14 @@ public class Ability3 : Abilities
     [SerializeField] private float _pullForce;
     [SerializeField] private int _points;
     [SerializeField] private float _distanceToPoints;
-    [SerializeField] private float _pullRadius;
     [SerializeField] private float _restrictedTime;
-    [SerializeField] private float _damage;
 
     public bool Upgraded;
 
     private float _baseSpeed;
 
     [SerializeField] private GameObject _testObject;
+    [SerializeField] private GameObject _smokeParticle;
 
     // public Dictionary<Vector3, bool> PointList = new Dictionary<Vector3, bool>();
 
@@ -35,6 +34,9 @@ public class Ability3 : Abilities
     }
     override public void Activate()
     {
+        // Sets particle to happen
+        _smokeParticle.SetActive(true);
+
         // Clear the list of enemies
         EnemyList.Clear();
 
@@ -42,18 +44,26 @@ public class Ability3 : Abilities
         Points.Clear();
 
         // Gets an array of all the colliders within a radius around a point
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _pullRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _upgraded ? Stats.USplashRadius : Stats.SplashRadius);
+
+        print(Stats.SplashRadius);
 
         // Local transform list
         List<Transform> enemyTransforms = new List<Transform>();
 
 
+        _audio.Play();
+
         // Checks all the colliders and adds the ones with the enemy tag to the list
         foreach (Collider col in hitColliders)
         {
-            if (col.tag == "enemy")
+            if (col.tag == "enemy" || col.tag == "wolf")
             {
-                enemyTransforms.Add(col.transform);
+                if (!enemyTransforms.Contains(col.transform))
+                {
+                    enemyTransforms.Add(col.transform);
+                }
+
                 if (col.GetComponent<HawkBossManager>() != null)
                 {
                     if (col.GetComponent<HawkBossManager>().Fleeing || col.GetComponent<HawkBossManager>().RisingFlee || col.GetComponent<HawkBossManager>().LoweringFlee || col.GetComponent<HawkBossManager>().Rising || col.GetComponent<HawkBossManager>().Crashing || col.GetComponent<HawkBossManager>().MeleeAttack)
@@ -88,10 +98,10 @@ public class Ability3 : Abilities
             #endregion
 
             // Spawns in objects to show the different points (Only for testing purposes)
-            var marker = Instantiate(_testObject, spawnPos, Quaternion.identity);
+            // var marker = Instantiate(_testObject, spawnPos, Quaternion.identity);
 
             // Destroys the marker after one second
-            Destroy(marker, 1);
+            // Destroy(marker, 1);
 
             // Adds the point and a true value to the dictionary
             Points.Add(spawnPos, true);
@@ -127,8 +137,15 @@ public class Ability3 : Abilities
 
             if (enemy.GetComponent<EnemyController>() != null)
             {
-                // Makes the enemy take damage
-                enemy.GetComponent<EnemyController>().TakeDamage(_damage * _controller.AppliedDamageModifier, Vector3.up);
+                if (enemy.GetComponent<EnemyController>().Health > 0)
+                {
+                    // Makes the enemy take damage
+                    if (enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up))
+                    {
+                        _controller.Kill(enemy);
+                    }
+                    print("Dealt damage");
+                }
 
                 // enemy.GetComponent<EnemyController>().StunDuration = _stunDuration;
                 // enemy.GetComponent<EnemyController>().Stun();
@@ -207,16 +224,12 @@ public class Ability3 : Abilities
 
     private IEnumerator RestrictPlayerMovement(float duration)
     {
-        // Records the current speed
-        _baseSpeed = _controller.MovementSpeed;
-
-        // Stop the player from moving by setting movespeed to 0
-        _controller.MovementSpeed = 0;
+        _controller.BlockPlayerMovment();
 
         // Wait a bit
         yield return new WaitForSeconds(duration);
 
         // Sets the movespeed to the default
-        _controller.MovementSpeed = _baseSpeed;
+        _controller.UnBlockPlayerMovement();
     }
 }

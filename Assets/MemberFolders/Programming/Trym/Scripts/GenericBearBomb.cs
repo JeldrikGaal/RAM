@@ -8,11 +8,26 @@ public class GenericBearBomb : MonoBehaviour
     [SerializeField] Rigidbody _rigid;
     [SerializeField] float _fuse;
     [SerializeField] Vector3 _effectPosMod;
-    
+    [SerializeField] Collider _collider;
+    private bool _allowHit = false;
     public Rigidbody Rb { get { return _rigid; } }
     public bool HitCheck { get; private set; } = false;
+
+    //private void Start() => StartCoroutine(WaitTil());
+    
     private void OnCollisionEnter(Collision collision)
     {
+
+        if (collision.rigidbody != null && _allowHit)
+        {
+            if (!collision.rigidbody.isKinematic)
+            {
+                _rigid.isKinematic = false;
+                HitCheck = true;
+            }
+        }
+
+
 #if false
         // activates the timer after hitting the ground.
         if (collision.collider.attachedRigidbody != null)
@@ -64,5 +79,17 @@ public class GenericBearBomb : MonoBehaviour
         
         _fuse = fuseTime;
     }
+
+    private IEnumerator WaitTil()
+    {
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        _collider.enabled = true;
+        _allowHit = true;
+    }
+
+
 
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3709908290141839990}
   - component: {fileID: 2105218444}
   - component: {fileID: 2105218442}
-  - component: {fileID: 2105218443}
+  - component: {fileID: 878523945538737857}
   m_Layer: 20
   m_Name: WeakEnemy
   m_TagString: enemy
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startState: {fileID: 11400000, guid: dbab4d3769782b84289d40d7e9145617, type: 2}
   _currentState: {fileID: 0}
---- !u!114 &2105218443
+--- !u!114 &878523945538737857
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,14 +174,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 3709908290141840782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dafe7ae5a703f541a3292ef14d4843f, type: 3}
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
   MoveSpeed: 5
   AttackDamage: 5
-  Health: 100
   MaxHealth: 100
+  Health: 100
+  _deathPieces: []
+  _deathPiecesOnce: []
+  _deathPiecesSpreadingFactor: 0
+  _forceMultipier: 0
+  _pieceLiftime: 0
+  _pieceCount: 0
+  _defaultSpeed: 0
+  _respawnAfterDeath: 0
+  _utilScript: {fileID: 0}
+  StunDuration: 0
+  PullPoint: {x: 0, y: 0, z: 0}
+  Pulled: 0
+  _bloodSmoke: {fileID: 0}
+  _bloodSize: 1
 --- !u!1001 &262165881
 PrefabInstance:
   m_ObjectHideFlags: 0

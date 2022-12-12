@@ -26,7 +26,10 @@ public class Ability5 : Abilities
         {
             if (collision.gameObject.GetComponent<EnemyController>() && _inProgress)
             {
-                collision.gameObject.GetComponent<EnemyController>().TakeDamage(_damage, transform.up);
+                if (collision.gameObject.GetComponent<EnemyController>().TakeDamage(_damage, transform.up))
+                {
+                    _controller.Kill(collision.gameObject);
+                }
                 GetComponent<RammyVFX>().Ab5Attack(collision.gameObject, (_dashDestination - _dashStart).normalized);
                 _controller.AddScreenShake(1f);
             }
@@ -53,17 +56,38 @@ public class Ability5 : Abilities
         yield return new WaitForSeconds(0.5f);
         //To-do: Shake the camera in animation events so it would shake just when it lands
 
+        Vector3 worldPosition = Vector3.zero;
+        Plane plane = new Plane(Vector3.up, -20);
+
+        float distance;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (plane.Raycast(ray, out distance))
+        {
+            worldPosition = ray.GetPoint(distance);
+        }
+
+        transform.LookAt(worldPosition);
+
+        transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
+        _controller.BlockPlayerMovment();
+
         //Sets the external collider active, sets its position to be just in front of Rammy
         _externalCollider.SetActive(true);
         _externalCollider.transform.localPosition = new Vector3(0f, 1.5f, 0f);
         _externalCollider.transform.SetParent(null);
 
+
+        _audio.Play();
+
+
         // Spawns rocks!
         if (_rockSpawner)
         {
-            _rockSpawner.gameObject.transform.parent = null;
+            //_rockSpawner.gameObject.transform.parent = null;
+            // _rockSpawner.transform.rotation = Quaternion.LookRotation(this.transform.rotation.eulerAngles, Vector3.forward);
             _rockSpawner.InitiateRocks();
-            _rockSpawner.gameObject.transform.parent = this.transform;
+            //_rockSpawner.gameObject.transform.parent = this.transform;
         }
 
         // Checking if the force field would end up in an object while dashing and shortening dash if thats the case
@@ -83,6 +107,8 @@ public class Ability5 : Abilities
         _dashStartRot = _externalCollider.transform.rotation;
         _startTimeDash = Time.time;
         _inProgress = true;
+
+        _controller.UnBlockPlayerMovement();
         yield return new WaitForSeconds(_moveDuration);
 
         //Stops the abiliy

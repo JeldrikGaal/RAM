@@ -4,16 +4,19 @@ using UnityEngine;
 
 public abstract class Abilities : MonoBehaviour
 {
-    public float Cooldown;
-    public float Duration;
+    public RammyAttack Stats;
+    protected bool _upgraded;
 
     private float _startingTime;
     private bool _started;
 
     public RammyController _controller;
+    [Sirenix.OdinInspector.BoxGroup]
+    [SerializeField] protected AudioAddIn _audio;
 
     public virtual void Start()
     {
+        _audio.SetTransform(transform);
         _controller = GetComponent<RammyController>();
     }
 
@@ -22,7 +25,7 @@ public abstract class Abilities : MonoBehaviour
         // Resetting variables when the duration of the ability has passed after activation
         if (_started)
         {
-            if (Time.time - _startingTime > Duration)
+            if (Time.time - _startingTime > (_upgraded ? Stats.UAttackTime : Stats.AttackTime))
             {
                 _started = false;
                 _controller.EndUsingAbility();
@@ -50,7 +53,8 @@ public abstract class Abilities : MonoBehaviour
     // Checking if the ability is ready to be used again after the cooldown period
     public bool IsReady()
     {
-        return Time.time - _startingTime > Cooldown;
+        if (_startingTime == 0) return true;
+        return Time.time - _startingTime > Stats.Cooldown;
     }
 
     public bool IsRunning()
@@ -61,6 +65,11 @@ public abstract class Abilities : MonoBehaviour
     public float GetStartingTime()
     {
         return _startingTime;
+    }
+
+    public void SetStartingTime(float newTime)
+    {
+        _startingTime = newTime;
     }
     
 }

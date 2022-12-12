@@ -8,7 +8,7 @@ public class StateMachine : MonoBehaviour
 {
     [SerializeField] private AI_State _startState;
 
-    [SerializeField] private AI_State _currentState;
+    public AI_State _currentState;
 
     private EnemyController _user;
     private GameObject _target;
@@ -51,6 +51,11 @@ public class StateMachine : MonoBehaviour
             _currentState = nextState;
 
         _currentState.StateStart(_user, _target);
+    }
+
+    public void EndStates()
+    {
+        _currentState.StateEnd(_user, _target);
     }
 
     public void ResetState()

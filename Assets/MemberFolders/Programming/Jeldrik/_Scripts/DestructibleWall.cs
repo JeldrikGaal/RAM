@@ -5,12 +5,15 @@ using UnityEngine;
 public class DestructibleWall : MonoBehaviour, IRammable
 {
 
-    public float Direction;
+    public GameObject Complete;
+    public GameObject Broken;
+    private BoxCollider _collider;
+    [SerializeField] private GameObject _destroyParticle;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _collider = GetComponent<BoxCollider>();    
     }
 
     // Update is called once per frame
@@ -21,28 +24,13 @@ public class DestructibleWall : MonoBehaviour, IRammable
 
     public bool Hit(GameObject g)
     {
-        Vector3 direction = transform.position - g.transform.position;
-        direction = direction.normalized;
-        Debug.Log(direction);
-        switch (Direction)
+        if (_destroyParticle)
         {
-            // Front
-            case 0:
-                if (direction.z > 0)
-                {
-                    return true;
-                }
-                break;
-            // Back
-            case 1:
-                if (direction.z < 0)
-                {
-                    return true;
-                }
-                break;
-            
-         
+            Instantiate(_destroyParticle, transform.position, transform.rotation);
         }
+        _collider.enabled = false;
+        Broken.SetActive(true);
+        Complete.SetActive(false);
         return false;
     }
 }
