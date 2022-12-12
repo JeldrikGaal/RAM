@@ -25,12 +25,12 @@ public class AI_AttackShoot : StateBlock
             if (user.GetComponent<EnemyController>().Health < 10)
             {
                 user.GetComponent<HawkChargeAttack>().damage = 3f;
-                user.GetComponent<HawkChargeAttack>().HawkCharge();
+                user.GetComponent<HawkChargeAttack>().PickUpStart();
             }
             else
             {
                 user.GetComponent<HawkChargeAttack>().damage = 1.5f;
-                user.GetComponent<HawkChargeAttack>().HawkCharge();
+                user.GetComponent<HawkChargeAttack>().PickUpStart();
             }
             
             _isDone[user] = true;
