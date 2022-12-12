@@ -81,16 +81,19 @@ public class EnemyController : MonoBehaviour
         if (MoveInput != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.z));
 
-        if (_doDie)
-        {
-            Die();
-        }
-
         if (Pulled)
         {
             Pull();
         }
 
+    }
+
+    private void LateUpdate()
+    {
+        if (_doDie)
+        {
+            Die();
+        }
     }
 
     public void Stun()
@@ -153,6 +156,7 @@ public class EnemyController : MonoBehaviour
         if (Health <= 0)
         {
             _doDie = true;
+            GetComponent<StateMachine>().EndStates();
             return true;
         }
 
