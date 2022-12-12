@@ -23,5 +23,9 @@ public class DieTrigger : MonoBehaviour
             RammyController controller = other.GetComponent<RammyController>();
             controller.TakeDamageRammy(1000);
         }
+        if (TagManager.HasTag(other.gameObject, "enemy"))
+        {
+            other.GetComponent<EnemyController>().TakeDamage(1000,Vector3.zero);
+        }
     }
 }
