@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,8 +58,26 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 61dbb44a2a832b142986a7cc7ee4bce2, type: 2}
     - target: {fileID: 919132149155446097, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
       propertyPath: m_Name
-      value: GEO_WatchTower_01
+      value: GEO_WatchTower_01 Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
+--- !u!1 &812444868982728288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
+  m_PrefabInstance: {fileID: 542415045355690801}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &9053840411781173555
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812444868982728288}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.0152206, y: 3.7084522, z: 7.395461}
+  m_Center: {x: 0.013637543, y: -0.06772208, z: 3.6986408}
