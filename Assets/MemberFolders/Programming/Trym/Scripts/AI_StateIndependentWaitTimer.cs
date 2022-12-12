@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
 
 public class AI_StateIndependentWaitTimer : StateBlock
 {
@@ -18,10 +19,7 @@ public class AI_StateIndependentWaitTimer : StateBlock
 
     public override void OnEnd(EnemyController user, GameObject target)
     {
-        if (user.DoDie)
-        {
-            return;
-        }
+        
 
         int id = user.GetInstanceID();
         
@@ -37,6 +35,7 @@ public class AI_StateIndependentWaitTimer : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
+        GameManager.DoClean(user.GetInstanceID(), user, Cleanup);
         if (_fromStats)
         {
             switch (_timeType)
@@ -83,14 +82,14 @@ public class AI_StateIndependentWaitTimer : StateBlock
         
     }
 
+    private void Cleanup(EnemyController obj)
+    {
+        _returnLists.Remove(obj.GetInstanceID());
+    }
+
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        if (user.DoDie)
-        {
-            Debug.Log("Did die");
-            _returnLists.Remove(user.GetInstanceID());
-            return (new(), null);
-        }
+        
         return (null, _returnLists[user.GetInstanceID()]);
     }
 

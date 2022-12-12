@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static MonoBehaviour _instance;
-
+    private static MonoBehaviour _Instance;
+    
     private void Awake()
     {
-        if (_instance == null)
+        if (_Instance == null)
         {
-            _instance = this;
+            _Instance = this;
         }
         else
         {
             Destroy(this);
+            return;
         }
+        StartCoroutine(Cleaner());
+        
     }
 
-    [SerializeField] Stats.StatsData stats;
+    //[SerializeField] Stats.StatsData stats;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +36,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        stats = Stats.GetData();
+        //stats = Stats.GetData();
     }
 
     /// <summary>
@@ -41,7 +44,42 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="enumerator"></param>
     /// <returns></returns>
-    public static Coroutine HandleCoroutine(IEnumerator enumerator) => _instance.StartCoroutine(enumerator);
+    public static Coroutine HandleCoroutine(IEnumerator enumerator) => _Instance.StartCoroutine(enumerator);
+
+
+    [SerializeField] private float _timeForAICleanup = 10;
+    private static readonly Dictionary<int, (EnemyController source, System.Action<EnemyController> cleaner)> _ToClean = new();
+
+    public static void DoClean(int id, EnemyController source, System.Action<EnemyController> cleaner)
+    {
+        if (_ToClean.ContainsKey(id))
+        {
+            return;
+        }
+        _ToClean.Add(id, (source, cleaner));
+
+    }
+    private IEnumerator Cleaner()
+    {
+        while (enabled)
+        {
+            foreach (var item in _ToClean)
+            {
+                (EnemyController source, System.Action<EnemyController> cleaner) = item.Value;
+
+                if (source == null)
+                {
+                    cleaner?.Invoke(source);
+                }
+                else if (source.DoDie)
+                {
+                    cleaner?.Invoke(source);
+                }
+                yield return new WaitForEndOfFrame();
+            }
+            yield return new WaitForSecondsRealtime(_timeForAICleanup);
+        }
+    }
     
 
 }

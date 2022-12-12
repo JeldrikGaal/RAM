@@ -75,6 +75,7 @@ public class AI_Audio : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
+        GameManager.DoClean(user.GetInstanceID(),user,Cleanup);
         if (_startIn == StartIn.End)
         {
             _repeat = false;
@@ -93,11 +94,7 @@ public class AI_Audio : StateBlock
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        if (user.DoDie)
-        {
-            Debug.Log("Did indeed die");
-            return (new(), null);
-        }
+        
 
         if (_startIn == StartIn.Update)
         {
