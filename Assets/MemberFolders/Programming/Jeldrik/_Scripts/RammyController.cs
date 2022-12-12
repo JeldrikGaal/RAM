@@ -731,7 +731,20 @@ public class RammyController : MonoBehaviour
                 _rB.useGravity = true;
                 _capsuleCollider.enabled = true;
             }
+
         }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+			if (Time.timeScale == 1)
+			{
+                Time.timeScale = 2;
+			}
+			else if (Time.timeScale == 2)
+			{
+                Time.timeScale = 1;
+            }
+            
+		}
 
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -1018,50 +1031,22 @@ public class RammyController : MonoBehaviour
             if (Time.timeScale == 1) _timeStopper.PauseTime(_freezeScaleRam, _freezeTimeRam);
 
             _cameraScript.ScreenShake(0.5f);
-
-
-
-            // Sorry for filling your lovely code up with my old commented out trash code.
-            //  Then why not just delete it?  -JG
-
-            /*
-            var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
-            _bloodPrefab.transform.localScale *= _bloodSize;
-
-
-            // Vector3 _enemyDirection = rammedObject.transform.position - this.transform.position;
-            _bloodSpreadCalculator.transform.rotation = this.transform.rotation;
-
-            _bloodSpreadCalculator.transform.GetChild(0).transform.localScale = new Vector3(_bloodSpread, 1, 1);
-
-            _bloodDir1 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(0).transform.position - _bloodSpreadCalculator.transform.position;
-            _bloodDir2 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(1).transform.position - _bloodSpreadCalculator.transform.position;
-
-            var i = 0;
-            foreach (Transform child in _bloodPrefab.transform)
-            {
-                if(i >= _bloodAmount)
-                {
-                    Destroy(child.gameObject);
-                }
-                i++;
-                child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
-                child.GetComponent<StickyBlood>().BloodSize = _bloodSize;
-                child.GetComponent<InitVelocity>().CalcDirLeft = _bloodDir1;
-                child.GetComponent<InitVelocity>().CalcDirRight = _bloodDir2;
-                child.GetComponent<InitVelocity>().BloodForceMin = _bloodForceMin;
-                child.GetComponent<InitVelocity>().BloodForceMax = _bloodForceMin;
-            }
-            */
-
         }
         else if (TagManager.HasTag(rammedObject, "wall"))
         {
-            Debug.Log(rammedObject.GetComponent<IRammable>().Hit(gameObject));
+            //Debug.Log(rammedObject.GetComponent<IRammable>().Hit(gameObject));
             if (rammedObject.GetComponent<IRammable>().Hit(gameObject))
             {
                 Destroy(rammedObject);
             }
+        }
+        else if (TagManager.HasTag(rammedObject, "dummy"))
+        {
+            rammedObject.GetComponent<IRammable>().Hit(gameObject);
+        }
+        else if (TagManager.HasTag(rammedObject, "destructible"))
+        {
+            rammedObject.GetComponent<IRammable>().Hit(gameObject);
         }
         else if (TagManager.HasTag(rammedObject, "knockdownbridge"))
         {
