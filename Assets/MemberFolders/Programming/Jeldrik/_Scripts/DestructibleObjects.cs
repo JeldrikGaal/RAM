@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DestructibleObjects : MonoBehaviour, IRammable
@@ -20,7 +21,9 @@ public class DestructibleObjects : MonoBehaviour, IRammable
             Instantiate(_destroyParticle, transform.position, transform.rotation);
         }
         _collider.enabled = false;
+        Destroy(this.gameObject);
         return false;
+        
     }
 
 
