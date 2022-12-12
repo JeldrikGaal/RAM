@@ -18,7 +18,7 @@ public class EnemyStats : ScriptableObject
         {
             List<float> stats = new List<float>();
 
-            for(int i = 2; i < l.Count; i++)
+            for (int i = 2; i < l.Count; i++)
             {
                 stats.Add(float.Parse(l[i], culture));
             }
@@ -42,17 +42,26 @@ public class EnemyStats : ScriptableObject
 
     public EnemyAttackStats GetStats(string name)
     {
+        if (Attacks == null)
+            return new EnemyAttackStats(true);
+
         return Attacks[name];
     }
 
     public float GetHealth(int area)
     {
-        return Health[area-1];
+        return Health[area - 1];
     }
 
     [Button]
     public void PrintStats()
     {
+        if (Attacks == null)
+        {
+            Debug.Log("Attack list is null");
+            return;
+        }
+
         foreach (KeyValuePair<string, EnemyAttackStats> k in Attacks)
         {
             Debug.Log(k.Key);
@@ -62,12 +71,29 @@ public class EnemyStats : ScriptableObject
     [Button]
     public void PrintStat(string name)
     {
+        if (Attacks == null)
+        {
+            Debug.Log("Attack list is null");
+            return;
+        }
+
+        if (!Attacks.ContainsKey(name))
+        {
+            Debug.Log($"No attack with name: {name}");
+            return;
+        }
         Debug.Log(Attacks[name].Damage1);
     }
 
     [Button]
     public void PrintHealth()
     {
+        if (Health == null)
+        {
+            Debug.Log("Health list is null");
+            return;
+        }
+
         foreach (float f in Health)
         {
             Debug.Log(f);
