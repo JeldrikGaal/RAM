@@ -26,18 +26,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Just testing saving and loading
-        SaveNload.Save(new SaveData());
-        print(SaveNload.Load());
+       
+        
 
-        PauseGame.PauseEvent += (bool paused) => print(paused);
+        
 
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        //stats = Stats.GetData();
-    }
+    
 
     /// <summary>
     /// For continuing running coroutine despite the caller being destroid or disabeled.
@@ -48,27 +44,34 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] private float _timeForAICleanup = 10;
-    private static readonly Dictionary<int, (EnemyController source, System.Action<EnemyController> cleaner)> _ToClean = new();
-
-    public static void DoClean(EnemyController source, System.Action<EnemyController> cleaner)
+    private static readonly Dictionary<(int user,int block), (EnemyController source, System.Action<EnemyController> cleaner)> _ToClean = new();
+    /// <summary>
+    /// For clearing user data from state blocks when they are dead.
+    /// </summary>
+    /// <param name="source">clean this users data</param>
+    /// <param name="block">from this</param>
+    /// <param name="cleaner">with this</param>
+    public static void DoClean(EnemyController source, StateBlock block, System.Action<EnemyController> cleaner)
     {
-        if (_ToClean.ContainsKey(source.GetInstanceID()))
+        if (_ToClean.ContainsKey((source.GetInstanceID(),block.GetInstanceID())))
         {
             return;
         }
-        _ToClean.Add(source.GetInstanceID(), (source, cleaner));
+        _ToClean.Add((source.GetInstanceID(),block.GetInstanceID()), (source, cleaner));
 
     }
     private IEnumerator Cleaner()
     {
         while (enabled)
         {
+            List<(int user, int block)> clear = new();
             yield return new WaitForSecondsRealtime(_timeForAICleanup);
-            List<int> clear = new();
+            
             foreach (var item in _ToClean)
             {
                 (EnemyController source, System.Action<EnemyController> cleaner) = item.Value;
-
+                Debug.Log("scan" + item.Key);
+                //Debug.Log(item.Value);
                 if (source == null)
                 {
                     cleaner?.Invoke(source);
@@ -83,12 +86,19 @@ public class GameManager : MonoBehaviour
             }
             foreach (var item in clear)
             {
+                Debug.Log(nameof(clear) + item);
                 _ToClean.Remove(item);
                 yield return new WaitForEndOfFrame();
             }
             
         }
     }
-    
+
+    private void OnDestroy()
+    {
+        enabled = false;
+    }
+
+
 
 }
