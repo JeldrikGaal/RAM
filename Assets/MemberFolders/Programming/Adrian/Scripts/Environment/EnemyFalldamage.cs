@@ -28,7 +28,7 @@ public class EnemyFalldamage : MonoBehaviour
             if (_die)
             {
                 // If the enemy is supposed to die, take maxhealth as damage
-                GetComponent<EnemyController>().TakeDamage(GetComponent<EnemyController>().MaxHealth, Vector3.up);
+                GetComponent<EnemyController>().TakeDamage(GetComponent<EnemyController>().Stats.GetHealth(1), Vector3.up);
             }
             else
             {

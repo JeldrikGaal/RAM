@@ -27,6 +27,7 @@ public class AI_ManualCallComponent : MonoBehaviour
             if (_unityEvents[_event] != null )
             {
                 _unityEvents[_event].Invoke(_controller);
+                
             }
             else
             {
