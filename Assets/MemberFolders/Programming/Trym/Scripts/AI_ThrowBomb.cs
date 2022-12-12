@@ -12,6 +12,7 @@ public class AI_ThrowBomb : StateBlock
     [SerializeField] float _range = float.PositiveInfinity;
     [SerializeField] Vector3 _ralativePosMod;
     [SerializeField] bool _manualCall;
+    [SerializeField] float _fuse;
 
     private readonly Dictionary<int, bool> _launched = new();
     private GameObject _target;
@@ -76,7 +77,7 @@ public class AI_ThrowBomb : StateBlock
                 Vector2 targetDir = (target2D - origin2D).normalized;
                 targetPos = origin + (new Vector3(targetDir.x, 0, targetDir.y) * _range);
             }
-
+            _bomb.SetProperties(_fuse);
             // Instantiates the bomb and starts sends it on it's journey.
             GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_bomb, origin, user.transform.rotation, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
             _launched[iD] = true;

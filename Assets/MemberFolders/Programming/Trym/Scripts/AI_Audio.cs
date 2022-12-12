@@ -75,7 +75,7 @@ public class AI_Audio : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
-        GameManager.DoClean(user.GetInstanceID(),user,Cleanup);
+        GameManager.DoClean(user,Cleanup);
         if (_startIn == StartIn.End)
         {
             _repeat = false;

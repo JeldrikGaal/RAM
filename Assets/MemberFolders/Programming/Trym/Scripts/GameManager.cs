@@ -50,19 +50,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _timeForAICleanup = 10;
     private static readonly Dictionary<int, (EnemyController source, System.Action<EnemyController> cleaner)> _ToClean = new();
 
-    public static void DoClean(int id, EnemyController source, System.Action<EnemyController> cleaner)
+    public static void DoClean(EnemyController source, System.Action<EnemyController> cleaner)
     {
-        if (_ToClean.ContainsKey(id))
+        if (_ToClean.ContainsKey(source.GetInstanceID()))
         {
             return;
         }
-        _ToClean.Add(id, (source, cleaner));
+        _ToClean.Add(source.GetInstanceID(), (source, cleaner));
 
     }
     private IEnumerator Cleaner()
     {
         while (enabled)
         {
+            yield return new WaitForSecondsRealtime(_timeForAICleanup);
             foreach (var item in _ToClean)
             {
                 (EnemyController source, System.Action<EnemyController> cleaner) = item.Value;
@@ -77,7 +78,7 @@ public class GameManager : MonoBehaviour
                 }
                 yield return new WaitForEndOfFrame();
             }
-            yield return new WaitForSecondsRealtime(_timeForAICleanup);
+            
         }
     }
     

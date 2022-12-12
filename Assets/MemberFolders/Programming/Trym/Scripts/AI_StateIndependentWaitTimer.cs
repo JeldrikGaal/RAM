@@ -35,24 +35,28 @@ public class AI_StateIndependentWaitTimer : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
-        GameManager.DoClean(user.GetInstanceID(), user, Cleanup);
+        GameManager.DoClean(user, Cleanup);
         if (_fromStats)
         {
-            switch (_timeType)
+            if (_fromStats)
             {
-                case AI_TIMER_Stat.TimeType.Anticipation:
-                    _time = user.Stats.GetStats(_attackName).AnticipationTime;
-                    break;
-                case AI_TIMER_Stat.TimeType.Attack:
-                    _time = user.Stats.GetStats(_attackName).AttackTime;
-                    break;
-                case AI_TIMER_Stat.TimeType.Recovery:
-                    _time = user.Stats.GetStats(_attackName).RecoveryTime;
-                    break;
-                default:
-                    break;
+                switch (_timeType)
+                {
+                    case AI_TIMER_Stat.TimeType.Anticipation:
+                        _time = user.Stats.GetStats(_attackName).AnticipationTime;
+                        break;
+                    case AI_TIMER_Stat.TimeType.Attack:
+                        _time = user.Stats.GetStats(_attackName).AttackTime;
+                        break;
+                    case AI_TIMER_Stat.TimeType.Recovery:
+                        _time = user.Stats.GetStats(_attackName).RecoveryTime;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+        
         
 
         int id = user.GetInstanceID();

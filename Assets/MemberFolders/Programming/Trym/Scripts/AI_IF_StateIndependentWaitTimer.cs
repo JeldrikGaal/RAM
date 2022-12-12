@@ -16,13 +16,17 @@ public class AI_IF_StateIndependentWaitTimer : StateBlock
     [ShowIf(nameof(_fromStats))]
     [SerializeField] private AI_TIMER_Stat.TimeType _timeType;
     [SerializeField] int _skipCount = 1;
+    [SerializeField] private bool _resetOnStateStart = false;
 
     private readonly Dictionary<int,float> _startTimes = new();
     
     public override void OnEnd(EnemyController user, GameObject target)
     {
 
-        
+        if (_resetOnStateStart && _startTimes.ContainsKey(user.GetInstanceID()))
+        {
+            _startTimes[user.GetInstanceID()] = Time.time;
+        }
         
 
         
@@ -30,7 +34,7 @@ public class AI_IF_StateIndependentWaitTimer : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
-        GameManager.DoClean(user.GetInstanceID(), user, Cleanup);
+        GameManager.DoClean( user, Cleanup);
         if (_fromStats)
         {
             switch (_timeType)
@@ -59,15 +63,24 @@ public class AI_IF_StateIndependentWaitTimer : StateBlock
     {
         
         int id = user.GetInstanceID();
-        if (_time - (Time.time - _startTimes[id]) <= 0)
+        if (_startTimes.ContainsKey(id))
         {
-            _startTimes[id] = Time.time;
-            return (null, null);
+            if (_time - (Time.time - _startTimes[id]) <= 0)
+            {
+                _startTimes[id] = Time.time;
+                return (null, null);
+            }
+            else
+            {
+                return (null, new(new[] { (float)StateReturn.Skip, _skipCount }));
+            }
         }
         else
         {
+            _startTimes.Add(id, Time.time);
             return (null, new(new[] { (float)StateReturn.Skip, _skipCount }));
         }
+        
     }
 
     /*
