@@ -883,6 +883,9 @@ public class RammyController : MonoBehaviour
 
             _audio[0].ModifyParams(new[] { (name: "Charge", value: 51f) }, true);
             Attacking = true;
+            // Start charging animation
+            _animator.SetBool("Charging", true);
+
             _startTimeChargeAttack = Time.time;
 
             RaycastHit hit;
@@ -942,6 +945,10 @@ public class RammyController : MonoBehaviour
         _mR.material = _mats[0];
         _directionIndicatorTip.transform.localPosition = _directionIndicatorPosSave;
         _directionIndicatorTip.transform.localScale = _directionIndicatorScaleSave;
+
+        // End charging animation
+        _animator.SetBool("Charging", false);
+
         if (_chargedEnemy != null)
         {
             _chargedEnemy = null;
