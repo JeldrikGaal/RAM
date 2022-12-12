@@ -205,6 +205,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private TMP_Text _debuggingText;
     [SerializeField] private bool dashInWalkDireciton = false;
     [SerializeField] private bool basicAttackInWalkDireciton = false;
+    private bool _disableLegacyAbilities = true;
     public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
@@ -575,6 +576,7 @@ public class RammyController : MonoBehaviour
         l.Add(_ability5Script);
 
         // Checking if the player is already using an ability and performing wanted ability if not
+        // Abilities 2,4,5 have been disabled after playtest and major game changes
         if (!UsingAbility)
         {
             if (_ability1Key == 1)
@@ -582,19 +584,19 @@ public class RammyController : MonoBehaviour
                 if (_learnedAbilities[0]) l[0].CheckActivate();
 
             }
-            else if (_ability2Key == 1)
+            else if (_ability2Key == 1 && !_disableLegacyAbilities)
             {
                 if (_learnedAbilities[1]) _ability2Script.CheckActivate();
             }
-            else if (_ability3Key == 1)
+            else if (_ability3Key == 1 )
             {
                 if (_learnedAbilities[2]) _ability3Script.CheckActivate();
             }
-            else if (_ability4Key == 1)
+            else if (_ability4Key == 1 && !_disableLegacyAbilities)
             {
                 if (_learnedAbilities[3]) _ability4Script.CheckActivate();
             }
-            else if (_ability5Key == 1)
+            else if (_ability5Key == 1 && !_disableLegacyAbilities)
             {
                 if (_learnedAbilities[4]) _ability5Script.CheckActivate();
             }
@@ -855,6 +857,11 @@ public class RammyController : MonoBehaviour
         if (chargeTime < MinChargeTime)
         {
             //StartDash();
+            if (_disableLegacyAbilities)
+            {
+                StartBasicAttack();
+            }
+            
         }
         if (chargeTime > MinChargeTime)
         {
@@ -868,6 +875,12 @@ public class RammyController : MonoBehaviour
     {
         if (!Attacking && _chargeAttackAllowed)
         {
+            // After rework rammy is only supposed to charge for a set distance when releasing the charge button
+            if (_disableLegacyAbilities)
+            {
+                chargingTime = MaxChargeTime;
+            }
+
             _audio[0].ModifyParams(new[] { (name: "Charge", value: 51f) }, true);
             Attacking = true;
             _startTimeChargeAttack = Time.time;
@@ -941,6 +954,10 @@ public class RammyController : MonoBehaviour
     /// </summary>
     private void StartDash()
     {
+        if (_disableLegacyAbilities)
+        {
+            return;
+        }
         if (!Attacking && _dashingAllowed)
         {
 

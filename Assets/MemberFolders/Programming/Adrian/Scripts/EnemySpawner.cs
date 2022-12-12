@@ -13,11 +13,20 @@ public class EnemySpawner : MonoBehaviour
 
     public Transform SpawnPoint;
 
+    private StatManager _statManager;
+
+
+    private void Start()
+    {
+        _statManager = FindObjectOfType<StatManager>();
+    }
 
     private IEnumerator SpawnEnemies(int amount, float waitDuration)
     {
         for (int i = 0; i < amount; i++)
         {
+            _statManager.MaxKills++;
+
             var enemy = Instantiate(Enemy, SpawnPoint.position + (new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.x) * 6f), Quaternion.identity);
 
             AmountOfEnemiesToSpawn--;
