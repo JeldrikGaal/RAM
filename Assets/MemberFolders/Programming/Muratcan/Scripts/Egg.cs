@@ -26,7 +26,7 @@ public class Egg : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject, 5);
+            //Destroy(gameObject, 5);
         }
     }
 }
