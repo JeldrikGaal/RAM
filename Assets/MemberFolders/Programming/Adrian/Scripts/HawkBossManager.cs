@@ -13,6 +13,8 @@ public class HawkBossManager : MonoBehaviour
     [SerializeField] private Animator _animController;
 
     [SerializeField] private GameObject _model;
+    [SerializeField] private GameObject _player;
+
 
     private bool _canAttack;
 
@@ -25,6 +27,8 @@ public class HawkBossManager : MonoBehaviour
     [FoldoutGroup("Basic Attack")][SerializeField] private float _shootSpeed;
 
 
+    [FoldoutGroup("Horizontal Spray")][SerializeField] private Transform _sprayPoint;
+    [FoldoutGroup("Horizontal Spray")][SerializeField] private Transform _sprayPointParent;
     [FoldoutGroup("Horizontal Spray")][SerializeField] private float _sprayRotationSpeed;
     [FoldoutGroup("Horizontal Spray")][SerializeField] private float _finalRotation;
     private float _realFinalRotation;
@@ -62,8 +66,6 @@ public class HawkBossManager : MonoBehaviour
         {"Minion Swarm", 0},
         {"Super Claw Melee", 0}
     };
-
-    private GameObject _player;
 
     private Rigidbody _rb;
 
@@ -106,10 +108,13 @@ public class HawkBossManager : MonoBehaviour
     {
         MaxHealth = _controller.Stats.GetHealth(_controller._area);
 
-        PhaseThree = true;
-        _stageThree = true;
 
-        _player = GameObject.FindGameObjectWithTag("Player");
+        // PhaseThree = true;
+        // _stageThree = true;
+
+        _phaseOne = true;
+        _stageOne = true;
+
         _rb = GetComponent<Rigidbody>();
 
         GenerateCurve();
@@ -213,7 +218,7 @@ public class HawkBossManager : MonoBehaviour
 
         if (!Fleeing && !_spraying)
         {
-            transform.LookAt(_player.transform);
+            transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
         }
 
         Flee();
@@ -238,9 +243,8 @@ public class HawkBossManager : MonoBehaviour
 
         if (_spraying)
         {
-            _animController.SetBool("Spray", true);
             // Rotates the pivot point
-            transform.Rotate(new Vector3(0, _sprayRotationSpeed * Time.deltaTime, 0));
+            _sprayPointParent.Rotate(new Vector3(0, _sprayRotationSpeed * Time.deltaTime, 0));
 
             if (_sprayTimer > 0)
             {
@@ -249,8 +253,8 @@ public class HawkBossManager : MonoBehaviour
 
             if (_sprayTimer < 0)
             {
-                var egg = Instantiate(_egg, _shootPoint.position, Quaternion.identity);
-                egg.GetComponent<Rigidbody>().AddForce(transform.forward * (_shootSpeed * 1.5f));
+                var egg = Instantiate(_egg, _sprayPoint.position, Quaternion.identity);
+                egg.GetComponent<Rigidbody>().AddForce(_sprayPointParent.forward * (_shootSpeed * 1.5f));
                 Destroy(egg, 6);
 
                 _sprayTimer += _sprayShotDelay;
@@ -282,9 +286,10 @@ public class HawkBossManager : MonoBehaviour
 
             if (_crashTimer > 0.18f)
             {
+                _animController.SetBool("Flying", false);
                 _animController.SetBool("Claw Attack", false);
                 Crashing = false;
-                gameObject.layer = 0;
+                gameObject.layer = 20;
                 var damageArea = Instantiate(_damageArea, transform.position, Quaternion.identity);
                 Destroy(damageArea, 0.5f);
                 StartCoroutine(WaitAfterMeleeAttack());
@@ -306,10 +311,16 @@ public class HawkBossManager : MonoBehaviour
             _model.transform.localPosition = Vector3.Lerp(_model.transform.localPosition, new Vector3(0, 0, 0), _crashTimer);
         }
 
-        if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time)
+        if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 2].time)
         {
             _animController.SetBool("Take Off", false);
             _animController.SetBool("Idle", true);
+        }
+
+
+
+        if (_flightTimer > _modelPosCurve[_modelPosCurve.length - 1].time)
+        {
             if (RisingFlee)
             {
 
@@ -481,14 +492,15 @@ public class HawkBossManager : MonoBehaviour
 
             if (Vector3.Distance(transform.position, _player.transform.position) > distance && !_attacking && !Fleeing)
             {
-                print("Im chasing");
                 _controller.MoveInput = (_player.transform.position - transform.position).normalized;
 
                 _chase = true;
+                _animController.SetBool("Chasing", true);
             }
             else
             {
                 _chase = false;
+                _animController.SetBool("Chasing", false);
             }
         }
     }
@@ -501,7 +513,6 @@ public class HawkBossManager : MonoBehaviour
             _animController.SetBool("Take Off", true);
             // Choose a point out of all the flee points
             _selectedFleePoint = _fleePoints[Random.Range(0, _fleePoints.Length)].transform.position;
-
             // Save start position
             _modelStartPos = _model.transform.position;
 
@@ -523,6 +534,8 @@ public class HawkBossManager : MonoBehaviour
             // If the boss has not reached the destination yet
             if (_fleeTimer < 1 && !LoweringFlee)
             {
+                transform.LookAt(new Vector3(_selectedFleePoint.x, transform.position.y, _selectedFleePoint.z));
+
                 _animController.SetBool("Idle", false);
                 _animController.SetBool("Flying", true);
                 // Increase the timer
@@ -536,10 +549,15 @@ public class HawkBossManager : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, new Vector3(_selectedFleePoint.x, transform.position.y, _selectedFleePoint.z), 0.05f);
             }
 
-            if (_fleeTimer > 0.4f)
+            if (_fleeTimer > 0.25f)
             {
                 _animController.SetBool("Flying", false);
                 _animController.SetBool("Idle", true);
+            }
+
+
+            if (_fleeTimer > 0.4f)
+            {
                 _animController.SetBool("Landing", true);
                 LoweringFlee = true;
                 _model.transform.localPosition = Vector3.Lerp(_model.transform.localPosition, Vector3.zero, 2 * Time.deltaTime);
@@ -554,7 +572,7 @@ public class HawkBossManager : MonoBehaviour
                 Fleeing = false;
                 _fleeTimer = 0;
                 LoweringFlee = false;
-                gameObject.layer = 0;
+                gameObject.layer = 20;
             }
         }
     }
@@ -564,31 +582,43 @@ public class HawkBossManager : MonoBehaviour
     #region  Attacks
     private IEnumerator BasicAttack()
     {
+        _animController.SetBool("Basic Attack", true);
+        yield return new WaitForSeconds(0.9f);
         for (int i = 0; i < 3; i++)
         {
             var egg = Instantiate(_egg, _shootPoint.position, Quaternion.identity);
-            egg.GetComponent<Rigidbody>().AddForce(transform.forward * _shootSpeed);
+            egg.GetComponent<Rigidbody>().AddForce((_player.transform.position - transform.position).normalized * _shootSpeed);
             Destroy(egg, 6);
             yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(2);
         _attacking = false;
+        _animController.SetBool("Basic Attack", false);
         yield return new WaitForSeconds(0.5f);
     }
 
     private IEnumerator HorizontalSpray()
     {
-        _realFinalRotation = transform.localEulerAngles.y + _finalRotation;
+        _animController.SetBool("Spray", true);
+
+        yield return new WaitForSeconds(2.3f);
+
+        _realFinalRotation = _sprayPointParent.localEulerAngles.y + _finalRotation;
         _spraying = true;
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 90, transform.localEulerAngles.z);
+
+
+        _sprayPointParent.localEulerAngles = new Vector3(_sprayPointParent.localEulerAngles.x, _sprayPointParent.localEulerAngles.y - 40f, _sprayPointParent.localEulerAngles.z);
+
 
         _sprayTimer += _sprayShotDelay;
-        // print("Horizontal Spray");
-        yield return new WaitForSeconds(_realFinalRotation / _sprayRotationSpeed);
+        yield return new WaitForSeconds(0.6f);
         _spraying = false;
+        _sprayPointParent.localEulerAngles = Vector3.zero;
+
+        yield return new WaitForSeconds(1);
         _animController.SetBool("Spray", false);
 
-        yield return new WaitForSeconds(2);
+
         _attacking = false;
         yield return new WaitForSeconds(0.5f);
     }
