@@ -53,6 +53,11 @@ public class StateMachine : MonoBehaviour
         _currentState.StateStart(_user, _target);
     }
 
+    public void EndStates()
+    {
+        _currentState.StateEnd(_user, _target);
+    }
+
     public void ResetState()
     {
         _reset = true;

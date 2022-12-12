@@ -5,8 +5,6 @@ using UnityEngine;
 public class DestructibleWall : MonoBehaviour, IRammable
 {
 
-    public float Direction;
-
     public GameObject Complete;
     public GameObject Broken;
     private BoxCollider _collider;
@@ -23,33 +21,6 @@ public class DestructibleWall : MonoBehaviour, IRammable
     {
         
     }
-
-    /*public bool Hit(GameObject g)
-    {
-        Vector3 direction = transform.position - g.transform.position;
-        direction = direction.normalized;
-        Debug.Log(direction);
-        switch (Direction)
-        {
-            // Front
-            case 0:
-                if (direction.z > 0)
-                {
-                    return true;
-                }
-                break;
-            // Back
-            case 1:
-                if (direction.z < 0)
-                {
-                    return true;
-                }
-                break;
-            
-         
-        }
-        return false;
-    }*/
 
     public bool Hit(GameObject g)
     {
