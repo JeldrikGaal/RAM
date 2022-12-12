@@ -53,6 +53,11 @@ public class EnemyController : MonoBehaviour
 
     public bool DoDie { get; private set; }
     private bool _doMove;
+
+    private float _temp_maxHealth;
+
+    
+
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -62,8 +67,11 @@ public class EnemyController : MonoBehaviour
 
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
-        Health = Stats.GetHealth(_area);
+        Health = /*Stats.GetHealth(_area);*/ 40;
         _defaultSpeed = MoveSpeed;
+
+        _temp_maxHealth = 40;
+
     }
 
     void Update()
@@ -133,7 +141,7 @@ public class EnemyController : MonoBehaviour
         Health -= damage;
         _anim.SetTrigger("TakeDamage");
         transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
-        _healthBar.UpdateHealthBar(-(damage / Stats.GetHealth(_area)));
+        _healthBar.UpdateHealthBar(-(damage / /*Stats.GetHealth(_area)*/ _temp_maxHealth));
 
         _hurtSound.Play();
 
@@ -180,6 +188,8 @@ public class EnemyController : MonoBehaviour
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
                                    _forceMultipier, _pieceCount, _pieceLiftime); // force multiplier, amount, lifespan
         */
+        
+
         _deathSound.Play();
         if (!_respawnAfterDeath)
         {
