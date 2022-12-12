@@ -24,7 +24,9 @@ public class Importer_EnemyStats : ScriptableObject
     [Button]
     public void UpdateData()
     {
-        //UnityEditor.Undo.RecordObjects(EnemyStats.ToArray(), "Update Enemy Stats");
+#if (UNITY_EDITOR)
+        UnityEditor.Undo.RecordObjects(EnemyStats.ToArray(), "Update Enemy Stats");
+#endif
 
         #region Enemy Attacks
 
