@@ -349,9 +349,8 @@ public class HawkBossManager : MonoBehaviour
     {
         if (_controller.Health < 10)
         {
-            transform.GetChild(0).GetComponent<HealthBar>().UpdateHealthBar((MaxHealth - _controller.Health) / 100);
-            print(MaxHealth - _controller.Health);
             _controller.Health = MaxHealth;
+            transform.GetChild(0).GetComponent<HealthBar>().UpdateHealthBar((MaxHealth - _controller.Health) / 100);
             _stageThree = false;
             _stageOne = true;
 
