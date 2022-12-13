@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public Vector3 MoveInput;
 
+    public string EnemyName;
     public EnemyStats Stats;
 
     public float MoveSpeed;
@@ -63,6 +64,9 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+        // Temporary, hopefully
+        Stats = ImportManager.GetEnemyStats(EnemyName);
+
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
         _animMoveHash = Animator.StringToHash("MoveSpeed");
