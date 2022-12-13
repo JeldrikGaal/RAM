@@ -1291,6 +1291,8 @@ public class RammyController : MonoBehaviour
     // Function to call when Rammy takes any sort of damage
     public void TakeDamageRammy(float _damage)
     {
+        Debug.Log(_damage);
+
         // If Rammy is currently in an I frame dont take damage and dont show damage effects
         if (Invincible)
         {
