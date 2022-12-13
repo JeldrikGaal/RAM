@@ -138,7 +138,7 @@ public class Ability3 : Abilities
 
             if (enemy.GetComponent<EnemyController>() != null)
             {
-                if (enemy.GetComponent<EnemyController>().Health > 0)
+                if (enemy.GetComponent<EnemyController>().Health >= 0)
                 {
                     // Makes the enemy take damage
                     if (enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up))

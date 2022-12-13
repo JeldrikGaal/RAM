@@ -75,7 +75,7 @@ public class Ability1 : Abilities
 
                 foreach (Transform c in enemyHolder)
                 {
-                    if (c.gameObject.GetComponent<EnemyController>().Health > 0)
+                    if (c.gameObject.GetComponent<EnemyController>().Health >= 0)
                     {
                         print("And taking damage");
 

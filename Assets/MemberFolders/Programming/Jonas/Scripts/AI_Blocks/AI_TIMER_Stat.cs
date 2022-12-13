@@ -17,15 +17,12 @@ public class AI_TIMER_Stat : StateBlock
         switch (_timeType)
         {
             case TimeType.Anticipation:
-                Debug.Log($"{user.gameObject.name}/{_attackName}:{user.Stats.GetStats(_attackName).AnticipationTime}");
                 _returnList.Add(user.Stats.GetStats(_attackName).AnticipationTime);
                 break;
             case TimeType.Attack:
-                Debug.Log($"{user.gameObject.name}/{_attackName}:{user.Stats.GetStats(_attackName).AttackTime}");
                 _returnList.Add(user.Stats.GetStats(_attackName).AttackTime);
                 break;
             case TimeType.Recovery:
-                Debug.Log($"{user.gameObject.name}/{_attackName}:{user.Stats.GetStats(_attackName).RecoveryTime}");
                 _returnList.Add(user.Stats.GetStats(_attackName).RecoveryTime);
                 break;
             default:

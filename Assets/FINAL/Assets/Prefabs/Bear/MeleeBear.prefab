@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackName: Hammer Slam
+  Area: 3
 --- !u!1 &1258796195
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackName: Shield Bash
+  Area: 3
 --- !u!1 &1512157760
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +273,7 @@ GameObject:
   - component: {fileID: 6065993889637490175}
   - component: {fileID: 2808333079665158224}
   - component: {fileID: 6065993889637490161}
+  - component: {fileID: 215763481089646329}
   m_Layer: 20
   m_Name: MeleeBear
   m_TagString: enemy
@@ -411,6 +414,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startState: {fileID: 11400000, guid: 1237a1de1cb89f44bb03a2e30ed69af5, type: 2}
   _currentState: {fileID: 0}
+--- !u!114 &215763481089646329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065993889637490160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0116a8584bd9493499c87e19f25ae7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - enemy
 --- !u!1 &6787215250142840252
 GameObject:
   m_ObjectHideFlags: 0
