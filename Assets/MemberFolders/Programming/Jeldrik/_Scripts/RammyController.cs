@@ -487,7 +487,13 @@ public class RammyController : MonoBehaviour
         {
             // _directionIndicatorTip.transform.localScale = new Vector3(_directionIndicatorScaleSave.x, _directionIndicatorScaleSave.y, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
             // _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z + ((_frameCounterRightMouseButton / MaxChargeTime) * 0.5f));
-            _directionIndicatorTip.transform.localScale = new Vector3(1, 1, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
+            //_directionIndicatorTip.transform.localScale = new Vector3(1, 1, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
+
+            if (_directionIndicatorTip.GetComponent<ArrowIncreaser>())
+            {
+                _directionIndicatorTip.GetComponent<ArrowIncreaser>().Value = _frameCounterRightMouseButton / MaxChargeTime;
+            }
+
         }
 
         if (!_chargeAttackAllowed)
@@ -838,13 +844,13 @@ public class RammyController : MonoBehaviour
         BasicAttacking = false;
         _blockMovement = false;
         _audio[3].Play();
-        StartCoroutine(BasicAttackAnimLogic());
-        if (!basicAttackInWalkDireciton) StartCoroutine(BasicAttackAnimLogic());
+        //StartCoroutine(BasicAttackAnimLogic());
+        //if (!basicAttackInWalkDireciton) StartCoroutine(BasicAttackAnimLogic());
     }
 
     IEnumerator BasicAttackAnimLogic()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.15f);
         transform.rotation = _savedRotation;
     }
     #endregion
@@ -1292,6 +1298,8 @@ public class RammyController : MonoBehaviour
     // Function to call when Rammy takes any sort of damage
     public void TakeDamageRammy(float _damage)
     {
+        Debug.Log(_damage);
+
         // If Rammy is currently in an I frame dont take damage and dont show damage effects
         if (Invincible)
         {
