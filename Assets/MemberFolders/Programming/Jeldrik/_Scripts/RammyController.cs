@@ -213,7 +213,7 @@ public class RammyController : MonoBehaviour
     // Setting Input Actions on Awake
     private void Awake()
     {
-        _playerControls = new RammyInputActions();
+        
         _cameraDepth = Camera.main.transform.position.z;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -284,6 +284,8 @@ public class RammyController : MonoBehaviour
     // Enabling PlayerControls when player gets enabled in the scene
     private void OnEnable()
     {
+        _playerControls = new RammyInputActions();
+
         _move = _playerControls.Player.Move;
         _look = _playerControls.Player.Look;
         _attack = _playerControls.Player.Attack;
@@ -1040,7 +1042,7 @@ public class RammyController : MonoBehaviour
     /// </summary>
     private void RamIntoObject(GameObject rammedObject)
     {
-        Debug.Log(("Rammed into:", rammedObject.name));
+        //Debug.Log(("Rammed into:", rammedObject.name));
         if (TagManager.HasTag(rammedObject, "enemy"))
         {
             if (_chargedEnemy == null)
@@ -1201,7 +1203,7 @@ public class RammyController : MonoBehaviour
     /// <param name="enemy"></param>
     public void Kill(GameObject enemy)
     {
-        Debug.Log(MaxHealth * (HealPercentage / 100f));
+        //Debug.Log(MaxHealth * (HealPercentage / 100f));
         Heal((int)(MaxHealth * (HealPercentage / 100f)));
         if (_comboSystem) _comboSystem.AddKill();
     }
@@ -1242,6 +1244,7 @@ public class RammyController : MonoBehaviour
     // Blocking and unblocking player controlled movement
     public void BlockPlayerMovment()
     {
+        Debug.Log("BLOCKING");
         _rB.velocity = Vector3.zero;
         _moveDirection = Vector3.zero;
         _blockMovement = true;
@@ -1363,6 +1366,7 @@ public class RammyController : MonoBehaviour
     // Stopp walking
     private void StopWalking()
     {
+        Debug.Log("STOP WALKING");
         _rB.velocity = Vector3.zero;
 
     }

@@ -28,8 +28,8 @@ public class SlowHoney : MonoBehaviour
     {
         if (!_init)
         {
-            var tempPos = transform.position;
-            transform.position = new(tempPos.x, _hight, tempPos.z);
+            //var tempPos = transform.position;
+            //transform.position = new(tempPos.x, _hight, tempPos.z);
             _init = true;
         }
         if (Time.time - _startTime >= _lingerTime)

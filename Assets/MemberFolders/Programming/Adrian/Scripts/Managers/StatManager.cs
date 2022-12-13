@@ -38,8 +38,6 @@ public class StatManager : MonoBehaviour
     {
         // Resets the Total time played each time you start
         Stats.TimePlayed = 0;
-
-        // Sets the accumulated kills to 40 for testing purposes
         Stats.Kills = 0;
 
         // If there are no letters in the area disable the letter tracker
@@ -96,10 +94,10 @@ public class StatManager : MonoBehaviour
         _killSplatAlpha = Mathf.Lerp(_killSplatAlpha, 0, Time.deltaTime);
 
         // Sets the images to be enabled if the player has a powerup
-        _damageBuff.enabled = _playerController.HasDamageBuff;
-        _speedBuff.enabled = _playerController.HasSpeedBuff;
-        _stunBuff.enabled = _playerController.HasStunBuff;
-        _damageReductionBuff.enabled = _playerController.HasDamageReductionBuff;
+        // _damageBuff.enabled = _playerController.HasDamageBuff;
+        // _speedBuff.enabled = _playerController.HasSpeedBuff;
+        // _stunBuff.enabled = _playerController.HasStunBuff;
+        // _damageReductionBuff.enabled = _playerController.HasDamageReductionBuff;
     }
 
     public void AddKill()

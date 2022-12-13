@@ -10,6 +10,9 @@ public class EnemyPlatform : MonoBehaviour
     [SerializeField] private bool _dropPlatform;
 
     [SerializeField] private GameObject[] _enemiesOnPlatform;
+	
+	[SerializeField] private bool _openDoor;
+	[SerializeField] private GameObject _doorToOpen;
 
     private void Update()
     {
@@ -18,10 +21,16 @@ public class EnemyPlatform : MonoBehaviour
             _dropPlatform = false;
             DestroyPlatform();
         }
+		
+		
     }
 
     public void DestroyPlatform()
     {
+        if (_openDoor)
+        {
+            _doorToOpen.SetActive(false);
+        }
         foreach (GameObject enemy in _enemiesOnPlatform)
         {
             enemy.GetComponent<EnemyController>().enabled = false;

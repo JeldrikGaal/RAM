@@ -128,7 +128,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5468393190415173951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
   m_PrefabInstance: {fileID: 1861716224}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 677534939}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ba2a971e5a6dd24fabc92aa6531550b, type: 3}
@@ -231,6 +231,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &677534939 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3598907282474308908, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+  m_PrefabInstance: {fileID: 1861716224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &753444002
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,14 +671,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 752123405624860936, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 752123405624860949, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4522231868183197219, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -727,18 +724,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1774462335}
     - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _healthBar
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _fleePoints.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _spawnPoints.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: _fleePoints.Array.data[0]
       value: 
       objectReference: {fileID: 1496258152}
@@ -774,60 +759,19 @@ PrefabInstance:
       propertyPath: _spawnPoints.Array.data[2]
       value: 
       objectReference: {fileID: 1466598720}
-    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _spawnPoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 1466598720}
-    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _spawnPoints.Array.data[4]
-      value: 
-      objectReference: {fileID: 1466598720}
-    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _spawnPoints.Array.data[5]
-      value: 
-      objectReference: {fileID: 1466598720}
-    - target: {fileID: 4522231868183197231, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _area
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4522231868183197231, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 1774462335}
-    - target: {fileID: 4522231868183197231, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: EnemyName
-      value: Hawk_Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197231, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _healthBar
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
---- !u!1 &1281015537 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4522231868183197227, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-  m_PrefabInstance: {fileID: 1281015536}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1281015538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281015537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 414c1f7c1c9f0f043aa9d2b871e6664c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1281015539 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4522231868183197231, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
   m_PrefabInstance: {fileID: 1281015536}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281015537}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
@@ -997,6 +941,11 @@ PrefabInstance:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6662771941021952001, guid: 3e34087d926351d4b9580cb5175891b9, type: 3}
   m_PrefabInstance: {fileID: 1369017622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1402983349 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3673875269934020538, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
+  m_PrefabInstance: {fileID: 1204454373}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1438064608
 GameObject:
@@ -1522,6 +1471,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3315589019096693642, guid: c9b03c2fc7c0f014ab5af3b0184c176d, type: 3}
+      propertyPath: m_TargetCamera
+      value: 
+      objectReference: {fileID: 1402983349}
     - target: {fileID: 5268157068840071888, guid: c9b03c2fc7c0f014ab5af3b0184c176d, type: 3}
       propertyPath: m_Name
       value: DeathCanvas
@@ -1611,9 +1564,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5268157068840071919, guid: c9b03c2fc7c0f014ab5af3b0184c176d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: _hud
+      value: 
+      objectReference: {fileID: 677534939}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c9b03c2fc7c0f014ab5af3b0184c176d, type: 3}
