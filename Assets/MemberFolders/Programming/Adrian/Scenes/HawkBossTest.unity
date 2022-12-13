@@ -666,6 +666,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 752123405624860949, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4522231868183197219, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -718,6 +722,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1774462335}
+    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+      propertyPath: _healthBar
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: _fleePoints.Array.size
       value: 6
@@ -778,6 +786,14 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1774462335}
+    - target: {fileID: 4522231868183197231, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+      propertyPath: EnemyName
+      value: Hawk_Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522231868183197231, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+      propertyPath: _healthBar
+      value: 
+      objectReference: {fileID: 1723070920}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
@@ -1334,6 +1350,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c85e10d781623498c350a99fc49f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1723070916 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3598907282381018699, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+  m_PrefabInstance: {fileID: 1861716224}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1723070918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3598907282381018701, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+  m_PrefabInstance: {fileID: 1861716224}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723070916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1723070920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723070916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 653e72c3a51779948a6be9ba8464d87b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthBarImage: {fileID: 1723070918}
 --- !u!1001 &1774462334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1603,6 +1648,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3598907282381018699, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907282465919192, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3598907282474308880, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1695,6 +1748,10 @@ PrefabInstance:
       propertyPath: _controller
       value: 
       objectReference: {fileID: 1774462336}
+    - target: {fileID: 3598907283670394371, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5468393190415173951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: _swordTextbox
       value: 
@@ -1707,6 +1764,10 @@ PrefabInstance:
       propertyPath: _playerController
       value: 
       objectReference: {fileID: 1774462336}
+    - target: {fileID: 7303577710710298461, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
