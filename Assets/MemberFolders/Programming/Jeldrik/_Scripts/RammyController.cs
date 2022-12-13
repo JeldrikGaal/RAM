@@ -600,7 +600,7 @@ public class RammyController : MonoBehaviour
             {
                 if (_learnedAbilities[1]) _ability2Script.CheckActivate();
             }
-            else if (_ability3Key == 1 )
+            else if (_ability3Key == 1)
             {
                 if (_learnedAbilities[2]) _ability3Script.CheckActivate();
             }
@@ -873,7 +873,7 @@ public class RammyController : MonoBehaviour
             {
                 StartBasicAttack();
             }
-            
+
         }
         if (chargeTime > MinChargeTime)
         {
@@ -1094,7 +1094,10 @@ public class RammyController : MonoBehaviour
         {
             rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
-
+        else if (TagManager.HasTag(rammedObject, "randomitembox"))
+        {
+            rammedObject.GetComponent<SpawnRandomObject>().SpawnRandomItem(rammedObject.transform.position - transform.position);
+        }
     }
 
     // Checking for any collisions Rammy encouters and reacting accordingly

@@ -39,6 +39,8 @@ public class StatManager : MonoBehaviour
             _journal.SetActive(false);
         }
 
+        _playerController = FindObjectOfType<RammyController>();
+
         // if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
         // {
         //     MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
@@ -58,7 +60,6 @@ public class StatManager : MonoBehaviour
         // Sets the text of the killcount textbox
         if (Stats.Kills <= MaxKills)
         {
-            print("wo");
             _swordTextbox.text = Stats.Kills + "/" + MaxKills;
         }
 
