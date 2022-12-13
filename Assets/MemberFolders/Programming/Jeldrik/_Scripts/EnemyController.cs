@@ -57,9 +57,10 @@ public class EnemyController : MonoBehaviour
     public bool DoDie { get; private set; }
     private bool _doMove;
 
-    
 
-    
+    Cleanup cleanup = new();
+
+    public void DoOnDie(StateBlock block, System.Action<EnemyController> cleaner) => cleanup.DoClean(block, cleaner);
 
     void Start()
     {
@@ -146,6 +147,8 @@ public class EnemyController : MonoBehaviour
     /// <returns></returns>
     public bool TakeDamage(float damage, Vector3 hitDirection)
     {
+        Debug.Log(damage);
+
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
         Health -= damage;
         _anim.SetTrigger("TakeDamage");
@@ -197,8 +200,8 @@ public class EnemyController : MonoBehaviour
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
                                    _forceMultipier, _pieceCount, _pieceLiftime); // force multiplier, amount, lifespan
         */
-        
 
+        cleanup.Clean(this);
         _deathSound.Play();
         if (!_respawnAfterDeath)
         {

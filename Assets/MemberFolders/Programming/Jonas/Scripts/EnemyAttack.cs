@@ -6,22 +6,25 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     public string AttackName;
+    public int Area = 1;
 
     private float _damage;
+    private bool _done = false;
 
     private void OnEnable()
     {
-        _damage = transform.parent.parent.parent.GetComponent<EnemyController>().Stats.GetStats(AttackName).Damage(1);
+        _done = false;
+        _damage = transform.parent.parent.parent.GetComponent<EnemyController>().Stats.GetStats(AttackName).Damage(Area);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.name);
+        if (_done) return;
         if (TagManager.HasTag(other.gameObject, "player"))
         {
+            _done = true;
             other.GetComponent<RammyController>().TakeDamageRammy(_damage);
             gameObject.SetActive(false);
         }
-        Debug.Log($"{_damage} dealt to {other.name}");
     }
 }
