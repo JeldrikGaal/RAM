@@ -59,7 +59,11 @@ public class Ability3 : Abilities
         {
             if (col.tag == "enemy" || col.tag == "wolf")
             {
-                enemyTransforms.Add(col.transform);
+                if (!enemyTransforms.Contains(col.transform))
+                {
+                    enemyTransforms.Add(col.transform);
+                }
+
                 if (col.GetComponent<HawkBossManager>() != null)
                 {
                     if (col.GetComponent<HawkBossManager>().Fleeing || col.GetComponent<HawkBossManager>().RisingFlee || col.GetComponent<HawkBossManager>().LoweringFlee || col.GetComponent<HawkBossManager>().Rising || col.GetComponent<HawkBossManager>().Crashing || col.GetComponent<HawkBossManager>().MeleeAttack)
@@ -140,6 +144,7 @@ public class Ability3 : Abilities
                     {
                         _controller.Kill(enemy);
                     }
+                    print("Dealt damage");
                 }
 
                 // enemy.GetComponent<EnemyController>().StunDuration = _stunDuration;
