@@ -37,7 +37,7 @@ public class AI_TIMER_Stat : StateBlock
 
     public override void OnEnd(EnemyController user, GameObject target) { }
 
-    private enum TimeType
+    public enum TimeType
     {
         Anticipation,
         Attack,

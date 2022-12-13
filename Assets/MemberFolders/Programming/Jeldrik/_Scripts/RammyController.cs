@@ -73,6 +73,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
     [SerializeField] private TimeStopper _timeStopper;
+    [SerializeField] private GameObject _chargeVFX;
 
 
 
@@ -885,6 +886,7 @@ public class RammyController : MonoBehaviour
             Attacking = true;
             // Start charging animation
             _animator.SetBool("Charging", true);
+            _chargeVFX.SetActive(true);
 
             _startTimeChargeAttack = Time.time;
 
@@ -892,7 +894,10 @@ public class RammyController : MonoBehaviour
             // calculating the destination for the charge by taking the direction from the player to the mouse, the max charging distance and how much of the max charging time has already passed
             _chargeAttackDestination = transform.position + _lookingAtMouseRotation * (ChargeAttackDistance * (chargingTime / MaxChargeTime));
 
-            int layer = 1 << LayerMask.NameToLayer("Default");
+            //int layer = 1 << LayerMask.NameToLayer("Default");
+            int layer = 1 << 11;
+            layer = ~layer;
+            // int layer = 20;
 
             // Checking if player would end up in an object while charging and shortening charge if thats the case
             if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, (ChargeAttackDistance * (chargingTime / MaxChargeTime)), layer, QueryTriggerInteraction.Ignore))
@@ -948,6 +953,7 @@ public class RammyController : MonoBehaviour
 
         // End charging animation
         _animator.SetBool("Charging", false);
+        _chargeVFX.SetActive(false);
 
         if (_chargedEnemy != null)
         {
@@ -1285,6 +1291,8 @@ public class RammyController : MonoBehaviour
     // Function to call when Rammy takes any sort of damage
     public void TakeDamageRammy(float _damage)
     {
+        Debug.Log(_damage);
+
         // If Rammy is currently in an I frame dont take damage and dont show damage effects
         if (Invincible)
         {
