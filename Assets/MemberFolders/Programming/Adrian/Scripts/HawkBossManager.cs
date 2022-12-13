@@ -8,6 +8,8 @@ using UnityEngine.Animations;
 public class HawkBossManager : MonoBehaviour
 {
     [SerializeField] private EnemyController _controller;
+    [SerializeField] private EnemyTesting _testingScript;
+
     [SerializeField] private Animator _animController;
 
     [SerializeField] private GameObject _model;
@@ -82,7 +84,6 @@ public class HawkBossManager : MonoBehaviour
     [FoldoutGroup("Flee")][SerializeField] private GameObject[] _fleePoints;
     [FoldoutGroup("Flee")][SerializeField] private Vector3 _selectedFleePoint;
     [FoldoutGroup("Flee")] public float DamageTakenRecently;
-    [FoldoutGroup("Flee")] public float DamageTakenRecentlyStageChange;
     [FoldoutGroup("Flee")] public bool RisingFlee;
     [FoldoutGroup("Flee")] public bool LoweringFlee;
     [FoldoutGroup("Flee")][SerializeField] private float _fleeTimer;
@@ -347,9 +348,12 @@ public class HawkBossManager : MonoBehaviour
     #region StageChanges
     private void ChangeToStageOne()
     {
-        if (DamageTakenRecentlyStageChange >= 30)
+        if (_controller.Health < 10)
         {
-            DamageTakenRecentlyStageChange = 0;
+            var healthUpdate = Mathf.Min((MaxHealth - _controller.Health) / 100, 0.9f);
+            print(healthUpdate);
+            transform.GetComponentInChildren<HealthBar>().UpdateHealthBar(healthUpdate);
+            _controller.Health = MaxHealth;
             _stageThree = false;
             _stageOne = true;
 
@@ -368,9 +372,8 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageTwo()
     {
-        if (DamageTakenRecentlyStageChange >= 30)
+        if (_controller.Health < 90)
         {
-            DamageTakenRecentlyStageChange = 0;
             _stageOne = false;
             _stageTwo = true;
         }
@@ -378,9 +381,8 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageThree()
     {
-        if (DamageTakenRecentlyStageChange >= 30)
+        if (_controller.Health < 40)
         {
-            DamageTakenRecentlyStageChange = 0;
             _stageTwo = false;
             _stageThree = true;
         }
