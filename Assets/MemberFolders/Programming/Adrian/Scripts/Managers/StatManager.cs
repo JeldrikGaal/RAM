@@ -96,10 +96,10 @@ public class StatManager : MonoBehaviour
         _killSplatAlpha = Mathf.Lerp(_killSplatAlpha, 0, Time.deltaTime);
 
         // Sets the images to be enabled if the player has a powerup
-        _damageBuff.enabled = _playerController.HasDamageBuff;
-        _speedBuff.enabled = _playerController.HasSpeedBuff;
-        _stunBuff.enabled = _playerController.HasStunBuff;
-        _damageReductionBuff.enabled = _playerController.HasDamageReductionBuff;
+        // _damageBuff.enabled = _playerController.HasDamageBuff;
+        // _speedBuff.enabled = _playerController.HasSpeedBuff;
+        // _stunBuff.enabled = _playerController.HasStunBuff;
+        // _damageReductionBuff.enabled = _playerController.HasDamageReductionBuff;
     }
 
     public void AddKill()
