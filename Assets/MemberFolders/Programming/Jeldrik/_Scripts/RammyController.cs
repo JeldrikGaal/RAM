@@ -500,6 +500,7 @@ public class RammyController : MonoBehaviour
         {
             _frameCounterRightMouseButton = 0;
             _frameCounterRightMouseButtonSave = 0;
+            _directionIndicatorTip.GetComponent<ArrowIncreaser>().Value = 0;
         }
 
         // Logic while player is attacking
