@@ -8,8 +8,6 @@ using UnityEngine.Animations;
 public class HawkBossManager : MonoBehaviour
 {
     [SerializeField] private EnemyController _controller;
-    [SerializeField] private EnemyTesting _testingScript;
-
     [SerializeField] private Animator _animController;
 
     [SerializeField] private GameObject _model;
