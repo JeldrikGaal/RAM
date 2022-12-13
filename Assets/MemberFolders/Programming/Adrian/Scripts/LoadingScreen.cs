@@ -24,6 +24,8 @@ public class LoadingScreen : MonoBehaviour
 
         _videoPlayer = GetComponent<VideoPlayer>();
 
+        _videoPlayer.targetCamera = Camera.main;
+
         if (!_dontStartOnLoad)
         {
             StartCoroutine(Show());

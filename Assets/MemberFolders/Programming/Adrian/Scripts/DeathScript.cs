@@ -21,6 +21,7 @@ public class DeathScript : MonoBehaviour
     private void OnEnable()
     {
         _videoPlayer = GetComponent<VideoPlayer>();
+        _videoPlayer.targetCamera = Camera.main;
         _videoPlayer.Play();
         _hud.SetActive(false);
     }
