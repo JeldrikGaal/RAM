@@ -60,7 +60,7 @@ public class EnemyController : MonoBehaviour
 
     Cleanup cleanup = new();
 
-    public void DoClean(StateBlock block, System.Action<EnemyController> cleaner) => cleanup.DoClean(block, cleaner);
+    public void DoOnDie(StateBlock block, System.Action<EnemyController> cleaner) => cleanup.DoClean(block, cleaner);
 
     void Start()
     {
