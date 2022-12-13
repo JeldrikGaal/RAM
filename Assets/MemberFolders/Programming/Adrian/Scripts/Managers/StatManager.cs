@@ -15,6 +15,14 @@ public class StatManager : MonoBehaviour
     [SerializeField] private TMP_Text _totalKills;
     [SerializeField] private TMP_Text _killCountTextbox;
     [SerializeField] private Image _killSplat;
+
+    [SerializeField] private Image _speedBuff;
+    [SerializeField] private Image _damageBuff;
+    [SerializeField] private Image _damageReductionBuff;
+    [SerializeField] private Image _stunBuff;
+
+
+
     private float _killSplatAlpha;
 
     public StatTracker Stats;
@@ -39,6 +47,8 @@ public class StatManager : MonoBehaviour
             _journal.SetActive(false);
         }
 
+        _playerController = FindObjectOfType<RammyController>();
+
         // if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
         // {
         //     MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
@@ -58,7 +68,6 @@ public class StatManager : MonoBehaviour
         // Sets the text of the killcount textbox
         if (Stats.Kills <= MaxKills)
         {
-            print("wo");
             _swordTextbox.text = Stats.Kills + "/" + MaxKills;
         }
 
@@ -79,6 +88,11 @@ public class StatManager : MonoBehaviour
         _killSplat.color = new Color(255, 0, 0, _killSplatAlpha);
 
         _killSplatAlpha = Mathf.Lerp(_killSplatAlpha, 0, Time.deltaTime);
+
+        _damageBuff.enabled = _playerController.HasDamageBuff;
+        _speedBuff.enabled = _playerController.HasSpeedBuff;
+        _stunBuff.enabled = _playerController.HasStunBuff;
+        _damageReductionBuff.enabled = _playerController.HasDamageReductionBuff;
     }
 
     public void AddKill()
