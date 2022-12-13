@@ -894,7 +894,10 @@ public class RammyController : MonoBehaviour
             // calculating the destination for the charge by taking the direction from the player to the mouse, the max charging distance and how much of the max charging time has already passed
             _chargeAttackDestination = transform.position + _lookingAtMouseRotation * (ChargeAttackDistance * (chargingTime / MaxChargeTime));
 
-            int layer = 1 << LayerMask.NameToLayer("Default");
+            //int layer = 1 << LayerMask.NameToLayer("Default");
+            int layer = 1 << 11;
+            layer = ~layer;
+            // int layer = 20;
 
             // Checking if player would end up in an object while charging and shortening charge if thats the case
             if (Physics.Raycast(transform.position, _lookingAtMouseRotation, out hit, (ChargeAttackDistance * (chargingTime / MaxChargeTime)), layer, QueryTriggerInteraction.Ignore))
@@ -1221,6 +1224,7 @@ public class RammyController : MonoBehaviour
     // Blocking and unblocking player controlled movement
     public void BlockPlayerMovment()
     {
+        Debug.Log("BLOCKING");
         _rB.velocity = Vector3.zero;
         _moveDirection = Vector3.zero;
         _blockMovement = true;
@@ -1340,6 +1344,7 @@ public class RammyController : MonoBehaviour
     // Stopp walking
     private void StopWalking()
     {
+        Debug.Log("STOP WALKING");
         _rB.velocity = Vector3.zero;
 
     }
