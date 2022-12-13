@@ -130,7 +130,7 @@ public class AI_Audio : StateBlock
         }
         
         
-        //Debug.Log("Played");
+        Debug.Log("Played");
     }
 
     public void PlayAudio(EnemyController user)

@@ -164,7 +164,7 @@ public class RammyController : MonoBehaviour
     private Vector3 _directionIndicatorPosSave;
 
     //[Header("Buff Values")]
-    [FoldoutGroup("Buff Values")][SerializeField] private bool _hasDamageBuff;
+    [FoldoutGroup("Buff Values")][SerializeField] public bool HasDamageBuff;
     [FoldoutGroup("Buff Values")] public float DamageModifier;
     [HideInInspector] public float AppliedDamageModifier; // Multiply this by the damage in each ability
     [FoldoutGroup("Buff Values")] public float DamageBuffDuration;
@@ -174,7 +174,7 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float SpeedBuffDuration;
     private float _speedBuffTimer;
     private bool _setSpeed = true;
-    [FoldoutGroup("Buff Values")][SerializeField] private bool _hasDamageReductionBuff;
+    [FoldoutGroup("Buff Values")][SerializeField] public bool HasDamageReductionBuff;
     [FoldoutGroup("Buff Values")] public float DamageReductionModifier;
     [FoldoutGroup("Buff Values")] public float DamageReductionBuffDuration;
     [FoldoutGroup("Buff Values")][SerializeField] private float _damageReductionBuffTimer;
@@ -213,7 +213,7 @@ public class RammyController : MonoBehaviour
     // Setting Input Actions on Awake
     private void Awake()
     {
-        
+        _playerControls = new RammyInputActions();
         _cameraDepth = Camera.main.transform.position.z;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -284,8 +284,6 @@ public class RammyController : MonoBehaviour
     // Enabling PlayerControls when player gets enabled in the scene
     private void OnEnable()
     {
-        _playerControls = new RammyInputActions();
-
         _move = _playerControls.Player.Move;
         _look = _playerControls.Player.Look;
         _attack = _playerControls.Player.Attack;
@@ -400,6 +398,8 @@ public class RammyController : MonoBehaviour
         #region Movement
         // Applying input from the 'Move' Vector from the InputAction to the velocity of the rigidbody and multiplying by the Movement 
         _moveDirection = _move.ReadValue<Vector2>() * MovementSpeed;
+        Debug.Log(MovementSpeed);
+        Debug.Log(_moveDirection);
         Vector3 vel = new Vector3(_moveDirection.x, 0, _moveDirection.y);
         vel = Quaternion.AngleAxis(-45, Vector3.up) * vel;
 
@@ -427,6 +427,7 @@ public class RammyController : MonoBehaviour
             vel.y = _rB.velocity.y;
             _rB.velocity = vel;
             int baseRotation = 135;
+            Debug.Log(_rB.velocity);
             if (Walking && !_walkingAnim)
             {
                 _animator.SetTrigger("startWalking");
@@ -602,7 +603,7 @@ public class RammyController : MonoBehaviour
             {
                 if (_learnedAbilities[1]) _ability2Script.CheckActivate();
             }
-            else if (_ability3Key == 1 )
+            else if (_ability3Key == 1)
             {
                 if (_learnedAbilities[2]) _ability3Script.CheckActivate();
             }
@@ -622,7 +623,7 @@ public class RammyController : MonoBehaviour
         #region DamageBuff
 
         // Checks if the buff is active
-        if (_hasDamageBuff)
+        if (HasDamageBuff)
         {
             // Timer counts down every second
             _damageBuffTimer -= Time.deltaTime;
@@ -635,7 +636,7 @@ public class RammyController : MonoBehaviour
         if (_damageBuffTimer <= 0)
         {
             // "Turns off" the buff
-            _hasDamageBuff = false;
+            HasDamageBuff = false;
 
             // Sets the damage back to normal
             AppliedDamageModifier = 1;
@@ -670,7 +671,7 @@ public class RammyController : MonoBehaviour
         #region  DamageReductionBuff
 
         // Checks if the buff is active
-        if (_hasDamageReductionBuff)
+        if (HasDamageReductionBuff)
         {
             // Timer counts down every second
             _damageReductionBuffTimer -= Time.deltaTime;
@@ -680,7 +681,7 @@ public class RammyController : MonoBehaviour
         if (_damageReductionBuffTimer <= 0)
         {
             // Turns off the buff
-            _hasDamageReductionBuff = false;
+            HasDamageReductionBuff = false;
         }
 
         #endregion
@@ -875,7 +876,7 @@ public class RammyController : MonoBehaviour
             {
                 StartBasicAttack();
             }
-            
+
         }
         if (chargeTime > MinChargeTime)
         {
@@ -909,6 +910,7 @@ public class RammyController : MonoBehaviour
 
             //int layer = 1 << LayerMask.NameToLayer("Default");
             int layer = 1 << 11;
+            layer |= (1 << 20);
             layer = ~layer;
             // int layer = 20;
 
@@ -1095,7 +1097,10 @@ public class RammyController : MonoBehaviour
         {
             rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
-
+        else if (TagManager.HasTag(rammedObject, "randomitembox"))
+        {
+            rammedObject.GetComponent<SpawnRandomObject>().SpawnRandomItem(rammedObject.transform.position - transform.position);
+        }
     }
 
     // Checking for any collisions Rammy encouters and reacting accordingly
@@ -1126,7 +1131,7 @@ public class RammyController : MonoBehaviour
         if (other.tag == "DamagePowerup")
         {
             // Turns on the buff
-            _hasDamageBuff = true;
+            HasDamageBuff = true;
 
             // Adds time to the buff timer
             _damageBuffTimer = DamageBuffDuration;
@@ -1158,10 +1163,22 @@ public class RammyController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+        if (other.tag == "StunPowerup")
+        {
+            // Turns on the damage reduction buff
+            HasStunBuff = true;
+
+            // Adds time to the buff timer
+            _stunBuffTimer = StunBuffDuration;
+
+            // Destroys the buff so it can't be picked up more than once 
+            Destroy(other.gameObject);
+        }
+
         if (other.tag == "DamageReductionPowerup")
         {
             // Turns on the damage reduction buff
-            _hasDamageReductionBuff = true;
+            HasDamageReductionBuff = true;
 
             // Adds time to the buff timer
             _damageReductionBuffTimer = DamageReductionBuffDuration;
@@ -1311,7 +1328,7 @@ public class RammyController : MonoBehaviour
 
         float appliedDamage;
         // If the player has the damage reduction buff
-        if (_hasDamageReductionBuff)
+        if (HasDamageReductionBuff)
         {
             // Take damage divided by the damage reduction modifier
             appliedDamage = (_damage / DamageReductionModifier);

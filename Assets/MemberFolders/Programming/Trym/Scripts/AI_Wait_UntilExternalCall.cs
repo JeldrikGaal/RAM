@@ -33,7 +33,7 @@ public class AI_Wait_UntilExternalCall : StateBlock
             _trigger[user.GetInstanceID()] = false;
             return (null, null);
         }
-        return (null, new(new[] { (float)StateReturn.Timer, float.PositiveInfinity }));
+        return (null, new(new[] { (float)StateReturn.Stop}));
     }
 
     

@@ -9,15 +9,15 @@ public class EndLevel5Area1 : MonoBehaviour
 
     [SerializeField] GameObject bossHolder;
 
-    [SerializeField] GameObject _firstEnemies;
-    [SerializeField] GameObject _bossFase;
-
-    [SerializeField] private StatTracker Stats;
-    [SerializeField] StatManager _statManager;
-
     private bool _done;
-    
 
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
     void Update()
     {
         if (bossHolder.transform.childCount == 0 && !_done)
@@ -31,15 +31,5 @@ public class EndLevel5Area1 : MonoBehaviour
             StartCoroutine(_loadingScreen.NextLevel(0));
             Cursor.visible = true;
         }
-        if (Stats.Kills == _statManager.MaxKills)
-        {
-            EnableBossStage();
-        }
     }
-
-    private void EnableBossStage()
-	{
-        _firstEnemies.SetActive(false);
-        _bossFase.SetActive(true);
-	}
 }

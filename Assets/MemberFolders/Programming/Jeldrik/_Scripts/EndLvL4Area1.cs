@@ -9,8 +9,6 @@ public class EndLvL4Area1 : MonoBehaviour
 
     [SerializeField] private LoadingScreen _loadingScreen;
 
-    [SerializeField] private List<GameObject> _spikes;
-
     private bool done;
     // Start is called before the first frame update
     void Start()
@@ -24,10 +22,6 @@ public class EndLvL4Area1 : MonoBehaviour
         if (enemies.transform.childCount == 0)
         {
             done = true;
-            foreach (GameObject spike in _spikes)
-            {
-                Destroy(spike);
-            }
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
@@ -40,9 +34,8 @@ public class EndLvL4Area1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.HasTag("Player") && done)
+        if (other.gameObject.HasTag("player") && done)
         {
-            
             Scene scene = SceneManager.GetActiveScene();
             StartCoroutine(_loadingScreen.NextLevel(scene.buildIndex + 1));
 
