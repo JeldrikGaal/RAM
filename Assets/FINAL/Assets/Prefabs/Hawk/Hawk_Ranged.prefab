@@ -1556,7 +1556,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2012072669672998696, guid: f2dee0acc2597fe43946f35246987775, type: 3}
+  - {fileID: 2012072669672998696, guid: 618f44f07b6ebe24bbee4347900366cb, type: 3}
   - {fileID: 6619172938074633871, guid: f2dee0acc2597fe43946f35246987775, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2106,7 +2106,7 @@ Transform:
   - {fileID: 7210981820021622043}
   - {fileID: 5351068859023149185}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6531915515876744176
 Animator:
@@ -2270,7 +2270,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
-  Stats: {fileID: 0}
+  EnemyName: Hawk_Ranged
+  Stats:
+    Health: []
   MoveSpeed: 3
   AttackDamage: 3
   Health: 10
@@ -3202,19 +3204,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.0011117043
   m_Center: {x: 5.820766e-11, y: 0.0000000035506673, z: 0.0001649569}
---- !u!114 &6226067451360476035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6531915515529217774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71f1d1b9d0c2b3a4daae013de874cbc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1.5
 --- !u!114 &6226067451360476034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3229,6 +3218,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - egg
+--- !u!114 &6226067451360476035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6531915515529217774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f1d1b9d0c2b3a4daae013de874cbc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1.5
 --- !u!1001 &6226067452013100601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3343,19 +3345,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.0011117043
   m_Center: {x: 5.820766e-11, y: 0.0000000035506673, z: 0.0001649569}
---- !u!114 &6226067452013100605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6531915515107050344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71f1d1b9d0c2b3a4daae013de874cbc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1.5
 --- !u!114 &6226067452013100604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3370,3 +3359,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - egg
+--- !u!114 &6226067452013100605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6531915515107050344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f1d1b9d0c2b3a4daae013de874cbc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1.5
