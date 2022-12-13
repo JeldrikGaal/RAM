@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 59429002}
   - component: {fileID: 59429001}
   - component: {fileID: 59429000}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,6 +229,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3017985193138049559, guid: 2559f7de62866cb4e8575811fce54b4c, type: 3}
+      propertyPath: _startState
+      value: 
+      objectReference: {fileID: 11400000, guid: 185fee220991f694fa5b345ac614fbfd, type: 2}
     - target: {fileID: 3017985193138049561, guid: 2559f7de62866cb4e8575811fce54b4c, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -276,6 +280,10 @@ PrefabInstance:
     - target: {fileID: 3017985193138049565, guid: 2559f7de62866cb4e8575811fce54b4c, type: 3}
       propertyPath: m_Name
       value: MeleeHawk
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017985193138049565, guid: 2559f7de62866cb4e8575811fce54b4c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -609,6 +617,14 @@ PrefabInstance:
     - target: {fileID: 3598907282474308908, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907282979737951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 35.400146
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907282979737951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -151.19995
       objectReference: {fileID: 0}
     - target: {fileID: 5468393190415173951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: _playerController
@@ -982,6 +998,10 @@ PrefabInstance:
     - target: {fileID: 6065993889637490160, guid: 5b3a96c83def9b94aae895a48fcb4b5b, type: 3}
       propertyPath: m_Name
       value: MeleeBear
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065993889637490160, guid: 5b3a96c83def9b94aae895a48fcb4b5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6065993889637490171, guid: 5b3a96c83def9b94aae895a48fcb4b5b, type: 3}
       propertyPath: m_RootOrder
