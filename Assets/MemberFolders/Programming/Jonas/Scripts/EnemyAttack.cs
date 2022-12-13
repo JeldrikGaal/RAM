@@ -24,7 +24,7 @@ public class EnemyAttack : MonoBehaviour
         {
             _done = true;
             other.GetComponent<RammyController>().TakeDamageRammy(_damage);
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 }
