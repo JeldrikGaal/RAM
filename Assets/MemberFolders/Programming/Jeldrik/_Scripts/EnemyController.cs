@@ -77,7 +77,7 @@ public class EnemyController : MonoBehaviour
         Health = Stats.GetHealth(_area);
         _defaultSpeed = MoveSpeed;
 
-        
+
 
     }
 
@@ -160,11 +160,7 @@ public class EnemyController : MonoBehaviour
         if (GetComponent<HawkBossManager>() != null)
         {
             GetComponent<HawkBossManager>().DamageTakenRecently += damage;
-
-            if (!GetComponent<HawkBossManager>().PhaseThree)
-            {
-                Health = Mathf.Clamp(Health, 1, 100);
-            }
+            GetComponent<HawkBossManager>().DamageTakenRecentlyStageChange += damage;
         }
 
         _lastIncomingHit = hitDirection;

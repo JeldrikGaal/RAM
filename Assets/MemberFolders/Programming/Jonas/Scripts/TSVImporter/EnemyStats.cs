@@ -35,7 +35,7 @@ public class EnemyStats
 
         Health = new List<float>();
 
-        for(int i = 1; i < 4; i++)
+        for (int i = 1; i < 4; i++)
         {
             Health.Add(float.Parse(health[i].Replace(',', '.'), culture));
         }
@@ -51,6 +51,14 @@ public class EnemyStats
 
     public float GetHealth(int area)
     {
+        if (area > 3)
+        {
+            float health = 0;
+            health += Health[0];
+            health += Health[1];
+            health += Health[2];
+            return health;
+        }
         return Health[area - 1];
     }
 
