@@ -112,13 +112,21 @@ public class AI_Audio : StateBlock
     }
     private void Play(EnemyController user)
     {
-        if (_attached)
+        try
         {
-            RuntimeManager.PlayOneShotAttached(_audioEvent, user.gameObject);
+            if (_attached)
+            {
+                RuntimeManager.PlayOneShotAttached(_audioEvent, user.gameObject);
+            }
+            else
+            {
+                RuntimeManager.PlayOneShot(_audioEvent, user.transform.position + (user.transform.rotation * _positionMod));
+            }
         }
-        else
+        catch (System.Exception)
         {
-            RuntimeManager.PlayOneShot(_audioEvent, user.transform.position + (user.transform.rotation * _positionMod));
+
+            return;
         }
         
         
