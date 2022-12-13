@@ -213,7 +213,7 @@ public class RammyController : MonoBehaviour
     // Setting Input Actions on Awake
     private void Awake()
     {
-        _playerControls = new RammyInputActions();
+        
         _cameraDepth = Camera.main.transform.position.z;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -284,6 +284,8 @@ public class RammyController : MonoBehaviour
     // Enabling PlayerControls when player gets enabled in the scene
     private void OnEnable()
     {
+        _playerControls = new RammyInputActions();
+
         _move = _playerControls.Player.Move;
         _look = _playerControls.Player.Look;
         _attack = _playerControls.Player.Attack;
