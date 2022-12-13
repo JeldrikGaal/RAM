@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 4522231868183197230}
   - component: {fileID: 4522231868183197225}
   - component: {fileID: 4522231868183197224}
+  - component: {fileID: 1281015538}
   m_Layer: 20
   m_Name: HawkBoss
   m_TagString: enemy
@@ -132,7 +133,7 @@ Transform:
   - {fileID: 752123405624860937}
   - {fileID: 4127699218754788638}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4522231868183197218
 Rigidbody:
@@ -176,7 +177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 4522231868183197231}
-  _testingScript: {fileID: 4522231868183197224}
   _animController: {fileID: 4522231868052224715}
   _model: {fileID: 3603821147775895460}
   _player: {fileID: 0}
@@ -264,6 +264,7 @@ MonoBehaviour:
   - {fileID: 0}
   _selectedFleePoint: {x: 0, y: 0, z: 0}
   DamageTakenRecently: 0
+  DamageTakenRecentlyStageChange: 0
   RisingFlee: 0
   LoweringFlee: 0
   _fleeTimer: 0
@@ -289,11 +290,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
-  Stats: {fileID: 11400000, guid: dffa0ea306b951940a99ae08d2093715, type: 2}
+  EnemyName: Hawk_Boss
+  Stats:
+    Health: []
   MoveSpeed: 8
   AttackDamage: 0
   Health: 100
-  _area: 1
+  AlwaysFace: 0
+  _area: 4
   _deathPieces: []
   _deathPiecesOnce: []
   _deathPiecesSpreadingFactor: 0
@@ -398,6 +402,18 @@ MonoBehaviour:
   PullPoint: {x: 0, y: 0, z: 0}
   _bloodSmoke: {fileID: 2108200065783262711, guid: c55d2c8bd11052c479dbe2a02121e533, type: 3}
   _bloodSize: 1
+--- !u!114 &1281015538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4522231868183197227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414c1f7c1c9f0f043aa9d2b871e6664c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4522231868052224757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -595,6 +611,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3797138857579822050, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797138857579822051, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3797138857579822078, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
