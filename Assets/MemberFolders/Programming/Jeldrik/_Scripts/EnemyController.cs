@@ -147,6 +147,8 @@ public class EnemyController : MonoBehaviour
     /// <returns></returns>
     public bool TakeDamage(float damage, Vector3 hitDirection)
     {
+        Debug.Log(damage);
+
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
         Health -= damage;
         _anim.SetTrigger("TakeDamage");
