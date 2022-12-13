@@ -80,7 +80,9 @@ public class GenericBearBomb : MonoBehaviour
         _effect.SetActive(true);
         _effect.transform.parent = null;
 
-        _toonExplosion.transform.LookAt(Camera.main.transform);
+        //_toonExplosion.transform.LookAt(Camera.main.transform);
+        _toonExplosion.transform.rotation = Quaternion.Euler(-90,0,0);
+        _toonExplosion.transform.position += new Vector3(0,1,0);
         _toonExplosion.SetActive(true);
         _toonExplosion.transform.parent = null;
 
