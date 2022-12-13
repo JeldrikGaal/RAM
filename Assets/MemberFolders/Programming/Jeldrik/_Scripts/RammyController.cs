@@ -1160,6 +1160,18 @@ public class RammyController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+        if (other.tag == "StunPowerup")
+        {
+            // Turns on the damage reduction buff
+            HasStunBuff = true;
+
+            // Adds time to the buff timer
+            _stunBuffTimer = StunBuffDuration;
+
+            // Destroys the buff so it can't be picked up more than once 
+            Destroy(other.gameObject);
+        }
+
         if (other.tag == "DamageReductionPowerup")
         {
             // Turns on the damage reduction buff

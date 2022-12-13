@@ -15,6 +15,14 @@ public class StatManager : MonoBehaviour
     [SerializeField] private TMP_Text _totalKills;
     [SerializeField] private TMP_Text _killCountTextbox;
     [SerializeField] private Image _killSplat;
+
+    [SerializeField] private Image _speedBuff;
+    [SerializeField] private Image _damageBuff;
+    [SerializeField] private Image _damageReductionBuff;
+    [SerializeField] private Image _stunBuff;
+
+
+
     private float _killSplatAlpha;
 
     public StatTracker Stats;
