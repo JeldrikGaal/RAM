@@ -46,7 +46,7 @@ public class Ability3 : Abilities
         // Gets an array of all the colliders within a radius around a point
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, _upgraded ? Stats.USplashRadius : Stats.SplashRadius);
 
-        print(Stats.SplashRadius);
+        // print(Stats.SplashRadius);
 
         // Local transform list
         List<Transform> enemyTransforms = new List<Transform>();
