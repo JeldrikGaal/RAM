@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public Vector3 MoveInput;
 
+    public string EnemyName;
     public EnemyStats Stats;
 
     public float MoveSpeed;
@@ -55,8 +56,17 @@ public class EnemyController : MonoBehaviour
 
     public bool DoDie { get; private set; }
     private bool _doMove;
+
+
+    Cleanup cleanup = new();
+
+    public void DoClean(StateBlock block, System.Action<EnemyController> cleaner) => cleanup.DoClean(block, cleaner);
+
     void Start()
     {
+        // Temporary, hopefully
+        Stats = ImportManager.GetEnemyStats(EnemyName);
+
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
         _animMoveHash = Animator.StringToHash("MoveSpeed");
@@ -66,6 +76,9 @@ public class EnemyController : MonoBehaviour
         _piecesManager = GetComponentInChildren<PiecesManager>();
         Health = Stats.GetHealth(_area);
         _defaultSpeed = MoveSpeed;
+
+        
+
     }
 
     void Update()
@@ -185,6 +198,8 @@ public class EnemyController : MonoBehaviour
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
                                    _forceMultipier, _pieceCount, _pieceLiftime); // force multiplier, amount, lifespan
         */
+
+        cleanup.Clean(this);
         _deathSound.Play();
         if (!_respawnAfterDeath)
         {
