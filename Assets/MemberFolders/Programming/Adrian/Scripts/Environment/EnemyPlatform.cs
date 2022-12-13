@@ -19,10 +19,6 @@ public class EnemyPlatform : MonoBehaviour
         if (_dropPlatform)
         {
             _dropPlatform = false;
-			if (_openDoor)
-			{
-			_doorToOpen.SetActive(false);
-			}
             DestroyPlatform();
         }
 		
@@ -31,6 +27,10 @@ public class EnemyPlatform : MonoBehaviour
 
     public void DestroyPlatform()
     {
+        if (_openDoor)
+        {
+            _doorToOpen.SetActive(false);
+        }
         foreach (GameObject enemy in _enemiesOnPlatform)
         {
             enemy.GetComponent<EnemyController>().enabled = false;
