@@ -18,7 +18,7 @@ public class EndLevel : MonoBehaviour
 
     [SerializeField] private LoadingScreen _loadingScreen;
 
-    private bool done;
+    public bool done;
 
     void Update()
     {
