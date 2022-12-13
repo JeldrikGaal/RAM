@@ -82,6 +82,7 @@ public class HawkBossManager : MonoBehaviour
     [FoldoutGroup("Flee")][SerializeField] private GameObject[] _fleePoints;
     [FoldoutGroup("Flee")][SerializeField] private Vector3 _selectedFleePoint;
     [FoldoutGroup("Flee")] public float DamageTakenRecently;
+    [FoldoutGroup("Flee")] public float DamageTakenRecentlyStageChange;
     [FoldoutGroup("Flee")] public bool RisingFlee;
     [FoldoutGroup("Flee")] public bool LoweringFlee;
     [FoldoutGroup("Flee")][SerializeField] private float _fleeTimer;
@@ -346,12 +347,9 @@ public class HawkBossManager : MonoBehaviour
     #region StageChanges
     private void ChangeToStageOne()
     {
-        if (_controller.Health < 10)
+        if (DamageTakenRecentlyStageChange >= 30)
         {
-            var healthUpdate = Mathf.Min((MaxHealth - _controller.Health) / 100, 0.9f);
-            print(healthUpdate);
-            transform.GetComponentInChildren<HealthBar>().UpdateHealthBar(healthUpdate);
-            _controller.Health = MaxHealth;
+            DamageTakenRecentlyStageChange = 0;
             _stageThree = false;
             _stageOne = true;
 
@@ -370,8 +368,9 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageTwo()
     {
-        if (_controller.Health < 90)
+        if (DamageTakenRecentlyStageChange >= 30)
         {
+            DamageTakenRecentlyStageChange = 0;
             _stageOne = false;
             _stageTwo = true;
         }
@@ -379,8 +378,9 @@ public class HawkBossManager : MonoBehaviour
 
     private void ChangeToStageThree()
     {
-        if (_controller.Health < 40)
+        if (DamageTakenRecentlyStageChange >= 30)
         {
+            DamageTakenRecentlyStageChange = 0;
             _stageTwo = false;
             _stageThree = true;
         }
