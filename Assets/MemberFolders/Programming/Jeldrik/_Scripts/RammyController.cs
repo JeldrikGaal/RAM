@@ -1224,6 +1224,7 @@ public class RammyController : MonoBehaviour
     // Blocking and unblocking player controlled movement
     public void BlockPlayerMovment()
     {
+        Debug.Log("BLOCKING");
         _rB.velocity = Vector3.zero;
         _moveDirection = Vector3.zero;
         _blockMovement = true;
@@ -1343,6 +1344,7 @@ public class RammyController : MonoBehaviour
     // Stopp walking
     private void StopWalking()
     {
+        Debug.Log("STOP WALKING");
         _rB.velocity = Vector3.zero;
 
     }
