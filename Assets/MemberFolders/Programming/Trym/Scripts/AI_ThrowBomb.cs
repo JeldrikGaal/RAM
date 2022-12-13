@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,8 @@ public class AI_ThrowBomb : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
-        
+        user.DoOnDie(this, OnDie);
+
         // stores the boolean information for the specifig gameObject the function got called from.
         int iD = user.GetInstanceID();
         if (_launched.ContainsKey(iD))
@@ -36,6 +38,11 @@ public class AI_ThrowBomb : StateBlock
         }
 
         _target = target;
+    }
+
+    private void OnDie(EnemyController obj)
+    {
+        _launched.Remove(obj.GetInstanceID());
     }
 
     public void ManualThrow(EnemyController user)
