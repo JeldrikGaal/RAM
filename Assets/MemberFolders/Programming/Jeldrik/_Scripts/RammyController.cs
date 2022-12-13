@@ -253,6 +253,10 @@ public class RammyController : MonoBehaviour
         #region Loading Data from Sheet
         if (_loadData)
         {
+            _basicAttackValues = ImportManager.GetRammyAttack("Headbutt");
+            _dashValues = ImportManager.GetRammyAttack("Dash");
+            _chargeValues = ImportManager.GetRammyAttack("Charge Dash");
+
             // Load in Data for Attack Values
 
             // Basic Attack
