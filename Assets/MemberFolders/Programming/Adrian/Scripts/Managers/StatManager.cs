@@ -30,20 +30,18 @@ public class StatManager : MonoBehaviour
     {
         // Resets the Total time played each time you start
         Stats.TimePlayed = 0;
-
-        // Sets the accumulated kills to 40 for testing purposes
         Stats.Kills = 0;
+
 
         if (!_letterLevel)
         {
-            _swords.transform.position = _journal.transform.position;
             _journal.SetActive(false);
         }
 
-        if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
-        {
-            MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
-        }
+        // if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
+        // {
+        //     MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
+        // }
     }
 
     // Update is called once per frame
