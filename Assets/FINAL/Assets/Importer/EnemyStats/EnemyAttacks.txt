@@ -1,28 +1,28 @@
 Enemies	Area/Phase	Attack	Effect	Damage 1	Damage 2	Damage 3	Movement Speed	Projectile Speed	Range	Reload Time	Anticipation Time	Attack Time	Recovery Time	Total Attack time	Splash Radius	Cone Attack Degree	Projectile Radius	On Ground Effect Time	Player Hit Effect Time	DPS	Attack Time With reload time	Attack Amount (combos, etc.)
-Enemy_Wolf_Melee							13															
+Wolf_Melee							13															
 		Axe Strike 1	-	9	12	16	0	0	1	0	2	0,5	0,5	3	0	90	0	0	0	3,0	3	1
 		Axe Strike 2	-	9	12	16	0	0	1	0	0,5	0,5	0,5	1,5	0	90	0	0	0	6,0	1,5	1
 		Axe Strike 3	-	16	22	28	0	0	1,5	0	0,5	1	1	2,5	0	180	0	0	0	6,4	2,5	1
 		Axe Strike Full Combo		34	46	60	0	0	0	0	3	2	2	7	0	0	0	0	0	4,9	7	3
 		Leap	-	14	17	19	20	0	4	0	2	1,5	1,5	5	1,5	0	0	0	0	2,8	5	1
-Enemy_Wolf_Ranged							13															
+Wolf_Ranged							13															
 		Boomerang throw	-	20	28	36	0	15	7	4	1	1	1	3	0	0	1,5	0	0	6,7	7	1
 		Throw Wolf	Melee wolf on player	0	0	0	0	15	6	5	2	2	0,5	4,5	0	0	0	0	0	0	9,5	1
-Enemy_Hawk_Melee							15															
+Hawk_Melee							15															
 		Dive & Slash	-	0	33	40	5	0	1	0	4	2	3	9	0	0	0	0	0	0,00	9	1
-Enemy_Hawk_Ranged							14															
+Hawk_Ranged							14															
 		Egg Throw	-	0	30	36	0	15	9	3,5	1,5	1	1	3,5	2	0	1	0	0	0,0	7	1
 		Super Egg Throw	-	0	36	42	0	15	9	4	2	1,5	1,5	5	3,5	0	3	0	0	0	9	1
-Enemy_BearBrute_Melee							8															
+Bear_Melee							8															
 		Shield Bash	Stun	0	0	20	25	0	7	0	2	0	3	5	0	0	2	0	1,5	0	5	1
 		Hammer Slam	-	0	0	45	0	0	1,5	0	1,75	1	2	4,75	1,5	0	0	0	0	0,0	4,75	1
-Enemy_BearBrute_Ranged_OnGround							9															
+Bear_Ranged							9															
 		Honey Spill	Slow	0	0	20	0	15	9	4	1	0,5	0,5	2	3	0	0	6	0	0,0	6	1
 		Bee Swarm	-	0	0	50	0	15	5	5	1	1	0,5	2,5	3,5	0	0	4	0	0	7,5	1
-Enemy_BearBrute_Ranged_InTower							9															
+Bear_Ranged_Tower							9															
 		Honey Spill	Slow	0	0	20	0	15	10	4	1	0,5	0,5	2	3	0	0	6	0	0,0	6	1
 		Bee Swarm	-	0	0	50	0	15	6	5	1	1	0,5	2,5	3,5	0	0	4	0	0	7,5	1
-Enemy_WolfBoss																						
+Wolf_Boss																						
 	Phase 1	Attack 1	-	12,5	0	0	0	0	2	0	1	0,5	0,5	2	0	90	0	0	0	6,3	2	1
 		Attack 2	-	12,5	0	0	0	0	2	0	0,5	0,5	0,5	1,5	0	90	0	0	0	8,3	1,5	1
 		Attack 3	-	25	0	0	0	0	2,5	0	0,5	1	0,5	2	0	180	0	0	0	12,5	2	1
@@ -31,13 +31,13 @@ Enemy_WolfBoss
 		Leap	-	40	0	0	20	0	8	5	2	0,5	2	4,5	3	360	0	0	0	8,9	9,5	1
 		Triple Boomerang Throw	-	25	0	0	0	15	30	5	1	4	2	7	0	0	1	0	0	3,6	12	1
 		Special	Stun	34	0	0	0	0	15	0	4	0,5	2	6,5	0	0	0	0	0	5,2	6,5	1
-Enemy_HawkBoss																						
+Hawk_Boss																						
 	Phase 1	Basic	Stun	10	0	0	0	15	20	0,5	0,5	0,5	0,5	1,5	0	0	1	0	0	6,67	2	1
 		Horizontal spray(single)	-	1	0	0	0	15	20	3	1,5	2	1	4,5	0	60	0,5	0	0	1,00	7,5	1
 		Horizontal spray	-	10	0	0	0	15	20	3	1,5	2	1	4,5	0	60	0,5	0	0	0,00	7,5	10
 	Phase 2	Minion swarm	-	15	0	0	0	15	20	3	2	2	1,5	5,5	0	0	1	0	0	0,00	8,5	15
 	Phase 3	Super Claw Attack	Stun	40	0	0	0	0	20	3	1,5	1,5	2	5	0	0	0	0	0	8	8	1
-Enemy_BearBoss							9															
+Bear_Boss							9															
 	Phase 1	Shield Bash	Stun	35	0	0	30	15	13	0	2	0	3,5	5,5	0	0	0	0	0	6,4	5,5	1
 		Hammer Slam	-	60	0	0	0	15	3	0	1,75	1	2,5	5,25	3,5	0	0	0	0	11,4	5,25	1
 		Body Slam	-	45	0	0	0	15	15	0	2,25	2,5	3	7,75	3,5	0	0	0	0	5,8	7,75	1
