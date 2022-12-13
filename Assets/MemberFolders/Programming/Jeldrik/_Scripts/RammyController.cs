@@ -398,6 +398,8 @@ public class RammyController : MonoBehaviour
         #region Movement
         // Applying input from the 'Move' Vector from the InputAction to the velocity of the rigidbody and multiplying by the Movement 
         _moveDirection = _move.ReadValue<Vector2>() * MovementSpeed;
+        Debug.Log(MovementSpeed);
+        Debug.Log(_moveDirection);
         Vector3 vel = new Vector3(_moveDirection.x, 0, _moveDirection.y);
         vel = Quaternion.AngleAxis(-45, Vector3.up) * vel;
 
@@ -425,6 +427,7 @@ public class RammyController : MonoBehaviour
             vel.y = _rB.velocity.y;
             _rB.velocity = vel;
             int baseRotation = 135;
+            Debug.Log(_rB.velocity);
             if (Walking && !_walkingAnim)
             {
                 _animator.SetTrigger("startWalking");
@@ -1242,6 +1245,7 @@ public class RammyController : MonoBehaviour
     // Blocking and unblocking player controlled movement
     public void BlockPlayerMovment()
     {
+        Debug.Log("BLOCKING");
         _rB.velocity = Vector3.zero;
         _moveDirection = Vector3.zero;
         _blockMovement = true;
@@ -1363,6 +1367,7 @@ public class RammyController : MonoBehaviour
     // Stopp walking
     private void StopWalking()
     {
+        Debug.Log("STOP WALKING");
         _rB.velocity = Vector3.zero;
 
     }
