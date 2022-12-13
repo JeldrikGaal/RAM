@@ -253,6 +253,10 @@ public class RammyController : MonoBehaviour
         #region Loading Data from Sheet
         if (_loadData)
         {
+            _basicAttackValues = ImportManager.GetRammyAttack("Headbutt");
+            _dashValues = ImportManager.GetRammyAttack("Dash");
+            _chargeValues = ImportManager.GetRammyAttack("Charge Dash");
+
             // Load in Data for Attack Values
 
             // Basic Attack
@@ -487,13 +491,20 @@ public class RammyController : MonoBehaviour
         {
             // _directionIndicatorTip.transform.localScale = new Vector3(_directionIndicatorScaleSave.x, _directionIndicatorScaleSave.y, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
             // _directionIndicatorTip.transform.localPosition = new Vector3(_directionIndicatorPosSave.x, _directionIndicatorPosSave.y, _directionIndicatorPosSave.z + ((_frameCounterRightMouseButton / MaxChargeTime) * 0.5f));
-            _directionIndicatorTip.transform.localScale = new Vector3(1, 1, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
+            //_directionIndicatorTip.transform.localScale = new Vector3(1, 1, _directionIndicatorScaleSave.z + (_frameCounterRightMouseButton / MaxChargeTime));
+
+            if (_directionIndicatorTip.GetComponent<ArrowIncreaser>())
+            {
+                _directionIndicatorTip.GetComponent<ArrowIncreaser>().Value = _frameCounterRightMouseButton / MaxChargeTime;
+            }
+
         }
 
         if (!_chargeAttackAllowed)
         {
             _frameCounterRightMouseButton = 0;
             _frameCounterRightMouseButtonSave = 0;
+            _directionIndicatorTip.GetComponent<ArrowIncreaser>().Value = 0;
         }
 
         // Logic while player is attacking
