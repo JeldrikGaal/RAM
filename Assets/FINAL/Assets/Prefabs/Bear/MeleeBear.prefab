@@ -293,7 +293,7 @@ Transform:
   - {fileID: 5246944209736488700}
   - {fileID: 543450652176895716}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6065993889637490170
 MeshFilter:
@@ -346,10 +346,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
-  Stats: {fileID: 11400000, guid: 9a9365d27f53726449201f45a9cfa5c0, type: 2}
+  EnemyName: Bear_Melee
+  Stats:
+    Health: []
   MoveSpeed: 5
   AttackDamage: 3
   Health: 0
+  AlwaysFace: 0
   _area: 1
   _deathPieces: []
   _deathPiecesOnce: []

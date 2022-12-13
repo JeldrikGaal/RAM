@@ -10,14 +10,23 @@ public class EnemyPlatform : MonoBehaviour
     [SerializeField] private bool _dropPlatform;
 
     [SerializeField] private GameObject[] _enemiesOnPlatform;
+	
+	[SerializeField] private bool _openDoor;
+	[SerializeField] private GameObject _doorToOpen;
 
     private void Update()
     {
         if (_dropPlatform)
         {
             _dropPlatform = false;
+			if (_openDoor)
+			{
+			_doorToOpen.SetActive(false);
+			}
             DestroyPlatform();
         }
+		
+		
     }
 
     public void DestroyPlatform()
