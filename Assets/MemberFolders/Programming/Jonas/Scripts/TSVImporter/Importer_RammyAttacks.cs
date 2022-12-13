@@ -35,13 +35,13 @@ public class Importer_RammyAttacks : ScriptableObject
         foreach (List<string> l in _data)
         {
             Attacks[l[0]] = new RammyAttack();
-            Attacks[l[0]].SetVariables(float.Parse(l[1], culture), float.Parse(l[2], culture), float.Parse(l[4], culture), float.Parse(l[5], culture), float.Parse(l[6], culture), float.Parse(l[8], culture), float.Parse(l[9], culture));
+            Attacks[l[0]].SetVariables(float.Parse(l[1].Replace(',', '.'), culture), float.Parse(l[2].Replace(',', '.'), culture), float.Parse(l[4].Replace(',', '.'), culture), float.Parse(l[5].Replace(',', '.'), culture), float.Parse(l[6].Replace(',', '.'), culture), float.Parse(l[8].Replace(',', '.'), culture), float.Parse(l[9].Replace(',', '.'), culture));
 
         }
 
         for (int i = 0; i < 6; i++)
         {
-            Attacks[_data[i+2][0]].SetUVariables(float.Parse(_upgradeData[i][0], culture), float.Parse(_upgradeData[i][1], culture), float.Parse(_upgradeData[i][3], culture), float.Parse(_upgradeData[i][4], culture), float.Parse(_upgradeData[i][5], culture), float.Parse(_upgradeData[i][7], culture), float.Parse(_upgradeData[i][8], culture));
+            Attacks[_data[i+2][0]].SetUVariables(float.Parse(_upgradeData[i][0].Replace(',', '.'), culture), float.Parse(_upgradeData[i][1].Replace(',', '.'), culture), float.Parse(_upgradeData[i][3].Replace(',', '.'), culture), float.Parse(_upgradeData[i][4].Replace(',', '.'), culture), float.Parse(_upgradeData[i][5].Replace(',', '.'), culture), float.Parse(_upgradeData[i][7].Replace(',', '.'), culture), float.Parse(_upgradeData[i][8].Replace(',', '.'), culture));
         }
 
         json = JsonConvert.SerializeObject(Attacks, Formatting.Indented);

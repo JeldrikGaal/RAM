@@ -134,11 +134,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
-  Stats: {fileID: 0}
+  EnemyName: Bear_Ranged
+  Stats:
+    Health: []
   MoveSpeed: 8
   AttackDamage: 0
-  MaxHealth: 100
   Health: 100
+  AlwaysFace: 0
+  _area: 1
   _deathPieces:
   - {fileID: 5291567064603710999, guid: 80cd9931f454fd4438ab05609fc2ed8b, type: 3}
   - {fileID: 3906882621796642699, guid: 3b594bcea8ecf0d4c9d1fbfc968c4579, type: 3}
@@ -161,6 +164,34 @@ MonoBehaviour:
   Pulled: 0
   _bloodSmoke: {fileID: 2108200065783262711, guid: c55d2c8bd11052c479dbe2a02121e533, type: 3}
   _bloodSize: 1
+  _hurtSound:
+    _audio:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    _volume: 1
+    _attach: 0
+    _attachTo: {fileID: 0}
+    _stopBeforePlay: 0
+    _allowFadeout: 1
+    _autoRelease: 1
+  _deathSound:
+    _audio:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    _volume: 1
+    _attach: 0
+    _attachTo: {fileID: 0}
+    _stopBeforePlay: 0
+    _allowFadeout: 1
+    _autoRelease: 1
 --- !u!114 &8167438167742767307
 MonoBehaviour:
   m_ObjectHideFlags: 0

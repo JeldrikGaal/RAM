@@ -46,7 +46,7 @@ public class Ability3 : Abilities
         // Gets an array of all the colliders within a radius around a point
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, _upgraded ? Stats.USplashRadius : Stats.SplashRadius);
 
-        print(Stats.SplashRadius);
+        // print(Stats.SplashRadius);
 
         // Local transform list
         List<Transform> enemyTransforms = new List<Transform>();
@@ -127,7 +127,8 @@ public class Ability3 : Abilities
                 {
                     // If it is save the distance and point
                     dist = Vector3.Distance(enemy.transform.position, key);
-                    closestPoint = key;
+                    //closestPoint = key;
+                    closestPoint = new Vector3(key.x, enemy.transform.position.y, key.z);
                 }
             }
 
@@ -137,7 +138,7 @@ public class Ability3 : Abilities
 
             if (enemy.GetComponent<EnemyController>() != null)
             {
-                if (enemy.GetComponent<EnemyController>().Health > 0)
+                if (enemy.GetComponent<EnemyController>().Health >= 0)
                 {
                     // Makes the enemy take damage
                     if (enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up))

@@ -47,6 +47,7 @@ public class HealthBar : MonoBehaviour
     public void UpdateHealthBar(float changeAmount)
     {
         _health += changeAmount;
+        _health = Mathf.Clamp(_health, 0, 1);
         _healthBarImage.fillAmount = _health;
     }
 }
