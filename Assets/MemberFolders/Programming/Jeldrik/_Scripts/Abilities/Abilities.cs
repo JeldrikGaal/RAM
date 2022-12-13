@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Abilities : MonoBehaviour
 {
+    public string AttackName;
     public RammyAttack Stats;
     protected bool _upgraded;
 
@@ -16,6 +17,8 @@ public abstract class Abilities : MonoBehaviour
 
     public virtual void Start()
     {
+        Stats = ImportManager.GetRammyAttack(AttackName);
+
         _audio.SetTransform(transform);
         _controller = GetComponent<RammyController>();
     }

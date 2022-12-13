@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class AI_ThrowBomb : StateBlock
     [SerializeField] float _range = float.PositiveInfinity;
     [SerializeField] Vector3 _ralativePosMod;
     [SerializeField] bool _manualCall;
+    [SerializeField] float _fuse;
 
     private readonly Dictionary<int, bool> _launched = new();
     private GameObject _target;
@@ -22,7 +24,8 @@ public class AI_ThrowBomb : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
-        
+        user.DoOnDie(this, OnDie);
+
         // stores the boolean information for the specifig gameObject the function got called from.
         int iD = user.GetInstanceID();
         if (_launched.ContainsKey(iD))
@@ -35,6 +38,11 @@ public class AI_ThrowBomb : StateBlock
         }
 
         _target = target;
+    }
+
+    private void OnDie(EnemyController obj)
+    {
+        _launched.Remove(obj.GetInstanceID());
     }
 
     public void ManualThrow(EnemyController user)
@@ -76,7 +84,7 @@ public class AI_ThrowBomb : StateBlock
                 Vector2 targetDir = (target2D - origin2D).normalized;
                 targetPos = origin + (new Vector3(targetDir.x, 0, targetDir.y) * _range);
             }
-
+            _bomb.SetProperties(_fuse);
             // Instantiates the bomb and starts sends it on it's journey.
             GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_bomb, origin, user.transform.rotation, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
             _launched[iD] = true;
