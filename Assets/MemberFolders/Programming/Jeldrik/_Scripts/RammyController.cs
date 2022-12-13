@@ -838,13 +838,13 @@ public class RammyController : MonoBehaviour
         BasicAttacking = false;
         _blockMovement = false;
         _audio[3].Play();
-        StartCoroutine(BasicAttackAnimLogic());
-        if (!basicAttackInWalkDireciton) StartCoroutine(BasicAttackAnimLogic());
+        //StartCoroutine(BasicAttackAnimLogic());
+        //if (!basicAttackInWalkDireciton) StartCoroutine(BasicAttackAnimLogic());
     }
 
     IEnumerator BasicAttackAnimLogic()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.15f);
         transform.rotation = _savedRotation;
     }
     #endregion
