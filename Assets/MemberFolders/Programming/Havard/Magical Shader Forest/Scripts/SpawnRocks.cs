@@ -64,10 +64,10 @@ public class SpawnRocks : MonoBehaviour
     void Update()
     {
         // When starting the rocks:
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            InitiateRocks();
-        }
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    InitiateRocks();
+        //}
         // During the rock effect:
         if (_moving && _timer <= _maxTime)
         {
