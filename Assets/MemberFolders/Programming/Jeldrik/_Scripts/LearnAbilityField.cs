@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LearnAbilityField : MonoBehaviour
 {
+    [SerializeField] private int _abilityToLearn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,7 @@ public class LearnAbilityField : MonoBehaviour
     {
         if (TagManager.HasTag(other.gameObject, "player"))
         {
-            other.transform.GetComponent<RammyController>().LearnAbility(0);
+            other.transform.GetComponent<RammyController>().LearnAbility(_abilityToLearn);
         }
     }
 }
