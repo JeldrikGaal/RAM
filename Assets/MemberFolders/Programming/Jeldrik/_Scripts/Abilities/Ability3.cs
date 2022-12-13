@@ -127,7 +127,8 @@ public class Ability3 : Abilities
                 {
                     // If it is save the distance and point
                     dist = Vector3.Distance(enemy.transform.position, key);
-                    closestPoint = key;
+                    //closestPoint = key;
+                    closestPoint = new Vector3(key.x, enemy.transform.position.y, key.z);
                 }
             }
 
