@@ -14,6 +14,7 @@ public class HawkBossManager : MonoBehaviour
 
     [SerializeField] private GameObject _model;
     [SerializeField] private GameObject _player;
+    // [SerializeField] private HealthBar _healthBar;
 
 
     private bool _canAttack;
@@ -349,8 +350,10 @@ public class HawkBossManager : MonoBehaviour
     {
         if (_controller.Health < 10)
         {
+            var healthUpdate = Mathf.Min((MaxHealth - _controller.Health) / 100, 0.9f);
+            print(healthUpdate);
+            transform.GetComponentInChildren<HealthBar>().UpdateHealthBar(healthUpdate);
             _controller.Health = MaxHealth;
-            transform.GetChild(0).GetComponent<HealthBar>().UpdateHealthBar((MaxHealth - _controller.Health) / 100);
             _stageThree = false;
             _stageOne = true;
 
