@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
             Destroy(this);
             return;
         }
-        StartCoroutine(Cleaner());
+        
         
     }
 
@@ -44,55 +44,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] private float _timeForAICleanup = 10;
-    private static readonly Dictionary<(int user,int block), (EnemyController source, System.Action<EnemyController> cleaner)> _ToClean = new();
-    /// <summary>
-    /// For clearing user data from state blocks when they are dead.
-    /// </summary>
-    /// <param name="source">clean this users data</param>
-    /// <param name="block">from this</param>
-    /// <param name="cleaner">with this</param>
-    public static void DoClean(EnemyController source, StateBlock block, System.Action<EnemyController> cleaner)
-    {
-        if (_ToClean.ContainsKey((source.GetInstanceID(),block.GetInstanceID())))
-        {
-            return;
-        }
-        _ToClean.Add((source.GetInstanceID(),block.GetInstanceID()), (source, cleaner));
-
-    }
-    private IEnumerator Cleaner()
-    {
-        while (enabled)
-        {
-            List<(int user, int block)> clear = new();
-            yield return new WaitForSecondsRealtime(_timeForAICleanup);
-            
-            foreach (var item in _ToClean)
-            {
-                (EnemyController source, System.Action<EnemyController> cleaner) = item.Value;
-                Debug.Log("scan" + item.Key);
-                //Debug.Log(item.Value);
-                if (source == null)
-                {
-                    cleaner?.Invoke(source);
-                    clear.Add(item.Key);
-                }
-                else if (source.DoDie)
-                {
-                    cleaner?.Invoke(source);
-                    clear.Add(item.Key);
-                }
-                yield return new WaitForEndOfFrame();
-            }
-            foreach (var item in clear)
-            {
-                Debug.Log(nameof(clear) + item);
-                _ToClean.Remove(item);
-                yield return new WaitForEndOfFrame();
-            }
-            
-        }
-    }
+    
 
     private void OnDestroy()
     {
@@ -101,4 +53,41 @@ public class GameManager : MonoBehaviour
 
 
 
+}
+
+public class Cleanup
+{
+    private static readonly Dictionary<int, System.Action<EnemyController>> _ToClean = new();
+    /// <summary>
+    /// For clearing user data from state blocks when they are dead.
+    /// </summary>
+    /// <param name="block">clean this</param>
+    /// <param name="cleaner">with this</param>
+    public void DoClean(StateBlock block, System.Action<EnemyController> cleaner)
+    {
+        if (_ToClean.ContainsKey(block.GetInstanceID()))
+        {
+            return;
+        }
+        _ToClean.Add(block.GetInstanceID(), cleaner);
+
+    }
+
+
+    public void Clean(EnemyController source)
+    {
+
+        //yield return new WaitForSecondsRealtime(_timeForAICleanup);
+
+        foreach (var item in _ToClean)
+        {
+            System.Action<EnemyController> cleaner = item.Value;
+            Debug.Log("scan" + item.Key);
+            //Debug.Log(item.Value);
+
+            cleaner?.Invoke(source);
+            //yield return new WaitForEndOfFrame();
+        }
+
+    }
 }
