@@ -12,7 +12,11 @@ public class EndLevel5Area1 : MonoBehaviour
     [SerializeField] GameObject _firstEnemies;
     [SerializeField] GameObject _bossFase;
 
+    [SerializeField] private StatTracker Stats;
+    [SerializeField] StatManager _statManager;
+
     private bool _done;
+    
 
     void Update()
     {
@@ -27,7 +31,7 @@ public class EndLevel5Area1 : MonoBehaviour
             StartCoroutine(_loadingScreen.NextLevel(0));
             Cursor.visible = true;
         }
-        if (_firstEnemies.transform.childCount == 0)
+        if (Stats.Kills == _statManager.MaxKills)
         {
             EnableBossStage();
         }
