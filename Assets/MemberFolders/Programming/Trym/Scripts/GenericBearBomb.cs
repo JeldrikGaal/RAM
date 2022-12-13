@@ -13,8 +13,13 @@ public class GenericBearBomb : MonoBehaviour
     public Rigidbody Rb { get { return _rigid; } }
     public bool HitCheck { get; private set; } = false;
 
+    private Vector3 _effectLocation;
+    [SerializeField] private float _effectOffset;
+    [SerializeField] private GameObject _explosion;
+    [SerializeField] private GameObject _toonExplosion;
+
     //private void Start() => StartCoroutine(WaitTil());
-    
+
     private void OnCollisionEnter(Collision collision)
     {
 
@@ -44,8 +49,19 @@ public class GenericBearBomb : MonoBehaviour
 #endif
         if (collision.gameObject.layer == 10)
         {
+            RaycastHit hit;
+            // Does the ray intersect any objects excluding the player layer
+            var layer = 1 << 10;
+            if (Physics.Raycast(transform.position + new Vector3(0, 100, 0), transform.TransformDirection(-Vector3.up), out hit, Mathf.Infinity, layer))
+            {
+                _effectLocation = hit.point + _effectOffset * Vector3.up;
+                print(hit.point);
+            }
+
+            // _effectLocation = collision.contacts[0].point + collision.contacts[0].normal * _effectOffset;
             LightFuse();
-        } 
+
+        }
 
 
     }
@@ -63,9 +79,17 @@ public class GenericBearBomb : MonoBehaviour
         yield return new WaitForSeconds(_fuse);
         _effect.SetActive(true);
         _effect.transform.parent = null;
-        
-        _effect.transform.position = transform.position + _effectPosMod;
-        _effect.transform.LookAt(_effect.transform.position + Vector3.forward, Vector3.up);
+
+        _toonExplosion.transform.LookAt(Camera.main.transform);
+        _toonExplosion.SetActive(true);
+        _toonExplosion.transform.parent = null;
+
+        _explosion.SetActive(true);
+        _explosion.transform.parent = null;
+
+        // _effect.transform.position = transform.position + _effectPosMod;
+        _effect.transform.position = _effectLocation;
+        // _effect.transform.LookAt(_effect.transform.position + Vector3.forward, Vector3.up);
         Destroy(gameObject);
     }
 
@@ -76,7 +100,7 @@ public class GenericBearBomb : MonoBehaviour
     /// <param name="fuseTime"></param>
     public void SetProperties(float fuseTime)
     {
-        
+
         _fuse = fuseTime;
     }
 
