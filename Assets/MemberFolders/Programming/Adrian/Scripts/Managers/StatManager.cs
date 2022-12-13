@@ -30,6 +30,7 @@ public class StatManager : MonoBehaviour
     {
         // Resets the Total time played each time you start
         Stats.TimePlayed = 0;
+        Stats.Kills = 0;
 
 
         if (!_letterLevel)
