@@ -2460,7 +2460,6 @@ Transform:
   - {fileID: 1091919127}
   - {fileID: 278748378}
   - {fileID: 1248676536}
-  - {fileID: 951173886}
   - {fileID: 436828695}
   - {fileID: 1308787991}
   - {fileID: 1558563198}
@@ -6426,11 +6425,15 @@ PrefabInstance:
       objectReference: {fileID: 777348948}
     - target: {fileID: 3598907282979737951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 35.400146
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3598907282979737951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -151.19995
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468393190415173951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: MaxKills
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 5468393190415173951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: _playerController
@@ -14434,6 +14437,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingScreen: {fileID: 1859847844}
   bossHolder: {fileID: 486864587}
+  _firstEnemies: {fileID: 808085276}
+  _bossFase: {fileID: 139645930}
 --- !u!4 &925962495
 Transform:
   m_ObjectHideFlags: 0
@@ -14936,7 +14941,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &964162630
 PrefabInstance:
