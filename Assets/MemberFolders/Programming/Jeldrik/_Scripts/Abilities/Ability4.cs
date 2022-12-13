@@ -25,7 +25,7 @@ public class Ability4 : Abilities
         _rigid = GetComponent<Rigidbody>();
 
         // Adds an action to external collider for hitting the enemy.
-        _eCollider.CollisionEnter += (Collision collision) =>
+        _eCollider.CollisionEnterEvent += (Collision collision) =>
         {
 
             if (collision.gameObject.HasTag("enemy") && !_hurt.Contains(collision.gameObject.GetInstanceID()) && _stage > 0)

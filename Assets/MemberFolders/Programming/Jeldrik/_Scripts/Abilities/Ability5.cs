@@ -22,7 +22,7 @@ public class Ability5 : Abilities
         base.Start();
 
         //Accesses collider's OnColiisonEnter and deals the damage to the enemies
-        _externalCollider.GetComponent<ExternalCollider>().CollisionEnter += (Collision collision) =>
+        _externalCollider.GetComponent<ExternalCollider>().CollisionEnterEvent += (Collision collision) =>
         {
             if (collision.gameObject.GetComponent<EnemyController>() && _inProgress)
             {
