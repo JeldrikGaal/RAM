@@ -35,7 +35,7 @@ public class AI_StateIndependentWaitTimer : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
-        user.DoClean(this, Cleanup);
+        user.DoOnDie(this, Cleanup);
         if (_fromStats)
         {
             if (_fromStats)

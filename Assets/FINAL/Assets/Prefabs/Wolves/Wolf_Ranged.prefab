@@ -433,11 +433,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0, z: 0}
-  Stats: {fileID: 0}
+  EnemyName: Wolf_Ranged
+  Stats:
+    Health: []
   MoveSpeed: 8
   AttackDamage: 3
-  MaxHealth: 10
   Health: 10
+  AlwaysFace: 0
+  _area: 1
   _deathPieces: []
   _deathPiecesOnce: []
   _deathPiecesSpreadingFactor: 0
@@ -453,6 +456,34 @@ MonoBehaviour:
   Pulled: 0
   _bloodSmoke: {fileID: 0}
   _bloodSize: 1
+  _hurtSound:
+    _audio:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    _volume: 1
+    _attach: 0
+    _attachTo: {fileID: 0}
+    _stopBeforePlay: 0
+    _allowFadeout: 1
+    _autoRelease: 1
+  _deathSound:
+    _audio:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    _volume: 1
+    _attach: 0
+    _attachTo: {fileID: 0}
+    _stopBeforePlay: 0
+    _allowFadeout: 1
+    _autoRelease: 1
 --- !u!114 &2070226133362290865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,7 +950,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8224c7842caad4b8f5c03d6c578e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dmgWeight: 0
+  AttackName: 
+  Area: 1
 --- !u!1 &2070226133272843648
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +983,7 @@ Transform:
   m_GameObject: {fileID: 2070226133272843648}
   m_LocalRotation: {x: -0.70710576, y: -0, z: -0, w: 0.70710784}
   m_LocalPosition: {x: 0, y: 0.98541987, z: 1.0554199}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.85795, y: 0.85795, z: 0.85795}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1959156884191008607}
@@ -1208,7 +1240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8224c7842caad4b8f5c03d6c578e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dmgWeight: 0
+  AttackName: 
+  Area: 1
 --- !u!1 &2081517753858135960
 GameObject:
   m_ObjectHideFlags: 0

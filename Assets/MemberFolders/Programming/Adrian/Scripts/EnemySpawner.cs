@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            _statManager.MaxKills++;
+            // _statManager.MaxKills++;
 
             var enemy = Instantiate(Enemy, SpawnPoint.position + (new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.x) * 6f), Quaternion.identity);
 
