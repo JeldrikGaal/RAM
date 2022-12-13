@@ -400,8 +400,6 @@ public class RammyController : MonoBehaviour
         #region Movement
         // Applying input from the 'Move' Vector from the InputAction to the velocity of the rigidbody and multiplying by the Movement 
         _moveDirection = _move.ReadValue<Vector2>() * MovementSpeed;
-        Debug.Log(MovementSpeed);
-        Debug.Log(_moveDirection);
         Vector3 vel = new Vector3(_moveDirection.x, 0, _moveDirection.y);
         vel = Quaternion.AngleAxis(-45, Vector3.up) * vel;
 
@@ -429,7 +427,6 @@ public class RammyController : MonoBehaviour
             vel.y = _rB.velocity.y;
             _rB.velocity = vel;
             int baseRotation = 135;
-            Debug.Log(_rB.velocity);
             if (Walking && !_walkingAnim)
             {
                 _animator.SetTrigger("startWalking");
@@ -1045,7 +1042,7 @@ public class RammyController : MonoBehaviour
     /// </summary>
     private void RamIntoObject(GameObject rammedObject)
     {
-        Debug.Log(("Rammed into:", rammedObject.name));
+        //Debug.Log(("Rammed into:", rammedObject.name));
         if (TagManager.HasTag(rammedObject, "enemy"))
         {
             if (_chargedEnemy == null)
@@ -1206,7 +1203,7 @@ public class RammyController : MonoBehaviour
     /// <param name="enemy"></param>
     public void Kill(GameObject enemy)
     {
-        Debug.Log(MaxHealth * (HealPercentage / 100f));
+        //Debug.Log(MaxHealth * (HealPercentage / 100f));
         Heal((int)(MaxHealth * (HealPercentage / 100f)));
         if (_comboSystem) _comboSystem.AddKill();
     }
