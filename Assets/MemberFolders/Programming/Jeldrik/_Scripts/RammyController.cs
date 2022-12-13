@@ -922,16 +922,7 @@ public class RammyController : MonoBehaviour
                 }
                 else
                 {
-                    /* RaycastHit hit2;
-                    float dist = (ChargeAttackDistance * (chargingTime / MaxChargeTime)) - Vector3.Distance(transform.position, hit.point);
-                    Debug.Log(dist);
-                    if (dist > 0)
-                    {
-                        //Physics.Raycast(hit.point, _lookingAtMouseRotation, out hit2, dist);
-
-                        //_chargeAttackDestination = hit2.point;
-                    }*/
-                    _chargeAttackDestination = hit.point + _lookingAtMouseRotation.normalized * 2;
+                    _chargeAttackDestination = hit.point - _lookingAtMouseRotation.normalized * 2;
 
                 }
 

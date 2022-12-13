@@ -36,14 +36,13 @@ public class StatManager : MonoBehaviour
 
         if (!_letterLevel)
         {
-            _swords.transform.position = _journal.transform.position;
             _journal.SetActive(false);
         }
 
-        if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
-        {
-            MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
-        }
+        // if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
+        // {
+        //     MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
+        // }
     }
 
     // Update is called once per frame

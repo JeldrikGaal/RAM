@@ -85,8 +85,8 @@ public class AI_Audio : StateBlock
             _instancesByUsers.Add(user.GetInstanceID(), new List<int>());
         }
 
-        Debug.Log(user.GetInstanceID());
-        Debug.Log("also: " + GetInstanceID());
+        //Debug.Log(user.GetInstanceID());
+        //Debug.Log("also: " + GetInstanceID());
         
 
 
