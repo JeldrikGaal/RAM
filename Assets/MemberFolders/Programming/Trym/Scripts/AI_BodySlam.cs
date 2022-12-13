@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_Jump : StateBlock
+public class AI_BodySlam : StateBlock
 {
     [SerializeField] float _speed;
     [SerializeField] AnimationCurve _relativeSpeedOverDistance, _relativeTrajectory;
@@ -56,7 +56,7 @@ public class AI_Jump : StateBlock
         }
         if (!_landed)
         {
-            return (null, new(new[] { (float)StateReturn.Timer, float.PositiveInfinity }));
+            return (null, new(new[] { (float)StateReturn.Stop}));
         }
         return (null, null);
     }
