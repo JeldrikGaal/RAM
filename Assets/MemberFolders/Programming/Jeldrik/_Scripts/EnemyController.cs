@@ -11,8 +11,11 @@ public class EnemyController : MonoBehaviour
 
     public float MoveSpeed;
     public float AttackDamage;
-    public float MaxHealth;
     public float Health;
+
+    public bool AlwaysFace = false;
+
+    public int _area = 1;
 
     [Header("Death Explosion Values")]
     [SerializeField] private GameObject[] _deathPieces;
@@ -38,6 +41,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject _bloodSmoke;
     [SerializeField] private float _bloodSize = 1;
 
+    // Sound Effects
+    [SerializeField] private AudioAddIn _hurtSound, _deathSound;
 
     private HealthBar _healthBar;
     private PiecesManager _piecesManager;
@@ -48,7 +53,7 @@ public class EnemyController : MonoBehaviour
     private Animator _anim;
     private int _animMoveHash;
 
-    private bool _doDie;
+    public bool DoDie { get; private set; }
     private bool _doMove;
     void Start()
     {
@@ -59,7 +64,7 @@ public class EnemyController : MonoBehaviour
 
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
-        Health = MaxHealth;
+        Health = Stats.GetHealth(_area);
         _defaultSpeed = MoveSpeed;
     }
 
@@ -78,16 +83,22 @@ public class EnemyController : MonoBehaviour
         if (MoveInput != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.z));
 
-        if (_doDie)
-        {
-            Die();
-        }
+        if (AlwaysFace)
+            transform.LookAt(_player.transform);
 
         if (Pulled)
         {
             Pull();
         }
 
+    }
+
+    private void LateUpdate()
+    {
+        if (DoDie)
+        {
+            Die();
+        }
     }
 
     public void Stun()
@@ -127,7 +138,9 @@ public class EnemyController : MonoBehaviour
         Health -= damage;
         _anim.SetTrigger("TakeDamage");
         transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
-        _healthBar.UpdateHealthBar(-(damage / MaxHealth));
+        _healthBar.UpdateHealthBar(-(damage / Stats.GetHealth(_area)));
+
+        _hurtSound.Play();
 
         if (GetComponent<HawkBossManager>() != null)
         {
@@ -147,7 +160,8 @@ public class EnemyController : MonoBehaviour
         }
         if (Health <= 0)
         {
-            _doDie = true;
+            DoDie = true;
+            GetComponent<StateMachine>().EndStates();
             return true;
         }
 
@@ -171,6 +185,7 @@ public class EnemyController : MonoBehaviour
                                    new Vector2(_lastIncomingHit.z - _deathPiecesSpreadingFactor, _lastIncomingHit.z + _deathPiecesSpreadingFactor),
                                    _forceMultipier, _pieceCount, _pieceLiftime); // force multiplier, amount, lifespan
         */
+        _deathSound.Play();
         if (!_respawnAfterDeath)
         {
             Destroy(gameObject);

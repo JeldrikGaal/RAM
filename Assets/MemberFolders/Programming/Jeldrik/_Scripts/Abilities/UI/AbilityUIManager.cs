@@ -26,6 +26,7 @@ public class AbilityUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<RammyController>();
         // Fills some needed Lists with Values
         for (int i = 0; i < 5; i++)
         {

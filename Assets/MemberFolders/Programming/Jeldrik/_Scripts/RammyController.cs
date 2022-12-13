@@ -73,6 +73,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
     [SerializeField] private TimeStopper _timeStopper;
+    [SerializeField] private GameObject _chargeVFX;
 
 
 
@@ -155,8 +156,6 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float _freezeScaleHit;
     [SerializeField] private float _freezeTimeHit;
 
-    [SerializeField] private ParticleSystem _trailVFX;
-
     // Help variables for various purposes
     private Plane _groundPlane = new(Vector3.up, new Vector3(0, 20, 0));
     private Vector3 _mouseWorldPosition;
@@ -207,6 +206,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private TMP_Text _debuggingText;
     [SerializeField] private bool dashInWalkDireciton = false;
     [SerializeField] private bool basicAttackInWalkDireciton = false;
+    private bool _disableLegacyAbilities = true;
     public bool BLOCKEVERYTHINGRAMMY = false;
 
     #region Startup and Disable
@@ -359,7 +359,7 @@ public class RammyController : MonoBehaviour
                 _audio[0].Clear();
                 _audio[0].Play(new[] { (name: "Charge", value: 0f) });
             }
-            
+
             _frameCounterRightMouseButtonSave = 0;
             _frameCounterRightMouseButton += Time.deltaTime;
             _lastFrameRightMouseButton = true;
@@ -412,7 +412,6 @@ public class RammyController : MonoBehaviour
         {
             _animator.SetTrigger("stopWalking");
             _walkingAnim = false;
-            _trailVFX.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             //Debug.Log("STOP");
         }
 
@@ -424,7 +423,6 @@ public class RammyController : MonoBehaviour
             int baseRotation = 135;
             if (Walking && !_walkingAnim)
             {
-                _trailVFX.Play();
                 _animator.SetTrigger("startWalking");
                 _walkingAnim = true;
                 //Debug.Log("START");
@@ -579,6 +577,7 @@ public class RammyController : MonoBehaviour
         l.Add(_ability5Script);
 
         // Checking if the player is already using an ability and performing wanted ability if not
+        // Abilities 2,4,5 have been disabled after playtest and major game changes
         if (!UsingAbility)
         {
             if (_ability1Key == 1)
@@ -586,19 +585,19 @@ public class RammyController : MonoBehaviour
                 if (_learnedAbilities[0]) l[0].CheckActivate();
 
             }
-            else if (_ability2Key == 1)
+            else if (_ability2Key == 1 && !_disableLegacyAbilities)
             {
                 if (_learnedAbilities[1]) _ability2Script.CheckActivate();
             }
-            else if (_ability3Key == 1)
+            else if (_ability3Key == 1 )
             {
                 if (_learnedAbilities[2]) _ability3Script.CheckActivate();
             }
-            else if (_ability4Key == 1)
+            else if (_ability4Key == 1 && !_disableLegacyAbilities)
             {
                 if (_learnedAbilities[3]) _ability4Script.CheckActivate();
             }
-            else if (_ability5Key == 1)
+            else if (_ability5Key == 1 && !_disableLegacyAbilities)
             {
                 if (_learnedAbilities[4]) _ability5Script.CheckActivate();
             }
@@ -735,6 +734,19 @@ public class RammyController : MonoBehaviour
                 _rB.useGravity = true;
                 _capsuleCollider.enabled = true;
             }
+
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (Time.timeScale == 1)
+            {
+                Time.timeScale = 2;
+            }
+            else if (Time.timeScale == 2)
+            {
+                Time.timeScale = 1;
+            }
+
         }
 
 
@@ -807,7 +819,7 @@ public class RammyController : MonoBehaviour
                     if (TagManager.HasTag(g, "enemy"))
                     {
                         _rammyVFX.NormalAttack(g);
-                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier,transform.up))
+                        if (g.GetComponent<EnemyController>().TakeDamage(BasicAttackDamage * AppliedDamageModifier, transform.up))
                         {
                             Kill(g);
                         }
@@ -846,6 +858,11 @@ public class RammyController : MonoBehaviour
         if (chargeTime < MinChargeTime)
         {
             //StartDash();
+            if (_disableLegacyAbilities)
+            {
+                StartBasicAttack();
+            }
+            
         }
         if (chargeTime > MinChargeTime)
         {
@@ -859,8 +876,18 @@ public class RammyController : MonoBehaviour
     {
         if (!Attacking && _chargeAttackAllowed)
         {
-            _audio[0].ModifyParams(new[] { (name: "Charge", value: 51f) },true);
+            // After rework rammy is only supposed to charge for a set distance when releasing the charge button
+            if (_disableLegacyAbilities)
+            {
+                chargingTime = MaxChargeTime;
+            }
+
+            _audio[0].ModifyParams(new[] { (name: "Charge", value: 51f) }, true);
             Attacking = true;
+            // Start charging animation
+            _animator.SetBool("Charging", true);
+            _chargeVFX.SetActive(true);
+
             _startTimeChargeAttack = Time.time;
 
             RaycastHit hit;
@@ -920,6 +947,11 @@ public class RammyController : MonoBehaviour
         _mR.material = _mats[0];
         _directionIndicatorTip.transform.localPosition = _directionIndicatorPosSave;
         _directionIndicatorTip.transform.localScale = _directionIndicatorScaleSave;
+
+        // End charging animation
+        _animator.SetBool("Charging", false);
+        _chargeVFX.SetActive(false);
+
         if (_chargedEnemy != null)
         {
             _chargedEnemy = null;
@@ -932,6 +964,10 @@ public class RammyController : MonoBehaviour
     /// </summary>
     private void StartDash()
     {
+        if (_disableLegacyAbilities)
+        {
+            return;
+        }
         if (!Attacking && _dashingAllowed)
         {
 
@@ -1022,50 +1058,22 @@ public class RammyController : MonoBehaviour
             if (Time.timeScale == 1) _timeStopper.PauseTime(_freezeScaleRam, _freezeTimeRam);
 
             _cameraScript.ScreenShake(0.5f);
-
-
-
-            // Sorry for filling your lovely code up with my old commented out trash code.
-            //  Then why not just delete it?  -JG
-
-            /*
-            var _bloodPrefab = Instantiate(_bloodBomb, rammedObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
-            _bloodPrefab.transform.localScale *= _bloodSize;
-
-
-            // Vector3 _enemyDirection = rammedObject.transform.position - this.transform.position;
-            _bloodSpreadCalculator.transform.rotation = this.transform.rotation;
-
-            _bloodSpreadCalculator.transform.GetChild(0).transform.localScale = new Vector3(_bloodSpread, 1, 1);
-
-            _bloodDir1 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(0).transform.position - _bloodSpreadCalculator.transform.position;
-            _bloodDir2 = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(1).transform.position - _bloodSpreadCalculator.transform.position;
-
-            var i = 0;
-            foreach (Transform child in _bloodPrefab.transform)
-            {
-                if(i >= _bloodAmount)
-                {
-                    Destroy(child.gameObject);
-                }
-                i++;
-                child.GetComponent<StickyBlood>().BloodStepScript = _stepScript;
-                child.GetComponent<StickyBlood>().BloodSize = _bloodSize;
-                child.GetComponent<InitVelocity>().CalcDirLeft = _bloodDir1;
-                child.GetComponent<InitVelocity>().CalcDirRight = _bloodDir2;
-                child.GetComponent<InitVelocity>().BloodForceMin = _bloodForceMin;
-                child.GetComponent<InitVelocity>().BloodForceMax = _bloodForceMin;
-            }
-            */
-
         }
         else if (TagManager.HasTag(rammedObject, "wall"))
         {
-            Debug.Log(rammedObject.GetComponent<IRammable>().Hit(gameObject));
+            //Debug.Log(rammedObject.GetComponent<IRammable>().Hit(gameObject));
             if (rammedObject.GetComponent<IRammable>().Hit(gameObject))
             {
                 Destroy(rammedObject);
             }
+        }
+        else if (TagManager.HasTag(rammedObject, "dummy"))
+        {
+            rammedObject.GetComponent<IRammable>().Hit(gameObject);
+        }
+        else if (TagManager.HasTag(rammedObject, "destructible"))
+        {
+            rammedObject.GetComponent<IRammable>().Hit(gameObject);
         }
         else if (TagManager.HasTag(rammedObject, "knockdownbridge"))
         {
@@ -1080,7 +1088,7 @@ public class RammyController : MonoBehaviour
         {
             rammedObject.GetComponent<EnemyPlatform>().DestroyPlatform();
         }
-        
+
     }
 
     // Checking for any collisions Rammy encouters and reacting accordingly
@@ -1307,14 +1315,6 @@ public class RammyController : MonoBehaviour
         // Actually apply damage
         Health -= appliedDamage;
         _audio[2].Play();
-
-
-
-        // Stopping combo 
-        if (_comboSystem != null)
-        {
-            _comboSystem.EndCombo();
-        }
 
 
         // Cancel Charging Ram Attack 

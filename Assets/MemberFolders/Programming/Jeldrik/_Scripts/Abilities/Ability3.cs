@@ -51,7 +51,7 @@ public class Ability3 : Abilities
         // Local transform list
         List<Transform> enemyTransforms = new List<Transform>();
 
-        
+
         _audio.Play();
 
         // Checks all the colliders and adds the ones with the enemy tag to the list
@@ -59,7 +59,11 @@ public class Ability3 : Abilities
         {
             if (col.tag == "enemy" || col.tag == "wolf")
             {
-                enemyTransforms.Add(col.transform);
+                if (!enemyTransforms.Contains(col.transform))
+                {
+                    enemyTransforms.Add(col.transform);
+                }
+
                 if (col.GetComponent<HawkBossManager>() != null)
                 {
                     if (col.GetComponent<HawkBossManager>().Fleeing || col.GetComponent<HawkBossManager>().RisingFlee || col.GetComponent<HawkBossManager>().LoweringFlee || col.GetComponent<HawkBossManager>().Rising || col.GetComponent<HawkBossManager>().Crashing || col.GetComponent<HawkBossManager>().MeleeAttack)
@@ -133,10 +137,14 @@ public class Ability3 : Abilities
 
             if (enemy.GetComponent<EnemyController>() != null)
             {
-                // Makes the enemy take damage
-                if (enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up))
+                if (enemy.GetComponent<EnemyController>().Health > 0)
                 {
-                    _controller.Kill(enemy);
+                    // Makes the enemy take damage
+                    if (enemy.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, Vector3.up))
+                    {
+                        _controller.Kill(enemy);
+                    }
+                    print("Dealt damage");
                 }
 
                 // enemy.GetComponent<EnemyController>().StunDuration = _stunDuration;

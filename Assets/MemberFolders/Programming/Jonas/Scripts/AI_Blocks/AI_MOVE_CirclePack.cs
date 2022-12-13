@@ -38,6 +38,8 @@ public class AI_MOVE_CirclePack : StateBlock
     // Gets its target position from the controller and moves towards it
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
+        if (user == null) return (null, null);
+
         Vector3 followPos = (_controller.GetPoint(user));
 
         if(Vector3.Distance(followPos, user.transform.position) > _deadzone)
