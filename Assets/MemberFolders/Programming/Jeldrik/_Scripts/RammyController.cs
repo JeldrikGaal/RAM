@@ -253,6 +253,10 @@ public class RammyController : MonoBehaviour
         #region Loading Data from Sheet
         if (_loadData)
         {
+            _basicAttackValues = ImportManager.GetRammyAttack("Headbutt");
+            _dashValues = ImportManager.GetRammyAttack("Dash");
+            _chargeValues = ImportManager.GetRammyAttack("Charge Dash");
+
             // Load in Data for Attack Values
 
             // Basic Attack
@@ -500,6 +504,7 @@ public class RammyController : MonoBehaviour
         {
             _frameCounterRightMouseButton = 0;
             _frameCounterRightMouseButtonSave = 0;
+            _directionIndicatorTip.GetComponent<ArrowIncreaser>().Value = 0;
         }
 
         // Logic while player is attacking
@@ -915,16 +920,7 @@ public class RammyController : MonoBehaviour
                 }
                 else
                 {
-                    /* RaycastHit hit2;
-                    float dist = (ChargeAttackDistance * (chargingTime / MaxChargeTime)) - Vector3.Distance(transform.position, hit.point);
-                    Debug.Log(dist);
-                    if (dist > 0)
-                    {
-                        //Physics.Raycast(hit.point, _lookingAtMouseRotation, out hit2, dist);
-
-                        //_chargeAttackDestination = hit2.point;
-                    }*/
-                    _chargeAttackDestination = hit.point + _lookingAtMouseRotation.normalized * 2;
+                    _chargeAttackDestination = hit.point - _lookingAtMouseRotation.normalized * 2;
 
                 }
 

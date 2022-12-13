@@ -5,7 +5,6 @@ using UnityEngine;
 /// A script that enabeles external events for collisions.
 /// </summary>
 [RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Rigidbody))]
 public class ExternalCollider : MonoBehaviour
 {
     private Collider _collider;
@@ -22,15 +21,30 @@ public class ExternalCollider : MonoBehaviour
     /// <summary>
     /// OnCollisionEnter
     /// </summary>
-    public event System.Action<Collision> CollisionEnter;
+    public event System.Action<Collision> CollisionEnterEvent;
     /// <summary>
     /// OnCollisionStay
     /// </summary>
-    public event System.Action<Collision> CollisionStay;
+    public event System.Action<Collision> CollisionStayEvent;
     /// <summary>
     /// OnCollisionExit
     /// </summary>
-    public event System.Action<Collision> CollisionExit;
+    public event System.Action<Collision> CollisionExitEvent;
+    /// <summary>
+    /// OnTriggerEnter
+    /// </summary>
+    public event System.Action<Collider> TriggerEnterEvent;
+    /// <summary>
+    /// OnTriggerStay
+    /// </summary>
+    public event System.Action<Collider> TriggerStayEvent;
+    /// <summary>
+    /// OnTriggerExit
+    /// </summary>
+    public event System.Action<Collider> TriggerExitEvent;
+    
+
+
 
     /// <summary>
     /// Gets the collider
@@ -41,13 +55,17 @@ public class ExternalCollider : MonoBehaviour
     /// <summary>
     /// Gets the rigidbody of the externalCollider.
     /// </summary>
-    /// <returns></returns>
+    /// <returns> null or rigidbody </returns>
     public Rigidbody GetRigidbody() => _rigid;
 
     // Event handelers
-    private void OnCollisionEnter(Collision collision) => CollisionEnter?.Invoke(collision);
-    private void OnCollisionStay(Collision collision) => CollisionStay?.Invoke(collision);
-    private void OnCollisionExit(Collision collision) => CollisionExit?.Invoke(collision);
-    
+    private void OnCollisionEnter(Collision collision) => CollisionEnterEvent?.Invoke(collision);
+    private void OnCollisionStay(Collision collision) => CollisionStayEvent?.Invoke(collision);
+    private void OnCollisionExit(Collision collision) => CollisionExitEvent?.Invoke(collision);
 
+   
+    private void OnTriggerEnter(Collider other) => TriggerEnterEvent?.Invoke(other);
+    private void OnTriggerStay(Collider other) => TriggerStayEvent?.Invoke(other);
+    private void OnTriggerExit(Collider other) => TriggerExitEvent?.Invoke(other);
+    
 }
