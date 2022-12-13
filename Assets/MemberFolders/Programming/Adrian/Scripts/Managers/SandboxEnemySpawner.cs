@@ -16,7 +16,7 @@ public class SandboxEnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Backspace))
         {
             SpawnEnemy(_bearPrefab);
         }
@@ -24,7 +24,7 @@ public class SandboxEnemySpawner : MonoBehaviour
         {
             SpawnEnemy(_wolfPrefab);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        else if (Input.GetKeyDown(KeyCode.CapsLock))
         {
             SpawnEnemy(_hawkPrefab);
         }

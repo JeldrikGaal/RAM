@@ -69,13 +69,17 @@ public class Ability1 : Abilities
                     if (!enemyHolder.Contains(col.transform))
                     {
                         enemyHolder.Add(col.transform);
+                        print("Hes in");
                     }
                 }
 
                 foreach (Transform c in enemyHolder)
                 {
                     if (c.gameObject.GetComponent<EnemyController>().Health > 0)
-                    {// If the damage kills the enemy, do cool stuff
+                    {
+                        print("And taking damage");
+
+                        // If the damage kills the enemy, do cool stuff
                         if (c.gameObject.GetComponent<EnemyController>().TakeDamage((_upgraded ? Stats.UDmg : Stats.Dmg) * _controller.Damage, transform.up))
                             PlayerController.Kill(c.gameObject);
                     }
