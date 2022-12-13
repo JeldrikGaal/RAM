@@ -27,6 +27,10 @@ public class ArrowIncreaser : MonoBehaviour
         {
             SpawnArrow(i);   
         }
+        if(Value <= 0)
+        {
+            DestroyArrows();
+        }
     }
 
     private void SpawnArrow(int number)
@@ -51,11 +55,12 @@ public class ArrowIncreaser : MonoBehaviour
 
     public void DestroyArrows()
     {
+        Value = 0;
         foreach (var item in _arrows)
         {
-            Value = 0;
             Destroy(item.gameObject);
         }
+        _arrows = new List<GameObject>();
     }
 
     float map(float s, float a1, float a2, float b1, float b2)
