@@ -21,7 +21,7 @@ public class EnemyStats
 
             for (int i = 4; i < l.Count; i++)
             {
-                stats.Add(float.Parse(l[i], culture));
+                stats.Add(float.Parse(l[i].Replace(',', '.'), culture));
             }
 
             Attacks[l[2]] = new EnemyAttackStats();
@@ -37,7 +37,7 @@ public class EnemyStats
 
         for(int i = 1; i < 4; i++)
         {
-            Health.Add(float.Parse(health[i], culture));
+            Health.Add(float.Parse(health[i].Replace(',', '.'), culture));
         }
     }
 
