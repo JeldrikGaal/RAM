@@ -27,7 +27,7 @@ public class MamaBear : MonoBehaviour
     RammyController _rammy;
     Rigidbody _rammyRigid;
     private bool _active;
-
+    
     private void Awake()
     {
         _stats = ImportManager.GetEnemyStats(_name);

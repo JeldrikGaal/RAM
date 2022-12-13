@@ -233,6 +233,10 @@ public class EnemyController : MonoBehaviour
     {
         _anim.SetFloat(name, value);
     }
+    public void AnimSetInteger(string name, int value)
+    {
+        _anim.SetInteger(name, value);
+    }
 
     public void AnimSetBool(string name, bool value)
     {
