@@ -122,7 +122,7 @@ public class AI_Audio : StateBlock
         }
         
         
-        Debug.Log("Played");
+        //Debug.Log("Played");
     }
 
     public void PlayAudio(EnemyController user)
@@ -145,7 +145,7 @@ public class AI_Audio : StateBlock
         Play(user);
 
         
-        Debug.Log("Run Ran");
+        //Debug.Log("Run Ran");
     }
 
     private IEnumerator RunRepeatingTime(EnemyController user,int instance)
