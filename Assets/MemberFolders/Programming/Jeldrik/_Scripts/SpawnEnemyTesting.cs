@@ -24,7 +24,7 @@ public class SpawnEnemyTesting : MonoBehaviour
             GameObject temp = Instantiate(enemy1,this.transform);
             temp.transform.localPosition = Vector3.zero;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha9) && !first && !special)
+        if (Input.GetKeyDown(KeyCode.Alpha6) && !first && !special)
         {
             GameObject temp = Instantiate(enemy2,this.transform);
             temp.transform.localPosition = Vector3.zero;

@@ -62,7 +62,17 @@ public class Ability1 : Abilities
 
                 Collider[] enemies = Physics.OverlapSphere(transform.position, _upgraded ? Stats.USplashRadius : Stats.SplashRadius, enemyMask);
 
-                foreach (Collider c in enemies)
+                List<Transform> enemyHolder = new List<Transform>();
+
+                foreach (Collider col in enemies)
+                {
+                    if (!enemyHolder.Contains(col.transform))
+                    {
+                        enemyHolder.Add(col.transform);
+                    }
+                }
+
+                foreach (Transform c in enemyHolder)
                 {
                     if (c.gameObject.GetComponent<EnemyController>().Health > 0)
                     {// If the damage kills the enemy, do cool stuff
