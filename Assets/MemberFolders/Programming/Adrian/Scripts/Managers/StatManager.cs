@@ -30,9 +30,8 @@ public class StatManager : MonoBehaviour
     {
         // Resets the Total time played each time you start
         Stats.TimePlayed = 0;
-
-        // Sets the accumulated kills to 40 for testing purposes
         Stats.Kills = 0;
+
 
         if (!_letterLevel)
         {
