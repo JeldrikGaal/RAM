@@ -47,7 +47,6 @@ public class PauseGame : MonoBehaviour
         }
     }
 
-
     #endregion
 
 
@@ -154,5 +153,14 @@ public class PauseGame : MonoBehaviour
 
         }
     }
-    #endregion
+	#endregion
+
+	#region Jorn_Stuff
+    public void EnablePause()
+	{
+        AllowPause = true;
+        _inputs.UI.Pause.Enable();
+        _inputs.UI.Pause.performed += Toggle;
+    }
+	#endregion
 }

@@ -23,7 +23,7 @@ public class CutsceneVideo : MonoBehaviour
 
     private bool _hadSpeedBuffOnEntry;
 
-    [SerializeField] private bool _deleteWhenDone;
+    [SerializeField] private bool _deleteWhenDone = false;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +43,7 @@ public class CutsceneVideo : MonoBehaviour
         {
             _videoPlayer.frame += 1000000;
         }
-
+        
 
         // // Checks to see if the video can be played and the up arrow is pressed
         // if (Input.GetKeyDown(KeyCode.UpArrow) && _canPlayVideo)
@@ -82,15 +82,23 @@ public class CutsceneVideo : MonoBehaviour
         _hud.SetActive(true);
 
         // Enable pausing after cutscene
-        if(_pauseGame != null) _pauseGame.AllowPause = true;
+        if (_pauseGame != null)
+        {
+            _pauseGame.AllowPause = true;
+            _pauseGame.EnablePause();
+        }
 
         // Unblocks rammy
         _player.GetComponent<RammyController>().BLOCKEVERYTHINGRAMMY = false;
+        _deleteWhenDone = true;
 
         if (_deleteWhenDone)
         {
+            Debug.Log("Pausing allowed:" + _pauseGame.AllowPause);
             Destroy(gameObject);
         }
+
+        
     }
 
     private void OnTriggerEnter(Collider other)
