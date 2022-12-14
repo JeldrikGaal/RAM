@@ -58,6 +58,7 @@ public class WolfLumberTrap : MonoBehaviour
         }
         yield return new WaitForSeconds(_finalRotation / _degreesPerSecond);
         _canRotate = false;
+        Destroy(this);
     }
 
     // private void Interact(InputAction.CallbackContext context)

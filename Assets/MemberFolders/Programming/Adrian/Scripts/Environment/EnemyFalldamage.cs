@@ -10,7 +10,7 @@ public class EnemyFalldamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GetComponent<StateMachine>().enabled = false;
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class EnemyFalldamage : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.layer == 10)
         {
             GetComponent<EnemyController>().enabled = true;
 
