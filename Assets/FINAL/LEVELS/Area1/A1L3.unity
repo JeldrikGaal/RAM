@@ -10357,6 +10357,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5268157068840071916, guid: c9b03c2fc7c0f014ab5af3b0184c176d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268157068840071916, guid: c9b03c2fc7c0f014ab5af3b0184c176d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268157068840071916, guid: c9b03c2fc7c0f014ab5af3b0184c176d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268157068840071916, guid: c9b03c2fc7c0f014ab5af3b0184c176d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -12141,6 +12153,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1708629457}
     m_Modifications:
+    - target: {fileID: 7069835370761364991, guid: 13a2a36e156a310478bf26da06534084, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8376335129795149939, guid: 13a2a36e156a310478bf26da06534084, type: 3}
       propertyPath: m_Name
       value: GEO_Weapon-Rack_Empty_01 Variant (1)
@@ -12189,7 +12205,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 137.06601
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7069835370761364991, guid: 13a2a36e156a310478bf26da06534084, type: 3}
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a2a36e156a310478bf26da06534084, type: 3}
 --- !u!1001 &740429312
@@ -17171,17 +17188,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8898681296223266371, guid: d2c9ad2d9c835264295ffaa2971340ac, type: 3}
   m_PrefabInstance: {fileID: 887252502}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1167763389 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2969079770932156008, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
-  m_PrefabInstance: {fileID: 356966617}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be7c781390853ee498d0971eb1956f3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1169258616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9141951887077033202, guid: 8643dab4cd955dc4cb9afd4ae0faf820, type: 3}
@@ -27875,7 +27881,7 @@ PrefabInstance:
     - target: {fileID: 8149182104662755155, guid: b22dbd7e8cc3c0c448255da345786838, type: 3}
       propertyPath: _loadingScreen
       value: 
-      objectReference: {fileID: 1167763389}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: b22dbd7e8cc3c0c448255da345786838, type: 3}
