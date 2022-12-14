@@ -45,13 +45,13 @@ public class LoadingScreen : MonoBehaviour
         _hud.transform.parent.GetComponent<StatManager>().PlayerController.BlockPlayerMovment();
         _loadingImage.enabled = true;
         _hud.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
         if (_cutsceneVideoPlayer == null || (_cutsceneVideoPlayer != null && !_cutsceneVideoPlayer.isPlaying))
         {
             _videoPlayer.Play();
-            yield return new WaitForSeconds(0.1f);
-            _loadingImage.enabled = false;
+            yield return new WaitForSeconds(0.2f);
         }
-
+        _loadingImage.enabled = false;
         yield return new WaitForSeconds(4);
 
         if (_cutsceneVideoPlayer == null || (_cutsceneVideoPlayer != null && !_cutsceneVideoPlayer.isPlaying))
