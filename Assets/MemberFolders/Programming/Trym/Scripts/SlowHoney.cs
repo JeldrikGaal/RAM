@@ -34,16 +34,16 @@ public class SlowHoney : MonoBehaviour
         }
         if (Time.time - _startTime >= _lingerTime)
         {
-            _animator.SetTrigger("DISAPPEAR");
+            //_animator.SetTrigger("DISAPPEAR");
 
-            if (_animator.IsInTransition(0))
-            {
+            //if (_animator.IsInTransition(0))
+            //{
                 if (_entered)
                 {
                     _rammy.InHoney = true;
                 }
                 Destroy(gameObject);
-            }
+            //}
         }
         
     }
