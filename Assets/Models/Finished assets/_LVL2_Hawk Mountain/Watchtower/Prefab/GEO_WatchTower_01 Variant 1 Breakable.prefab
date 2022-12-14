@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5678456148065108994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3044898821844196832}
+  - component: {fileID: 3863410069794118614}
+  m_Layer: 0
+  m_Name: PlatformCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3044898821844196832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5678456148065108994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 7.29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3855855711534298}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3863410069794118614
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5678456148065108994}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.262207, y: 6.3736243, z: 0.576468}
+  m_Center: {x: 0.088012695, y: 0.08740902, z: -0.21176618}
 --- !u!1001 &542415045355690801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10,19 +55,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.29149
+      value: 288.10123
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -40.81326
+      value: 49.459476
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -58,11 +103,19 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 61dbb44a2a832b142986a7cc7ee4bce2, type: 2}
     - target: {fileID: 919132149155446097, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
       propertyPath: m_Name
-      value: GEO_WatchTower_01 Variant
+      value: GEO_WatchTower_01 Variant 1 Breakable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3044898821844196832}
   m_SourcePrefab: {fileID: 100100000, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
+--- !u!4 &3855855711534298 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
+  m_PrefabInstance: {fileID: 542415045355690801}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &812444868982728288 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 923fadfd0da207645ad4f865ee45ed4d, type: 3}
@@ -81,3 +134,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.0152206, y: 3.7084522, z: 7.395461}
   m_Center: {x: 0.013637543, y: -0.06772208, z: 3.6986408}
+--- !u!114 &-3910056248573859916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812444868982728288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df994c2b2732cd841a6543a069c98c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _brokenTower: {fileID: 1885583249408608493, guid: b0937368f230dd242af5d4dd81a98b5b, type: 3}
+  _enemiesOnPlatform: []
+  _openDoor: 0
+  _doorToOpen: {fileID: 0}
+--- !u!114 &1920261090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812444868982728288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0116a8584bd9493499c87e19f25ae7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - enemyplatform
