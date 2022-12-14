@@ -11,10 +11,11 @@ public class ImportManager : MonoBehaviour
 
     private void Awake()
     {
-        string json = File.ReadAllText(Application.dataPath + "/EnemyStats.json");
+        TextAsset data = Resources.Load<TextAsset>("EnemyStats");
+        string json = data.text;
         EnemyStats = JsonConvert.DeserializeObject<Dictionary<string, EnemyStats>>(json);
-
-        json = File.ReadAllText(Application.dataPath + "/RammyAttacks.json");
+        data = Resources.Load("RammyAttacks") as TextAsset;
+        json = data.text;
         RammyAttacks = JsonConvert.DeserializeObject<Dictionary<string, RammyAttack>>(json);
     }
 

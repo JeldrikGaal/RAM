@@ -41,6 +41,7 @@ public class EnemyController : MonoBehaviour
     // Visual Effects
     [SerializeField] private GameObject _bloodSmoke;
     [SerializeField] private float _bloodSize = 1;
+    [SerializeField] private GameObject _vfxParticle;
 
     // Sound Effects
     [SerializeField] private AudioAddIn _hurtSound, _deathSound;
@@ -64,9 +65,11 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        
+        Stats = ImportManager.GetEnemyStats(EnemyName);
 
         _rb = GetComponent<Rigidbody>();
+        // Temporary, hopefully
+       
         _anim = GetComponentInChildren<Animator>();
         _animMoveHash = Animator.StringToHash("MoveSpeed");
         _player = FindObjectOfType<RammyController>().gameObject;
@@ -75,13 +78,10 @@ public class EnemyController : MonoBehaviour
         _piecesManager = GetComponentInChildren<PiecesManager>();
 
         _defaultSpeed = MoveSpeed;
-        // Temporary, hopefully
-        Stats = ImportManager.GetEnemyStats(EnemyName);
+        
 
         Health = Stats.GetHealth(_area);
         
-
-
 
     }
 
@@ -168,6 +168,12 @@ public class EnemyController : MonoBehaviour
         }
 
         _lastIncomingHit = hitDirection;
+
+        if (_vfxParticle)
+        {
+            var _hitParticle = Instantiate(_vfxParticle, transform.position, Quaternion.Euler(hitDirection));
+            _hitParticle.transform.parent = null;
+        }
         if (_bloodSmoke != null)
         {
             var smokeBlood = Instantiate(_bloodSmoke, transform);

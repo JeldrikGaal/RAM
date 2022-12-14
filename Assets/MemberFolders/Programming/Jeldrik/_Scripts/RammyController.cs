@@ -789,6 +789,11 @@ public class RammyController : MonoBehaviour
         }
 
         #endregion
+
+        // Updating the Healthbar
+        if (!_healthBar) _healthBar = FindObjectOfType<HealthBarBig>();
+        _healthBar.SetHealthBar(Health / MaxHealth);
+
         // Showing in engine where the player is gonna dash towards
         directionIndicator.transform.forward = _lookingAtMouseRotation;
 
@@ -910,6 +915,7 @@ public class RammyController : MonoBehaviour
             //int layer = 1 << LayerMask.NameToLayer("Default");
             int layer = 1 << 11;
             layer |= (1 << 20);
+            layer |= (1 << 18);
             layer = ~layer;
             // int layer = 20;
 
@@ -1358,7 +1364,7 @@ public class RammyController : MonoBehaviour
         }
 
         // Apply damage to health bar
-        if (_healthBar) _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
+        //if (_healthBar) _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
 
         // TODO: More VFX
     }
