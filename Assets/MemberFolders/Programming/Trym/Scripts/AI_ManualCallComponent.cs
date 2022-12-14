@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 public class AI_ManualCallComponent : MonoBehaviour
 {
+    [ListDrawerSettings(ShowIndexLabels = true)]
     [SerializeField]private UnityEvent<EnemyController>[] _unityEvents = new UnityEvent<EnemyController>[0];
 
     [SerializeField] private EnemyController _controller;
