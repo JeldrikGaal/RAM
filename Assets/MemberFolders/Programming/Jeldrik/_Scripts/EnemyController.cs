@@ -59,6 +59,7 @@ public class EnemyController : MonoBehaviour
     public bool DoDie { get; private set; }
     private bool _doMove;
 
+    private bool _invincible = false;
 
     Cleanup cleanup = new();
 
@@ -95,6 +96,11 @@ public class EnemyController : MonoBehaviour
         Health = Stats.GetHealth(_area);
         
 
+    }
+
+    public void SetInviciblity(bool newValue)
+    {
+        _invincible = newValue;
     }
 
     void Update()
@@ -163,6 +169,10 @@ public class EnemyController : MonoBehaviour
     /// <returns></returns>
     public bool TakeDamage(float damage, Vector3 hitDirection)
     {
+        if (_invincible)
+        {
+            return true;
+        }
         Debug.Log(damage);
 
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
