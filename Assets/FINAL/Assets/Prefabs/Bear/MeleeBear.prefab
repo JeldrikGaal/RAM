@@ -274,6 +274,7 @@ GameObject:
   - component: {fileID: 2808333079665158224}
   - component: {fileID: 6065993889637490161}
   - component: {fileID: 215763481089646329}
+  - component: {fileID: 1441372353}
   m_Layer: 20
   m_Name: MeleeBear
   m_TagString: enemy
@@ -296,7 +297,7 @@ Transform:
   - {fileID: 5246944209736488700}
   - {fileID: 543450652176895716}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6065993889637490170
 MeshFilter:
@@ -370,8 +371,9 @@ MonoBehaviour:
   StunDuration: 0
   PullPoint: {x: 0, y: 0, z: 0}
   Pulled: 0
-  _bloodSmoke: {fileID: 0}
+  _bloodSmoke: {fileID: 2108200065783262711, guid: c55d2c8bd11052c479dbe2a02121e533, type: 3}
   _bloodSize: 1
+  _vfxParticle: {fileID: 4128222646369382908, guid: 66b15d6e6bf0908498e6af5996269b74, type: 3}
   _hurtSound:
     _audio:
       Guid:
@@ -415,6 +417,20 @@ MonoBehaviour:
   _startState: {fileID: 11400000, guid: 1237a1de1cb89f44bb03a2e30ed69af5, type: 2}
   _currentState: {fileID: 0}
 --- !u!114 &215763481089646329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065993889637490160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0116a8584bd9493499c87e19f25ae7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - enemy
+--- !u!114 &1441372353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
