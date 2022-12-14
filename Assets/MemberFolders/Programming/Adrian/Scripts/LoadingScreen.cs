@@ -20,8 +20,6 @@ public class LoadingScreen : MonoBehaviour
     {
         _canvas = GetComponent<Canvas>();
 
-        _hud.SetActive(false);
-
         _videoPlayer = GetComponent<VideoPlayer>();
 
         _videoPlayer.targetCamera = Camera.main;
@@ -47,6 +45,7 @@ public class LoadingScreen : MonoBehaviour
     {
         _videoPlayer.Play();
         _canvas.enabled = !_canvas.enabled;
+        _hud.SetActive(false);
         yield return new WaitForSeconds(4);
         _hud.SetActive(true);
         _canvas.enabled = !_canvas.enabled;
