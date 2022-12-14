@@ -7,10 +7,14 @@ public class EnemyFalldamage : MonoBehaviour
     [SerializeField] private int _fallDamage;
 
     [SerializeField] private bool _die;
+
+    private EnemyController _enemyController;
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<StateMachine>().enabled = false;
+        _enemyController = GetComponent<EnemyController>();
+        _enemyController.SetInviciblity(true);
     }
 
     // Update is called once per frame
@@ -24,6 +28,7 @@ public class EnemyFalldamage : MonoBehaviour
         if (other.gameObject.layer == 10)
         {
             GetComponent<EnemyController>().enabled = true;
+            _enemyController.SetInviciblity(false);
 
             if (_die)
             {
