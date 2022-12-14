@@ -5,6 +5,8 @@ using UnityEngine;
 public class Egg : MonoBehaviour
 {
     public float damage = 1.5f;
+
+    [SerializeField] private GameObject _eggsplotion;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,13 @@ public class Egg : MonoBehaviour
         if (collision.gameObject.GetComponent<RammyController>() != null)
         {
             collision.gameObject.GetComponent<RammyController>().TakeDamageRammy(damage);
+
+            // VFX:
+
+            _eggsplotion.SetActive(true);
+            _eggsplotion.transform.parent = null;
+
+
             gameObject.SetActive(false);
         }
         else
