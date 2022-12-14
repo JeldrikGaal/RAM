@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Journal : MonoBehaviour
 {
+    [SerializeField] GameObject _pageParent;
     [SerializeField] Sprite[] _pageSprites;
+    [SerializeField] GameObject[] _pageObjects;
     [SerializeField] List<Pages> _pages = new List<Pages>();
     [SerializeField] Image _pageLeft;
     [SerializeField] Image _pageRight;
@@ -17,16 +19,32 @@ public class Journal : MonoBehaviour
     void Start()
     {
         //Takes all the sprites from the array and puts them in a list with their numbers
-        for (int i = 0; i < _pageSprites.Length; i++)
+        for (int i = 0; i < _pageObjects.Length; i++)
         {
-            _pages.Add(new Pages() {pageNum = i, pageSprite = _pageSprites[i]});
+            _pages.Add(new Pages() {pageNum = i, pageObject = _pageObjects[i]});
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //For test purposes
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    OpenTheBook();
+        //}
+        //if (Input.GetKeyDown(KeyCode.J))
+        //{
+        //    ChangeThePage(false);
+        //}
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    ChangeThePage(true);
+        //}
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    GoToTab(4);
+        //}
     }
 
     /// <summary>
@@ -40,9 +58,15 @@ public class Journal : MonoBehaviour
         }
         else
         {
-            _pageLeft.sprite = _pages[0].pageSprite;
+            //_pageLeft.sprite = _pages[0].pageObject;
+            _pages[0].pageObject.SetActive(true);
+            _pages[0].pageObject.transform.parent = _pageLeft.transform;
+            _pages[0].pageObject.transform.localPosition = Vector3.zero;
             _currentLeftNum = 0;
-            _pageRight.sprite = _pages[1].pageSprite;
+            //_pageRight.sprite = _pages[1].pageObject;
+            _pages[1].pageObject.SetActive(true);
+            _pages[1].pageObject.transform.parent = _pageRight.transform;
+            _pages[1].pageObject.transform.localPosition = Vector3.zero;
             _currentRightNum = 1;
         }
     }
@@ -54,19 +78,39 @@ public class Journal : MonoBehaviour
     public void ChangeThePage(bool direction)
     {
         //Checks the direction and if there are enough pages to said direction
-        if (direction && _currentLeftNum < _pageSprites.Length - 1)
+        if (direction && _currentLeftNum < _pageObjects.Length - 1)
         {
+            _pages[_currentLeftNum].pageObject.SetActive(false);
+            _pages[_currentLeftNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentRightNum].pageObject.SetActive(false);
+            _pages[_currentRightNum].pageObject.transform.parent = _pageParent.transform;
             _currentLeftNum += 2;
             _currentRightNum += 2;
-            _pageLeft.sprite = _pages[_currentLeftNum].pageSprite;
-            _pageRight.sprite = _pages[_currentRightNum].pageSprite;
+            _pages[_currentLeftNum].pageObject.SetActive(true);
+            _pages[_currentLeftNum].pageObject.transform.parent = _pageLeft.transform;
+            _pages[_currentLeftNum].pageObject.transform.localPosition = Vector3.zero;
+            _pages[_currentRightNum].pageObject.SetActive(true);
+            _pages[_currentRightNum].pageObject.transform.parent = _pageRight.transform;
+            _pages[_currentRightNum].pageObject.transform.localPosition = Vector3.zero;
+            //_pageLeft.sprite = _pages[_currentLeftNum].pageObject;
+            //_pageRight.sprite = _pages[_currentRightNum].pageObject;
         }
         else if (direction == false && _currentLeftNum > 1)
         {
+            _pages[_currentLeftNum].pageObject.SetActive(false);
+            _pages[_currentLeftNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentRightNum].pageObject.SetActive(false);
+            _pages[_currentRightNum].pageObject.transform.parent = _pageParent.transform;
             _currentLeftNum -= 2;
             _currentRightNum -= 2;
-            _pageLeft.sprite = _pages[_currentLeftNum].pageSprite;
-            _pageRight.sprite = _pages[_currentRightNum].pageSprite;
+            _pages[_currentLeftNum].pageObject.SetActive(true);
+            _pages[_currentLeftNum].pageObject.transform.parent = _pageLeft.transform;
+            _pages[_currentLeftNum].pageObject.transform.localPosition = Vector3.zero;
+            _pages[_currentRightNum].pageObject.SetActive(true);
+            _pages[_currentRightNum].pageObject.transform.parent = _pageRight.transform;
+            _pages[_currentRightNum].pageObject.transform.localPosition = Vector3.zero;
+            //_pageLeft.sprite = _pages[_currentLeftNum].pageObject;
+            //_pageRight.sprite = _pages[_currentRightNum].pageObject;
         }
     }
 
@@ -79,17 +123,37 @@ public class Journal : MonoBehaviour
         //Checks if the tab number is even or odd and places the page on the correct side acccordingly
         if (tabLocation % 2 == 0)
         {
+            _pages[_currentLeftNum].pageObject.SetActive(false);
+            _pages[_currentLeftNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentRightNum].pageObject.SetActive(false);
+            _pages[_currentRightNum].pageObject.transform.parent = _pageParent.transform;
             _currentLeftNum = tabLocation;
             _currentRightNum = tabLocation + 1;
-            _pageLeft.sprite = _pages[_currentLeftNum].pageSprite;
-            _pageRight.sprite = _pages[_currentRightNum].pageSprite;
+            _pages[_currentLeftNum].pageObject.SetActive(true);
+            _pages[_currentLeftNum].pageObject.transform.parent = _pageLeft.transform;
+            _pages[_currentLeftNum].pageObject.transform.localPosition = Vector3.zero;
+            _pages[_currentRightNum].pageObject.SetActive(true);
+            _pages[_currentRightNum].pageObject.transform.parent = _pageRight.transform;
+            _pages[_currentRightNum].pageObject.transform.localPosition = Vector3.zero;
+            //_pageLeft.sprite = _pages[_currentLeftNum].pageObject;
+            //_pageRight.sprite = _pages[_currentRightNum].pageObject;
         }
         else if (tabLocation % 2 == 1)
         {
+            _pages[_currentLeftNum].pageObject.SetActive(false);
+            _pages[_currentLeftNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentRightNum].pageObject.SetActive(false);
+            _pages[_currentRightNum].pageObject.transform.parent = _pageParent.transform;
             _currentLeftNum = tabLocation - 1;
             _currentRightNum = tabLocation;
-            _pageLeft.sprite = _pages[_currentLeftNum].pageSprite;
-            _pageRight.sprite = _pages[_currentRightNum].pageSprite;
+            _pages[_currentLeftNum].pageObject.SetActive(true);
+            _pages[_currentLeftNum].pageObject.transform.parent = _pageLeft.transform;
+            _pages[_currentLeftNum].pageObject.transform.localPosition = Vector3.zero;
+            _pages[_currentRightNum].pageObject.SetActive(true);
+            _pages[_currentRightNum].pageObject.transform.parent = _pageRight.transform;
+            _pages[_currentRightNum].pageObject.transform.localPosition = Vector3.zero;
+            //_pageLeft.sprite = _pages[_currentLeftNum].pageObject;
+            //_pageRight.sprite = _pages[_currentRightNum].pageObject;
         }
     }
 }
@@ -97,5 +161,5 @@ public class Journal : MonoBehaviour
 public class Pages
 {
     public int pageNum;
-    public Sprite pageSprite;
+    public GameObject pageObject;
 }
