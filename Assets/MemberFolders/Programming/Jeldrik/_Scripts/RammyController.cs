@@ -1193,7 +1193,7 @@ public class RammyController : MonoBehaviour
     public void Heal(int healing)
     {
         Health = Math.Min(MaxHealth, Health + healing);
-        if (Health != MaxHealth) _healthBar.UpdateHealthBar(healing / MaxHealth);
+        //if (Health != MaxHealth) _healthBar.UpdateHealthBar(healing / MaxHealth);
 
     }
 
