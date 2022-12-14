@@ -17,6 +17,7 @@ public class AI_ANIM_SetTrigger : StateBlock
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
+        if (!_isDone.ContainsKey(user)) return (null, null);
         if (!_isDone[user])
         {
             _isDone[user] = true;            user.AnimSetTrigger(_name);

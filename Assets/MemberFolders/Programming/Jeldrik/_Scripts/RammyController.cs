@@ -183,7 +183,7 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float StunBuffDuration;
     [FoldoutGroup("Buff Values")][SerializeField] private float _stunBuffTimer;
 
-    [SerializeField] private Canvas _deathCanvas;
+    [SerializeField] private GameObject _death;
 
     // Importing Damage Values
     [SerializeField] RammyAttack _chargeValues;
@@ -213,7 +213,7 @@ public class RammyController : MonoBehaviour
     // Setting Input Actions on Awake
     private void Awake()
     {
-        
+
         _cameraDepth = Camera.main.transform.position.z;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -792,7 +792,7 @@ public class RammyController : MonoBehaviour
 
         // Updating the Healthbar
         if (!_healthBar) _healthBar = FindObjectOfType<HealthBarBig>();
-        _healthBar.SetHealthBar(Health / MaxHealth);
+        if (_healthBar) _healthBar.SetHealthBar(Health / MaxHealth);
 
         // Showing in engine where the player is gonna dash towards
         directionIndicator.transform.forward = _lookingAtMouseRotation;
@@ -915,6 +915,7 @@ public class RammyController : MonoBehaviour
             //int layer = 1 << LayerMask.NameToLayer("Default");
             int layer = 1 << 11;
             layer |= (1 << 20);
+            layer |= (1 << 6);
             layer = ~layer;
             // int layer = 20;
 
@@ -1382,8 +1383,8 @@ public class RammyController : MonoBehaviour
         Debug.Log("RAMMY HAS DIED!!!!!");
         Time.timeScale = 1;
 
-        _deathCanvas.enabled = true;
-        _deathCanvas.GetComponent<DeathScript>().enabled = true;
+        _death.SetActive(true);
+        _death.GetComponent<DeathScript>().enabled = true;
 
         Destroy(gameObject);
     }

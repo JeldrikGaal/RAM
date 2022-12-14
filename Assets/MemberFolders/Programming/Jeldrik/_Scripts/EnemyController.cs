@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class EnemyController : MonoBehaviour
     // Visual Effects
     [SerializeField] private GameObject _bloodSmoke;
     [SerializeField] private float _bloodSize = 1;
+    [SerializeField] private GameObject _vfxParticle;
 
     // Sound Effects
     [SerializeField] private AudioAddIn _hurtSound, _deathSound;
@@ -57,6 +59,7 @@ public class EnemyController : MonoBehaviour
     public bool DoDie { get; private set; }
     private bool _doMove;
 
+    private bool _invincible = false;
 
     Cleanup cleanup = new();
 
@@ -75,11 +78,29 @@ public class EnemyController : MonoBehaviour
 
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
-        Health = Stats.GetHealth(_area);
+
         _defaultSpeed = MoveSpeed;
         
+        if (SceneManager.GetActiveScene().buildIndex < 4)
+        {
+            _area = 1;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex < 7)
+        {
+            _area = 2;
+        }
+        else
+        {
+            _area = 3;
+        }
+        Health = Stats.GetHealth(_area);
+        
 
+    }
 
+    public void SetInviciblity(bool newValue)
+    {
+        _invincible = newValue;
     }
 
     void Update()
@@ -148,6 +169,10 @@ public class EnemyController : MonoBehaviour
     /// <returns></returns>
     public bool TakeDamage(float damage, Vector3 hitDirection)
     {
+        if (_invincible)
+        {
+            return true;
+        }
         Debug.Log(damage);
 
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
@@ -165,6 +190,12 @@ public class EnemyController : MonoBehaviour
         }
 
         _lastIncomingHit = hitDirection;
+
+        if (_vfxParticle)
+        {
+            var _hitParticle = Instantiate(_vfxParticle, transform.position, Quaternion.Euler(hitDirection));
+            _hitParticle.transform.parent = null;
+        }
         if (_bloodSmoke != null)
         {
             var smokeBlood = Instantiate(_bloodSmoke, transform);
