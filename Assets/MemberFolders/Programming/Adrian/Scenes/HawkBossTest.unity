@@ -134,6 +134,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba2a971e5a6dd24fabc92aa6531550b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &297965629 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4522231868183197231, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+  m_PrefabInstance: {fileID: 1281015536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &297965630 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+  m_PrefabInstance: {fileID: 1281015536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e75d52d4a688454fa275830f8dea1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &537207220
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,6 +756,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1774462335}
+    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+      propertyPath: MaxHealth
+      value: 275
+      objectReference: {fileID: 0}
     - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: _slowDownWaitTime
       value: 0.05
@@ -1437,6 +1463,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2378554485660173533, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: _controller
+      value: 
+      objectReference: {fileID: 297965629}
+    - target: {fileID: 2378554485660173533, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: _hawkBossManager
+      value: 
+      objectReference: {fileID: 297965630}
     - target: {fileID: 2435157329918441219, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1512,6 +1546,14 @@ PrefabInstance:
     - target: {fileID: 3598907282381018699, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907282381018701, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907282381018701, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_FillMethod
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3598907282465919192, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: m_IsActive
