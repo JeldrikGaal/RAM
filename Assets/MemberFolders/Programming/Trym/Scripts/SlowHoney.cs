@@ -40,7 +40,7 @@ public class SlowHoney : MonoBehaviour
             //{
                 if (_entered)
                 {
-                    _rammy.InHoney = true;
+                    _rammy.InHoney = false;
                 }
                 Destroy(gameObject);
             //}

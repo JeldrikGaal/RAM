@@ -589,7 +589,7 @@ public class HawkBossManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             var egg = Instantiate(_egg, _shootPoint.position, Quaternion.identity);
-            egg.GetComponent<Rigidbody>().AddForce((_player.transform.position - transform.position).normalized * _shootSpeed);
+            egg.GetComponent<Rigidbody>().AddForce((_player.transform.position - _shootPoint.position).normalized * _shootSpeed);
             Destroy(egg, 6);
             yield return new WaitForSeconds(0.1f);
         }

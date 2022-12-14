@@ -31,9 +31,10 @@ Transform:
   m_LocalPosition: {x: -30.69, y: 20.3, z: -28.6}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2197347292536955156}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2416087834107826451
 MeshFilter:
@@ -96,8 +97,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.242603, y: 0.74557495, z: 2.5559926}
-  m_Center: {x: 0, y: 0.000006377697, z: 1.0449766}
+  m_Size: {x: 99.00133, y: 63.16184, z: 44.235794}
+  m_Center: {x: 2.779013, y: -2.1400168, z: 21.884884}
 --- !u!114 &1270800136331704659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,9 +111,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f71a32a7397654a8e3137866e753d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _letterCanvas: {fileID: 0}
-  _letterTextbox: {fileID: 0}
   _letterText: "Private ,\r\n\r\nEnough with the poetry. You\u2019re supposed to
     watch the cages at Sergeant Major Commander Renard\u2019s place. \r\nIf I find
     you with a feather again\u2026I\u2019ll ban you from the playground for a month.\r\nCorporal
     Mikkel\r"
+--- !u!1001 &2840281547341977611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 1596649766386458294}
+    m_Modifications:
+    - target: {fileID: 4112981339567733022, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_Name
+      value: letter stars
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_RootOrder
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+--- !u!4 &2197347292536955156 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4112981339567733023, guid: 3484ec984980f33468ab783b84bda413, type: 3}
+  m_PrefabInstance: {fileID: 2840281547341977611}
+  m_PrefabAsset: {fileID: 0}

@@ -230,10 +230,10 @@ public class RammyController : MonoBehaviour
         {
             _audio[i].SetTransform(transform);
         }
+        _rB = GetComponent<Rigidbody>();
     }
     void Start()
     {
-        _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
         _healthBar = FindObjectOfType<HealthBarBig>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
@@ -241,8 +241,6 @@ public class RammyController : MonoBehaviour
         // _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
         _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
-
-        _faceImage = GameObject.Find("RammyHead").GetComponent<Image>();
 
         if (testingHeight)
         {
@@ -803,6 +801,7 @@ public class RammyController : MonoBehaviour
 
         // Updating the Healthbar
         if (!_healthBar) _healthBar = FindObjectOfType<HealthBarBig>();
+        if (GameObject.Find("Rammy_Head") != null && !_faceImage) _faceImage = GameObject.Find("Rammy_Head").GetComponent<Image>();
         if (_healthBar) _healthBar.SetHealthBar(Health / MaxHealth);
 
         // Showing in engine where the player is gonna dash towards
@@ -944,11 +943,22 @@ public class RammyController : MonoBehaviour
 
                 }
 
+                // Cancel Charge if its too close to a wall to stop player from getting in walls
+                if (Vector3.Distance(transform.position, _chargeAttackDestination) < 0.6f)
+                {
+                    _chargeAttackDestination = this.transform.position;
+                }
+
+
+
             }
 
             // Saving rotation and position
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
+
+            
+
             // Setting rotation to make player look in charge direction
             transform.up = _lookingAtMouseRotation;
             transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
@@ -1336,6 +1346,11 @@ public class RammyController : MonoBehaviour
         {
             return;
         }
+
+        if (_faceImage)
+        {
+            StartCoroutine(HitFaceDisplaying());
+        }
         _animator.SetTrigger("Hit");
         // Short Time slow to emphazise taking damage
         _timeStopper.PauseTime(_freezeScaleHit, _freezeTimeHit);
@@ -1378,13 +1393,21 @@ public class RammyController : MonoBehaviour
         //if (_healthBar) _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
 
         // TODO: More VFX
-        // Doing: More VFX -håvard
+        // Doing: More VFX -hï¿½vard
 
         if (_rammyVFX)
         {
             _takeDamageVFX.SetActive(true);
         }
 
+    }
+
+    IEnumerator HitFaceDisplaying()
+    {
+        Debug.Log("!!!!");
+        _faceImage.sprite = _hitFace;
+        yield return new WaitForSeconds(0.2f);
+        _faceImage.sprite = _normalFace;
     }
 
     // Stopp walking

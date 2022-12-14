@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class LoadingScreen : MonoBehaviour
 {
     private VideoPlayer _videoPlayer;
+    [SerializeField] private VideoPlayer _cutsceneVideoPlayer;
 
     [SerializeField] private GameObject _hud;
 
@@ -41,14 +42,24 @@ public class LoadingScreen : MonoBehaviour
 
     public IEnumerator Show()
     {
+        _hud.transform.parent.GetComponent<StatManager>().PlayerController.BlockPlayerMovment();
         _loadingImage.enabled = true;
         _hud.SetActive(false);
-        _videoPlayer.Play();
-        yield return new WaitForSeconds(0.1f);
-        _loadingImage.enabled = false;
+        if (_cutsceneVideoPlayer == null || (_cutsceneVideoPlayer != null && !_cutsceneVideoPlayer.isPlaying))
+        {
+            _videoPlayer.Play();
+            yield return new WaitForSeconds(0.1f);
+            _loadingImage.enabled = false;
+        }
+
         yield return new WaitForSeconds(4);
-        _hud.SetActive(true);
+
+        if (_cutsceneVideoPlayer == null || (_cutsceneVideoPlayer != null && !_cutsceneVideoPlayer.isPlaying))
+        {
+            _hud.SetActive(true);
+        }
         _videoPlayer.Stop();
+        _hud.transform.parent.GetComponent<StatManager>().PlayerController.UnBlockPlayerMovement();
     }
 
     public IEnumerator NextLevel(int buildIndex)
