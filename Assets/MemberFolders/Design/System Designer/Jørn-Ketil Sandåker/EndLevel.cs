@@ -22,7 +22,7 @@ public class EndLevel : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_winCondition);
+        //Debug.Log(_winCondition);
 		if (_winCondition == WinCondition.Enemies || _winCondition == WinCondition.Elites)
 		{
             if (enemies.transform.childCount == 0)

@@ -10,16 +10,10 @@ public class ImportManager : MonoBehaviour
     public static Dictionary<string, RammyAttack> RammyAttacks;
 
     private void Awake()
-
-         
     {
         TextAsset data = Resources.Load<TextAsset>("EnemyStats");
         string json = data.text;
-
         EnemyStats = JsonConvert.DeserializeObject<Dictionary<string, EnemyStats>>(json);
-
-
-        //  json = File.ReadAllText(Path.Combine(Application.dataPath, "Resources/RammyAttacks.json"));
         data = Resources.Load("RammyAttacks") as TextAsset;
         json = data.text;
         RammyAttacks = JsonConvert.DeserializeObject<Dictionary<string, RammyAttack>>(json);

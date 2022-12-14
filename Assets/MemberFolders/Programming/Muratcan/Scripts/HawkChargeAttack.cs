@@ -72,7 +72,7 @@ public class HawkChargeAttack : MonoBehaviour
     {
         if (_ammo > 0)
         {
-            print("pickup");
+            //print("pickup");
             GetComponent<Animator>().SetTrigger("AttackPickUp");
             GetComponent<Animator>().SetBool("PickUp", true);
         }
@@ -86,7 +86,7 @@ public class HawkChargeAttack : MonoBehaviour
     public void HawkCharge()
     {
         _ammo--;
-        print("ammo: " + _ammo);
+        //print("ammo: " + _ammo);
         _egg[_ammo].SetActive(true);
         _egg[_ammo].transform.parent = null;
         _egg[_ammo].GetComponent<Rigidbody>().AddForce(transform.forward * _shootSpeed);
