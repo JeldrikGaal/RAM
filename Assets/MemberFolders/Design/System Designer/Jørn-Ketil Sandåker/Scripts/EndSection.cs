@@ -14,7 +14,8 @@ public class EndSection : MonoBehaviour
     {
         Enemies,
         Letters,
-        Elites
+        Elites,
+        Towers
     };
 
     public bool done;
@@ -32,8 +33,12 @@ public class EndSection : MonoBehaviour
         }
         else if (_winCondition == WinCondition.Letters)
         {
-            //Lettercode
-        }
+			//Lettercode
+		}
+		else if (_winCondition == WinCondition.Towers)
+		{
+            //Insert tower code
+		}
     }
 
 	private void OnTriggerExit(Collider other)
