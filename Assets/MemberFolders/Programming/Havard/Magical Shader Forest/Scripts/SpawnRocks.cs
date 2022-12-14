@@ -144,14 +144,15 @@ public class SpawnRocks : MonoBehaviour
                 splatty.transform.localPosition = new Vector3(0, 0.01f, 0);
                 splatty.transform.localRotation = Quaternion.Euler(90, 0, Random.Range(0, 360));
                 splatty.transform.localScale = _splatSizes * width;
+                splatty.transform.position += new Vector3(0, 0.5f, 0);
             }
             if (_particle)
             {
                 var party = Instantiate(_particle, cubeParent.transform);
                 party.transform.localPosition = new Vector3(0, 0, 0);
                 party.transform.localScale = _particleSize * width;
+                party.transform.position += new Vector3(0, 0.5f, 0);
             }
-
             if (_360)
             {
                 foreach (Transform child in _rockParent.transform)

@@ -15,6 +15,14 @@ public class StatManager : MonoBehaviour
     [SerializeField] private TMP_Text _totalKills;
     [SerializeField] private TMP_Text _killCountTextbox;
     [SerializeField] private Image _killSplat;
+
+    [SerializeField] private Image _speedBuff;
+    [SerializeField] private Image _damageBuff;
+    [SerializeField] private Image _damageReductionBuff;
+    [SerializeField] private Image _stunBuff;
+
+
+
     private float _killSplatAlpha;
 
     public StatTracker Stats;
@@ -30,20 +38,20 @@ public class StatManager : MonoBehaviour
     {
         // Resets the Total time played each time you start
         Stats.TimePlayed = 0;
-
-        // Sets the accumulated kills to 40 for testing purposes
         Stats.Kills = 0;
 
+        // If there are no letters in the area disable the letter tracker
         if (!_letterLevel)
         {
-            _swords.transform.position = _journal.transform.position;
             _journal.SetActive(false);
         }
 
-        if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
-        {
-            MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
-        }
+        _playerController = FindObjectOfType<RammyController>();
+
+        // if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
+        // {
+        //     MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
+        // }
     }
 
     // Update is called once per frame
@@ -59,14 +67,17 @@ public class StatManager : MonoBehaviour
         // Sets the text of the killcount textbox
         if (Stats.Kills <= MaxKills)
         {
-            print("wo");
             _swordTextbox.text = Stats.Kills + "/" + MaxKills;
         }
 
+        // Sets the text of the total killcount textbox
         _killCountTextbox.text = Stats.Kills + "";
 
+        // Sets the text of the letters collected textbox
         _journalText.text = _playerController.lettersCollected + "/3";
 
+
+        // Scales all the textboxes and the bloodsplat down to their default value
         _totalKills.transform.localScale = Vector3.Lerp(_totalKills.transform.localScale, Vector3.one, Time.deltaTime);
         _totalKills.transform.localScale = Vector3.ClampMagnitude(_totalKills.transform.localScale, 3f);
 
@@ -77,9 +88,16 @@ public class StatManager : MonoBehaviour
         _killSplat.transform.localScale = Vector3.Lerp(_killSplat.transform.localScale, new Vector3(2.91f, 2.91f, 2.91f), Time.deltaTime);
         _killSplat.transform.localScale = Vector3.ClampMagnitude(_killSplat.transform.localScale, 10f);
 
+        // Sets the transparency of the bloodsplat image
         _killSplat.color = new Color(255, 0, 0, _killSplatAlpha);
 
         _killSplatAlpha = Mathf.Lerp(_killSplatAlpha, 0, Time.deltaTime);
+
+        // Sets the images to be enabled if the player has a powerup
+        // _damageBuff.enabled = _playerController.HasDamageBuff;
+        // _speedBuff.enabled = _playerController.HasSpeedBuff;
+        // _stunBuff.enabled = _playerController.HasStunBuff;
+        // _damageReductionBuff.enabled = _playerController.HasDamageReductionBuff;
     }
 
     public void AddKill()
@@ -87,9 +105,12 @@ public class StatManager : MonoBehaviour
         // Add a kill to the total amount of kills
         Stats.Kills++;
 
+        // Scales the ui elements up a little
         _totalKills.transform.localScale += (Vector3.one / 4);
         _killCountTextbox.transform.localScale += (Vector3.one / 4);
         _killSplat.transform.localScale += (Vector3.one);
+
+        // Makes the bloodsplat less transparent
         _killSplatAlpha += 20f;
     }
 }

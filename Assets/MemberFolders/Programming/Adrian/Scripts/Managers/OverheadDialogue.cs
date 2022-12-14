@@ -48,9 +48,12 @@ public class OverheadDialogue : MonoBehaviour
         // Calls the move camera function
         MoveCamera();
 
-        // Stole muratcans code again >:)
-        _character1Canvas.transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
-        _character2Canvas.transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
+        if (_character1Canvas != null && _character2Canvas != null)
+        {
+            // Stole muratcans code again >:)
+            _character1Canvas.transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
+            _character2Canvas.transform.rotation = Quaternion.LookRotation(_cameraTransform.forward, _cameraTransform.up);
+        }
     }
 
     private void MoveCamera()
@@ -210,14 +213,17 @@ public class OverheadDialogue : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            // Starts the coroutine to show the dialogue with the given time between each "line"
-            StartCoroutine(ShowDialogue(_timeBetweenSpeaking));
+            if (_character1Canvas != null && _character2Canvas != null)
+            {
+                // Starts the coroutine to show the dialogue with the given time between each "line"
+                StartCoroutine(ShowDialogue(_timeBetweenSpeaking));
 
-            // Enables the camera pan
-            PanCamera = true;
+                // Enables the camera pan
+                PanCamera = true;
 
-            // Stores the transform of the player for the pan back
-            _playerTransform = other.transform;
+                // Stores the transform of the player for the pan back
+                _playerTransform = other.transform;
+            }
         }
     }
 }

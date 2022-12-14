@@ -47,11 +47,21 @@ public class AudioAddIn
         {
             return;
         }
+        
         if (_stopBeforePlay)
         {
             Stop(_allowFadeout);
         }
-        EventInstance instance = RuntimeManager.CreateInstance(_audio);
+        EventInstance instance;
+        try
+        {
+            instance = RuntimeManager.CreateInstance(_audio);
+        }
+        catch (System.Exception)
+        {
+            
+            return;
+        }
         if (_attach)
         {
             RuntimeManager.AttachInstanceToGameObject(instance, _attachTo);
