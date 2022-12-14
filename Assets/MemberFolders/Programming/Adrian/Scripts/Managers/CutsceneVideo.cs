@@ -7,9 +7,6 @@ using TMPro;
 public class CutsceneVideo : MonoBehaviour
 {
     private VideoPlayer _videoPlayer;
-
-    private bool _canPlayVideo;
-
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _hud;
 
@@ -71,13 +68,13 @@ public class CutsceneVideo : MonoBehaviour
         _videoPlayer.enabled = false;
 
         // Sets the players movement speed back to what they had when they entered the trigger
-        _player.GetComponent<RammyController>().MovementSpeed = _defaultSpeed;
+        // _player.GetComponent<RammyController>().MovementSpeed = _defaultSpeed;
 
-        // If the player had a speedbuff when the cutscene started, but not when it is over, halve the movementspeed
-        if (_hadSpeedBuffOnEntry && !_player.GetComponent<RammyController>().HasSpeedBuff)
-        {
-            _player.GetComponent<RammyController>().MovementSpeed /= 2;
-        }
+        // // If the player had a speedbuff when the cutscene started, but not when it is over, halve the movementspeed
+        // if (_hadSpeedBuffOnEntry && !_player.GetComponent<RammyController>().HasSpeedBuff)
+        // {
+        //     _player.GetComponent<RammyController>().MovementSpeed /= 2;
+        // }
 
         _audioSource.clip = _levelAudio;
         _audioSource.Play();
@@ -88,21 +85,20 @@ public class CutsceneVideo : MonoBehaviour
         // Enable pausing after cutscene
         if (_pauseGame != null)
         {
-            _pauseGame.AllowPause = true;
-            _pauseGame.EnablePause();
+            // _pauseGame.AllowPause = true;
+            // _pauseGame.EnablePause();
         }
 
         // Unblocks rammy
         _player.GetComponent<RammyController>().BLOCKEVERYTHINGRAMMY = false;
-        _deleteWhenDone = true;
+        _player.GetComponent<RammyController>().UnBlockPlayerMovement();
+        // _deleteWhenDone = true;
 
         if (_deleteWhenDone)
         {
             Debug.Log("Pausing allowed:" + _pauseGame.AllowPause);
             Destroy(gameObject);
         }
-
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -110,6 +106,9 @@ public class CutsceneVideo : MonoBehaviour
         // Checks if it collided with the player
         if (other.tag == "Player")
         {
+            // Play the cutscene
+            _videoPlayer.enabled = true;
+            _videoPlayer.Play();
             // Disallows pausing during cutscene
             if (_pauseGame != null) _pauseGame.AllowPause = false;
             // Disables the HUD
@@ -118,38 +117,17 @@ public class CutsceneVideo : MonoBehaviour
             _player = other.gameObject;
 
             // Saves the movement speed of the player
-            _defaultSpeed = _player.GetComponent<RammyController>().MovementSpeed;
+            // _defaultSpeed = _player.GetComponent<RammyController>().MovementSpeed;
 
             // Block Rammy
             _player.GetComponent<RammyController>().BLOCKEVERYTHINGRAMMY = true;
 
-            // Makes the videoplayer be able to play the video
-            _canPlayVideo = true;
-
-            // Play the cutscene
-            _videoPlayer.enabled = true;
-            _videoPlayer.Play();
 
             // Sets the players movement speed back to what they had when they entered the trigger
-            _player.GetComponent<RammyController>().MovementSpeed = 0;
+            // _player.GetComponent<RammyController>().MovementSpeed = 0;
 
             // Stores if the player had a speedbuff active when the cutscene started
-            _hadSpeedBuffOnEntry = _player.GetComponent<RammyController>().HasSpeedBuff;
-
-            // Enables the canvas with the instructions to play the video
-            // _instructions.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            // Disable the ability to play the video when the player exits the trigger
-            _canPlayVideo = false;
-
-            // Disables the canvas with the instructions
-            // _instructions.SetActive(false);
+            // _hadSpeedBuffOnEntry = _player.GetComponent<RammyController>().HasSpeedBuff;
         }
     }
 }

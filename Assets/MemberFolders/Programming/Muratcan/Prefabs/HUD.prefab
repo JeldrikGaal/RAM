@@ -1233,7 +1233,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440876607240594619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -1246,18 +1246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ram!
-
-
-
-    Rammy can Ram (duh) through objects.
-
-    Hold left click
-    to charge up, release for a powerful Ram in the direction of the arrow.
-
-
-    Left
-    click for a simple headbutt.'
+  m_text: new text lole
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 807714e964688f24aaa39056b5c150f3, type: 2}
   m_sharedMaterial: {fileID: -8967340134427024567, guid: 807714e964688f24aaa39056b5c150f3, type: 2}
@@ -1511,7 +1500,7 @@ VideoPlayer:
   m_TimeReference: 0
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 2
+  m_RenderMode: 1
   m_AspectRatio: 2
   m_DataSource: 0
   m_PlaybackSpeed: 1
@@ -1522,7 +1511,7 @@ VideoPlayer:
   m_EnabledAudioTracks: 
   m_DirectAudioMutes: 
   m_ControlledAudioTrackCount: 0
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 1
@@ -4567,7 +4556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4154633355183262966
 Transform:
   m_ObjectHideFlags: 0
@@ -4597,8 +4586,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840f968aa46aac5459d5f514f7a4f4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityIcon: {fileID: 6879581242567798999}
-  AbilityDescription: {fileID: 1919808374952891126}
+  _background: {fileID: 7823016852732964307}
+  _abilityIcon: {fileID: 6879581242567798999}
+  _abilityDescription: {fileID: 1919808374952891126}
 --- !u!1 &4272294722916602753
 GameObject:
   m_ObjectHideFlags: 0
@@ -5889,7 +5879,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4953102335413592286
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6626,7 +6616,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 1047338108, guid: ac9f0b1832186984cbfd63f6f1585e8e, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
