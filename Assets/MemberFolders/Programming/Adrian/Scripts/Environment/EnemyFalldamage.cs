@@ -10,7 +10,7 @@ public class EnemyFalldamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GetComponent<StateMachine>().enabled = false;
     }
 
     // Update is called once per frame

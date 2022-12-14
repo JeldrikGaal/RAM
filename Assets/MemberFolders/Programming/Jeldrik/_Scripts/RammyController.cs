@@ -792,7 +792,7 @@ public class RammyController : MonoBehaviour
 
         // Updating the Healthbar
         if (!_healthBar) _healthBar = FindObjectOfType<HealthBarBig>();
-        _healthBar.SetHealthBar(Health / MaxHealth);
+        if (_healthBar) _healthBar.SetHealthBar(Health / MaxHealth);
 
         // Showing in engine where the player is gonna dash towards
         directionIndicator.transform.forward = _lookingAtMouseRotation;
