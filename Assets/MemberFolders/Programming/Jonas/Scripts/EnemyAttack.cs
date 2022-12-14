@@ -22,9 +22,10 @@ public class EnemyAttack : MonoBehaviour
         if (_done) return;
         if (TagManager.HasTag(other.gameObject, "player"))
         {
+            print("i hit");
             _done = true;
             other.GetComponent<RammyController>().TakeDamageRammy(_damage);
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }
