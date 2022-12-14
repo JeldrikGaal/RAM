@@ -35,14 +35,16 @@ public class EndLevel : MonoBehaviour
     void Update()
     {
         //Debug.Log(_winCondition);
-        if (_useKillCount && _stats.Stats.Kills >= KillCount)
+        if (_useKillCount)
         {
-            done = true;
-            if (ObjectToDelete != null)
-                ObjectToDelete.SetActive(false);
+            if (_stats.Stats.Kills >= KillCount)
+            {
+                done = true;
+                if (ObjectToDelete != null)
+                    ObjectToDelete.SetActive(false);
+            }
         }
-
-		if (_winCondition == WinCondition.Enemies || _winCondition == WinCondition.Elites)
+        else if (_winCondition == WinCondition.Enemies || _winCondition == WinCondition.Elites)
 		{
             if (enemies.transform.childCount == 0)
             {
