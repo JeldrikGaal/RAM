@@ -17,7 +17,7 @@ public class HawkBossManager : MonoBehaviour
 
     private bool _canAttack;
 
-    private float MaxHealth;
+    public float MaxHealth;
 
 
     // [SerializeField] private HawkBossAttackPhaseOne _state;
@@ -108,7 +108,7 @@ public class HawkBossManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MaxHealth = _controller.Stats.GetHealth(_controller._area);
+        // MaxHealth = _controller.Stats.GetHealth(_controller._area);
 
 
         // PhaseThree = true;
@@ -128,10 +128,10 @@ public class HawkBossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!PhaseThree && !_stageThree)
-        {
-            _controller.Health = Mathf.Clamp(_controller.Health, 1, MaxHealth);
-        }
+        // if (!PhaseThree && !_stageThree)
+        // {
+        //     _controller.Health = Mathf.Clamp(_controller.Health, 1, MaxHealth);
+        // }
         if (_phaseOne)
         {
             #region PhaseOne
