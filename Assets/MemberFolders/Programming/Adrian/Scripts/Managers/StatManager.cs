@@ -45,6 +45,10 @@ public class StatManager : MonoBehaviour
         {
             _journal.SetActive(false);
         }
+        else
+        {
+            _swords.SetActive(false);
+        }
 
         _playerController = FindObjectOfType<RammyController>();
 

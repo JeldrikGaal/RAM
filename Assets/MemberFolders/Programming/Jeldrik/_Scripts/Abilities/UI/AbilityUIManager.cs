@@ -108,7 +108,6 @@ public class AbilityUIManager : MonoBehaviour
 
         for (int i = 0; i < _abilityImages.Count; i++)
         {
-            Debug.Log(i);
             if (!_controller.GetAbilitiesLearned()[i])
             {
                 _abilityImages[i].gameObject.SetActive(false);
