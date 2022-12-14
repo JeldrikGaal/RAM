@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class UIAbilityUnlock : MonoBehaviour
 {
-    public Image AbilityIcon;
-    public TMP_Text AbilityDescription;
+    [SerializeField] private GameObject _background;
+    [SerializeField] private Image _abilityIcon;
+    [SerializeField] private TMP_Text _abilityDescription;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,5 +19,19 @@ public class UIAbilityUnlock : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void EnableUI(Sprite icon, string description)
+    {
+        _background.SetActive(true);
+        _abilityDescription.enabled = true;
+        _abilityIcon.sprite = icon;
+        _abilityDescription.text = description;
+    }
+
+    public void DisableUI()
+    {
+        _abilityDescription.enabled = false;
+        _background.SetActive(false);
     }
 }
