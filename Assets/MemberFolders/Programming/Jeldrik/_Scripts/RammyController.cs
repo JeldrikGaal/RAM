@@ -242,8 +242,6 @@ public class RammyController : MonoBehaviour
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
         _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
 
-        // _faceImage = GameObject.Find("Rammy_Head").GetComponent<Image>();
-
         if (testingHeight)
         {
             _groundPlane = new Plane(Vector3.up, new Vector3(0, 1, 0));
@@ -804,6 +802,7 @@ public class RammyController : MonoBehaviour
 
         // Updating the Healthbar
         if (!_healthBar) _healthBar = FindObjectOfType<HealthBarBig>();
+        if (GameObject.Find("Rammy_Head") != null && !_faceImage) _faceImage = GameObject.Find("Rammy_Head").GetComponent<Image>();
         if (_healthBar) _healthBar.SetHealthBar(Health / MaxHealth);
 
         // Showing in engine where the player is gonna dash towards
@@ -1337,6 +1336,11 @@ public class RammyController : MonoBehaviour
         {
             return;
         }
+
+        if (_faceImage)
+        {
+            StartCoroutine(HitFaceDisplaying());
+        }
         _animator.SetTrigger("Hit");
         // Short Time slow to emphazise taking damage
         _timeStopper.PauseTime(_freezeScaleHit, _freezeTimeHit);
@@ -1386,6 +1390,14 @@ public class RammyController : MonoBehaviour
             _takeDamageVFX.SetActive(true);
         }
 
+    }
+
+    IEnumerator HitFaceDisplaying()
+    {
+        Debug.Log("!!!!");
+        _faceImage.sprite = _hitFace;
+        yield return new WaitForSeconds(0.2f);
+        _faceImage.sprite = _normalFace;
     }
 
     // Stopp walking
