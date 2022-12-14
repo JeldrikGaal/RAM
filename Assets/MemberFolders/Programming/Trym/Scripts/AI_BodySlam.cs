@@ -1,8 +1,12 @@
 //using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Warning only for bosses
+/// </summary>
+[Tooltip("Warning Only For Bosses")]
 public class AI_BodySlam : StateBlock
 {
     [SerializeField] float _speed;
@@ -21,6 +25,7 @@ public class AI_BodySlam : StateBlock
     private static bool _landed;
     private ExternalCollider _eCollider;
     private GameObject _target;
+    private EnemyController _user;
     private RammyController _rammy;
 
     private void OnEnable()
@@ -33,20 +38,49 @@ public class AI_BodySlam : StateBlock
     public override void OnEnd(EnemyController user, GameObject target)
     {
         _eCollider.CollisionEnterEvent -= OnCollisionEnter;
+        _eCollider.CollisionStayEvent -= OnCollisionStay;
+        _eCollider.CollisionExitEvent -= OnCollisionExit;
     }
 
     public override void OnStart(EnemyController user, GameObject target)
     {
         _eCollider = user.GetComponent<ExternalCollider>();
-
+        _user = user;
+        _target = target;
         _jumped = _landed = false;
         _eCollider.CollisionEnterEvent += OnCollisionEnter;
-
+        _eCollider.CollisionStayEvent += OnCollisionStay;
+        _eCollider.CollisionExitEvent += OnCollisionExit;
         _target = target;
         
     }
 
-    
+    private void OnCollisionExit(Collision obj)
+    {
+        if (!obj.gameObject.HasTag("player"))
+        {
+            return;
+        }
+
+        if (_jumped && !_landed)
+        {
+            var rigid = _rammy.GetComponent<Rigidbody>();
+            rigid.velocity *= Mathf.Epsilon;
+        }
+    }
+
+    private void OnCollisionStay(Collision obj)
+    {
+        if (!obj.gameObject.HasTag("player"))
+        {
+            return;
+        }
+        if (_jumped && !_landed)
+        {
+            _rammy.GetComponent<Rigidbody>().AddForce((_rammy.transform.position - _user.transform.position).normalized * _speed);
+            _eCollider.GetRigidbody().AddForce((_user.transform.position - _rammy.transform.position).normalized * _speed);
+        }
+    }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
@@ -65,16 +99,15 @@ public class AI_BodySlam : StateBlock
     {
         if (_jumped && !_landed)
         {
-            _landed = true;
+            if (collision.gameObject.layer == 10)
+            {
+                _landed = true;
+            }
             if (!collision.gameObject.HasTag("player"))
             {
                 return;
             }
-            if (_rammy == null)
-            {
-                _rammy = collision.gameObject.GetComponent<RammyController>();
-            }
-              
+            GetRammy(collision);
 
             switch (AI_StageCheck.Check())
             {
@@ -93,6 +126,13 @@ public class AI_BodySlam : StateBlock
         }
     }
 
+    private void GetRammy(Collision collision)
+    {
+        if (_rammy == null)
+        {
+            _rammy = collision.gameObject.GetComponent<RammyController>();
+        }
+    }
 
     private void Throw(EnemyController user, GameObject target)
     {
@@ -115,7 +155,7 @@ public class AI_BodySlam : StateBlock
             }
             
             // Instantiates the bomb and starts sends it on it's journey.
-            GameManager.HandleCoroutine(ManageTrajectory(user.GetComponent<Rigidbody>(), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
+            user.StartCoroutine(ManageTrajectory(user.GetComponent<Rigidbody>(), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
             _jumped = true;
         }
     }

@@ -30,11 +30,7 @@ public class MamaBear : MonoBehaviour
     
     private void Awake()
     {
-        _stats = ImportManager.GetEnemyStats(_name);
-        _attackStatsH = _stats.Attacks[_attackNameH];
-        _attackStatsH2 = _stats.Attacks[_attackNameH2];
-        _attackStatsS = _stats.Attacks[_attackNameS];
-        _attackStatsS2 = _stats.Attacks[_attackNameS2];
+        
 
         // Initializing the hammer.
         _hammer.TriggerStayEvent += HETriggerStay;
@@ -43,16 +39,24 @@ public class MamaBear : MonoBehaviour
 
         // Initializing the shield
         _shield.CollisionEnterEvent += SCollisionEnter;
+
+
+        _stats = ImportManager.GetEnemyStats(_name);
+        _attackStatsH = _stats.Attacks[_attackNameH];
+        _attackStatsH2 = _stats.Attacks[_attackNameH2];
+        _attackStatsS = _stats.Attacks[_attackNameS];
+        _attackStatsS2 = _stats.Attacks[_attackNameS2];
     }
 
     private void SCollisionEnter(Collision obj)
     {
+        
         if (CheckReturn(obj.collider))
         {
             return;
         }
         GetRammy(obj.collider);
-
+        Debug.Log("bash");
         switch (AI_StageCheck.Check())
         {
             case 1:
@@ -73,7 +77,7 @@ public class MamaBear : MonoBehaviour
             return;
         }
         GetRammy(other);
-
+        Debug.Log("hit");
         switch (AI_StageCheck.Check())
         {
             case 1:
@@ -94,6 +98,10 @@ public class MamaBear : MonoBehaviour
             _rammy = other.GetComponent<RammyController>();
             _rammyRigid = other.GetComponent<Rigidbody>();
         }
+    }
+    private void Active(int active)
+    {
+        _active = active >0;
     }
 
     private bool CheckReturn(Collider other) => !other.gameObject.HasTag("player") || !_active;
@@ -117,8 +125,7 @@ public class MamaBear : MonoBehaviour
         }
         _rammyRigid.velocity = Vector3.zero;
     }
-    public void Active(bool active) => _active = active;
-
+    
     // Start is called before the first frame update
     void Start()
     {

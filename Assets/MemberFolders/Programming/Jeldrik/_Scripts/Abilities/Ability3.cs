@@ -17,6 +17,7 @@ public class Ability3 : Abilities
 
     [SerializeField] private GameObject _testObject;
     [SerializeField] private GameObject _smokeParticle;
+    [SerializeField] private GameObject _decal;
 
     // public Dictionary<Vector3, bool> PointList = new Dictionary<Vector3, bool>();
 
@@ -36,6 +37,10 @@ public class Ability3 : Abilities
     {
         // Sets particle to happen
         _smokeParticle.SetActive(true);
+
+        // Decal
+        _decal.GetComponent<FadeOnTrigger>().Decal.fadeFactor = 1;
+        _decal.GetComponent<FadeOnTrigger>().TriggerFade();
 
         // Clear the list of enemies
         EnemyList.Clear();
