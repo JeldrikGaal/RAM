@@ -10,6 +10,8 @@ public class DeathScript : MonoBehaviour
     private VideoPlayer _videoPlayer;
     [SerializeField] private GameObject _hud;
 
+    private Image _deathImage;
+
     // Update is called once per frame
     void Update()
     {
@@ -21,9 +23,17 @@ public class DeathScript : MonoBehaviour
 
     private void OnEnable()
     {
+        _deathImage = GetComponentInChildren<Image>();
         _videoPlayer = GetComponent<VideoPlayer>();
         _videoPlayer.targetCamera = Camera.main;
+        StartCoroutine(Show());
         _videoPlayer.Play();
         _hud.SetActive(false);
+    }
+
+    private IEnumerator Show()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _deathImage.enabled = false;
     }
 }
