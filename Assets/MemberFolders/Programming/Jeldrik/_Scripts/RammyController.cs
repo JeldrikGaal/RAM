@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
@@ -68,12 +69,17 @@ public class RammyController : MonoBehaviour
     private MeshRenderer _mR;
     private HealthBarBig _healthBar;
     private CapsuleCollider _capsuleCollider;
+    private Image _faceImage;
+
+    [SerializeField] private Sprite _normalFace;
+    [SerializeField] private Sprite _hitFace;
     [SerializeField] private Animator _animator;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
     [SerializeField] private TimeStopper _timeStopper;
     [SerializeField] private GameObject _chargeVFX;
+
 
 
 
@@ -235,6 +241,8 @@ public class RammyController : MonoBehaviour
         // _directionIndicatorTip = directionIndicator.transform.GetChild(0).gameObject;
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
         _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
+
+        _faceImage = GameObject.Find("RammyHead").GetComponent<Image>();
 
         if (testingHeight)
         {
