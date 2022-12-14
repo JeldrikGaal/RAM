@@ -64,10 +64,11 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        // Temporary, hopefully
         Stats = ImportManager.GetEnemyStats(EnemyName);
 
         _rb = GetComponent<Rigidbody>();
+        // Temporary, hopefully
+       
         _anim = GetComponentInChildren<Animator>();
         _animMoveHash = Animator.StringToHash("MoveSpeed");
         _player = FindObjectOfType<RammyController>().gameObject;
@@ -76,7 +77,7 @@ public class EnemyController : MonoBehaviour
         _piecesManager = GetComponentInChildren<PiecesManager>();
         Health = Stats.GetHealth(_area);
         _defaultSpeed = MoveSpeed;
-
+        
 
 
     }
