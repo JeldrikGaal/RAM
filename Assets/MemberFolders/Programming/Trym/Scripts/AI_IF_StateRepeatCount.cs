@@ -16,6 +16,10 @@ public class AI_IF_StateRepeatCount : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
+        if (!_tallys.ContainsKey(user.GetInstanceID()))
+        {
+            _tallys.Add(user.GetInstanceID(), 0);
+        }
         user.DoOnDie(this, OnDie);
 
     }

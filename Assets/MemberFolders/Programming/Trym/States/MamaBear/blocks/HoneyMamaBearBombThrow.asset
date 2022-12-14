@@ -9,40 +9,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b72bd893e1b1fcd46ace48125b3a2afc, type: 3}
-  m_Name: AI_BodySlam
+  m_Script: {fileID: 11500000, guid: 00b9af1774ecb3c408b15d0f57aed785, type: 3}
+  m_Name: HoneyMamaBearBombThrow
   m_EditorClassIdentifier: 
+  _random: 0
+  _bomb: {fileID: 5824584183443300883, guid: 555c5a6a376f1d9409fc0f41a29a3844, type: 3}
+  _bomb2: {fileID: 0}
+  _bomb2Percent: 0
   _speed: 20
   _relativeSpeedOverDistance:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -2.7472756
-      outSlope: -0.9994608
+      time: 0.00070200115
+      value: 0.99998474
+      inSlope: -1.0846428
+      outSlope: -0.50029814
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.02671541
+      outWeight: 0.052510258
     - serializedVersion: 3
-      time: 0.5005715
-      value: 0.4996984
-      inSlope: -0.9994608
-      outSlope: 1.0017482
+      time: 0.50126183
+      value: 0.7495556
+      inSlope: -0.50029814
+      outSlope: 0.5010538
       tangentMode: 69
-      weightedMode: 0
+      weightedMode: 3
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1.0017482
-      outSlope: 2
+      time: 0.99979246
+      value: 0.99934626
+      inSlope: 0.5010538
+      outSlope: 1.0792255
       tangentMode: 69
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.054666236
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -52,38 +56,27 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 4.349847
-      outSlope: 4.349847
+      inSlope: 2.1039526
+      outSlope: 2.1039526
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.030942336
-    - serializedVersion: 3
-      time: 0.5005918
-      value: 0.9018969
-      inSlope: 0.009320557
-      outSlope: 0.009320557
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.02671541
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -4.292614
-      outSlope: -4.292614
+      value: 0.0061149597
+      inSlope: -2.0338962
+      outSlope: -2.0338962
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.04273262
+      inWeight: 0.027699709
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   _range: Infinity
-  _ralativePosMod: {x: 0, y: 0, z: 0}
-  _manualCall: 0
-  _stats:
-    Health: []
-  _enemyName: Bear_Boss
-  _attackName1: Body Slam
-  _attackName2: Body Slam 2
+  _ralativePosMod: {x: 0.4, y: 2, z: 0}
+  _inacuracy: 0.5
+  _manualCall: 1
+  _fuse: 1.5
+  _fuse2: 0

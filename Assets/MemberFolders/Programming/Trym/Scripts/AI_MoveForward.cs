@@ -9,12 +9,12 @@ public class AI_MoveForward : StateBlock
     [SerializeField] Dir _forvardDirDebug;
     public override void OnEnd(EnemyController user, GameObject target)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnStart(EnemyController user, GameObject target)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)

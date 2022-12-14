@@ -64,8 +64,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        // Temporary, hopefully
-        Stats = ImportManager.GetEnemyStats(EnemyName);
+        
 
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
@@ -74,8 +73,13 @@ public class EnemyController : MonoBehaviour
 
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
-        Health = Stats.GetHealth(_area);
+
         _defaultSpeed = MoveSpeed;
+        // Temporary, hopefully
+        Stats = ImportManager.GetEnemyStats(EnemyName);
+
+        Health = Stats.GetHealth(_area);
+        
 
 
 
