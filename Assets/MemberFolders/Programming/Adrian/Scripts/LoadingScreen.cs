@@ -49,10 +49,10 @@ public class LoadingScreen : MonoBehaviour
 
     public IEnumerator Show()
     {
-        _videoPlayer.Play();
         _canvas.enabled = !_canvas.enabled;
         _hud.SetActive(false);
         _loadingImage.enabled = false;
+        _videoPlayer.Play();
         yield return new WaitForSeconds(4);
         _hud.SetActive(true);
         _canvas.enabled = !_canvas.enabled;
