@@ -13,6 +13,7 @@ public class SlowField : MonoBehaviour
             // Halves the movespeed of the player when they enter the slow zone
             // _playerController = other.GetComponent<RammyController>();
             // _playerController.MovementSpeed /= 2;
+            _playerVFX = other.GetComponent<RammyVFX>();
 
             _playerVFX.InHoney = true;
         }
