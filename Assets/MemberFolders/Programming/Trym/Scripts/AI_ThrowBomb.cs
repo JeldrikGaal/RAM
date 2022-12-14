@@ -1,19 +1,30 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 
 
 public class AI_ThrowBomb : StateBlock
 {
+    [SerializeField] bool _random = false;
     [SerializeField] GenericBearBomb _bomb;
+    [ShowIf(nameof(_random))]
+    [SerializeField] GenericBearBomb _bomb2;
+    [ShowIf(nameof(_random))]
+    [SerializeField] float _bomb2Percent;
     [SerializeField] float _speed;
     [SerializeField] AnimationCurve _relativeSpeedOverDistance, _relativeTrajectory;
     [SerializeField] float _range = float.PositiveInfinity;
     [SerializeField] Vector3 _ralativePosMod;
+    [SerializeField] float _inacuracy;
     [SerializeField] bool _manualCall;
     [SerializeField] float _fuse;
+    [ShowIf(nameof(_random))]
+    [SerializeField] float _fuse2;
+
+
 
     private readonly Dictionary<int, bool> _launched = new();
     private GameObject _target;
@@ -71,9 +82,19 @@ public class AI_ThrowBomb : StateBlock
 
         if (!_launched[iD])
         {
+            float randomX = Random.Range(-1f, 1f);
+            float randomY = Random.Range(-1f, 1f);
+            Vector3 randomAssembled = new Vector3(randomX,0, randomY).normalized * Random.Range(0.5f, _inacuracy);
+
+
             Debug.Log(name);
             var origin = user.transform.position + (user.transform.rotation * _ralativePosMod);
             var targetPos = target.transform.position;
+            if (_inacuracy >0)
+            {
+                targetPos = target.transform.position + randomAssembled;
+            }
+            
 
             Vector2 origin2D = new(origin.x, origin.z);
 
@@ -85,8 +106,10 @@ public class AI_ThrowBomb : StateBlock
                 targetPos = origin + (new Vector3(targetDir.x, 0, targetDir.y) * _range);
             }
             _bomb.SetProperties(_fuse);
+            _bomb2.SetProperties(_fuse2);
+            
             // Instantiates the bomb and starts sends it on it's journey.
-            GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_bomb, origin, user.transform.rotation, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
+            GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_random?Random.Range(1,101)>=_bomb2Percent?_bomb:_bomb2  : _bomb, origin, user.transform.rotation, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
             _launched[iD] = true;
         }
     }

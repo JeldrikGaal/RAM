@@ -7,7 +7,7 @@ public class EnemyPlatform : MonoBehaviour
 {
     [SerializeField] private GameObject _brokenTower;
 
-    [SerializeField] private bool _dropPlatform;
+    //[SerializeField] private bool _dropPlatform;
 
     [SerializeField] private GameObject[] _enemiesOnPlatform;
 	
@@ -16,13 +16,11 @@ public class EnemyPlatform : MonoBehaviour
 
     private void Update()
     {
-        if (_dropPlatform)
+        /*if (_dropPlatform)
         {
             _dropPlatform = false;
             DestroyPlatform();
-        }
-		
-		
+        }*/		
     }
 
     public void DestroyPlatform()
@@ -31,9 +29,9 @@ public class EnemyPlatform : MonoBehaviour
         {
             _doorToOpen.SetActive(false);
         }
+
         foreach (GameObject enemy in _enemiesOnPlatform)
         {
-            enemy.GetComponent<EnemyController>().enabled = false;
             enemy.transform.SetParent(null);
         }
 
