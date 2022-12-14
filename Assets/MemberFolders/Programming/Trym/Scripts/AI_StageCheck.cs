@@ -20,6 +20,6 @@ public class AI_StageCheck : StateBlock
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        throw new System.NotImplementedException();
+        return (null, null);
     }
 }

@@ -21,7 +21,7 @@ public class EnemyFalldamage : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.layer == 10)
         {
             GetComponent<EnemyController>().enabled = true;
 

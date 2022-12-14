@@ -76,10 +76,12 @@ public class EnemyController : MonoBehaviour
 
         _healthBar = GetComponentInChildren<HealthBar>();
         _piecesManager = GetComponentInChildren<PiecesManager>();
-        Health = Stats.GetHealth(_area);
+
         _defaultSpeed = MoveSpeed;
         
 
+        Health = Stats.GetHealth(_area);
+        
 
     }
 

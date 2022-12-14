@@ -1,8 +1,10 @@
+using System.Net.Mime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
+using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class LoadingScreen : MonoBehaviour
 
     [SerializeField] private GameObject _hud;
 
+    private Image _loadingImage;
+
 
 
     [SerializeField] private bool _dontStartOnLoad;
@@ -19,6 +23,8 @@ public class LoadingScreen : MonoBehaviour
     void Start()
     {
         _canvas = GetComponent<Canvas>();
+
+        _loadingImage = GetComponentInChildren<Image>();
 
         _videoPlayer = GetComponent<VideoPlayer>();
 
@@ -46,6 +52,7 @@ public class LoadingScreen : MonoBehaviour
         _videoPlayer.Play();
         _canvas.enabled = !_canvas.enabled;
         _hud.SetActive(false);
+        _loadingImage.enabled = false;
         yield return new WaitForSeconds(4);
         _hud.SetActive(true);
         _canvas.enabled = !_canvas.enabled;
