@@ -12,7 +12,7 @@ public class MusicLogic : MonoBehaviour
     [SerializeField] private AudioClip _area3Chill;
     [SerializeField] private AudioClip _area3Combat;
 
-    private AudioSource _audioSource;
+    [SerializeField] private AudioSource _audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +36,7 @@ public class MusicLogic : MonoBehaviour
 
     public void SetVolume(float volume)
     {
+        Debug.Log(volume);
         _audioSource.volume = volume;
     }
 
