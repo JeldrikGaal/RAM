@@ -411,7 +411,7 @@ Transform:
   - {fileID: 97505324394239393}
   - {fileID: 3156755872318864682}
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1718208062672609078
 MeshFilter:
@@ -487,6 +487,7 @@ MonoBehaviour:
   Pulled: 0
   _bloodSmoke: {fileID: 0}
   _bloodSize: 1
+  _vfxParticle: {fileID: 0}
   _hurtSound:
     _audio:
       Guid:
@@ -714,15 +715,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2837b50e859a6ee4c9c0af34b7d448a2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2837b50e859a6ee4c9c0af34b7d448a2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2837b50e859a6ee4c9c0af34b7d448a2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2837b50e859a6ee4c9c0af34b7d448a2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -763,6 +764,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2837b50e859a6ee4c9c0af34b7d448a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -211.897
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2837b50e859a6ee4c9c0af34b7d448a2, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 2837b50e859a6ee4c9c0af34b7d448a2, type: 3}
       propertyPath: m_Materials.Array.data[0]
