@@ -156,6 +156,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float _freezeScaleHit;
     [SerializeField] private float _freezeTimeHit;
 
+    [SerializeField] private GameObject _takeDamageVFX;
+
+
     // Help variables for various purposes
     private Plane _groundPlane = new(Vector3.up, new Vector3(0, 20, 0));
     private Vector3 _mouseWorldPosition;
@@ -1367,6 +1370,13 @@ public class RammyController : MonoBehaviour
         //if (_healthBar) _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
 
         // TODO: More VFX
+        // Doing: More VFX -håvard
+
+        if (_rammyVFX)
+        {
+            _takeDamageVFX.SetActive(true);
+        }
+
     }
 
     // Stopp walking
