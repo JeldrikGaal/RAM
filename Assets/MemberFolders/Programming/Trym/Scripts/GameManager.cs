@@ -82,7 +82,7 @@ public class Cleanup
         foreach (var item in _ToClean)
         {
             System.Action<EnemyController> cleaner = item.Value;
-            Debug.Log("scan" + item.Key);
+            //Debug.Log("scan" + item.Key);
             //Debug.Log(item.Value);
 
             cleaner?.Invoke(source);
