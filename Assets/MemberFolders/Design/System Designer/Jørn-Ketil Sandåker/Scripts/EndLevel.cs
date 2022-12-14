@@ -19,6 +19,7 @@ public class EndLevel : MonoBehaviour
     {
         Enemies,
         Letters,
+        KillCount,
         Elites
     };
 
