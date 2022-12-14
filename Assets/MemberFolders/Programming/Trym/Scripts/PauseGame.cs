@@ -48,7 +48,14 @@ public class PauseGame : MonoBehaviour
     }
 
     #endregion
-
+    /// <summary>
+    /// Use this to (de)activate a gameObject.
+    /// </summary>
+    /// <param name="panel"></param>
+    public void OpenClosePanel(GameObject panel)
+    {
+        panel.SetActive(!panel.activeSelf!);
+    }
 
     #region Menu Interaction
 
