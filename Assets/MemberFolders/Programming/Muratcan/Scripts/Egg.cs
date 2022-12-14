@@ -6,7 +6,7 @@ public class Egg : MonoBehaviour
 {
     public float damage = 1.5f;
 
-    [SerializeField] private GameObject _eggsplotion;
+    [SerializeField] private GameObject _eggsplosion;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +27,8 @@ public class Egg : MonoBehaviour
 
             // VFX:
 
-            _eggsplotion.SetActive(true);
-            _eggsplotion.transform.parent = null;
+            _eggsplosion.SetActive(true);
+            _eggsplosion.transform.parent = null;
 
 
             gameObject.SetActive(false);
