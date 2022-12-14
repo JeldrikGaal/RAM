@@ -230,10 +230,10 @@ public class RammyController : MonoBehaviour
         {
             _audio[i].SetTransform(transform);
         }
+        _rB = GetComponent<Rigidbody>();
     }
     void Start()
     {
-        _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
         _healthBar = FindObjectOfType<HealthBarBig>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
@@ -249,7 +249,6 @@ public class RammyController : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            Debug.Log(i);
             if (_startFullAbilities)
             {
                 _learnedAbilities.Add(true);
@@ -944,11 +943,22 @@ public class RammyController : MonoBehaviour
 
                 }
 
+                // Cancel Charge if its too close to a wall to stop player from getting in walls
+                if (Vector3.Distance(transform.position, _chargeAttackDestination) < 0.6f)
+                {
+                    _chargeAttackDestination = this.transform.position;
+                }
+
+
+
             }
 
             // Saving rotation and position
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
+
+            
+
             // Setting rotation to make player look in charge direction
             transform.up = _lookingAtMouseRotation;
             transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
