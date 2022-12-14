@@ -915,6 +915,7 @@ public class RammyController : MonoBehaviour
             //int layer = 1 << LayerMask.NameToLayer("Default");
             int layer = 1 << 11;
             layer |= (1 << 20);
+            layer |= (1 << 18);
             layer = ~layer;
             // int layer = 20;
 
