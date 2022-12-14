@@ -19,6 +19,13 @@ public class Egg : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        _eggsplosion.transform.parent = this.transform;
+        _eggsplosion.transform.localPosition = new Vector3(0, 0, 0);
+        _eggsplosion.SetActive(false);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<RammyController>() != null)
