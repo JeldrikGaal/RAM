@@ -7,6 +7,8 @@ public class Egg : MonoBehaviour
     public float damage = 1.5f;
 
     [SerializeField] private GameObject _eggsplosion;
+    [SerializeField] private GameObject _crackedEgg;
+    [SerializeField] private float _effectOffset;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,16 @@ public class Egg : MonoBehaviour
 
             _eggsplosion.SetActive(true);
             _eggsplosion.transform.parent = null;
+            _eggsplosion.transform.localScale = new Vector3(1,1,1);
+
+            print("Finding floor!");
+            RaycastHit hit;
+            var layer = 1 << 10;
+            if (Physics.Raycast(collision.transform.position + new Vector3(0, 100, 0), transform.TransformDirection(-Vector3.up), out hit, Mathf.Infinity, layer))
+            {
+                print("Found floor!");
+                Instantiate(_crackedEgg, hit.point + _effectOffset * Vector3.up, Quaternion.Euler(0,0,0));
+            }
 
 
             gameObject.SetActive(false);
