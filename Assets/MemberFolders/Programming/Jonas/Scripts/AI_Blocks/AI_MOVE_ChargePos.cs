@@ -31,6 +31,8 @@ public class AI_MOVE_ChargePos : StateBlock
     {
         if (Vector3.Distance(user.transform.position, _moveTarget[user]) < _distance) return (null, null);
 
+        Debug.Log("Still going");
+
         user.MoveInput += (_moveTarget[user] - user.transform.position).normalized * _weight;
 
         _backupTimer[user] -= Time.deltaTime;
