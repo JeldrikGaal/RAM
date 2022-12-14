@@ -57,6 +57,8 @@ public class HawkBossManager : MonoBehaviour
     private bool _slowedDown;
     private bool _insideSlowRange;
     [FoldoutGroup("Super Claw Melee")][SerializeField] private GameObject _damageArea;
+    [FoldoutGroup("Super Claw Melee")][SerializeField] private float _timeToReachTarget;
+    [FoldoutGroup("Super Claw Melee")][SerializeField] private float _slowDownWaitTime;
 
     private Dictionary<string, int> _weightedAttacks = new Dictionary<string, int>()
     {
@@ -276,7 +278,7 @@ public class HawkBossManager : MonoBehaviour
         if (Crashing)
         {
             // print("THIS IS WRONG");
-            float timeToReachTarget = 0.4f;
+            float timeToReachTarget = _timeToReachTarget / 10;
             if (_crashTimer < 1)
             {
                 _animController.SetBool("Idle", false);
@@ -670,7 +672,7 @@ public class HawkBossManager : MonoBehaviour
 
     private IEnumerator SlowDownWait()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(_slowDownWaitTime);
         _animController.SetBool("Claw Attack", true);
         _slowedDown = true;
         _insideSlowRange = false;
