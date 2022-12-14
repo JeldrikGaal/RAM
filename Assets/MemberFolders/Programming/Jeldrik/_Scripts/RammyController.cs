@@ -183,7 +183,7 @@ public class RammyController : MonoBehaviour
     [FoldoutGroup("Buff Values")] public float StunBuffDuration;
     [FoldoutGroup("Buff Values")][SerializeField] private float _stunBuffTimer;
 
-    [SerializeField] private Canvas _deathCanvas;
+    [SerializeField] private GameObject _death;
 
     // Importing Damage Values
     [SerializeField] RammyAttack _chargeValues;
@@ -213,7 +213,7 @@ public class RammyController : MonoBehaviour
     // Setting Input Actions on Awake
     private void Awake()
     {
-        
+
         _cameraDepth = Camera.main.transform.position.z;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -1383,8 +1383,8 @@ public class RammyController : MonoBehaviour
         Debug.Log("RAMMY HAS DIED!!!!!");
         Time.timeScale = 1;
 
-        _deathCanvas.enabled = true;
-        _deathCanvas.GetComponent<DeathScript>().enabled = true;
+        _death.SetActive(true);
+        _death.GetComponent<DeathScript>().enabled = true;
 
         Destroy(gameObject);
     }
