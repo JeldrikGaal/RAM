@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00b9af1774ecb3c408b15d0f57aed785, type: 3}
-  m_Name: HoneyMamaBearBombThrow
+  m_Name: RandomMamaBearBombThrow 5
   m_EditorClassIdentifier: 
-  _random: 0
+  _random: 1
   _bomb: {fileID: 5824584183443300883, guid: 555c5a6a376f1d9409fc0f41a29a3844, type: 3}
-  _bomb2: {fileID: 0}
-  _bomb2Percent: 0
+  _bomb2: {fileID: 436300189166029826, guid: 63a83a4debf3ebd468440d243f30c8be, type: 3}
+  _bomb2Percent: 30
   _speed: 20
   _relativeSpeedOverDistance:
     serializedVersion: 2
@@ -75,8 +75,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _range: Infinity
-  _ralativePosMod: {x: 1.76, y: 2.32, z: 1.4}
-  _inacuracy: 0.5
-  _manualCall: 1
+  _ralativePosMod: {x: 0, y: 1.08, z: 1.49}
+  _inacuracy: 5
+  _manualCall: 0
   _fuse: 1.5
-  _fuse2: 0
+  _fuse2: 1.5
