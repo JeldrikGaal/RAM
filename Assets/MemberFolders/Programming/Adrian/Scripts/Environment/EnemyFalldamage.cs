@@ -33,8 +33,10 @@ public class EnemyFalldamage : MonoBehaviour
             else
             {
                 // Else it will take a set amount of damage
-                GetComponent<EnemyController>().TakeDamage(_fallDamage, Vector3.up);
                 GetComponent<StateMachine>().enabled = true;
+                Debug.Log(("Health", GetComponent<EnemyController>().Health));
+                GetComponent<EnemyController>().TakeDamage(_fallDamage, Vector3.up);
+                
             }
         }
     }
