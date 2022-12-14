@@ -38,7 +38,7 @@ public class AI_MOVE_ChargeDistance : StateBlock
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
         if (_isDone[user]) return (null, null);
-        if (Vector3.Distance(user.transform.position, user.transform.position) < 1)
+        if (_checkPlayer && Vector3.Distance(user.transform.position, target.transform.position) < 1)
         {
             _isDone[user] = true;
             return (null, null);
@@ -51,6 +51,7 @@ public class AI_MOVE_ChargeDistance : StateBlock
         if (_asTimer && _backupTimer[user] > 0)
             return (null, _returnList);
 
+        _isDone[user] = true;
         return (null, null);
     }
 
