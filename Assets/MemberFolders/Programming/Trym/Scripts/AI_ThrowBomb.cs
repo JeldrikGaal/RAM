@@ -6,7 +6,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-public class AI_ThrowBomb : StateBlock
+public class AI_ThrowBomb : StateBlock, IStateBlockGizmo
 {
     [SerializeField] bool _random = false;
     [SerializeField] GenericBearBomb _bomb;
@@ -28,6 +28,11 @@ public class AI_ThrowBomb : StateBlock
 
     private readonly Dictionary<int, bool> _launched = new();
     private GameObject _target;
+
+    public Vector3 GizPos => _ralativePosMod;
+
+    public float GizRad => .45f;
+
     public override void OnEnd(EnemyController user, GameObject target)
     {
         
@@ -75,7 +80,7 @@ public class AI_ThrowBomb : StateBlock
         
         return (null, null);
     }
-
+    
     private void Throw(EnemyController user, GameObject target)
     {
         int iD = user.GetInstanceID();
@@ -106,7 +111,11 @@ public class AI_ThrowBomb : StateBlock
                 targetPos = origin + (new Vector3(targetDir.x, 0, targetDir.y) * _range);
             }
             _bomb.SetProperties(_fuse);
-            _bomb2.SetProperties(_fuse2);
+            if (_random)
+            {
+                _bomb2.SetProperties(_fuse2);
+            }
+            
             
             // Instantiates the bomb and starts sends it on it's journey.
             GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_random?Random.Range(1,101)>=_bomb2Percent?_bomb:_bomb2  : _bomb, origin, user.transform.rotation, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));

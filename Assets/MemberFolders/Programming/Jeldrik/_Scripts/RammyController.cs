@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
@@ -68,12 +69,17 @@ public class RammyController : MonoBehaviour
     private MeshRenderer _mR;
     private HealthBarBig _healthBar;
     private CapsuleCollider _capsuleCollider;
+    private Image _faceImage;
+
+    [SerializeField] private Sprite _normalFace;
+    [SerializeField] private Sprite _hitFace;
     [SerializeField] private Animator _animator;
     [SerializeField] private RammyFrontCheck _frontCheck;
     [SerializeField] private CinemachineTopDown _cameraScript;
     [SerializeField] private StatManager _comboSystem;
     [SerializeField] private TimeStopper _timeStopper;
     [SerializeField] private GameObject _chargeVFX;
+
 
 
 
@@ -156,6 +162,9 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float _freezeScaleHit;
     [SerializeField] private float _freezeTimeHit;
 
+    [SerializeField] private GameObject _takeDamageVFX;
+
+
     // Help variables for various purposes
     private Plane _groundPlane = new(Vector3.up, new Vector3(0, 20, 0));
     private Vector3 _mouseWorldPosition;
@@ -221,10 +230,10 @@ public class RammyController : MonoBehaviour
         {
             _audio[i].SetTransform(transform);
         }
+        _rB = GetComponent<Rigidbody>();
     }
     void Start()
     {
-        _rB = GetComponent<Rigidbody>();
         _mR = GetComponent<MeshRenderer>();
         _healthBar = FindObjectOfType<HealthBarBig>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
@@ -792,6 +801,7 @@ public class RammyController : MonoBehaviour
 
         // Updating the Healthbar
         if (!_healthBar) _healthBar = FindObjectOfType<HealthBarBig>();
+        if (GameObject.Find("Rammy_Head") != null && !_faceImage) _faceImage = GameObject.Find("Rammy_Head").GetComponent<Image>();
         if (_healthBar) _healthBar.SetHealthBar(Health / MaxHealth);
 
         // Showing in engine where the player is gonna dash towards
@@ -933,11 +943,22 @@ public class RammyController : MonoBehaviour
 
                 }
 
+                // Cancel Charge if its too close to a wall to stop player from getting in walls
+                if (Vector3.Distance(transform.position, _chargeAttackDestination) < 0.6f)
+                {
+                    _chargeAttackDestination = this.transform.position;
+                }
+
+
+
             }
 
             // Saving rotation and position
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
+
+            
+
             // Setting rotation to make player look in charge direction
             transform.up = _lookingAtMouseRotation;
             transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
@@ -1325,6 +1346,11 @@ public class RammyController : MonoBehaviour
         {
             return;
         }
+
+        if (_faceImage)
+        {
+            StartCoroutine(HitFaceDisplaying());
+        }
         _animator.SetTrigger("Hit");
         // Short Time slow to emphazise taking damage
         _timeStopper.PauseTime(_freezeScaleHit, _freezeTimeHit);
@@ -1367,6 +1393,21 @@ public class RammyController : MonoBehaviour
         //if (_healthBar) _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
 
         // TODO: More VFX
+        // Doing: More VFX -h�vard
+
+        if (_rammyVFX)
+        {
+            _takeDamageVFX.SetActive(true);
+        }
+
+    }
+
+    IEnumerator HitFaceDisplaying()
+    {
+        Debug.Log("!!!!");
+        _faceImage.sprite = _hitFace;
+        yield return new WaitForSeconds(0.2f);
+        _faceImage.sprite = _normalFace;
     }
 
     // Stopp walking

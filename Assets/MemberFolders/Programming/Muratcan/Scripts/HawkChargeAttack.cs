@@ -87,8 +87,11 @@ public class HawkChargeAttack : MonoBehaviour
     {
         _ammo--;
         //print("ammo: " + _ammo);
-        _egg[_ammo].SetActive(true);
-        _egg[_ammo].transform.parent = null;
-        _egg[_ammo].GetComponent<Rigidbody>().AddForce(transform.forward * _shootSpeed);
+        if (_ammo > -1)
+        {
+            _egg[_ammo].SetActive(true);
+            _egg[_ammo].transform.parent = null;
+            _egg[_ammo].GetComponent<Rigidbody>().AddForce(transform.forward * _shootSpeed);
+        }
     }
 }
