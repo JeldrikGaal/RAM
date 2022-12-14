@@ -15,14 +15,18 @@ public class Journal : MonoBehaviour
     [SerializeField] int _currentRightNum;
     [SerializeField] int[] _tabs = new int[6];
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         //Takes all the sprites from the array and puts them in a list with their numbers
         for (int i = 0; i < _pageObjects.Length; i++)
         {
-            _pages.Add(new Pages() {pageNum = i, pageObject = _pageObjects[i]});
+            _pages.Add(new Pages() { pageNum = i, pageObject = _pageObjects[i] });
         }
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
