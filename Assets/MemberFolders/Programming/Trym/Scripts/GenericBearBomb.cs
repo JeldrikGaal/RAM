@@ -55,7 +55,6 @@ public class GenericBearBomb : MonoBehaviour
             if (Physics.Raycast(transform.position + new Vector3(0, 100, 0), transform.TransformDirection(-Vector3.up), out hit, Mathf.Infinity, layer))
             {
                 _effectLocation = hit.point + _effectOffset * Vector3.up;
-                print(hit.point);
             }
 
             // _effectLocation = collision.contacts[0].point + collision.contacts[0].normal * _effectOffset;

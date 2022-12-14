@@ -20,7 +20,7 @@ public class HealthBarBig : MonoBehaviour
     }
     private void LateUpdate()
     {
-        UpdateHealthBar(0f);
+        //UpdateHealthBar(0f);
     }
 
     /// <summary>
@@ -32,5 +32,10 @@ public class HealthBarBig : MonoBehaviour
         //print(changeAmount);
         _health += changeAmount;
         _healthBarImage.fillAmount = _health;
+    }
+
+    public void SetHealthBar(float percentage)
+    {
+        _healthBarImage.fillAmount = percentage;
     }
 }

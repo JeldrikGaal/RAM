@@ -11,7 +11,7 @@ public class SlowHoney : MonoBehaviour
     [SerializeField] private float _hight;
     [SerializeField] Animator _animator;
     private bool _entered = false;
-    private RammyController _rammy;
+    private RammyVFX _rammy;
     private float _startTime;
 
     private bool _init = false;
@@ -40,7 +40,7 @@ public class SlowHoney : MonoBehaviour
             {
                 if (_entered)
                 {
-                    _rammy.MovementSpeed /= _speedMod;
+                    _rammy.InHoney = true;
                 }
                 Destroy(gameObject);
             }
@@ -48,30 +48,29 @@ public class SlowHoney : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             if (_rammy == null)
             {
-                _rammy = other.GetComponent<RammyController>();
+                _rammy = other.GetComponent<RammyVFX>();
             }
-            if (_rammy.MovementSpeed * _speedMod > _minSpeed)
+            if (!_rammy.InHoney)
             {
                 
-                _rammy.MovementSpeed *= _speedMod;
+                _rammy.InHoney = true;
                 _entered = true; 
             }
         }
-
-
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            _rammy.MovementSpeed /= _speedMod;
+            print("our");
+            _rammy.InHoney = false;
             _entered = false;
         }
     }
