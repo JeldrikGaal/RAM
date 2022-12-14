@@ -151,6 +151,10 @@ public class RammyVFX : MonoBehaviour
 
     #endregion
 
+    [Header("Honey Variables")]
+    public bool InHoney = false;
+    [SerializeField] private float _rammyHoneySpeedDif;
+    private float _rammyOriginalSpeed;
 
     private void Start()
     {
@@ -205,6 +209,11 @@ public class RammyVFX : MonoBehaviour
         _meatArray.CurrentArray1 = 0;
         _meatArray.CurrentArray2 = 0;
 
+        #endregion
+
+        #region Rammy speed for honey
+        _rammyOriginalSpeed = GetComponent<RammyController>().MovementSpeed;
+        _rammyHoneySpeedDif = _rammyOriginalSpeed * _rammyHoneySpeedDif;
         #endregion
     }
 
@@ -515,6 +524,22 @@ public class RammyVFX : MonoBehaviour
         leftDirection = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(0).transform.position - _bloodSpreadCalculator.transform.position;
         rightDirection = _bloodSpreadCalculator.transform.GetChild(0).transform.GetChild(1).transform.position - _bloodSpreadCalculator.transform.position;
     }
+
+    private void Update()
+    {
+        #region Honey slows
+
+        if (InHoney)
+        {
+            GetComponent<RammyController>().MovementSpeed = _rammyHoneySpeedDif;
+        } else
+        {
+            GetComponent<RammyController>().MovementSpeed = _rammyOriginalSpeed;
+        }
+
+        #endregion
+    }
+
 
     // Helpful function to remap values:
     float map(float s, float a1, float a2, float b1, float b2)
