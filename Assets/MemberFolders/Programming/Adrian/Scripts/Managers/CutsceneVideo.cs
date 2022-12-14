@@ -43,7 +43,11 @@ public class CutsceneVideo : MonoBehaviour
         {
             _videoPlayer.frame += 1000000;
         }
-        
+
+        if (_videoPlayer.isPlaying)
+        {
+            _hud.SetActive(false);
+        }
 
         // // Checks to see if the video can be played and the up arrow is pressed
         // if (Input.GetKeyDown(KeyCode.UpArrow) && _canPlayVideo)
@@ -98,7 +102,7 @@ public class CutsceneVideo : MonoBehaviour
             Destroy(gameObject);
         }
 
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -107,7 +111,7 @@ public class CutsceneVideo : MonoBehaviour
         if (other.tag == "Player")
         {
             // Disallows pausing during cutscene
-            if(_pauseGame != null) _pauseGame.AllowPause = false;
+            if (_pauseGame != null) _pauseGame.AllowPause = false;
             // Disables the HUD
             _hud.SetActive(false);
             // Saves the player object
