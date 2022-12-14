@@ -10,7 +10,8 @@ public class AbilityUIManager : MonoBehaviour
     [SerializeField] private RammyController _controller;
 
     private List<Transform> _abilityBlocks = new List<Transform>();
-    private List<Image> _abilityImages = new List<Image>();
+    [SerializeField] private List<Image> _abilityImages = new List<Image>();
+    [SerializeField] private List<Image> _disabledAbilityImages = new List<Image>();
     private List<Image> _coolDownCircles = new List<Image>();
 
     private Transform _basicAbilityBlock;
@@ -34,15 +35,15 @@ public class AbilityUIManager : MonoBehaviour
         }
         foreach (Transform t in _abilityBlocks)
         {
-            _coolDownCircles.Add(t.GetComponent<Image>());  
+            _coolDownCircles.Add(t.GetComponent<Image>());
             _abilityImages.Add(t.GetChild(0).GetComponent<Image>());
+            _disabledAbilityImages.Add(t.GetChild(1).GetComponent<Image>());
         }
         _abilityScripts = _controller.GetAbilityScripts();
 
         _basicAbilityBlock = transform.GetChild(5);
         _basicAbilityImage = _basicAbilityBlock.GetComponent<Image>();
         _basicAbilityCoolDownCircle = _basicAbilityBlock.GetChild(0).GetComponent<Image>();
-
 
     }
 
@@ -54,7 +55,7 @@ public class AbilityUIManager : MonoBehaviour
         // Loops through all abilities and updates the UI according to the status in the respective scripts
         for (int i = 0; i < _abilityScripts.Count; i++)
         {
-            if (_abilityScripts[i].IsRunning()) 
+            if (_abilityScripts[i].IsRunning())
             {
                 AbilityBeingUsed(i);
                 anyAbilityInUse = true;
@@ -66,8 +67,8 @@ public class AbilityUIManager : MonoBehaviour
             SetAbilityClockToPercent(i, fillPercentage);
         }
 
-        
-      
+
+
         // Visualize Charge Cooldown
         fillPercentage = Mathf.Min(1, (Time.time - _controller.GetChargeStartTime()) / _controller.GetChargeCoolDown());
         if (_controller.GetChargeStartTime() == 0) fillPercentage = 1;
@@ -107,18 +108,18 @@ public class AbilityUIManager : MonoBehaviour
 
         for (int i = 0; i < _abilityImages.Count; i++)
         {
+            Debug.Log(i);
             if (!_controller.GetAbilitiesLearned()[i])
             {
                 _abilityImages[i].gameObject.SetActive(false);
-
+                if (_disabledAbilityImages[i]) _disabledAbilityImages[i].gameObject.SetActive(true);
             }
             else
             {
                 _abilityImages[i].gameObject.SetActive(true);
+                if (_disabledAbilityImages[i]) _disabledAbilityImages[i].gameObject.SetActive(false);
             }
         }
-
-
     }
 
     /// <summary>
@@ -158,7 +159,7 @@ public class AbilityUIManager : MonoBehaviour
             {
                 EnableAbility(i);
             }
-            else 
+            else
             {
                 DisableAbility(i);
             }

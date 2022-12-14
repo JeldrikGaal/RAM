@@ -242,7 +242,7 @@ public class RammyController : MonoBehaviour
         _directionIndicatorScaleSave = _directionIndicatorTip.transform.localScale;
         _directionIndicatorPosSave = _directionIndicatorTip.transform.localPosition;
 
-        _faceImage = GameObject.Find("RammyHead").GetComponent<Image>();
+        // _faceImage = GameObject.Find("Rammy_Head").GetComponent<Image>();
 
         if (testingHeight)
         {
@@ -251,6 +251,7 @@ public class RammyController : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
+            Debug.Log(i);
             if (_startFullAbilities)
             {
                 _learnedAbilities.Add(true);
@@ -1378,7 +1379,7 @@ public class RammyController : MonoBehaviour
         //if (_healthBar) _healthBar.UpdateHealthBar(-(appliedDamage / MaxHealth));
 
         // TODO: More VFX
-        // Doing: More VFX -håvard
+        // Doing: More VFX -hï¿½vard
 
         if (_rammyVFX)
         {
