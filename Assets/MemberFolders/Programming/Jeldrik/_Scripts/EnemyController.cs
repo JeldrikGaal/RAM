@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
@@ -79,7 +80,18 @@ public class EnemyController : MonoBehaviour
 
         _defaultSpeed = MoveSpeed;
         
-
+        if (SceneManager.GetActiveScene().buildIndex < 4)
+        {
+            _area = 1;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex < 7)
+        {
+            _area = 2;
+        }
+        else
+        {
+            _area = 3;
+        }
         Health = Stats.GetHealth(_area);
         
 
