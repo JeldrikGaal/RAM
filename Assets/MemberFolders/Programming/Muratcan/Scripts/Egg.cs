@@ -40,13 +40,12 @@ public class Egg : MonoBehaviour
             _eggsplosion.transform.parent = null;
             _eggsplosion.transform.localScale = new Vector3(1,1,1);
 
-            print("Finding floor!");
             RaycastHit hit;
             var layer = 1 << 10;
-            if (Physics.Raycast(collision.transform.position + new Vector3(0, 100, 0), transform.TransformDirection(-Vector3.up), out hit, Mathf.Infinity, layer))
+            if (Physics.Raycast(collision.transform.position + new Vector3(0, 100, 0), /*transform.TransformDirection(-Vector3.up)*/ -Vector3.up, out hit, Mathf.Infinity, layer))
             {
-                print("Found floor!");
-                Instantiate(_crackedEgg, hit.point + _effectOffset * Vector3.up, Quaternion.Euler(0,0,0));
+                var crackedEgg = Instantiate(_crackedEgg, hit.point + _effectOffset * Vector3.up, Quaternion.Euler(0,0,0));
+                Destroy(crackedEgg, 20f);
             }
 
 
