@@ -51,8 +51,9 @@ public class LoadingScreen : MonoBehaviour
     {
         _canvas.enabled = !_canvas.enabled;
         _hud.SetActive(false);
-        _loadingImage.enabled = false;
         _videoPlayer.Play();
+        yield return new WaitForSeconds(0.1f);
+        _loadingImage.enabled = false;
         yield return new WaitForSeconds(4);
         _hud.SetActive(true);
         _canvas.enabled = !_canvas.enabled;
