@@ -82,7 +82,7 @@ public class Journal : MonoBehaviour
     public void ChangeThePage(bool direction)
     {
         //Checks the direction and if there are enough pages to said direction
-        if (direction && _currentLeftNum < _pageObjects.Length - 1)
+        if (direction && _currentLeftNum < _pageObjects.Length - 2)
         {
             _pages[_currentLeftNum].pageObject.SetActive(false);
             _pages[_currentLeftNum].pageObject.transform.parent = _pageParent.transform;
