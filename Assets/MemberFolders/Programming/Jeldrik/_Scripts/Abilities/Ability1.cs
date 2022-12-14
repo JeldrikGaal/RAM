@@ -60,15 +60,22 @@ public class Ability1 : Abilities
                 _jumping = false;
                 _controller.UnBlockPlayerMovement();
 
-                Collider[] enemies = Physics.OverlapSphere(transform.position, _upgraded ? Stats.USplashRadius : Stats.SplashRadius, enemyMask);
+                Collider[] enemies = Physics.OverlapSphere(transform.position, _upgraded ? Stats.USplashRadius : Stats.SplashRadius);
 
                 List<Transform> enemyHolder = new List<Transform>();
 
                 foreach (Collider col in enemies)
                 {
-                    if (!enemyHolder.Contains(col.transform))
+                    if (col.gameObject.layer == 20)
                     {
-                        enemyHolder.Add(col.transform);
+                        if (!enemyHolder.Contains(col.transform))
+                        {
+                            enemyHolder.Add(col.transform);
+                        }
+                    }
+                    else if (TagManager.HasTag(col.gameObject, "destructible"))
+                    {
+                        col.gameObject.GetComponent<IRammable>().Hit(gameObject);
                     }
                 }
 
