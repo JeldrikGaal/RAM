@@ -8,6 +8,13 @@ public class EndLevel : MonoBehaviour
     public GameObject enemies;
     public WinCondition _winCondition;
 
+    public bool _useKillCount = false;
+    public int KillCount = 0;
+
+    public GameObject ObjectToDelete;
+
+    private StatManager _stats;
+
     public enum WinCondition // your custom enumeration
     {
         Enemies,
@@ -20,14 +27,28 @@ public class EndLevel : MonoBehaviour
 
     public bool done;
 
+    private void Start()
+    {
+        _stats = GameObject.Find("HUD").GetComponent<StatManager>();
+    }
+
     void Update()
     {
         //Debug.Log(_winCondition);
+        if (_useKillCount && _stats.Stats.Kills >= KillCount)
+        {
+            done = true;
+            if (ObjectToDelete != null)
+                ObjectToDelete.SetActive(false);
+        }
+
 		if (_winCondition == WinCondition.Enemies || _winCondition == WinCondition.Elites)
 		{
             if (enemies.transform.childCount == 0)
             {
                 done = true;
+                if (ObjectToDelete != null)
+                    ObjectToDelete.SetActive(false);
             }
         }
 		else if (_winCondition == WinCondition.Letters)
