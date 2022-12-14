@@ -111,11 +111,11 @@ public class HawkBossManager : MonoBehaviour
         MaxHealth = _controller.Stats.GetHealth(_controller._area);
 
 
-        PhaseThree = true;
-        _stageThree = true;
+        // PhaseThree = true;
+        // _stageThree = true;
 
-        // _phaseOne = true;
-        // _stageOne = true;
+        _phaseOne = true;
+        _stageOne = true;
 
         _rb = GetComponent<Rigidbody>();
 
