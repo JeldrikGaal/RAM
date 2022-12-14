@@ -17,7 +17,7 @@ public class HawkBossManager : MonoBehaviour
 
     private bool _canAttack;
 
-    private float MaxHealth;
+    public float MaxHealth;
 
 
     // [SerializeField] private HawkBossAttackPhaseOne _state;
@@ -108,7 +108,7 @@ public class HawkBossManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MaxHealth = _controller.Stats.GetHealth(_controller._area);
+        // MaxHealth = _controller.Stats.GetHealth(_controller._area);
 
 
         // PhaseThree = true;
@@ -128,10 +128,10 @@ public class HawkBossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!PhaseThree && !_stageThree)
-        {
-            _controller.Health = Mathf.Clamp(_controller.Health, 1, MaxHealth);
-        }
+        // if (!PhaseThree && !_stageThree)
+        // {
+        //     _controller.Health = Mathf.Clamp(_controller.Health, 1, MaxHealth);
+        // }
         if (_phaseOne)
         {
             #region PhaseOne
@@ -589,7 +589,7 @@ public class HawkBossManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             var egg = Instantiate(_egg, _shootPoint.position, Quaternion.identity);
-            egg.GetComponent<Rigidbody>().AddForce((_player.transform.position - transform.position).normalized * _shootSpeed);
+            egg.GetComponent<Rigidbody>().AddForce((_player.transform.position - _shootPoint.position).normalized * _shootSpeed);
             Destroy(egg, 6);
             yield return new WaitForSeconds(0.1f);
         }

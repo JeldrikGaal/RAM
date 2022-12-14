@@ -34,8 +34,12 @@ public class StickyBlood : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        foreach (var item in other.contacts)
+        RaycastHit hit;
+        var layer = 1 << 10;
+        if (Physics.Raycast(this.transform.position + new Vector3(0, 100, 0), /*transform.TransformDirection(-Vector3.up)*/ -Vector3.up, out hit, Mathf.Infinity, layer))
         {
+          //  foreach (var item in other.contacts)
+        //{
 
             // Figure out the rotation for the splat:
 
@@ -43,7 +47,7 @@ public class StickyBlood : MonoBehaviour
             if(other.gameObject.layer == 10)
             {
                 // Calculates the direction for laying flat
-                var flatLook = -item.normal;
+                var flatLook = -hit.normal;
                 var lookDir = rb.velocity;
                 lookDir.y = 0; // keep only the horizontal direction
                 var velocityRotationEdit = Quaternion.LookRotation(lookDir);
@@ -51,13 +55,13 @@ public class StickyBlood : MonoBehaviour
                 splatRotation = velocityRotationEdit;
             } else if(other.gameObject.layer != 10)
             {
-                splatRotation = Quaternion.LookRotation(-item.normal);
+                splatRotation = Quaternion.LookRotation(-hit.normal);
             }
 
             if (!BloodStepScript.FullArray2)
             {
                 // Spawn the splat:
-                var prefab = Instantiate(SplatObject, item.point + item.normal * 0.6f, splatRotation);
+                var prefab = Instantiate(SplatObject, hit.point + hit.normal * 0.6f, splatRotation);
                 prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
                 BloodStepScript.AddPoint(prefab.gameObject);
                 prefab.GetComponent<DecalProjector>().material = BloodMaterial;
@@ -77,7 +81,7 @@ public class StickyBlood : MonoBehaviour
             {
                 // Spawn the splat:
                 var prefab = BloodStepScript.NextToTake;
-                prefab.transform.position = item.point + item.normal * 0.6f;
+                prefab.transform.position = hit.point + hit.normal * 0.6f;
                 prefab.transform.rotation = splatRotation;
                 prefab.transform.localScale = new Vector3(BloodSize, BloodSize, 1);
                 BloodStepScript.AddPoint(prefab.gameObject);

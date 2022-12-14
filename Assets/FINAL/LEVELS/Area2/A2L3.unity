@@ -6324,7 +6324,7 @@ TerrainCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257173099}
   m_Material: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_TerrainData: {fileID: 15600000, guid: d913dc9975dae114881ec9fcc411171b, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &257173103
@@ -17494,6 +17494,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _death
+      value: 
+      objectReference: {fileID: 1668335611}
+    - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _deathCanvas
       value: 
       objectReference: {fileID: 514430564}
@@ -26230,15 +26234,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3673875269934020539, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.1299973
+      value: 479
       objectReference: {fileID: 0}
     - target: {fileID: 3673875269934020539, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.029999
+      value: 46.6
       objectReference: {fileID: 0}
     - target: {fileID: 3673875269934020539, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.2599945
+      value: 792.85
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -41163,6 +41167,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+--- !u!1 &1668335611 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2444648566894247059, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+  m_PrefabInstance: {fileID: 1668335610}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1672281503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47763,15 +47772,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3673875269934020539, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.069996
+      value: 445.8
       objectReference: {fileID: 0}
     - target: {fileID: 3673875269934020539, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.029999
+      value: 46.6
       objectReference: {fileID: 0}
     - target: {fileID: 3673875269934020539, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -340.90997
+      value: 458.2
       objectReference: {fileID: 0}
     - target: {fileID: 3673875270707635087, guid: 57ed7f4083fa8914ab586f0516239935, type: 3}
       propertyPath: m_LocalPosition.x
