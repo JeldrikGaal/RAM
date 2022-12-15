@@ -71,7 +71,10 @@ public class CutsceneVideo : MonoBehaviour
         {
             _loadOnce = true;
             if (_mainMenuOnEnd)
+            {
+                Debug.Log("Test");
                 StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(0));
+            }
             else
                 StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(SceneManager.GetActiveScene().buildIndex + 1));
         }
