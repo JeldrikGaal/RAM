@@ -9709,8 +9709,10 @@ GameObject:
   - component: {fileID: 395633379}
   - component: {fileID: 395633378}
   - component: {fileID: 395633382}
+  - component: {fileID: 395633384}
+  - component: {fileID: 395633383}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Enable Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9807,6 +9809,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _object: {fileID: 1844139176}
+  _waitTimer: 0
+  _setTo: 1
+--- !u!114 &395633383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395633377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135b7d5c35dd3234bb921fcc9cde071f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _object: {fileID: 1668335612}
+  _waitTimer: 0
+  _setTo: 1
+--- !u!114 &395633384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395633377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135b7d5c35dd3234bb921fcc9cde071f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _object: {fileID: 419831344}
   _waitTimer: 0
   _setTo: 1
 --- !u!1001 &395721386
@@ -10351,10 +10383,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HawkBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 4522231868183197227, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 162931688}
+    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+      propertyPath: MaxHealth
+      value: 275
+      objectReference: {fileID: 0}
     - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: _fleePoints.Array.size
       value: 6
@@ -10414,6 +10454,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+--- !u!1 &419831344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4522231868183197227, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+  m_PrefabInstance: {fileID: 419831343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &419831349 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4522231868183197231, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+  m_PrefabInstance: {fileID: 419831343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419831344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &419831350 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
+  m_PrefabInstance: {fileID: 419831343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419831344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e75d52d4a688454fa275830f8dea1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &426059468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40976,6 +41043,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2378554485660173533, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: _controller
+      value: 
+      objectReference: {fileID: 419831349}
+    - target: {fileID: 2378554485660173533, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: _hawkBossManager
+      value: 
+      objectReference: {fileID: 419831350}
     - target: {fileID: 2435157329918441219, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -41170,6 +41245,11 @@ PrefabInstance:
 --- !u!1 &1668335611 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2444648566894247059, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+  m_PrefabInstance: {fileID: 1668335610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1668335612 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1855131742760433337, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
   m_PrefabInstance: {fileID: 1668335610}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1672281503
