@@ -1936,7 +1936,7 @@ Transform:
   - {fileID: 7028102775560305371}
   - {fileID: 6141488845053197282}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6141488845463843899
 Rigidbody:
@@ -2037,6 +2037,7 @@ MonoBehaviour:
   Pulled: 0
   _bloodSmoke: {fileID: 0}
   _bloodSize: 1
+  _vfxParticle: {fileID: 0}
   _hurtSound:
     _audio:
       Guid:
@@ -2769,6 +2770,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3797138857579822050, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797138857579822051, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3797138857579822078, guid: b5ffc71dc7549cb45949bb9d7ab258b8, type: 3}
