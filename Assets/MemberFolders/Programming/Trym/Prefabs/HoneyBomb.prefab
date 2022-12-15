@@ -58,27 +58,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d764e4e14278e8b48a6cd600124abd26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
+  _damage: 25
   _damageFalloff:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.20351438
-      outSlope: -0.20351438
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.9992676
-      value: 0.7966347
-      inSlope: -0.20351438
-      outSlope: -0.20351438
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -627,7 +627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1192391504098401303, guid: 20c21e6dd39e4604281e407e2fe1c107, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 1192391504098401303, guid: 20c21e6dd39e4604281e407e2fe1c107, type: 3}
       propertyPath: m_LocalScale.y
@@ -635,7 +635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1192391504098401303, guid: 20c21e6dd39e4604281e407e2fe1c107, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 1192391504098401303, guid: 20c21e6dd39e4604281e407e2fe1c107, type: 3}
       propertyPath: m_LocalPosition.x
