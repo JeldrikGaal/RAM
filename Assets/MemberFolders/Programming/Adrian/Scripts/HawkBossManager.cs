@@ -53,7 +53,6 @@ public class HawkBossManager : MonoBehaviour
     private float _flightTimer;
     private Vector3 _crashPos;
     private float _crashTimer;
-    [FoldoutGroup("Super Claw Melee")][SerializeField] private GameObject _crashPath;
     [FoldoutGroup("Super Claw Melee")][SerializeField] private float _slowDownDistance;
     private bool _slowedDown;
     private bool _insideSlowRange;
@@ -287,11 +286,11 @@ public class HawkBossManager : MonoBehaviour
                 _crashTimer += timeToReachTarget * Time.deltaTime;
             }
 
-            if (_crashTimer > 0.18f)
+            if (_crashTimer > 0.18f && _model.transform.localPosition.y < 0.1f)
             {
+                Crashing = false;
                 _animController.SetBool("Flying", false);
                 _animController.SetBool("Claw Attack", false);
-                Crashing = false;
                 gameObject.layer = 20;
                 var damageArea = Instantiate(_damageArea, transform.position, Quaternion.identity);
                 Destroy(damageArea, 0.5f);
