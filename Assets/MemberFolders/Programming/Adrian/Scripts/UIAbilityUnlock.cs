@@ -9,6 +9,7 @@ public class UIAbilityUnlock : MonoBehaviour
     [SerializeField] private GameObject _background;
     [SerializeField] private Image _abilityIcon;
     [SerializeField] private TMP_Text _abilityDescription;
+    [SerializeField] private GameObject _button;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,15 +24,11 @@ public class UIAbilityUnlock : MonoBehaviour
 
     public void EnableUI(Sprite icon, string description)
     {
+        Time.timeScale = 0;
         _background.SetActive(true);
+        _button.SetActive(true);
         _abilityDescription.enabled = true;
         _abilityIcon.sprite = icon;
         _abilityDescription.text = description;
-    }
-
-    public void DisableUI()
-    {
-        _abilityDescription.enabled = false;
-        _background.SetActive(false);
     }
 }
