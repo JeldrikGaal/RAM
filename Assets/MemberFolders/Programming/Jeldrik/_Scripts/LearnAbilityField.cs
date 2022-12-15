@@ -7,6 +7,7 @@ public class LearnAbilityField : MonoBehaviour
 {
     [SerializeField] private int _abilityToLearn;
     [SerializeField] private Sprite _abilityIcon;
+    [SerializeField] private bool _stupid;
 
     [TextArea]
     [SerializeField] private string _description;
@@ -27,7 +28,10 @@ public class LearnAbilityField : MonoBehaviour
     {
         if (TagManager.HasTag(other.gameObject, "player"))
         {
-            other.transform.GetComponent<RammyController>().LearnAbility(_abilityToLearn);
+            if (!_stupid)
+            {
+                other.transform.GetComponent<RammyController>().LearnAbility(_abilityToLearn);
+            }
             GameObject.FindObjectOfType<UIAbilityUnlock>().EnableUI(_abilityIcon, _description);
         }
     }
