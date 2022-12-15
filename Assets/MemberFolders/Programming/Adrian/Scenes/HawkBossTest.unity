@@ -693,18 +693,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4522231868183197219, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197219, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197219, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197219, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.338389
       objectReference: {fileID: 0}
@@ -744,10 +732,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197219, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4522231868183197227, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: m_Name
       value: HawkBoss
@@ -757,17 +741,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1774462335}
     - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: MaxHealth
-      value: 275
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _slowDownWaitTime
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
-      propertyPath: _timeToReachTarget
-      value: 5.5
-      objectReference: {fileID: 0}
+      propertyPath: _bonkEffect
+      value: 
+      objectReference: {fileID: 3438499265275887446, guid: aacf79ebda7ffb34abf448a9e091368d, type: 3}
     - target: {fileID: 4522231868183197228, guid: f612aed430661bf4893a0e6d0eef5dfc, type: 3}
       propertyPath: _fleePoints.Array.data[0]
       value: 
@@ -1373,6 +1349,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: Health
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: _death
       value: 
       objectReference: {fileID: 2096608675}
@@ -1388,6 +1368,10 @@ PrefabInstance:
       propertyPath: _cameraScript
       value: 
       objectReference: {fileID: 1612962072}
+    - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: <MaxHealth>k__BackingField
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 4974556004237746299, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: m_RootOrder
       value: 3

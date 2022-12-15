@@ -39,6 +39,8 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public Vector3 PullPoint;
     public bool Pulled;
 
+    private float _pulledTimer;
+
     // Visual Effects
     [SerializeField] private GameObject _bloodSmoke;
     [SerializeField] private float _bloodSize = 1;
@@ -136,6 +138,7 @@ public class EnemyController : MonoBehaviour
 
         if (Pulled)
         {
+            _pulledTimer += Time.deltaTime;
             Pull();
         }
 
@@ -163,7 +166,7 @@ public class EnemyController : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
 
-        if (Vector3.Distance(transform.position, PullPoint) < 0.5f)
+        if (_pulledTimer > 1f)
         {
             // gameObject.layer = 24;
 
@@ -172,6 +175,7 @@ public class EnemyController : MonoBehaviour
 
 
             Pulled = false;
+            _pulledTimer = 0;
         }
     }
 
@@ -206,7 +210,7 @@ public class EnemyController : MonoBehaviour
 
         if (_vfxParticle)
         {
-            var _hitParticle = Instantiate(_vfxParticle, transform.position, Quaternion.Euler(hitDirection));
+            var _hitParticle = Instantiate(_vfxParticle, transform.position, Quaternion.Euler(0, 0, 0));
             _hitParticle.transform.parent = null;
         }
         if (_bloodSmoke != null)

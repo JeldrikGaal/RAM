@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b9af1774ecb3c408b15d0f57aed785, type: 3}
   m_Name: HoneyBearBombThrow
   m_EditorClassIdentifier: 
+  _random: 0
   _bomb: {fileID: 5824584183443300883, guid: 555c5a6a376f1d9409fc0f41a29a3844, type: 3}
+  _bomb2: {fileID: 0}
+  _bomb2Percent: 0
   _speed: 20
   _relativeSpeedOverDistance:
     serializedVersion: 2
@@ -73,5 +76,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _range: Infinity
   _ralativePosMod: {x: 0.4, y: 2, z: 0}
+  _inacuracy: 0
   _manualCall: 1
-  _fuse: 1.5
+  _fuse: 1
+  _fuse2: 0

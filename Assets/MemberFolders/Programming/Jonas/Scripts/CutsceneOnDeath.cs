@@ -5,6 +5,7 @@ using UnityEngine;
 public class CutsceneOnDeath : MonoBehaviour
 {
     private CutsceneVideo _cutsceneVideo;
+    [SerializeField] private float _waitTime;
 
     private void Start()
     {
@@ -13,6 +14,6 @@ public class CutsceneOnDeath : MonoBehaviour
 
     private void OnDisable()
     {
-        _cutsceneVideo.RunCutscene();
+        _cutsceneVideo.RunCutscene(_waitTime);
     }
 }
