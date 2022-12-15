@@ -21,7 +21,7 @@ public class CutsceneVideo : MonoBehaviour
 
     private bool _hadSpeedBuffOnEntry;
     [SerializeField] private bool _nextSceneOnEnd = false;
-
+    [SerializeField] private bool _mainMenuOnEnd = false;
     [SerializeField] private bool _deleteWhenDone = false;
     private bool _loadOnce = false;
 
@@ -70,7 +70,10 @@ public class CutsceneVideo : MonoBehaviour
         if (!_loadOnce && _nextSceneOnEnd)
         {
             _loadOnce = true;
-            StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(SceneManager.GetActiveScene().buildIndex + 1));
+            if (_mainMenuOnEnd)
+                StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(0));
+            else
+                StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(SceneManager.GetActiveScene().buildIndex + 1));
         }
 
         //Destroy(gameObject);
@@ -116,12 +119,13 @@ public class CutsceneVideo : MonoBehaviour
         // Checks if it collided with the player
         if (other.tag == "Player")
         {
-            RunCutscene();
+            StartCoroutine(RunCutscene());
         }
     }
 
-    public void RunCutscene()
+    public IEnumerator RunCutscene(float timer = 0)
     {
+        yield return new WaitForSeconds(timer);
         // Play the cutscene
         _videoPlayer.enabled = true;
         _videoPlayer.Play();
