@@ -71,7 +71,10 @@ public class CutsceneVideo : MonoBehaviour
         {
             _loadOnce = true;
             if (_mainMenuOnEnd)
+            {
+                Debug.Log("Test");
                 StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(0));
+            }
             else
                 StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(SceneManager.GetActiveScene().buildIndex + 1));
         }
@@ -119,8 +122,13 @@ public class CutsceneVideo : MonoBehaviour
         // Checks if it collided with the player
         if (other.tag == "Player")
         {
-            StartCoroutine(RunCutscene());
+            StartCutscene();
         }
+    }
+
+    public void StartCutscene(float timer = 0)
+    {
+        StartCoroutine(RunCutscene(timer));
     }
 
     public IEnumerator RunCutscene(float timer = 0)
