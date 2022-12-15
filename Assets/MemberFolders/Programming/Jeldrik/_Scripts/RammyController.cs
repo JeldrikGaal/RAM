@@ -1234,7 +1234,6 @@ public class RammyController : MonoBehaviour
     {
         //Debug.Log(MaxHealth * (HealPercentage / 100f));
         Heal((int)(MaxHealth * (HealPercentage / 100f)));
-        if (_comboSystem) _comboSystem.AddKill();
     }
 
     #region Setter / Getter functions
