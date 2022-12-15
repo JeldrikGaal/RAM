@@ -128,7 +128,9 @@ public class CutsceneVideo : MonoBehaviour
 
     public IEnumerator RunCutscene(float timer = 0)
     {
+        Debug.Log("cutscene 1");
         yield return new WaitForSeconds(timer);
+        Debug.Log("cutscene 2");
         // Play the cutscene
         _videoPlayer.enabled = true;
         _videoPlayer.Play();
