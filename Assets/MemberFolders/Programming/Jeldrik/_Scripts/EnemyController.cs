@@ -206,7 +206,7 @@ public class EnemyController : MonoBehaviour
 
         if (_vfxParticle)
         {
-            var _hitParticle = Instantiate(_vfxParticle, transform.position, Quaternion.Euler(hitDirection));
+            var _hitParticle = Instantiate(_vfxParticle, transform.position, Quaternion.Euler(0,0,0));
             _hitParticle.transform.parent = null;
         }
         if (_bloodSmoke != null)
