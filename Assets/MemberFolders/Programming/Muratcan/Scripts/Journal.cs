@@ -64,15 +64,24 @@ public class Journal : MonoBehaviour
         {
             //_pageLeft.sprite = _pages[0].pageObject;
             _pages[0].pageObject.SetActive(true);
-            _pages[0].pageObject.transform.parent = _pageLeft.transform;
+            _pages[0].pageObject.transform.SetParent(_pageLeft.transform);
             _pages[0].pageObject.transform.localPosition = Vector3.zero;
             _currentLeftNum = 0;
             //_pageRight.sprite = _pages[1].pageObject;
             _pages[1].pageObject.SetActive(true);
-            _pages[1].pageObject.transform.parent = _pageRight.transform;
+            _pages[1].pageObject.transform.SetParent(_pageRight.transform);
             _pages[1].pageObject.transform.localPosition = Vector3.zero;
             _currentRightNum = 1;
         }
+    }
+
+    public void CloseTheBook()
+    {
+        _pages[_currentLeftNum].pageObject.SetActive(false);
+        _pages[_currentLeftNum].pageObject.transform.SetParent(_pageParent.transform);
+        _pages[_currentRightNum].pageObject.SetActive(false);
+        _pages[_currentRightNum].pageObject.transform.SetParent(_pageParent.transform);
+        gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -85,16 +94,16 @@ public class Journal : MonoBehaviour
         if (direction && _currentLeftNum < _pageObjects.Length - 3)
         {
             _pages[_currentLeftNum].pageObject.SetActive(false);
-            _pages[_currentLeftNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentLeftNum].pageObject.transform.SetParent(_pageParent.transform);
             _pages[_currentRightNum].pageObject.SetActive(false);
-            _pages[_currentRightNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentRightNum].pageObject.transform.SetParent(_pageParent.transform);
             _currentLeftNum += 2;
             _currentRightNum += 2;
             _pages[_currentLeftNum].pageObject.SetActive(true);
-            _pages[_currentLeftNum].pageObject.transform.parent = _pageLeft.transform;
+            _pages[_currentLeftNum].pageObject.transform.SetParent(_pageLeft.transform);
             _pages[_currentLeftNum].pageObject.transform.localPosition = Vector3.zero;
             _pages[_currentRightNum].pageObject.SetActive(true);
-            _pages[_currentRightNum].pageObject.transform.parent = _pageRight.transform;
+            _pages[_currentRightNum].pageObject.transform.SetParent(_pageRight.transform);
             _pages[_currentRightNum].pageObject.transform.localPosition = Vector3.zero;
             //_pageLeft.sprite = _pages[_currentLeftNum].pageObject;
             //_pageRight.sprite = _pages[_currentRightNum].pageObject;
@@ -102,16 +111,16 @@ public class Journal : MonoBehaviour
         else if (direction == false && _currentLeftNum > 1)
         {
             _pages[_currentLeftNum].pageObject.SetActive(false);
-            _pages[_currentLeftNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentLeftNum].pageObject.transform.SetParent(_pageParent.transform);
             _pages[_currentRightNum].pageObject.SetActive(false);
-            _pages[_currentRightNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentRightNum].pageObject.transform.SetParent(_pageParent.transform);
             _currentLeftNum -= 2;
             _currentRightNum -= 2;
             _pages[_currentLeftNum].pageObject.SetActive(true);
-            _pages[_currentLeftNum].pageObject.transform.parent = _pageLeft.transform;
+            _pages[_currentLeftNum].pageObject.transform.SetParent(_pageLeft.transform);
             _pages[_currentLeftNum].pageObject.transform.localPosition = Vector3.zero;
             _pages[_currentRightNum].pageObject.SetActive(true);
-            _pages[_currentRightNum].pageObject.transform.parent = _pageRight.transform;
+            _pages[_currentRightNum].pageObject.transform.SetParent(_pageRight.transform);
             _pages[_currentRightNum].pageObject.transform.localPosition = Vector3.zero;
             //_pageLeft.sprite = _pages[_currentLeftNum].pageObject;
             //_pageRight.sprite = _pages[_currentRightNum].pageObject;
@@ -128,16 +137,16 @@ public class Journal : MonoBehaviour
         if (tabLocation % 2 == 0)
         {
             _pages[_currentLeftNum].pageObject.SetActive(false);
-            _pages[_currentLeftNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentLeftNum].pageObject.transform.SetParent(_pageParent.transform);
             _pages[_currentRightNum].pageObject.SetActive(false);
-            _pages[_currentRightNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentRightNum].pageObject.transform.SetParent(_pageParent.transform);
             _currentLeftNum = tabLocation;
             _currentRightNum = tabLocation + 1;
             _pages[_currentLeftNum].pageObject.SetActive(true);
-            _pages[_currentLeftNum].pageObject.transform.parent = _pageLeft.transform;
+            _pages[_currentLeftNum].pageObject.transform.SetParent(_pageLeft.transform);
             _pages[_currentLeftNum].pageObject.transform.localPosition = Vector3.zero;
             _pages[_currentRightNum].pageObject.SetActive(true);
-            _pages[_currentRightNum].pageObject.transform.parent = _pageRight.transform;
+            _pages[_currentRightNum].pageObject.transform.SetParent(_pageRight.transform);
             _pages[_currentRightNum].pageObject.transform.localPosition = Vector3.zero;
             //_pageLeft.sprite = _pages[_currentLeftNum].pageObject;
             //_pageRight.sprite = _pages[_currentRightNum].pageObject;
@@ -145,16 +154,16 @@ public class Journal : MonoBehaviour
         else if (tabLocation % 2 == 1)
         {
             _pages[_currentLeftNum].pageObject.SetActive(false);
-            _pages[_currentLeftNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentLeftNum].pageObject.transform.SetParent(_pageParent.transform);
             _pages[_currentRightNum].pageObject.SetActive(false);
-            _pages[_currentRightNum].pageObject.transform.parent = _pageParent.transform;
+            _pages[_currentRightNum].pageObject.transform.SetParent(_pageParent.transform);
             _currentLeftNum = tabLocation - 1;
             _currentRightNum = tabLocation;
             _pages[_currentLeftNum].pageObject.SetActive(true);
-            _pages[_currentLeftNum].pageObject.transform.parent = _pageLeft.transform;
+            _pages[_currentLeftNum].pageObject.transform.SetParent(_pageLeft.transform);
             _pages[_currentLeftNum].pageObject.transform.localPosition = Vector3.zero;
             _pages[_currentRightNum].pageObject.SetActive(true);
-            _pages[_currentRightNum].pageObject.transform.parent = _pageRight.transform;
+            _pages[_currentRightNum].pageObject.transform.SetParent(_pageRight.transform);
             _pages[_currentRightNum].pageObject.transform.localPosition = Vector3.zero;
             //_pageLeft.sprite = _pages[_currentLeftNum].pageObject;
             //_pageRight.sprite = _pages[_currentRightNum].pageObject;

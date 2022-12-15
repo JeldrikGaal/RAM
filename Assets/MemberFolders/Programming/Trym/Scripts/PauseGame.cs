@@ -11,6 +11,7 @@ public class PauseGame : MonoBehaviour
     [SerializeField] GameObject _pauseMenuContent;
     [SerializeField] GameObject _settingsMenu;
     [SerializeField] GameObject _ingameUi;
+    [SerializeField] GameObject _journal;
     [SerializeField] UnityEvent _onPause;
     [SerializeField] UnityEvent _onUnpause;
     
@@ -39,6 +40,11 @@ public class PauseGame : MonoBehaviour
         if (_paused)
         {
             UnPause();
+            if (_journal.activeSelf == true)
+            {
+                _journal.GetComponent<Journal>().CloseTheBook();
+            }
+            
         }
         else
         {

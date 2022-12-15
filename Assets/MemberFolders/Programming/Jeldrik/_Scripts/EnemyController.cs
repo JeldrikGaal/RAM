@@ -57,6 +57,7 @@ public class EnemyController : MonoBehaviour
     private int _animMoveHash;
 
     public bool DoDie { get; private set; }
+    public bool IsBoss = false;
     private bool _doMove;
 
     private bool _invincible = false;
@@ -81,7 +82,11 @@ public class EnemyController : MonoBehaviour
 
         _defaultSpeed = MoveSpeed;
 
-        if (SceneManager.GetActiveScene().buildIndex < 4)
+        if (IsBoss)
+        {
+            _area = 4;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex < 4)
         {
             _area = 1;
         }
