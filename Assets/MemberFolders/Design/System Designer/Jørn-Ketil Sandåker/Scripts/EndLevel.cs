@@ -10,8 +10,10 @@ public class EndLevel : MonoBehaviour
 
     public bool _useKillCount = false;
     public int KillCount = 0;
+    public bool ReplaceObject;
 
     public GameObject ObjectToDelete;
+    public GameObject ReplacementObject;
 
     private StatManager _stats;
 
@@ -36,13 +38,17 @@ public class EndLevel : MonoBehaviour
     void Update()
     {
         //Debug.Log(_winCondition);
-        if (_useKillCount)
+        if (_useKillCount && _winCondition == WinCondition.KillCount)
         {
             if (_stats.Stats.Kills >= KillCount)
             {
                 done = true;
                 if (ObjectToDelete != null)
                     ObjectToDelete.SetActive(false);
+				if (ReplaceObject && ReplacementObject != null)
+				{
+                    ReplacementObject.SetActive(true);
+				}
             }
         }
         else if (_winCondition == WinCondition.Enemies || _winCondition == WinCondition.Elites)
@@ -52,6 +58,10 @@ public class EndLevel : MonoBehaviour
                 done = true;
                 if (ObjectToDelete != null)
                     ObjectToDelete.SetActive(false);
+                if (ReplaceObject && ReplacementObject != null)
+				{
+                    ReplacementObject.SetActive(true);
+				}
             }
         }
 		else if (_winCondition == WinCondition.Letters)
