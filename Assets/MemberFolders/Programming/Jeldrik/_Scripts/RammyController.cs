@@ -216,6 +216,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private TMP_Text _debuggingText;
     [SerializeField] private bool dashInWalkDireciton = false;
     [SerializeField] private bool basicAttackInWalkDireciton = false;
+    private bool _dontAskWhatThisIs = false;
     private bool _disableLegacyAbilities = true;
     public bool BLOCKEVERYTHINGRAMMY = false;
 
@@ -718,6 +719,13 @@ public class RammyController : MonoBehaviour
         {
             //TakeDamageRammy(5);
         }
+
+        if (Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.G) && !_dontAskWhatThisIs) 
+        {
+            _dontAskWhatThisIs = true;
+            Application.OpenURL("https://jeldrikgaal.de/Rammy.html");
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             Time.timeScale = 1;
