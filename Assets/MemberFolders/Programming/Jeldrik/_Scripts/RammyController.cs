@@ -25,7 +25,7 @@ public class RammyController : MonoBehaviour
     [HideInInspector] public InputAction _ability5;
     [HideInInspector] public InputAction _dash;
 
-    
+
     [HideInInspector] public float Damage = 10;
 
 
@@ -225,7 +225,7 @@ public class RammyController : MonoBehaviour
     {
 
         _cameraDepth = Camera.main.transform.position.z;
-        Cursor.visible = false;
+        // Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
         for (int i = 0; i < _audio.Length; i++)
         {
@@ -959,7 +959,7 @@ public class RammyController : MonoBehaviour
             _savedRotation = transform.rotation;
             _savedPosition = transform.position;
 
-            
+
 
             // Setting rotation to make player look in charge direction
             transform.up = _lookingAtMouseRotation;

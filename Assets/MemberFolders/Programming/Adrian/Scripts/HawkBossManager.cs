@@ -14,6 +14,7 @@ public class HawkBossManager : MonoBehaviour
     [SerializeField] private GameObject _player;
     // [SerializeField] private HealthBar _healthBar;
 
+    [SerializeField] private GameObject _bonkEffect;
 
     private bool _canAttack;
 
@@ -294,6 +295,16 @@ public class HawkBossManager : MonoBehaviour
                 gameObject.layer = 20;
                 var damageArea = Instantiate(_damageArea, transform.position, Quaternion.identity);
                 Destroy(damageArea, 0.5f);
+
+                // Crashing VFX:
+                RaycastHit hit;
+                var layer = 1 << 10;
+                if (Physics.Raycast(transform.position + new Vector3(0, 100, 0), -Vector3.up, out hit, Mathf.Infinity, layer))
+                {
+                    var bonkEffect = Instantiate(_bonkEffect, hit.point, Quaternion.Euler(0, 0, 0));
+                }
+
+
                 StartCoroutine(WaitAfterMeleeAttack());
             }
 
