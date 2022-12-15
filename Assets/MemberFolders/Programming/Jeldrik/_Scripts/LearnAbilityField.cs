@@ -34,6 +34,10 @@ public class LearnAbilityField : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        GameObject.FindObjectOfType<UIAbilityUnlock>().DisableUI();
+        if (TagManager.HasTag(other.gameObject, "player"))
+        {
+            GameObject.FindObjectOfType<UIAbilityUnlock>().DisableUI();
+        }
+          
     }
 }
