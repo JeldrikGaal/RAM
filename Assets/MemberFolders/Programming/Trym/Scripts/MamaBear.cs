@@ -47,11 +47,7 @@ public class MamaBear : MonoBehaviour
         _shield.CollisionExitEvent += SCollisionExit;
 
 
-        _stats = ImportManager.GetEnemyStats(_name);
-        _attackStatsH = _stats.Attacks[_attackNameH];
-        _attackStatsH2 = _stats.Attacks[_attackNameH2];
-        _attackStatsS = _stats.Attacks[_attackNameS];
-        _attackStatsS2 = _stats.Attacks[_attackNameS2];
+        
     }
 
     private void SCollisionExit(Collision obj)
@@ -161,7 +157,11 @@ public class MamaBear : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _stats = ImportManager.GetEnemyStats(_name);
+        _attackStatsH = _stats.Attacks[_attackNameH];
+        _attackStatsH2 = _stats.Attacks[_attackNameH2];
+        _attackStatsS = _stats.Attacks[_attackNameS];
+        _attackStatsS2 = _stats.Attacks[_attackNameS2];
     }
 
     // Update is called once per frame

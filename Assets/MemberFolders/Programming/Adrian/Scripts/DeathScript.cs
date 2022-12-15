@@ -9,6 +9,7 @@ public class DeathScript : MonoBehaviour
 {
     private VideoPlayer _videoPlayer;
     [SerializeField] private GameObject _hud;
+    [SerializeField] private GameObject pressB;
 
     private Image _deathImage;
 
@@ -23,12 +24,14 @@ public class DeathScript : MonoBehaviour
 
     private void OnEnable()
     {
+        pressB.SetActive(true);
         _deathImage = GetComponentInChildren<Image>();
         _videoPlayer = GetComponent<VideoPlayer>();
         _videoPlayer.targetCamera = Camera.main;
         StartCoroutine(Show());
         _videoPlayer.Play();
         _hud.SetActive(false);
+        
     }
 
     private IEnumerator Show()
