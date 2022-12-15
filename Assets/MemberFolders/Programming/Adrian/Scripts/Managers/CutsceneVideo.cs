@@ -119,7 +119,7 @@ public class CutsceneVideo : MonoBehaviour
         // Checks if it collided with the player
         if (other.tag == "Player")
         {
-            RunCutscene();
+            StartCoroutine(RunCutscene());
         }
     }
 
