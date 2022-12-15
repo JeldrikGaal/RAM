@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,8 @@ public class MamaBear : MonoBehaviour
 
         // Initializing the shield
         _shield.CollisionEnterEvent += SCollisionEnter;
+        _shield.CollisionStayEvent += SCollisionStay;
+        _shield.CollisionExitEvent += SCollisionExit;
 
 
         _stats = ImportManager.GetEnemyStats(_name);
@@ -49,6 +52,31 @@ public class MamaBear : MonoBehaviour
         _attackStatsH2 = _stats.Attacks[_attackNameH2];
         _attackStatsS = _stats.Attacks[_attackNameS];
         _attackStatsS2 = _stats.Attacks[_attackNameS2];
+    }
+
+    private void SCollisionExit(Collision obj)
+    {
+        if (CheckReturn(obj.collider))
+        {
+            return;
+        }
+        _rammy.StunBuffDuration = 1;
+    }
+
+    private void SCollisionStay(Collision obj)
+    {
+        
+        if (CheckReturn(obj.collider))
+        {
+            return;
+        }
+        var rigid = _controller.GetComponent<Rigidbody>();
+        GetRammy(obj.collider);
+        _rammyRigid.velocity = rigid.velocity;
+        _rammyRigid.velocity += rigid.velocity;
+        _rammyRigid.AddForce(rigid.velocity);
+        
+
     }
 
     private void SCollisionEnter(Collision obj)
@@ -59,6 +87,7 @@ public class MamaBear : MonoBehaviour
             return;
         }
         GetRammy(obj.collider);
+        
         Debug.Log("bash");
         switch (AI_StageCheck.Check())
         {
