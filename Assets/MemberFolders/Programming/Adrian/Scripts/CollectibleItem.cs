@@ -15,32 +15,6 @@ public class CollectibleItem : MonoBehaviour
     void Update()
     {
         // SPIN
-        transform.Rotate(new Vector3(1f, 1f, 1f));
-
-
-        // Testing because I don't have a player :(
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            CollectItem();
-        }
-    }
-
-    void CollectItem()
-    {
-        // Increase the stat to track number of collected items
-        _stats.Collectibles++;
-
-        // Maybe play some audio
-
-        // DESTROY >:)
-        Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            CollectItem();
-        }
+        transform.Rotate(new Vector3(0f, 1f, 0f));
     }
 }
