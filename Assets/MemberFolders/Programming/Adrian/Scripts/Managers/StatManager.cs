@@ -57,13 +57,6 @@ public class StatManager : MonoBehaviour
 
         PlayerController = FindObjectOfType<RammyController>();
 
-        // Vector2 pos;
-
-        // RectTransformUtility.ScreenPointToLocalPointInRectangle(
-        //     _cursor.transform.parent.GetComponent<Canvas>().transform as RectTransform, Input.mousePosition,
-        //     _cursor.transform.parent.GetComponent<Canvas>().worldCamera,
-        //     out pos);
-
         // if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
         // {
         //     MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
@@ -73,15 +66,6 @@ public class StatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Vector2 movePos;
-
-        // RectTransformUtility.ScreenPointToLocalPointInRectangle(
-        //     _cursor.transform.parent.GetComponent<Canvas>().transform as RectTransform,
-        //     Input.mousePosition, _cursor.transform.parent.GetComponent<Canvas>().worldCamera,
-        //     out movePos);
-
-        // _cursor.transform.position = _cursor.transform.parent.GetComponent<Canvas>().transform.TransformPoint(movePos);
-
         //Keep track of rammy health
         //_health = _playerController.Health;
 

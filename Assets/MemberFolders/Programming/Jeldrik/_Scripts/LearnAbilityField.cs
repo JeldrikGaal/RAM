@@ -31,13 +31,4 @@ public class LearnAbilityField : MonoBehaviour
             GameObject.FindObjectOfType<UIAbilityUnlock>().EnableUI(_abilityIcon, _description);
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (TagManager.HasTag(other.gameObject, "player"))
-        {
-            GameObject.FindObjectOfType<UIAbilityUnlock>().DisableUI();
-        }
-          
-    }
 }
