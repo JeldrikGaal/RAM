@@ -15,6 +15,7 @@ public class MamaBear : MonoBehaviour
     private EnemyAttackStats _attackStatsH;
     private EnemyAttackStats _attackStatsH2;
     
+   
 
     [SerializeField]private ExternalCollider _shield;
     [SerializeField] private string _attackNameS;
@@ -24,10 +25,12 @@ public class MamaBear : MonoBehaviour
     private EnemyAttackStats _attackStatsS2;
     [SerializeField] float _hammerForce;
     [SerializeField]private EnemyController _controller;
+    [SerializeField] private StateMachine _stateMachine;
     RammyController _rammy;
     Rigidbody _rammyRigid;
     private bool _active;
-    
+
+    [SerializeField] AI_State[] _states;
     private void Awake()
     {
         
@@ -103,7 +106,7 @@ public class MamaBear : MonoBehaviour
     {
         _active = active >0;
     }
-
+    
     private bool CheckReturn(Collider other) => !other.gameObject.HasTag("player") || !_active;
 
     private void HETriggerStay(Collider other)

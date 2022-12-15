@@ -11,12 +11,13 @@ public class EndLevel5Area1 : MonoBehaviour
 
     [SerializeField] GameObject _firstEnemies;
     [SerializeField] GameObject _bossFase;
+    [SerializeField] GameObject _bossHealthbar;
 
     [SerializeField] private StatTracker Stats;
     [SerializeField] StatManager _statManager;
 
     private bool _done;
-    
+
 
     void Update()
     {
@@ -38,8 +39,9 @@ public class EndLevel5Area1 : MonoBehaviour
     }
 
     private void EnableBossStage()
-	{
+    {
         _firstEnemies.SetActive(false);
         _bossFase.SetActive(true);
-	}
+        _bossHealthbar.SetActive(true);
+    }
 }
