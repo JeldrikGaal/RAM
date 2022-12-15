@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI_IF_StateIndependentWaitTimer : StateBlock
+public class AI_IF_GlobalWaitTimer : StateBlock
 {
 
     [SerializeField] string _tag;
@@ -18,6 +18,7 @@ public class AI_IF_StateIndependentWaitTimer : StateBlock
     [SerializeField] int _skipCount = 1;
     [SerializeField] bool _invert = false;
     [SerializeField] private bool _resetOnStateStart = false;
+    [SerializeField] bool _isCooldown = false;
 
     private readonly Dictionary<int,float> _startTimes = new();
     
@@ -90,7 +91,7 @@ public class AI_IF_StateIndependentWaitTimer : StateBlock
         else
         {
             _startTimes.Add(id, Time.time);
-            return _invert?(null,null) : (null, new(new[] { (float)StateReturn.Skip, _skipCount }));
+            return _invert == !_isCooldown ?(null,null) : (null, new(new[] { (float)StateReturn.Skip, _skipCount }));
         }
         
     }
