@@ -21,6 +21,11 @@ public class Boomerang : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        GetComponent<Rigidbody>().AddTorque(Vector3.up * -100);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<RammyController>())
