@@ -30,7 +30,7 @@ public class StatManager : MonoBehaviour
     public int MaxKills;
 
 
-    [SerializeField] private RammyController _playerController;
+    public RammyController PlayerController;
 
 
     // Start is called before the first frame update
@@ -45,8 +45,12 @@ public class StatManager : MonoBehaviour
         {
             _journal.SetActive(false);
         }
+        else
+        {
+            _swords.SetActive(false);
+        }
 
-        _playerController = FindObjectOfType<RammyController>();
+        PlayerController = FindObjectOfType<RammyController>();
 
         // if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
         // {
@@ -74,7 +78,7 @@ public class StatManager : MonoBehaviour
         _killCountTextbox.text = Stats.Kills + "";
 
         // Sets the text of the letters collected textbox
-        _journalText.text = _playerController.lettersCollected + "/3";
+        _journalText.text = PlayerController.lettersCollected + "/3";
 
 
         // Scales all the textboxes and the bloodsplat down to their default value
@@ -94,10 +98,10 @@ public class StatManager : MonoBehaviour
         _killSplatAlpha = Mathf.Lerp(_killSplatAlpha, 0, Time.deltaTime);
 
         // Sets the images to be enabled if the player has a powerup
-        // _damageBuff.enabled = _playerController.HasDamageBuff;
-        // _speedBuff.enabled = _playerController.HasSpeedBuff;
-        // _stunBuff.enabled = _playerController.HasStunBuff;
-        // _damageReductionBuff.enabled = _playerController.HasDamageReductionBuff;
+        _damageBuff.enabled = PlayerController.HasDamageBuff;
+        _speedBuff.enabled = PlayerController.HasSpeedBuff;
+        _stunBuff.enabled = PlayerController.HasStunBuff;
+        _damageReductionBuff.enabled = PlayerController.HasDamageReductionBuff;
     }
 
     public void AddKill()

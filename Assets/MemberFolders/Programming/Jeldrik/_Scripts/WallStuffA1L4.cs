@@ -12,16 +12,17 @@ public class WallStuffA1L4 : MonoBehaviour
 
     public GameObject enemyHolder;
 
+    private int _childCount;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _childCount = enemyHolder.transform.childCount;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (enemyHolder.transform.childCount == 0 && !completed) 
+        if (enemyHolder.transform.childCount < _childCount * 0.25f && !completed) 
         {
             wallPart1.SetActive(false);
             wallPart2.SetActive(false);

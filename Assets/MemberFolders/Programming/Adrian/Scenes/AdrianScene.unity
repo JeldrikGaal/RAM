@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Letter 1
       objectReference: {fileID: 0}
+    - target: {fileID: 376518468536101612, guid: 8cd863f4732b01f49a237ba2bd55618e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1041027650724278358, guid: 8cd863f4732b01f49a237ba2bd55618e, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1102,6 +1106,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Letter 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8072715001024165074, guid: c91e4cc20685c774080859abbf5f95a5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8882183859843853928, guid: c91e4cc20685c774080859abbf5f95a5, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1535,6 +1543,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
+      propertyPath: _startFullAbilities
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974556004237746292, guid: c140fe4dea9af0c4c871c74755a10c14, type: 3}
       propertyPath: <MaxHealth>k__BackingField
       value: 100
       objectReference: {fileID: 0}
@@ -1918,7 +1930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1022576051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2919,8 +2931,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 3598907282979737951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907282979737951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907282979737951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907282979737951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907283312050353, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907283312050353, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907283312050353, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598907283312050353, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5468393190415173951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
-      propertyPath: _playerController
+      propertyPath: PlayerController
       value: 
       objectReference: {fileID: 170946826}
     m_RemovedComponents: []
@@ -3384,6 +3428,88 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2857728252805546053, guid: 20d828bbec0488448a150aead384dd25, type: 3}
   m_PrefabInstance: {fileID: 1605843695}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1610429829
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.7495241
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -25.77604
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99938977
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.034931336
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 4.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483246, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483247, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: _abilityIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 474ff0ea45b11824ea5ea614b68bf256, type: 3}
+    - target: {fileID: 2963163362700483247, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: _description
+      value: 'Ram!
+
+
+
+        Rammy can Ram (duh) through objects.
+
+        Hold
+        left click to charge up, release for a powerful Ram in the direction of the
+        arrow.
+
+
+        Left click for a simple headbutt.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483280, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963163362700483282, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
+      propertyPath: m_Name
+      value: Gain Abbility Trigger
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: fdebb3be6692d0c4588248dfc89a9a38, type: 3}
 --- !u!1 &1614818856
 GameObject:
   m_ObjectHideFlags: 0
