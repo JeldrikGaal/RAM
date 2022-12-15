@@ -30,7 +30,9 @@ public class AI_BodySlam : StateBlock
     private RammyController _rammy;
     private float _initiaRamlHeight;
     private float _initiaEnemylHeight;
-    
+
+    [SerializeField] private GameObject _bonkEffect;
+
     public override void OnEnd(EnemyController user, GameObject target)
     {
         _eCollider.CollisionEnterEvent -= OnCollisionEnter;
@@ -109,6 +111,20 @@ public class AI_BodySlam : StateBlock
             return (null, new(new[] { (float)StateReturn.Stop}));
         }
         return (null, null);
+    }
+
+    private void SpawnBonk()
+    {
+        if (_bonkEffect)
+        {
+            RaycastHit hit;
+            var layer = 1 << 10;
+            if (Physics.Raycast(_eCollider.transform.position + new Vector3(0, 100, 0), -Vector3.up, out hit, Mathf.Infinity, layer))
+            {
+                var bonkEffect = Instantiate(_bonkEffect, hit.point, Quaternion.Euler(0, 0, 0));
+                Destroy(bonkEffect, 20f);
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
