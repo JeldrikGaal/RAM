@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,9 @@ public class StatManager : MonoBehaviour
     [SerializeField] private Image _damageBuff;
     [SerializeField] private Image _damageReductionBuff;
     [SerializeField] private Image _stunBuff;
+    [SerializeField] private Texture2D _cursor;
+    private CursorMode cursorMode = CursorMode.Auto;
+    private Vector2 hotSpot = Vector2.zero;
 
 
 
@@ -36,6 +40,7 @@ public class StatManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.SetCursor(_cursor, hotSpot, cursorMode);
         // Resets the Total time played each time you start
         Stats.TimePlayed = 0;
         Stats.Kills = 0;
@@ -52,6 +57,13 @@ public class StatManager : MonoBehaviour
 
         PlayerController = FindObjectOfType<RammyController>();
 
+        // Vector2 pos;
+
+        // RectTransformUtility.ScreenPointToLocalPointInRectangle(
+        //     _cursor.transform.parent.GetComponent<Canvas>().transform as RectTransform, Input.mousePosition,
+        //     _cursor.transform.parent.GetComponent<Canvas>().worldCamera,
+        //     out pos);
+
         // if (GameObject.FindGameObjectsWithTag("wolf").Length != 0)
         // {
         //     MaxKills = GameObject.FindGameObjectsWithTag("wolf").Length;
@@ -61,8 +73,14 @@ public class StatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update the time played in the Stat Scriptable Object
-        Stats.TimePlayed += Time.deltaTime;
+        // Vector2 movePos;
+
+        // RectTransformUtility.ScreenPointToLocalPointInRectangle(
+        //     _cursor.transform.parent.GetComponent<Canvas>().transform as RectTransform,
+        //     Input.mousePosition, _cursor.transform.parent.GetComponent<Canvas>().worldCamera,
+        //     out movePos);
+
+        // _cursor.transform.position = _cursor.transform.parent.GetComponent<Canvas>().transform.TransformPoint(movePos);
 
         //Keep track of rammy health
         //_health = _playerController.Health;
