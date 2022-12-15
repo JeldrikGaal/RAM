@@ -21,12 +21,12 @@ public class EndLevel5Area1 : MonoBehaviour
 
     void Update()
     {
-        if (bossHolder.transform.childCount == 0 && !_done)
-        {
-            StartCoroutine(_loadingScreen.NextLevel(0));
-            Cursor.visible = true;
-            _done = true;
-        }
+        //if (bossHolder.transform.childCount == 0 && !_done)
+        //{
+        //    StartCoroutine(_loadingScreen.NextLevel(0));
+        //    Cursor.visible = true;
+        //    _done = true;
+        //}
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             StartCoroutine(_loadingScreen.NextLevel(0));
