@@ -14,6 +14,7 @@ public class CutsceneOnDeath : MonoBehaviour
 
     private void OnDisable()
     {
-        _cutsceneVideo.RunCutscene(_waitTime);
+        Debug.Log("on disable"); 
+        StartCoroutine(_cutsceneVideo.RunCutscene(_waitTime));
     }
 }
