@@ -25,7 +25,7 @@ public class EnemyAttack : MonoBehaviour
             print("i hit");
             _done = true;
             other.GetComponent<RammyController>().TakeDamageRammy(_damage);
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 }
