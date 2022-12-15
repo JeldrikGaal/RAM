@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            StartCoroutine(SpawnEnemies(5, WaitDurationBetweenEnemies));
+            StartCoroutine(SpawnEnemies(AmountOfEnemiesToSpawn, WaitDurationBetweenEnemies));
             if (!_spawnMultipleTimes)
             {
                 Destroy(GetComponent<Collider>());

@@ -71,7 +71,10 @@ public class CutsceneVideo : MonoBehaviour
         {
             _loadOnce = true;
             if (_mainMenuOnEnd)
+            {
+                Debug.Log("Test");
                 StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(0));
+            }
             else
                 StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(SceneManager.GetActiveScene().buildIndex + 1));
         }
@@ -125,7 +128,9 @@ public class CutsceneVideo : MonoBehaviour
 
     public IEnumerator RunCutscene(float timer = 0)
     {
+        Debug.Log("cutscene 1");
         yield return new WaitForSeconds(timer);
+        Debug.Log("cutscene 2");
         // Play the cutscene
         _videoPlayer.enabled = true;
         _videoPlayer.Play();
