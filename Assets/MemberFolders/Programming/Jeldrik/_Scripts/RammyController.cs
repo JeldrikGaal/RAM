@@ -13,18 +13,19 @@ using TMPro;
 public class RammyController : MonoBehaviour
 {
     // Input Action Asset for Rammy Player Controls
-    private RammyInputActions _playerControls;
-    private InputAction _move;
-    private InputAction _attack;
-    private InputAction _look;
-    private InputAction _charge;
-    private InputAction _ability1;
-    private InputAction _ability2;
-    private InputAction _ability3;
-    private InputAction _ability4;
-    private InputAction _ability5;
-    private InputAction _dash;
+    [HideInInspector] public RammyInputActions _playerControls;
+    [HideInInspector] public InputAction _move;
+    [HideInInspector] public InputAction _attack;
+    [HideInInspector] public InputAction _look;
+    [HideInInspector] public InputAction _charge;
+    [HideInInspector] public InputAction _ability1;
+    [HideInInspector] public InputAction _ability2;
+    [HideInInspector] public InputAction _ability3;
+    [HideInInspector] public InputAction _ability4;
+    [HideInInspector] public InputAction _ability5;
+    [HideInInspector] public InputAction _dash;
 
+    
     [HideInInspector] public float Damage = 10;
 
 

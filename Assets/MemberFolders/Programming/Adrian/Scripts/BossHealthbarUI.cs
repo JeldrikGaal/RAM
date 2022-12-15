@@ -12,13 +12,6 @@ public class BossHealthbarUI : MonoBehaviour
 
     void Update()
     {
-        if (_hawkBossManager != null)
-        {
-            _healthBarImage.fillAmount = _controller.Health / _hawkBossManager.MaxHealth;
-        }
-        else
-        {
-            _healthBarImage.fillAmount = _controller.Health / _controller.Stats.GetHealth(4);
-        }
+        _healthBarImage.fillAmount = _hawkBossManager != null ? _controller.Health / _hawkBossManager.MaxHealth : _controller.Health / _controller.Stats.GetHealth(4);
     }
 }
