@@ -10,11 +10,11 @@ public class CutsceneOnDeath : MonoBehaviour
     private void Start()
     {
         _cutsceneVideo = GameObject.FindObjectOfType<CutsceneVideo>();
+        Debug.Log(_cutsceneVideo);
     }
 
     private void OnDisable()
     {
-        Debug.Log("on disable"); 
-        StartCoroutine(_cutsceneVideo.RunCutscene(_waitTime));
+        _cutsceneVideo.StartCutscene(_waitTime);
     }
 }

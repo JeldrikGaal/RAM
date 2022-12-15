@@ -122,15 +122,18 @@ public class CutsceneVideo : MonoBehaviour
         // Checks if it collided with the player
         if (other.tag == "Player")
         {
-            RunCutscene();
+            StartCutscene();
         }
+    }
+
+    public void StartCutscene(float timer = 0)
+    {
+        StartCoroutine(RunCutscene(timer));
     }
 
     public IEnumerator RunCutscene(float timer = 0)
     {
-        Debug.Log("cutscene 1");
         yield return new WaitForSeconds(timer);
-        Debug.Log("cutscene 2");
         // Play the cutscene
         _videoPlayer.enabled = true;
         _videoPlayer.Play();
