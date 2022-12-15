@@ -26,10 +26,13 @@ public class Letter : MonoBehaviour
             letter.GetComponentInChildren<Image>().enabled = true;
             letter.GetComponentInChildren<TMP_Text>().enabled = true;
             letter.GetComponentInChildren<Button>().enabled = true;
+            letter.GetComponentInChildren<Button>().gameObject.GetComponent<Image>().enabled = true;
             letter.GetComponentInChildren<TMP_Text>().text = _letterText;
+            // Cursor.visible = true;
             Time.timeScale = 0;
             _isCounted = true;
             _isRead = true;
+            // Destroy(gameObject);
         }
     }
 }
