@@ -11,10 +11,11 @@ public class Letter : MonoBehaviour
     [SerializeField] private string _letterText;
 
     private bool _isCounted;
+    private bool _isRead = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (!_isRead && other.tag == "Player")
         {
             var letter = GameObject.FindObjectOfType<UIButtonReset>().transform.parent.gameObject;
             if (!_isCounted)
@@ -28,6 +29,7 @@ public class Letter : MonoBehaviour
             letter.GetComponentInChildren<TMP_Text>().text = _letterText;
             Time.timeScale = 0;
             _isCounted = true;
+            _isRead = true;
         }
     }
 }

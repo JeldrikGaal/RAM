@@ -9,6 +9,7 @@ using UnityEngine;
 [Tooltip("Warning Only For Bosses")]
 public class AI_BodySlam : StateBlock
 {
+    [Header("Only For Single Bosses")]
     [SerializeField] float _speed;
     [SerializeField] AnimationCurve _relativeSpeedOverDistance, _relativeTrajectory;
     [SerializeField] float _range = float.PositiveInfinity;
@@ -27,14 +28,9 @@ public class AI_BodySlam : StateBlock
     private GameObject _target;
     private EnemyController _user;
     private RammyController _rammy;
-
-    private void OnEnable()
-    {
-        _stats = ImportManager.GetEnemyStats(_enemyName);
-        _attackStats1 = _stats.Attacks[_attackName1];
-        _attackStats1 = _stats.Attacks[_attackName2];
-
-    }
+    private float _initiaRamlHeight;
+    private float _initiaEnemylHeight;
+    
     public override void OnEnd(EnemyController user, GameObject target)
     {
         _eCollider.CollisionEnterEvent -= OnCollisionEnter;
@@ -44,6 +40,12 @@ public class AI_BodySlam : StateBlock
 
     public override void OnStart(EnemyController user, GameObject target)
     {
+
+        _stats = ImportManager.GetEnemyStats(_enemyName);
+        _attackStats1 = _stats.Attacks[_attackName1];
+        _attackStats1 = _stats.Attacks[_attackName2];
+
+        _initiaEnemylHeight = user.transform.position.y;
         _eCollider = user.GetComponent<ExternalCollider>();
         _user = user;
         _target = target;
@@ -61,7 +63,7 @@ public class AI_BodySlam : StateBlock
         {
             return;
         }
-
+        GetRammy(obj);
         if (_jumped && !_landed)
         {
             var rigid = _rammy.GetComponent<Rigidbody>();
@@ -75,10 +77,24 @@ public class AI_BodySlam : StateBlock
         {
             return;
         }
+        GetRammy(obj);
         if (_jumped && !_landed)
         {
-            _rammy.GetComponent<Rigidbody>().AddForce((_rammy.transform.position - _user.transform.position).normalized * _speed);
+            Rigidbody rigid = _rammy.GetComponent<Rigidbody>();
+            rigid.AddForce((_rammy.transform.position - _user.transform.position).normalized * _speed);
             _eCollider.GetRigidbody().AddForce((_user.transform.position - _rammy.transform.position).normalized * _speed);
+            if (Mathf.Abs( _rammy.transform.position.y - _initiaRamlHeight) > Mathf.Epsilon)
+            {
+                rigid.velocity += (Vector3.up * (_initiaRamlHeight - _rammy.transform.position.y)).normalized;
+            }
+            
+        }
+        if (_landed)
+        {
+            if (Mathf.Abs(_eCollider.transform.position.y - _initiaEnemylHeight) > Mathf.Epsilon)
+            {
+                _eCollider.GetRigidbody().velocity += (Vector3.up * (_initiaEnemylHeight - _eCollider.transform.position.y)).normalized;
+            }
         }
     }
 

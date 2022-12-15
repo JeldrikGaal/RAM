@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class AI_Wait_UntilExternalCall : StateBlock
 {
-    Dictionary<int, bool> _trigger = new();
+    private readonly Dictionary<int, bool> _trigger = new();
     public override void OnEnd(EnemyController user, GameObject target)
     {
-        
+        _trigger[user.GetInstanceID()] = false;
     }
     
     public void ExternalCall(EnemyController user)
@@ -18,6 +18,10 @@ public class AI_Wait_UntilExternalCall : StateBlock
     public override void OnStart(EnemyController user, GameObject target)
     {
         user.DoOnDie(this, OnDie);
+        if (!_trigger.ContainsKey(user.GetInstanceID()))
+        {
+            _trigger.Add(user.GetInstanceID(), false);
+        }
         
     }
 
@@ -30,7 +34,7 @@ public class AI_Wait_UntilExternalCall : StateBlock
     {
         if (_trigger[user.GetInstanceID()])
         {
-            _trigger[user.GetInstanceID()] = false;
+            
             return (null, null);
         }
         return (null, new(new[] { (float)StateReturn.Stop}));

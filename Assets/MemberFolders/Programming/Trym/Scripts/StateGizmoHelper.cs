@@ -5,15 +5,27 @@ using UnityEngine;
 #if UNITY_EDITOR
 public class StateGizmoHelper : MonoBehaviour
 {
+    [SerializeField] bool _on = true;
     [SerializeField] StateBlock[] _stateBlocks;
-
+    [SerializeField] Transform refrenceEntity;
     private void OnDrawGizmos()
     {
-        foreach (var stateBlock in _stateBlocks)
+        if (_on)
         {
-            var block = stateBlock as IStateBlockGizmo;
-            Gizmos.DrawSphere(block.GizPos, block.GizRad);
+            foreach (var stateBlock in _stateBlocks)
+            {
+                var block = stateBlock as IStateBlockGizmo;
+                Vector3 pos = block.GizPos;
+                if (refrenceEntity != null)
+                {
+                    pos = refrenceEntity.position + (refrenceEntity.rotation * block.GizPos);
+                }
+
+
+                Gizmos.DrawSphere(pos, block.GizRad);
+            }
         }
+        
     }
 
 }

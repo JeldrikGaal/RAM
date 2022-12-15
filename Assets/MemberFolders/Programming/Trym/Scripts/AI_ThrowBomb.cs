@@ -75,7 +75,12 @@ public class AI_ThrowBomb : StateBlock, IStateBlockGizmo
     {
         if (!_manualCall)
         {
-            Throw(user, target);
+            if (!_launched[user.GetInstanceID()]) 
+            {
+                Throw(user, target);
+                _launched[user.GetInstanceID()] = true;
+            }
+            
         }
         
         return (null, null);
@@ -85,7 +90,7 @@ public class AI_ThrowBomb : StateBlock, IStateBlockGizmo
     {
         int iD = user.GetInstanceID();
 
-        if (!_launched[iD])
+        //if (!_launched[iD])
         {
             float randomX = Random.Range(-1f, 1f);
             float randomY = Random.Range(-1f, 1f);
@@ -119,7 +124,7 @@ public class AI_ThrowBomb : StateBlock, IStateBlockGizmo
             
             // Instantiates the bomb and starts sends it on it's journey.
             GameManager.HandleCoroutine(ManageTrajectory(Instantiate(_random?Random.Range(1,101)>=_bomb2Percent?_bomb:_bomb2  : _bomb, origin, user.transform.rotation, null), _relativeTrajectory, _speed, _relativeSpeedOverDistance, origin, targetPos));
-            _launched[iD] = true;
+            
         }
     }
 
