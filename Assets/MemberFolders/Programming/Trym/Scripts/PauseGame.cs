@@ -7,6 +7,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class PauseGame : MonoBehaviour
 {
+    [SerializeField] AudioClip[] _bookAu = new AudioClip[0];
     [SerializeField] GameObject _pauseMenu;
     [SerializeField] GameObject _pauseMenuContent;
     [SerializeField] GameObject _settingsMenu;
@@ -86,7 +87,11 @@ public class PauseGame : MonoBehaviour
         }
         Debug.LogError("4");
     }
+    public void PlaySoundBookOpenClose()
+    {
 
+        GetComponent<AudioSource>().PlayOneShot(_bookAu[Random.Range(0, _bookAu.Length)]);
+    }
     #endregion
     /// <summary>
     /// Use this to (de)activate a gameObject.

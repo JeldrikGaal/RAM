@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Journal : MonoBehaviour
 {
+    [SerializeField] AudioClip[] _pageAu = new AudioClip[8];
+    
     [SerializeField] GameObject _pageParent;
     [SerializeField] Sprite[] _pageSprites;
     [SerializeField] GameObject[] _pageObjects;
@@ -50,6 +52,18 @@ public class Journal : MonoBehaviour
         //    GoToTab(4);
         //}
     }
+
+    public void PlaySound(AudioClip _auClip)
+    {
+        GetComponent<AudioSource>().PlayOneShot(_auClip);
+    }
+    public void PlaySound()
+    {
+
+        GetComponent<AudioSource>().PlayOneShot(_pageAu[Random.Range(0, _pageAu.Length)]);
+    }
+
+    
 
     /// <summary>
     /// Call this any time you open the journal.
