@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
     bool _titleScreenPassed = false;
+    
     [SerializeField] GameObject _backgroundTitle;
     [SerializeField] GameObject _background;
     [SerializeField] GameObject _buttons;
@@ -34,6 +35,8 @@ public class SceneChanger : MonoBehaviour
         }
         
     }
+
+    
     public void UpdateTabs(int tabId)
     {
         for (int i = 0; i < _tabBools.Length; i++)
