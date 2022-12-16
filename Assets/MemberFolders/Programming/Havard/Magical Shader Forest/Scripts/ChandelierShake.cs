@@ -22,10 +22,4 @@ public class ChandelierShake : MonoBehaviour
             cube.transform.position += new Vector3(Random.Range(0, 01f), 0, Random.Range(0, 1f));
         }
     }
-
-    public void Shake()
-    {
-
-    }
-
 }
