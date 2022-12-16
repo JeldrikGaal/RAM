@@ -44,7 +44,7 @@ public class Egg : MonoBehaviour
             var layer = 1 << 10;
             if (Physics.Raycast(collision.transform.position + new Vector3(0, 100, 0), /*transform.TransformDirection(-Vector3.up)*/ -Vector3.up, out hit, Mathf.Infinity, layer))
             {
-                var crackedEgg = Instantiate(_crackedEgg, hit.point + _effectOffset * Vector3.up, Quaternion.Euler(0,0,0));
+                var crackedEgg = Instantiate(_crackedEgg, hit.point + _effectOffset * Vector3.up, Quaternion.Euler(0,Random.Range(0,360),0));
                 Destroy(crackedEgg, 20f);
             }
 
