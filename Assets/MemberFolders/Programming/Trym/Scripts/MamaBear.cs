@@ -30,7 +30,7 @@ public class MamaBear : MonoBehaviour
     RammyController _rammy;
     Rigidbody _rammyRigid;
     private bool _active;
-
+    private bool _notHit;
     [SerializeField] AI_State[] _states;
     private void Awake()
     {
@@ -78,7 +78,7 @@ public class MamaBear : MonoBehaviour
     private void SCollisionEnter(Collision obj)
     {
         
-        if (CheckReturn(obj.collider))
+        if (CheckReturn(obj.collider) || !_notHit)
         {
             return;
         }
@@ -100,10 +100,11 @@ public class MamaBear : MonoBehaviour
 
     private void HETriggerEnter(Collider other)
     {
-        if (CheckReturn(other))
+        if (CheckReturn(other)|| !_notHit)
         {
             return;
         }
+        
         GetRammy(other);
         Debug.Log("hit");
         switch (AI_StageCheck.Check())
@@ -117,6 +118,7 @@ public class MamaBear : MonoBehaviour
             default:
                 break;
         }
+        _notHit = false;
     }
 
     private void GetRammy(Collider other)
@@ -129,7 +131,7 @@ public class MamaBear : MonoBehaviour
     }
     private void Active(int active)
     {
-        _active = active >0;
+        _notHit = _active = active >0;
     }
     
     private bool CheckReturn(Collider other) => !other.gameObject.HasTag("player") || !_active;
