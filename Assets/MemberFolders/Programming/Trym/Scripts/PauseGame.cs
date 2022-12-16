@@ -45,26 +45,21 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     private void Toggle(CallbackContext context)
     {
-        Debug.LogError("1");
         Debug.LogError(AllowPause);
         if (!AllowPause) return;
         if (_paused)
         {
-            Debug.LogError("1.1");
             UnPause();
             if (_journal.activeSelf == true)
             {
                 _journal.GetComponent<Journal>().CloseTheBook();
             }
-            Debug.LogError("2");
         }
         else
         {
-            Debug.LogError("3");
             Pause();
 
         }
-        Debug.LogError("4");
 
     }
 

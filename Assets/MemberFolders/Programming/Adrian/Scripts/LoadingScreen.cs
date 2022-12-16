@@ -17,6 +17,8 @@ public class LoadingScreen : MonoBehaviour
 
     [SerializeField] private bool _dontStartOnLoad;
 
+    [SerializeField] private List<VideoClip> _clips = new List<VideoClip>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,21 @@ public class LoadingScreen : MonoBehaviour
         _videoPlayer = GetComponent<VideoPlayer>();
 
         _videoPlayer.targetCamera = Camera.main;
+
+        int index = 0;
+        if (SceneManager.GetActiveScene().buildIndex < 4)
+        {
+            index = 0;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex < 7)
+        {
+            index = 1;
+        }
+        else
+        {
+            index = 2;
+        }
+        _videoPlayer.clip = _clips[index];
 
         StartCoroutine(Show());
     }
