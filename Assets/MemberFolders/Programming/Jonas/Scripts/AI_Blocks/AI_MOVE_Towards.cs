@@ -11,6 +11,7 @@ public class AI_MOVE_Towards : StateBlock
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
+        if (target == null) return (null, null);
         Vector3 moveInput = (target.transform.position - user.transform.position).normalized;
         user.MoveInput += new Vector3(moveInput.x, 0, moveInput.z) * _weight;
         return (null, null);

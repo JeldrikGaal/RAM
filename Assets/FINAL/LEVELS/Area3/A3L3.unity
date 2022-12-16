@@ -417,6 +417,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5011327075918308007, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+      propertyPath: _controller
+      value: 
+      objectReference: {fileID: 1126020813}
     - target: {fileID: 5468393190415173951, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
       propertyPath: _playerController
       value: 
@@ -426,17 +430,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
 --- !u!1 &2104413 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5576128782987994163, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
-  m_PrefabInstance: {fileID: 2104412}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2104414 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9179911623450740150, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
-  m_PrefabInstance: {fileID: 2104412}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2104415 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8877168785673429853, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6749036163112651088, guid: 2f3fb306b58a420489562cbc1f6382a0, type: 3}
   m_PrefabInstance: {fileID: 2104412}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5834718
@@ -6629,6 +6623,7 @@ GameObject:
   - component: {fileID: 247762643}
   - component: {fileID: 247762642}
   - component: {fileID: 247762644}
+  - component: {fileID: 247762645}
   m_Layer: 0
   m_Name: Boss Trigger
   m_TagString: Untagged
@@ -6692,6 +6687,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _object: {fileID: 109251259}
+  _waitTimer: 60
+  _setTo: 1
+--- !u!114 &247762645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247762640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135b7d5c35dd3234bb921fcc9cde071f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _object: {fileID: 2104413}
   _waitTimer: 60
   _setTo: 1
 --- !u!1001 &248387945
@@ -34259,6 +34269,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 6eecb66798839964c863935cd8c21f9a, type: 3}
+--- !u!114 &1126020813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3810184825267155853, guid: 6eecb66798839964c863935cd8c21f9a, type: 3}
+  m_PrefabInstance: {fileID: 1126020812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109251259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685cd5bae8270534e82aca1c5d94e360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1131314048
 PrefabInstance:
   m_ObjectHideFlags: 0

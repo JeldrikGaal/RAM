@@ -15,7 +15,7 @@ public class AI_IF_Distance : StateBlock
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        if (user == null) return (null, null);
+        if (user == null || target == null) return (null, null);
         if (Vector3.Distance(user.transform.position, target.transform.position) < _distance == _close)
             return (null, null);
 

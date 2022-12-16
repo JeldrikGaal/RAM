@@ -113,6 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackName: Hammer Slam
   Area: 3
+  TimerValue: 0.05
+  _waitTime: 0.5
 --- !u!1 &1258796195
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +228,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackName: Shield Bash
   Area: 3
+  TimerValue: 0.05
+  _waitTime: 3
 --- !u!1 &1512157760
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +301,7 @@ Transform:
   - {fileID: 5246944209736488700}
   - {fileID: 543450652176895716}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6065993889637490170
 MeshFilter:
@@ -402,6 +406,7 @@ MonoBehaviour:
     _stopBeforePlay: 0
     _allowFadeout: 1
     _autoRelease: 1
+  IsBoss: 0
 --- !u!114 &6065993889637490161
 MonoBehaviour:
   m_ObjectHideFlags: 0

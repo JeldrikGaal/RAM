@@ -14,6 +14,9 @@ public class EnemyAttack : MonoBehaviour
     public float TimerValue = .05f;
     private float _timer = 0;
 
+    [SerializeField] private float _waitTime = .5f;
+    private float _lastHit = 0;
+
     private void OnEnable()
     {
         _done = false;
@@ -35,13 +38,14 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_done) return;
+        if (_done || Time.time - _lastHit < _waitTime) return;
         if (TagManager.HasTag(other.gameObject, "player"))
         {
-            print("i hit");
+            //print("i hit");
             _done = true;
             other.GetComponent<RammyController>().TakeDamageRammy(_damage);
             gameObject.SetActive(false);
+            _lastHit = Time.time;
         }
     }
 }
