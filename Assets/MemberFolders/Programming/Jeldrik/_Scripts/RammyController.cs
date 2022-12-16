@@ -736,8 +736,12 @@ public class RammyController : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
 
-        if (Input.GetKeyDown(KeyCode.M))
+        /*if (Input.GetKeyDown(KeyCode.M))
         {
             if (Invincible)
             {
@@ -779,7 +783,7 @@ public class RammyController : MonoBehaviour
                 Time.timeScale = 1;
             }
 
-        }
+        }*/
 
 
         if (Input.GetKeyDown(KeyCode.X))

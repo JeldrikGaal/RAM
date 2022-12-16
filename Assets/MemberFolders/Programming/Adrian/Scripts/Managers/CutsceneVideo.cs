@@ -38,6 +38,8 @@ public class CutsceneVideo : MonoBehaviour
         _videoPlayer.loopPointReached += EndReached;
 
         _player = GameObject.FindObjectOfType<RammyController>().gameObject;
+
+        _audioSource.mute = true;
     }
 
     // Update is called once per frame
@@ -84,6 +86,7 @@ public class CutsceneVideo : MonoBehaviour
         // {
         //     _player.GetComponent<RammyController>().MovementSpeed /= 2;
         // }
+        _audioSource.mute = false;
 
         _audioSource.clip = _levelAudio;
         _audioSource.Play();
@@ -115,11 +118,15 @@ public class CutsceneVideo : MonoBehaviour
         // Unblocks rammy
         // _deleteWhenDone = true;
 
+        
+
         if (_deleteWhenDone)
         {
             Debug.Log("Pausing allowed: " + _pauseGame.AllowPause);
             Destroy(gameObject);
         }
+
+
     }
 
     private void OnTriggerEnter(Collider other)
