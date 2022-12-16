@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class RammyAttack : ScriptableObject
+public class RammyAttack
 {
     public float Dmg;
     public float Cooldown;
