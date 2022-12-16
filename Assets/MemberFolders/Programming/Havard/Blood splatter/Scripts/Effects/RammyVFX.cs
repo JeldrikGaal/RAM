@@ -29,6 +29,7 @@ public class RammyVFX : MonoBehaviour
     [FoldoutGroup("Essentials")][SerializeField] private DoubleArrayPooling _goreSmudgeArrayPool;
     [FoldoutGroup("Essentials")][SerializeField] private DoubleArrayPooling _goreArrayPool;
     [FoldoutGroup("Essentials")][SerializeField] private float _spawnHeightOffset = 0.5f;
+    [FoldoutGroup("Essentials")][SerializeField] private GameObject _nonDirectionBlood;
 
     //[Header("Gore prefabs")]
     [FoldoutGroup("Gore Prefabs")][SerializeField] private GameObject _skullObject;
@@ -343,6 +344,14 @@ public class RammyVFX : MonoBehaviour
     // This big function essentially sets up everything we need to make blood!
     private void SpawnBlood(float bloodSizeMin, float bloodSizeMax, float bloodSpread, float angle, float bloodAmount, float bloodForceMin, float bloodForceMax, GameObject rammedObject, Vector3 direction = default(Vector3))
     {
+        RaycastHit hit;
+        var layer = 1 << 10;
+        if (Physics.Raycast(rammedObject.transform.position + new Vector3(0, 100, 0), -Vector3.up, out hit, Mathf.Infinity, layer))
+        {
+            var initialBloodEffect = Instantiate(_nonDirectionBlood, hit.point, Quaternion.Euler(90, 0, Random.Range(0,360)));
+            Destroy(initialBloodEffect, 200f);
+        }
+
         // Here we instantiate the bloodprojectiles. The way I have it set up, lets it use one prefab with 15 projectiles inside it.
         for (int i = 0; i < bloodAmount; i++)
         {
