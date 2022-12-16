@@ -102,6 +102,8 @@ public class CutsceneVideo : MonoBehaviour
             else
                 StartCoroutine(_loadingScreen.NextLevel(SceneManager.GetActiveScene().buildIndex + 1));
         }
+        _player.GetComponent<RammyController>().BLOCKEVERYTHINGRAMMY = false;
+        _player.GetComponent<RammyController>().UnBlockPlayerMovement();
 
         // Enable pausing after cutscene
         if (_pauseGame != null)
@@ -111,8 +113,6 @@ public class CutsceneVideo : MonoBehaviour
         }
 
         // Unblocks rammy
-        _player.GetComponent<RammyController>().BLOCKEVERYTHINGRAMMY = false;
-        _player.GetComponent<RammyController>().UnBlockPlayerMovement();
         // _deleteWhenDone = true;
 
         if (_deleteWhenDone)
