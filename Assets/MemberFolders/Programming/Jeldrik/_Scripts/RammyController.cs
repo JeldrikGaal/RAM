@@ -164,6 +164,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float _freezeTimeHit;
 
     [SerializeField] private GameObject _takeDamageVFX;
+    [SerializeField] private GameObject _basicAttackVFX;
 
 
     // Help variables for various purposes
@@ -837,6 +838,11 @@ public class RammyController : MonoBehaviour
             _blockMovement = true;
             StopWalking();
 
+            if (_basicAttackVFX)
+            {
+                _basicAttackVFX.SetActive(true);
+            }
+
             _savedRotation = transform.rotation;
 
             if (!basicAttackInWalkDireciton)
@@ -1348,7 +1354,7 @@ public class RammyController : MonoBehaviour
     // Function to call when Rammy takes any sort of damage
     public void TakeDamageRammy(float _damage)
     {
-        Debug.Log(_damage);
+        Debug.Log($"Rammy has taken {_damage} damage");
 
         // If Rammy is currently in an I frame dont take damage and dont show damage effects
         if (Invincible)

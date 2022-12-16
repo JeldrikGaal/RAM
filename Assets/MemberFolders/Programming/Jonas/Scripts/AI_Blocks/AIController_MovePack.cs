@@ -38,6 +38,8 @@ public class AIController_MovePack : MonoBehaviour
 
     public Vector3 GetPoint(EnemyController member)
     {
+        if (_packMembers.Count == 0) return Vector3.zero;
+
         int memberPos = _packMembers.IndexOf(member);
 
         float rotAngle = memberPos * (360 / _packMembers.Count);

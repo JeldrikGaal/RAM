@@ -190,7 +190,7 @@ public class EnemyController : MonoBehaviour
         {
             return true;
         }
-        Debug.Log(damage);
+        Debug.Log($"{name} has taken {damage} damage");
 
         //FloatingDamageManager.DisplayDamage(_health < damage? _health:damage, transform.position + Vector3.up * .5f);
         Health -= damage;
@@ -220,6 +220,7 @@ public class EnemyController : MonoBehaviour
         }
         if (Health <= 0)
         {
+            Debug.Log($"{name} has died");
             DoDie = true;
             GetComponent<StateMachine>().EndStates();
             GameObject.FindObjectOfType<StatManager>().AddKill();
