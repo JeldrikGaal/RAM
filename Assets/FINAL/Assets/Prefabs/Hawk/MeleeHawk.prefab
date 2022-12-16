@@ -69,7 +69,7 @@ Transform:
   - {fileID: 543450653660475268}
   - {fileID: 3797138856858429986}
   m_Father: {fileID: 0}
-  m_RootOrder: 54
+  m_RootOrder: 62
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3017985193138049560
 MeshFilter:
@@ -174,6 +174,7 @@ MonoBehaviour:
     _stopBeforePlay: 0
     _allowFadeout: 1
     _autoRelease: 1
+  IsBoss: 0
 --- !u!114 &3017985193138049559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackName: Dive & Slash
   Area: 2
+  TimerValue: 0.05
 --- !u!1001 &48203887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -698,7 +700,7 @@ PrefabInstance:
     - target: {fileID: -4956709401974095018, guid: 87b47f580d07e684d89dbf35ad4293d5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2012072669672998696, guid: f2dee0acc2597fe43946f35246987775, type: 3}
+      objectReference: {fileID: 2100000, guid: 4305c57d46842e34e9776463474742d1, type: 2}
     - target: {fileID: -4932738759683499328, guid: 87b47f580d07e684d89dbf35ad4293d5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 17.908852
