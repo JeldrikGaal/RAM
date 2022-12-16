@@ -14,9 +14,10 @@ public class ImportManager : MonoBehaviour
         TextAsset data = Resources.Load<TextAsset>("EnemyStats");
         string json = data.text;
         EnemyStats = JsonConvert.DeserializeObject<Dictionary<string, EnemyStats>>(json);
-        data = Resources.Load("RammyAttacks") as TextAsset;
-        json = data.text;
-        RammyAttacks = JsonConvert.DeserializeObject<Dictionary<string, RammyAttack>>(json);
+
+        TextAsset data2 = Resources.Load<TextAsset>("RammyAttacks");
+        string json2 = data2.text;
+        RammyAttacks = JsonConvert.DeserializeObject<Dictionary<string, RammyAttack>>(json2);
     }
 
     public static EnemyStats GetEnemyStats(string enemyName)
