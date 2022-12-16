@@ -6530,6 +6530,7 @@ Transform:
   m_Children:
   - {fileID: 76898497}
   - {fileID: 333994731}
+  - {fileID: 913166844313538102}
   m_Father: {fileID: 4974556004237746299}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -12554,12 +12555,12 @@ GameObject:
   - component: {fileID: 2932328672140594543}
   - component: {fileID: 5665561366409191767}
   m_Layer: 0
-  m_Name: NormaHit
+  m_Name: NormalHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &913166844313538102
 Transform:
   m_ObjectHideFlags: 0
@@ -12567,12 +12568,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1199359819032889780}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.23900032, y: 0.9200001, z: -0.83700204}
+  m_LocalRotation: {x: -0, y: 0.000000021073424, z: -0.000000021073424, w: 1}
+  m_LocalPosition: {x: -0.23899987, y: 1.5130018, z: 0.9200008}
   m_LocalScale: {x: 0.75, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4974556004237746299}
+  m_Father: {fileID: 1156683452}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2932328672140594543
@@ -12648,7 +12649,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -12986,7 +12987,7 @@ ParticleSystem:
     startRotationX:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -1.8325957
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -13039,7 +13040,7 @@ ParticleSystem:
     startRotationY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: -1.7453293
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -13092,7 +13093,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.14381513
+      scalar: -1.3234832
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -18010,9 +18011,8 @@ Transform:
   - {fileID: 1782996662654093899}
   - {fileID: 7958342579762527557}
   - {fileID: 315046385}
-  - {fileID: 913166844313538102}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4974556004237746296
 MeshFilter:
@@ -18217,6 +18217,7 @@ MonoBehaviour:
   _freezeScaleHit: 0
   _freezeTimeHit: 0
   _takeDamageVFX: {fileID: 315046384}
+  _basicAttackVFX: {fileID: 1199359819032889780}
   HasDamageBuff: 0
   DamageModifier: 2
   AppliedDamageModifier: 0

@@ -164,6 +164,7 @@ public class RammyController : MonoBehaviour
     [SerializeField] private float _freezeTimeHit;
 
     [SerializeField] private GameObject _takeDamageVFX;
+    [SerializeField] private GameObject _basicAttackVFX;
 
 
     // Help variables for various purposes
@@ -836,6 +837,11 @@ public class RammyController : MonoBehaviour
             _basicAttackAllowed = false;
             _blockMovement = true;
             StopWalking();
+
+            if (_basicAttackVFX)
+            {
+                _basicAttackVFX.SetActive(true);
+            }
 
             _savedRotation = transform.rotation;
 
