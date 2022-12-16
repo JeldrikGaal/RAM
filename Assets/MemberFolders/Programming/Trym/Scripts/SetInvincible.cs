@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetInvinsebility : StateBlock
+public class SetInvincible : StateBlock
 {
     [SerializeField] bool _changeOnStart;
     [SerializeField] bool _invincible;
@@ -23,7 +23,7 @@ public class SetInvinsebility : StateBlock
     {
         if (_changeOnStart)
         {
-            user.SetInviciblity(_invincible)
+            user.SetInviciblity(_invincible);
         }
         if (_changeOnUpdate)
         {
