@@ -32,7 +32,7 @@ public class Letter : MonoBehaviour
             Time.timeScale = 0;
             _isCounted = true;
             _isRead = true;
-            // Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

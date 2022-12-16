@@ -222,6 +222,7 @@ public class EnemyController : MonoBehaviour
         {
             DoDie = true;
             GetComponent<StateMachine>().EndStates();
+            GameObject.FindObjectOfType<StatManager>().AddKill();
             return true;
         }
 
