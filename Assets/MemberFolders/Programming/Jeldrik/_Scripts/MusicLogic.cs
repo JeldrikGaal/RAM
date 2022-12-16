@@ -32,6 +32,7 @@ public class MusicLogic : MonoBehaviour
         {
             _audioSource.clip = _area3Combat;
         }
+        _audioSource.Play();
     }
 
     public void SetVolume(float volume)
