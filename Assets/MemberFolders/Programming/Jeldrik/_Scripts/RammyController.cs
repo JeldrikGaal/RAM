@@ -914,6 +914,8 @@ public class RammyController : MonoBehaviour
         if (chargeTime > MinChargeTime)
         {
             if (!Attacking) StartChargeAttack(chargeTime);
+            else _audio[0].Stop(false);
+
         }
     }
     /// <summary>
