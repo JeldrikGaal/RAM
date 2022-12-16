@@ -8,7 +8,7 @@ public class CinemachineTopDown : MonoBehaviour
     CinemachineVirtualCamera _virtualCamera;
     CinemachineImpulseSource _impulseSource;
     [SerializeField] float screenShakeForce = 0.1f;
-    [SerializeField] bool _shakeStart;
+    [SerializeField] public bool _shakeStart;
     [SerializeField] Vector3 _cameraDistanceVector;
     [SerializeField] Vector3 _cameraDistanceVectorCurrent;
     [SerializeField] float _cameraDistance;
@@ -51,6 +51,8 @@ public class CinemachineTopDown : MonoBehaviour
     /// </summary>
     public void ScreenShake()
     {
+
+
         _shakeStart = true;
     }
     /// <summary>
