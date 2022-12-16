@@ -106,8 +106,8 @@ public class CutsceneVideo : MonoBehaviour
         // Enable pausing after cutscene
         if (_pauseGame != null)
         {
-            // _pauseGame.AllowPause = true;
-            // _pauseGame.EnablePause();
+            _pauseGame.AllowPause = true;
+            _pauseGame.EnablePause();
         }
 
         // Unblocks rammy

@@ -30,6 +30,15 @@ public class PauseGame : MonoBehaviour
         _inputs.UI.Pause.performed += Toggle;
 
     }
+
+    private void Update()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //Toggle2();
+        }
+    }
     // Intened for pausing and unpausing with escape
 
     /// <summary>
@@ -37,6 +46,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     private void Toggle(CallbackContext context)
     {
+        Debug.LogError(AllowPause);
         if (!AllowPause) return;
         if (_paused)
         {
@@ -45,13 +55,37 @@ public class PauseGame : MonoBehaviour
             {
                 _journal.GetComponent<Journal>().CloseTheBook();
             }
-            
         }
         else
         {
             Pause();
-            
+
         }
+
+    }
+
+    private void Toggle2()
+    {
+        Debug.LogError("1");
+        Debug.LogError(AllowPause);
+        if (!AllowPause) return;
+        if (_paused)
+        {
+            Debug.LogError("1.1");
+            UnPause();
+            if (_journal.activeSelf == true)
+            {
+                _journal.GetComponent<Journal>().CloseTheBook();
+            }
+            Debug.LogError("2");
+        }
+        else
+        {
+            Debug.LogError("3");
+            Pause();
+
+        }
+        Debug.LogError("4");
     }
     public void PlaySoundBookOpenClose()
     {
@@ -75,6 +109,7 @@ public class PauseGame : MonoBehaviour
     /// </summary>
     public void Pause()
     {
+        Debug.LogError("5");
         Cursor.visible = true;
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
@@ -85,13 +120,14 @@ public class PauseGame : MonoBehaviour
         if (_ingameUi) _ingameUi.SetActive(false);
         OnPausedEventHandler(true);
         _onPause.Invoke();
-        
+        Debug.LogError("6");
     }
     /// <summary>
     /// Resumes the game
     /// </summary>
     public void UnPause()
     {
+        Debug.LogError("7");
         //Cursor.visible = false;
         _settingsMenu.SetActive(false);
         Time.timeScale = 1;
@@ -100,7 +136,8 @@ public class PauseGame : MonoBehaviour
         if (_ingameUi) _ingameUi.SetActive(true);
         OnPausedEventHandler(false);
         _onUnpause.Invoke();
-        
+        Debug.LogError("8");
+
     }
 
     /// <summary>

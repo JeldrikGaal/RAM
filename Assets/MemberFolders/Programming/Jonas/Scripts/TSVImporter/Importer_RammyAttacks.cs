@@ -34,6 +34,7 @@ public class Importer_RammyAttacks : ScriptableObject
 
         foreach (List<string> l in _data)
         {
+            //Attacks[l[0]] = new RammyAttack();
             Attacks[l[0]] = new RammyAttack();
             Attacks[l[0]].SetVariables(float.Parse(l[1].Replace(',', '.'), culture), float.Parse(l[2].Replace(',', '.'), culture), float.Parse(l[4].Replace(',', '.'), culture), float.Parse(l[5].Replace(',', '.'), culture), float.Parse(l[6].Replace(',', '.'), culture), float.Parse(l[8].Replace(',', '.'), culture), float.Parse(l[9].Replace(',', '.'), culture));
 
