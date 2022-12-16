@@ -100,6 +100,7 @@ public class AI_Audio : StateBlock
         {
             //Debug.Log("Update Running");
             int id = user.GetInstanceID();
+            if (!_instancesByUsers.ContainsKey(id)) return (null, null);
             if (!_startOnlyOnce || _instancesByUsers[id].Count < 1)
             {
                 //Debug.Log("One Instance");
