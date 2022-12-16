@@ -454,9 +454,9 @@ MonoBehaviour:
   StunDuration: 0
   PullPoint: {x: 0, y: 0, z: 0}
   Pulled: 0
-  _bloodSmoke: {fileID: 0}
+  _bloodSmoke: {fileID: 2108200065783262711, guid: c55d2c8bd11052c479dbe2a02121e533, type: 3}
   _bloodSize: 1
-  _vfxParticle: {fileID: 0}
+  _vfxParticle: {fileID: 4128222646369382908, guid: 0b86a4136b52b804290a482f7f9a0ea4, type: 3}
   _hurtSound:
     _audio:
       Guid:
@@ -485,6 +485,7 @@ MonoBehaviour:
     _stopBeforePlay: 0
     _allowFadeout: 1
     _autoRelease: 1
+  IsBoss: 0
 --- !u!114 &2070226133362290865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -953,6 +954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackName: 
   Area: 1
+  TimerValue: 0.05
 --- !u!1 &2070226133272843648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,6 +1245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackName: 
   Area: 1
+  TimerValue: 0.05
 --- !u!1 &2081517753858135960
 GameObject:
   m_ObjectHideFlags: 0
