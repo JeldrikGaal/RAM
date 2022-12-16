@@ -11,10 +11,26 @@ public class EnemyAttack : MonoBehaviour
     private float _damage;
     private bool _done = false;
 
+    public float TimerValue = .05f;
+    private float _timer = 0;
+
     private void OnEnable()
     {
         _done = false;
         _damage = transform.parent.parent.parent.GetComponent<EnemyController>().Stats.GetStats(AttackName).Damage(Area);
+        _timer = TimerValue;
+    }
+
+    private void Update()
+    {
+        if (_timer > 0)
+        {
+            _timer -= Time.deltaTime;
+            if (_timer <= 0)
+            {
+                gameObject.SetActive(false);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,7 +41,7 @@ public class EnemyAttack : MonoBehaviour
             print("i hit");
             _done = true;
             other.GetComponent<RammyController>().TakeDamageRammy(_damage);
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -14,6 +14,8 @@ public class EnemyPlatform : MonoBehaviour
 	[SerializeField] private bool _openDoor;
 	[SerializeField] private GameObject _doorToOpen;
 
+    [SerializeField] private GameObject _destructVFX;
+
     private void Update()
     {
         /*if (_dropPlatform)
@@ -33,6 +35,11 @@ public class EnemyPlatform : MonoBehaviour
         foreach (GameObject enemy in _enemiesOnPlatform)
         {
             enemy.transform.SetParent(null);
+        }
+
+        if (_destructVFX)
+        {
+            Instantiate(_destructVFX, transform.position, transform.rotation);
         }
 
         Instantiate(_brokenTower, transform.position, Quaternion.Euler(-90, 0, 0));
