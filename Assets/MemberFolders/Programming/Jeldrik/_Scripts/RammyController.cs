@@ -978,6 +978,7 @@ public class RammyController : MonoBehaviour
 
             // Setting rotation to make player look in charge direction
             transform.up = _lookingAtMouseRotation;
+
             transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
             // Setting various variables to display that player is dashing in script and visually
             _blockMovement = true;
