@@ -25,9 +25,13 @@ public class CutsceneVideo : MonoBehaviour
     [SerializeField] private bool _deleteWhenDone = false;
     private bool _loadOnce = false;
 
+    private LoadingScreen _loadingScreen;
+
     // Start is called before the first frame update
     void Start()
     {
+        _loadingScreen = GameObject.FindObjectOfType<LoadingScreen>();
+
         _videoPlayer = GetComponent<VideoPlayer>();
 
         _videoPlayer.targetCamera = Camera.main;
@@ -67,17 +71,6 @@ public class CutsceneVideo : MonoBehaviour
     // Destroy the game object when the cutscene is over
     void EndReached(VideoPlayer vp)
     {
-        if (!_loadOnce && _nextSceneOnEnd)
-        {
-            _loadOnce = true;
-            if (_mainMenuOnEnd)
-            {
-                Debug.Log("Test");
-                StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(0));
-            }
-            else
-                StartCoroutine(GameObject.FindObjectOfType<LoadingScreen>().NextLevel(SceneManager.GetActiveScene().buildIndex + 1));
-        }
 
         //Destroy(gameObject);
         // Disables the videoplayer to remove the overlay
@@ -98,6 +91,18 @@ public class CutsceneVideo : MonoBehaviour
         // Enables the HUD
         _hud.SetActive(true);
 
+        if (!_loadOnce && _nextSceneOnEnd)
+        {
+            _loadOnce = true;
+            if (_mainMenuOnEnd)
+            {
+                Debug.Log("Loading main menu");
+                StartCoroutine(_loadingScreen.NextLevel(0));
+            }
+            else
+                StartCoroutine(_loadingScreen.NextLevel(SceneManager.GetActiveScene().buildIndex + 1));
+        }
+
         // Enable pausing after cutscene
         if (_pauseGame != null)
         {
@@ -112,7 +117,7 @@ public class CutsceneVideo : MonoBehaviour
 
         if (_deleteWhenDone)
         {
-            Debug.Log("Pausing allowed:" + _pauseGame.AllowPause);
+            Debug.Log("Pausing allowed: " + _pauseGame.AllowPause);
             Destroy(gameObject);
         }
     }
