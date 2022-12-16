@@ -10,19 +10,35 @@ public class SetInvinsebility : StateBlock
     [SerializeField] bool invincible;
     [SerializeField] bool _changeOnEnd;
     [SerializeField] bool Invincible;
+    private readonly Dictionary<int, bool> _updateds = new();
     public override void OnEnd(EnemyController user, GameObject target)
     {
-        throw new System.NotImplementedException();
+        if (_changeOnEnd)
+        {
+            user.SetInviciblity(Invincible);
+        }
     }
 
     public override void OnStart(EnemyController user, GameObject target)
     {
-        throw new System.NotImplementedException();
+        if (_changeOnStart)
+        {
+            user.SetInviciblity(_invincible)
+        }
+        if (_changeOnUpdate)
+        {
+            _updateds.Add(user.GetInstanceID(), false);
+        }
     }
 
     public override (AI_State state, List<float> val) OnUpdate(EnemyController user, GameObject target)
     {
-        throw new System.NotImplementedException();
+        int id = user.GetInstanceID();
+        if (_changeOnUpdate && !_updateds[id])
+        {
+            user.SetInviciblity(invincible);
+        }
+        return (null, null);
     }
 
     
