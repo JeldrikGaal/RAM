@@ -1329,7 +1329,7 @@ Transform:
   m_GameObject: {fileID: 6141488843853910656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.44, z: 1.07}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5958344691452220380}
@@ -1441,7 +1441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Wolf: {fileID: 0}
-  damage: 1.5
+  damage: 25
 --- !u!1 &6141488844065870969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,7 +1473,7 @@ Transform:
   m_GameObject: {fileID: 6141488844065870969}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.97, y: 1.44, z: 1.07}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5958344691452220380}
@@ -1585,7 +1585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Wolf: {fileID: 0}
-  damage: 1.5
+  damage: 25
 --- !u!1 &6141488844137184075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,7 +1617,7 @@ Transform:
   m_GameObject: {fileID: 6141488844137184075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.8, y: 1.44, z: 1.07}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5958344691452220380}
@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Wolf: {fileID: 0}
-  damage: 1.5
+  damage: 25
 --- !u!1 &6141488844306646376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,7 +2153,7 @@ Transform:
   m_GameObject: {fileID: 6483945692592621926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.392707, y: 20, z: -14.26954}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6141488843853910657}
@@ -2251,7 +2251,7 @@ MonoBehaviour:
   EnemyName: Wolf_Boss
   Stats:
     Health: []
-  MoveSpeed: 8
+  MoveSpeed: 5
   AttackDamage: 3
   Health: 100
   AlwaysFace: 0
@@ -2348,7 +2348,7 @@ MonoBehaviour:
   _boomerang2: {fileID: 6141488844065870969}
   _boomerang3: {fileID: 6141488844137184075}
   _target: {fileID: 0}
-  _shootSpeed: 50
+  _shootSpeed: 30
   damage: 1.5
 --- !u!114 &723363132
 MonoBehaviour:
