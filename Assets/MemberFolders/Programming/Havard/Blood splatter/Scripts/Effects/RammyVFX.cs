@@ -348,7 +348,7 @@ public class RammyVFX : MonoBehaviour
         var layer = 1 << 10;
         if (Physics.Raycast(transform.position + new Vector3(0, 100, 0), -Vector3.up, out hit, Mathf.Infinity, layer))
         {
-            var initialBloodEffect = Instantiate(_nonDirectionBlood, rammedObject.transform.position, Quaternion.Euler(90, 0, 0));
+            var initialBloodEffect = Instantiate(_nonDirectionBlood, rammedObject.transform.position, Quaternion.Euler(90, 0, Random.Range(0,360)));
             Destroy(initialBloodEffect, 200f);
         }
 
