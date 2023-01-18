@@ -15,7 +15,7 @@ public class PauseGame : MonoBehaviour
     [SerializeField] GameObject _journal;
     [SerializeField] UnityEvent _onPause;
     [SerializeField] UnityEvent _onUnpause;
-    
+
     private static bool _paused = false;
 
     [HideInInspector] public bool AllowPause;
@@ -28,12 +28,13 @@ public class PauseGame : MonoBehaviour
         _inputs = new RammyInputActions();
         _inputs.UI.Pause.Enable();
         _inputs.UI.Pause.performed += Toggle;
+        Debug.Log("Bink");
 
     }
 
     private void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //Toggle2();
@@ -59,9 +60,7 @@ public class PauseGame : MonoBehaviour
         else
         {
             Pause();
-
         }
-
     }
 
     private void Toggle2()
@@ -83,13 +82,11 @@ public class PauseGame : MonoBehaviour
         {
             Debug.LogError("3");
             Pause();
-
         }
         Debug.LogError("4");
     }
     public void PlaySoundBookOpenClose()
     {
-
         GetComponent<AudioSource>().PlayOneShot(_bookAu[Random.Range(0, _bookAu.Length)]);
     }
     #endregion
@@ -137,7 +134,6 @@ public class PauseGame : MonoBehaviour
         OnPausedEventHandler(false);
         _onUnpause.Invoke();
         Debug.LogError("8");
-
     }
 
     /// <summary>
@@ -208,14 +204,14 @@ public class PauseGame : MonoBehaviour
 
         }
     }
-	#endregion
+    #endregion
 
-	#region Jorn_Stuff
+    #region Jorn_Stuff
     public void EnablePause()
-	{
+    {
         AllowPause = true;
         _inputs.UI.Pause.Enable();
         _inputs.UI.Pause.performed += Toggle;
     }
-	#endregion
+    #endregion
 }

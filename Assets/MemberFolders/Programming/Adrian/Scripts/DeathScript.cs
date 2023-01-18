@@ -31,7 +31,7 @@ public class DeathScript : MonoBehaviour
         StartCoroutine(Show());
         _videoPlayer.Play();
         _hud.SetActive(false);
-        
+        print("Bonk");
     }
 
     private IEnumerator Show()
