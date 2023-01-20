@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RammyMaterial
-  m_Shader: {fileID: 4800000, guid: 9be7801ce6246894f99645e9f2f7c0b3, type: 3}
+  m_Shader: {fileID: 4800000, guid: ee6438f693f97144eb0ec7444bae6882, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -125,19 +125,26 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DistanceCutoff: 2.8
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _EmissionStrength: 1
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 1
+    - _NormalScale: 1
     - _NormalStrength: 1
     - _OcclusionStrength: 1
+    - _OutlineWidth: 0.01
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Rim: 0.33
+    - _RimOffset: 1.13
+    - _RimShadow: 1
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -154,7 +161,10 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 0}
+    - _RimFalloff: {r: 0, g: 0.4, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _WireColor: {r: 0, g: 0, b: 0, a: 0}
     - _XRayColour: {r: 1, g: 0.8865861, b: 0, a: 1}
   m_BuildTextureStacks: []
