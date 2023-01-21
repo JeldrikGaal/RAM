@@ -134,6 +134,7 @@ public class AudioAddIn
         {
             try
             {
+                
                 if (_live[i].release() == FMOD.RESULT.OK)
                 {
                     _live.RemoveAt(i);
@@ -153,6 +154,11 @@ public class AudioAddIn
     
     public static implicit operator bool(AudioAddIn audioAddIn)=> audioAddIn._audio.IsNull;
 
+    ~AudioAddIn()
+    {
+        Stop(false);
+        Clear();
+    }
 
 }
 
