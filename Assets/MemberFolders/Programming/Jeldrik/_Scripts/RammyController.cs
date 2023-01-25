@@ -721,7 +721,7 @@ public class RammyController : MonoBehaviour
             //TakeDamageRammy(5);
         }
 
-        if (Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.G) && !_dontAskWhatThisIs) 
+        if (Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.G) && !_dontAskWhatThisIs)
         {
             _dontAskWhatThisIs = true;
             Application.OpenURL("https://jeldrikgaal.de/Rammy.html");
