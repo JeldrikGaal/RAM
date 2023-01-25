@@ -33,7 +33,6 @@ public abstract class Abilities : MonoBehaviour
                 _started = false;
                 _controller.EndUsingAbility();
             }
-            
         }
     }
 
@@ -74,5 +73,5 @@ public abstract class Abilities : MonoBehaviour
     {
         _startingTime = newTime;
     }
-    
+
 }
